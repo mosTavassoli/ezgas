@@ -35,11 +35,11 @@ TODO
 
 | Stakeholder name  | Description | 
 | ----------------- |:-----------:|
-| Developer | Specialist that develops, deploys and maintains the application. | 
-| Administrator | Manages users, user reports and other data related to gas stations and prices | 
-| Data Analyst | TODOChecks the quality of the uploaded data from the consumer. |
-| Google Maps |Service used by the application to locate and display gas stations close to the users|
-| User |Uses the web application in order to find the cheapest fuel prices in his proximity and/or update the prices when they differ from the actual ones|
+| Developer | Develops, deploys and maintains the web application. | 
+| Administrator | Manages user data and can perform all the tasks of a data analyst. | 
+| Data Analyst | Manages the data related to gas stations and priced, verifies the validity of user reports and can perform all the tasks of a user. |
+| User |Uses the web application in order to find the cheapest fuel prices in his proximity and update the prices when they differ from the actual ones.|
+| Google Maps |Service used by the application to locate and display gas stations close to the users. |
 
 # Context Diagram and interfaces
 
@@ -69,36 +69,18 @@ rectangle System{
 |Data Analyst|Administrative panel GUI|Screen, mouse and keyboard|
 |Google Maps|Web Services (APIs)|Internet connection|
 
-
 # Stories and personas
-Joseph is an active and industrious teacher and program developer who always try to manage their time as best as possible. He has an impressive time scheduling for himself to get to work timely. He tries to follow this personal time management, but he often suffers from finding the nearest Gas Station. He wasted a huge amount of time to get the station and most of the time he is not able to find the right path to the station. Besides, he wants to save his money by searching the cheapest location of GAS station nearby.
-Goals: wants a system to find a suitable location (in terms of distances and prices) of the station to reach, as well as offer the cheapest one to others. 
-
-He would like to have an application to locate the nearest Gas station around by using his cell phone and also by his computer. He wants to implement a very simple but practical application, which easy to use for all users.
-
-Marco is a businessman living in Rome. His job forces him to drive around the city all day with his car and he has often to refuel. Thanks to EZGas, he is always able to find a closer and convenient gas station, without having to remember the price of the various stations every time. While refueling, he checks if the price on the application is updated and if it isn't, he updates it.
-
-Julia is on vacation in Rome. During these days she decides to take a rental car to visit the city. Since she doesn't know the city and is afraid of wasting too much time and money looking for gas stations, she searches on EZGas for those that were most comfortable to reach, comparing the prices they practice. Fortunately, she immediately finds a very convenient station, thanks to Marco who have just updated the price.
-
-George is gas station manager in London and he was really worried for his job becouse his activity was not very known in his area. He found EZGas and by seeing the nearby stations, finally realized that he should lower the price to be more competitive. Now in George's gas station there are many customers queuing to refuel and he is always up to date to the price of competitors in his area.
-
-Micheal is a student worker who does not earn much money in his part-time job. 
+Michael is a student worker who does not earn much money in his part-time job.
 He has a really tight budget due to his daily expenses and can barely afford a car as is.
-He would really love to shop for cheaper gasoline for his car, but cannot find a service with up to date prices.
+He would really love to shop for cheaper gasoline for his car, but cannot find a service with up to date prices. That is, until he learns about EZGas. Now he can save some of the money he used to spend on gas and allocate those funds for a different purpose.
 
-Vivian is the manager of a small independent gas station with some of the best prices in her part of town. However, many motor vehicle owners are not even aware of its existence as they are used to buying fuel at flashier and well established chains. She doesn't know how to attract customers without spending a fortune in an advertising campaign.
+Vivian is the manager of a small independent gas station with some of the best prices in her part of town. However, many motor vehicle owners are not even aware of its existence as they are used to buying fuel at flashier and well established chains. She doesn't know how to attract customers without spending a fortune in an advertising campaign. On EZGas brands don't matter. By being one of the cheapest, Vivian's gas station is guaranteed to near the top of every user's search results.
 
-John is driving his car and decides to make a stop in order to fill the car with fuel. John
-opens the EZGas app, signs in to his own account (signs up if he didn’t already have an
-account) and looks for the nearby gas stations along their fuel’s price. Then, john chooses a
-gas station and makes a stop there, fills the car with fuel, pays for the fuel, and since john
-has an inclination to contribute to help people, decides to write his own review on the
-EZGas app. The review contains the gas station’s location and the price of the fuel.
-But sometimes john does not use the app to find a gas station, instead he finds one himself,and uploads his review concerning that gas station, since he loves to contribute.
-And sometimes after stopping by a gas station and uploading his review, john will check
-out the other reviews submitted by other people, and if he finds a wrong review, he will
-report it to the app’s administrators.
+Marco is a businessman living in Rome. His job forces him to drive around the city all day with his car and he has often to refuel. Thanks to EZGas, he is always able to find a close and convenient gas station, without having to remember the price of the various stations every time. While refueling, he checks if the price on the application is updated and if it isn't, he updates it.
 
+Julia is on vacation in Rome. During these days she decides to take a rental car to visit the city. Since she doesn't know the city and is afraid of wasting too much time and money looking for gas stations, she searches on EZGas for those that are most comfortable to reach, comparing the prices they practice. Fortunately, she immediately finds a very convenient station, thanks to Marco who just updated the price.
+
+George is gas station manager in London. He was really worried for his job because his gas station wasn't finding the success he was hoping for. After using EZGas he finally realized that he should lower the price to be more competitive in his area. Now drivers line up at George's gas station to refuel and he is always up to date on the price of competitors.
 
 # Functional and non functional requirements
 
