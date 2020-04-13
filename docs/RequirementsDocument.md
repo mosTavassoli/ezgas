@@ -8,6 +8,7 @@ Version:1
 
 # Contents
 
+- [Abstract](#abstract)
 - [Stakeholders](#stakeholders)
 - [Context Diagram and interfaces](#context-diagram-and-interfaces)
 	+ [Context Diagram](#context-diagram)
@@ -25,6 +26,9 @@ Version:1
 - [System design](#system-design)
 - [Deployment diagram](#deployment-diagram)
 
+# Abstract
+
+TODO
 
 # Stakeholders
 
