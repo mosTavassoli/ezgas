@@ -123,31 +123,40 @@ George is gas station manager in London. He was really worried for his job becau
 # Use case diagram and use cases
 
 ## Use case diagram
-```plantuml	
+```plantuml
+left to right direction
 actor User as u
 actor Administrator as admin
 actor "Google Maps" as gm
 actor "Data Analyst" as da
 rectangle System{
 u --> (FR1 Record fuel prices for a given gas station)
-(FR1 Record fuel prices for a given gas station) --> gm
-(FR2 Check prices of fuel in various gas stations) --> gm
-
 u --> (FR2 Check prices of fuel in various gas stations)
 u --> (FR4 Report inaccurate fuel prices)
-u --> (FR3 Authorize and authenticate)
 u --> (FR6 Manage personal account)
-admin --> (FR6 Manage personal account)
-da --> (FR6 Manage personal account)
-da --> (FR3 Authorize and authenticate)
-admin --> (FR3 Authorize and authenticate)
-da --> (FR5 Manage users and data)
 admin --> (FR5 Manage users and data)
-(FR2 Check prices of fuel in various gas stations) ..> (FR3 Authorize and authenticate):<<include>>
+admin --> (FR6 Manage personal account)
+da --> (FR5.2 Hide suspicious prices)
+da --> (FR6 Manage personal account)
+(FR2.2 Load map) --> gm
+
 (FR1 Record fuel prices for a given gas station) ..> (FR3 Authorize and authenticate):<<include>>
-(FR4 Report inaccurate fuel prices) ..> (FR3 Authorize and authenticate):<<include>>
+(FR2 Check prices of fuel in various gas stations) ..> (FR2.1 Load prices):<<include>>
+(FR2 Check prices of fuel in various gas stations) ..> (FR2.2 Load map):<<include>>
+(FR2 Check prices of fuel in various gas stations) ..> (FR2.3 Display prices on the map):<<include>>
+(FR2 Check prices of fuel in various gas stations) ..> (FR3 Authorize and authenticate):<<include>>
+
+(FR3 Authorize and authenticate) ..> (FR3.1 Log in):<<include>>
+(FR3 Authorize and authenticate) ..> (FR3.2 Log out):<<include>>
+(FR3 Authorize and authenticate) ..> (FR3.3 Create new a account):<<include>>
 (FR4 Report inaccurate fuel prices) ..> (FR1 Record fuel prices for a given gas station):<<include>>
+(FR4 Report inaccurate fuel prices) ..> (FR3 Authorize and authenticate):<<include>>
 (FR5 Manage users and data) ..> (FR3 Authorize and authenticate):<<include>>
+(FR5 Manage users and data) ..>(FR5.1 Ban fraudulent users):<<include>>
+(FR5 Manage users and data) ..>(FR5.2 Hide suspicious prices):<<include>>
+(FR6 Manage personal account) ..> (FR3 Authorize and authenticate):<<include>>
+(FR6 Manage personal account) ..> (FR6.1 Edit account information):<<include>>
+(FR6 Manage personal account) ..> (FR6.2 Delete personal account):<<include>>
 
 ```
 ### Use case 1, UC1 - FR1  Record fuel prices for a given gas station
