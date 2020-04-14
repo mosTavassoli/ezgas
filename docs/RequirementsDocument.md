@@ -109,17 +109,18 @@ George is gas station manager in London. He was really worried for his job becau
 | ID        | Type (efficiency, reliability, .. see iso 9126)           | Description  | Refers to |
 | ------------- |:-------------:| :-----:| -----:|
 |  NFR1     | Usability | The web application should be used with no training | All FR except FR5|
-|  NFR2     | Performance | Functions should complete in < 0.5 sec  | FR TODO |
-|  NFR3     | Portability | The web application should run on Firefox (74+), Chrome (62+), Safari (12+), Chrome for Android, Safari iPhone and Safari iPad | All FR |
-|  NFR4     | Localization | Decimal numbers use . (dot) as decimal separator ||
-|  NFR5     | Localization | Prices are to be displayed as "per liter" or "per gallon" depending on the region of the user ||
-|  NFR6     | Efficiency | The user should be able to sort gas stations by distance and price |FR2|
-|  NFR7     | Efficiency | Given the fuel consumption of the motor vehicle to be filled and the amount of fuel desired (or the amount of money the user is going to spend to fill the motor vehicle), the web application should be able to sort gas stations by most cost-effective considering fuel cost at the gas station, fuel consumption of the motor vehicle and distance between the user and the gas station |FR2|
-| NFR8 | Performance | Functions should complete in < 2 sec | TODO |
-
+|  NFR2     | Performance | Functions should complete in < 0.5 sec  | All FR except FR2.2 |
+|  NFR3     | Performance | Functions should complete in < 2 sec | FR2.2 |
+|  NFR4     | Portability | The web application should run on Firefox (74+), Chrome (62+), Safari (12+), Chrome for Android, Safari iPhone and Safari iPad | All FR |
+|  NFR5     | Localization | Decimal numbers use . (dot) as decimal separator |FR1,FR2,FR4|
+|  NFR6     | Localization | Prices are to be displayed as "per liter" or "per gallon" depending on the region of the user |FR1,FR2,FR4|
+|  NFR7     | Localization | Distances are to be displayed in meters or miles depending on the region of the user |FR1,FR2,FR4|
+|  NFR8     | Localization | Prices are to be displayed in the local currency |FR1,FR2,FR4|
+|  NFR9     | Localization | Dates (and their format) and times should depend on the region of the user |FR1,FR2,FR3.3,FR4,FR5,FR6|
+|  NFR10    | Efficiency | The user should be able to sort gas stations by distance and price |FR2|
+|  NFR11    | Efficiency | Given the fuel consumption of the motor vehicle to be filled and the amount of fuel desired (or the amount of money the user is going to spend to fill the motor vehicle), the web application should be able to sort gas stations by most cost-effective considering fuel cost at the gas station, fuel consumption of the motor vehicle and distance between the user and the gas station |FR2|
 
 # Use case diagram and use cases
-
 
 ## Use case diagram
 ```plantuml	
