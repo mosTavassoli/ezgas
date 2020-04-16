@@ -139,9 +139,7 @@ u --> (FR2 Check prices of fuel in various gas stations)
 u --> (FR4 Report inaccurate fuel prices)
 u --> (FR6 Manage personal account)
 admin --> (FR5 Manage users and data)
-admin --> (FR6 Manage personal account)
 da --> (FR5.2 Hide suspicious prices)
-da --> (FR6 Manage personal account)
 (FR2.2 Load map) --> gm
 
 (FR1 Record fuel prices for a given gas station) ..> (FR3 Authorize and authenticate):<<include>>
@@ -170,7 +168,8 @@ da --> (FR6 Manage personal account)
 |  Precondition     | User is registered, logged in, and visited gas station GS for which they are recording the new price for a fuel type |  
 |  Postcondition     | For all updated fuel types: GS.\<fuel_name\>.post_price != GS.\<fuel_name\>.pre_price|
 |  Nominal Scenario     | User selects gas station GS from the provided map or list, then selects the type of fuel whose price they want to update and provides the new price, if it is different from the previously recorded one|
-|  Variants     | User provides price that doesn't match the real price. The web application will rely on another user reporting this incorrect price. <br/>User is banned from contributing. In this case, they are presented with a warning message that states that they are not allowed to complete this operation.|
+|  Variants     | User provides price that doesn't match the real price. The web application will rely on another user reporting this incorrect price. |
+| |User is banned from contributing. In this case, they are presented with a warning message that states that they are not allowed to complete this operation.|
 
 ##### Scenario 1.1 
 | Scenario ID: SC1.1        | Corresponds to UC1  |
@@ -179,10 +178,10 @@ da --> (FR6 Manage personal account)
 | Precondition |  User is registered and logged in|
 | Postcondition |  Price P of fuel F at gas station GS is updated |
 | Step#        |  Step description   |
-|  1     | User selects fuel F |  
-|  2     | User selects gas station GS |
-|  3     | User selects option to update price P |
-|  4     | User enters the new price |
+|  1     | User taps desired fuel F |  
+|  2     | User taps the pencil icon next to a gas station GS |
+|  3     | User enters a new price P |
+|  4     | User confirms the price P update |
 
 ##### Scenario 1.2
 
@@ -192,10 +191,10 @@ da --> (FR6 Manage personal account)
 |Precondition |  User is registered and logged in but banned from contributing|
 |Postcondition |  Price P of fuel F at gas station GS is not updated|
 | Step#        | Step description  |
-|  1     | User selects fuel F |  
-|  2     | User selects gas station GS |
-|  3     | User selects option to update price P |
-|  4     | User is presented with a message warning them that they are not authorized to perform this action|
+|  1     | User taps desired fuel F |
+|  2     | User taps the pencil icon next to a gas station GS |
+|  3     | User enters a new price P |
+|  4     | User confirms the price P update |
 
 ### Use case 2, UC2 - FR2 Check prices of fuel in various gas stations
 
@@ -206,28 +205,25 @@ da --> (FR6 Manage personal account)
 |  Nominal Scenario     | User selects the type of fuel they need and they are presented with a map and a list of gas stations near them |
 |  Variants             |   |
 
-##### Scenario 2.1
-| Scenario ID: SC2.1        | Corresponds to UC1  |
-SC3
-Description Consumer wants to view the gas stations on the map, and their fuel prices
-Precondition Account of C exists.
-Gas station G exists.
-Account of C exists.
-Reviews on the map exist.
-Post
-condition
-Step#
-Step description
-1
-Consumer opens the application
-2
-Consumer logs into his account
-3
-Consumer observes the map
-4
-Consumer clicks on a certain gas station and checks the corresponding fuel
-prices.
+##### Scenario 2.1 
+| Scenario ID: SC2.1        | Corresponds to UC2  |
+| ------------- |:-------------| 
+| Description | Diver wants to find a gas station to fill their vehicle|
+| Precondition |  User is registered and logged in and the GPS is enabled |
+| Postcondition |   |
+| Step#        |  Step description   |
+|  1     | User taps the desired fuel|  
+|  2     | User scrolls the list of gas stations or pans around the map|
 
+##### Scenario 2.2
+| Scenario ID: SC2.2        | Corresponds to UC2  |
+| ------------- |:-------------| 
+| Description | Gas Station Manager wants to check competitors prices |
+| Precondition |  User is registered and logged in and the GPS is enabled |
+| Postcondition |   |
+| Step#        |  Step description   |
+|  1     | User taps the fuel they are interested in|  
+|  2     | User scrolls the list of gas stations or pans around the map|
 
 ### Use case 3, UC3 - FR3 Authorize and authenticate
 
@@ -237,6 +233,29 @@ prices.
 |  Postcondition     | User/Administrator logged in, logged out or new user personal account created |
 |  Nominal Scenario     | User/Administrator wants to use one of the functions of the web application, so they are requested to register or login.<br/>User/Administrator independently decides to register or log in.<br/> User/Administrator wants to log out of the web application.|
 |  Variants     | User/Administrator fails to register or log in because of missing/incorrect/incoherent data in the form. In this case they are presented again with the same form, with their data filled as it was, and with an error message explaining what is the issue. |
+
+##### Scenario 3.1 
+| Scenario ID: SC3.1        | Corresponds to UC3  |
+| ------------- |:-------------| 
+| Description | In order to access any function the user needs to be logged in|
+| Precondition | |
+| Postcondition |  User logged in |
+| Step#        |  Step description   |
+|  1     | User opens the web application |  
+|  2     | User fills the email and password fields with their information |  
+|  1     | User taps the login button |  
+
+##### Scenario 3.2
+| Scenario ID: SC3.2        | Corresponds to UC3  |
+| ------------- |:-------------| 
+| Description | Before being able to log in the user needs to register|
+| Precondition |  |
+| Postcondition |  User registered and logged in |
+| Step#        |  Step description |
+|  1     | User taps the registration button|  
+|  2     | User fills the form |  
+|  3     | User taps the Submit button |  
+|  4     | User confirms their email |  
 
 ### Use case 4, UC4 - FR4 Report inaccurate fuel prices
 
@@ -248,14 +267,96 @@ prices.
 |  Nominal Scenario     | User notices a suspicious price on the web application, that they think does not make sense or is clearly fraudulent. They press the report button next to the price and provide the correct one following the procedure specified in UC1|
 |  Variants     | User does not want to (or cannot) enter a new price. In this case the previous price is neither hidden nor replaced, but it is publicly marked as suspicious on the web application, until the administrator takes further steps. |
 
+##### Scenario 4.1 
+| Scenario ID: SC4.1        | Corresponds to UC4  |
+| ------------- |:-------------| 
+| Description | The user wants to report a suspicious price and substitute it with the correct one. |
+| Precondition |  There is a price SP considered suspicious by the user and the user knows the current price CP. |
+| Postcondition |  SP replaced by CP |
+| Step#        |  Step description   |
+|  1     | User taps the octagonal icon with an exclamation mark to report the price |  
+|  2     | User taps the check mark button to confirm the report |
+|  3     | User confirms that they want to update the price|
+|  4     | User enters the new price |
+|  5     | User confirms the price update |
+
+##### Scenario 4.2
+| Scenario ID: SC4.2        | Corresponds to UC4  |
+| ------------- |:-------------| 
+| Description | The user wants to report a suspicious price, but doesn't know or doesn't want to insert the current one. |
+| Precondition |  There is a price SP considered suspicious by the user. |
+| Postcondition |  SP marked as suspicious |
+| Step#        |  Step description   |
+|  1     | User taps the octagonal icon with an exclamation mark to report the price |  
+|  2     | User taps the check mark button to confirm the report |
+|  3     | User taps the close button when asked if they want to update the price|
+
 ### Use case 5, UC5 - FR5 Manage users and data
 
 | Actors Involved        | Administrator, Data Analyst  |
 | ------------- |:-------------:| 
 |  Precondition     | Administrator/Data Analyst logged in |  
 |  Postcondition     |  |
-|  Nominal Scenario     | Administrator can add, remove or ban users, inspect reports and take the necessary actions. <br/>Administrator/Data Analyst can view gas stations with their fuels and relative prices. |
+|  Nominal Scenario     | Administrator can add, remove or ban users, add administrators or data analysts, inspect reports and take the necessary actions.|
+||Administrator/Data Analyst can view gas stations with their fuels and relative prices. |
 |  Variants     | |
+
+##### Scenario 5.1 
+| Scenario ID: SC5.1        | Corresponds to UC5 |
+| ------------- |:-------------| 
+| Description | TODO|
+| Precondition |  TODO|
+| Postcondition |  TODO |
+| Step#        |  Step description   |
+|  1     | TODO |  
+|  2     | TODO |
+|  3     | TODO |
+|  4     | TODO |
+
+##### Scenario TODO.TODO 
+| Scenario ID: SCTODO.TODO        | Corresponds to UCTODO  |
+| ------------- |:-------------| 
+| Description | TODO|
+| Precondition |  TODO|
+| Postcondition |  TODO |
+| Step#        |  Step description   |
+|  1     | TODO |  
+|  2     | TODO |
+|  3     | TODO |
+|  4     | TODO |
+
+### Use case 6, UC6 - FR6 Manage personal account
+
+| Actors Involved        | User |
+| ------------- |:-------------:| 
+|  Precondition     | User registered and logged in |  
+|  Postcondition     | User data possibly changed |
+|  Nominal Scenario     | User can change their personal account information (first name, last name, username, email and password) or delete their account |
+|  Variants     | |
+
+##### Scenario 6.1 
+| Scenario ID: SC6.1        | Corresponds to UC5 |
+| ------------- |:-------------| 
+| Description | User U wants to change username|
+| Precondition |  User U logged in|
+| Postcondition |  User U username changed |
+| Step#        |  Step description   |
+|  1     | User taps the portrait icon in the top right|  
+|  2     | User taps the pencil icon next to their username |
+|  3     | User types a new username |
+|  4     | User taps the confirm button at the bottom of the screen |
+
+##### Scenario 6.2
+| Scenario ID: SC6.2        | Corresponds to UC5 |
+| ------------- |:-------------| 
+| Description | User wants to delete account|
+| Precondition |  Account A exists and user U logged in|
+| Postcondition |  Account A doesn't exist anymore and user U logged out|
+| Step#        |  Step description   |
+|  1     | User taps the portrait icon in the top right|  
+|  2     | User taps the delete account button on the bottom of the page |
+|  3     | User confirms the deletion |
+
 
 # Glossary
 
@@ -276,6 +377,8 @@ class User {
 }
 class Administrator {
 	+ banUser()
+	+ addAdministrator()
+	+ addDataAnalyst()
 }
 class FuelType {
 	+ name
