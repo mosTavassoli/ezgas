@@ -28,7 +28,11 @@ Version:1
 
 # Abstract
 
-TODO
+Currently there is no way to compare prices of fuel in a reliable, easy and interoperable way between mobile and desktop devices.
+The solutions that are already there, more often than not, have poor reviews due to their out of date fuel prices or only work in certain countries or regions of the world.
+This can seem unavoidable, due to the sheer scale of the problem at hand.
+
+EZGas proposes to change this, thanks to a crowdsourcing model, where both drivers and gas station managers update prices of the fuel at gas stations themselves.
 
 # Stakeholders
 
@@ -227,7 +231,7 @@ prices.
 
 ### Use case 3, UC3 - FR3 Authorize and authenticate
 
-| Actors Involved        | User, Administrator |
+| Actors Involved        | User, Administrator, Data Analyst |
 | ------------- |:-------------:| 
 |  Precondition     |  |  
 |  Postcondition     | User/Administrator logged in, logged out or new user personal account created |
