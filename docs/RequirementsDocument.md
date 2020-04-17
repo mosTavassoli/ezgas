@@ -23,7 +23,6 @@ Version:1
 	+ [Use cases](#use-cases)
     	+ [Relevant scenarios](#relevant-scenarios)
 - [Glossary](#glossary)
-- [System design](#system-design)
 - [Deployment diagram](#deployment-diagram)
 
 # Abstract
@@ -425,11 +424,25 @@ note left of Report: Generated when \na User reports \na suspicious price
 
 ```
 
-# System Design
-\<describe here system design>
-
-\<must be consistent with Context diagram>
-
 # Deployment Diagram 
 
-\<describe here deployment diagram >
+```plantuml
+left to right direction
+node "Web \nServer" as ws
+database "Database \nServer" as dbs
+node "PC \nClient" as pc
+node "Smartphone \nClient" as smph
+
+node "Application \nServer" as as{
+	artifact "<<artifact>>\n<b>EZGas</b>"{
+		artifact "<<artifact>>\n<b>Web application</b>"
+		artifact "<<artifact>>\n<b>Administrative panel</b>"
+	}
+}
+
+pc --> ws:internet
+smph --> ws:internet
+ws --> as
+as --> dbs
+
+```
