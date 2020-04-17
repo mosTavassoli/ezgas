@@ -192,8 +192,7 @@ da --> (FR5.2 Hide suspicious prices)
 | Step#        | Step description  |
 |  1     | User taps desired fuel F |
 |  2     | User taps the pencil icon next to a gas station GS |
-|  3     | User enters a new price P |
-|  4     | User confirms the price P update |
+|  3     | User receives a message stating that their account is not allowed to perform that operation|
 
 ### Use case 2, UC2 - FR2 Check prices of fuel in various gas stations
 
@@ -213,6 +212,7 @@ da --> (FR5.2 Hide suspicious prices)
 | Step#        |  Step description   |
 |  1     | User taps the desired fuel|  
 |  2     | User scrolls the list of gas stations or pans around the map|
+|  3     | User taps the desired gas station and is presented with the shortest route to reach it by car|
 
 ##### Scenario 2.2
 | Scenario ID: SC2.2        | Corresponds to UC2  |
