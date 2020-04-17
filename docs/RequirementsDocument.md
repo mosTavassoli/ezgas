@@ -181,6 +181,7 @@ da --> (FR5.2 Hide suspicious prices)
 |  2     | User taps the pencil icon next to a gas station GS |
 |  3     | User enters a new price P |
 |  4     | User confirms the price P update |
+[Go to UI prototype](./UI_prototype.md#Scenario-1.1)
 
 ##### Scenario 1.2
 
@@ -193,6 +194,7 @@ da --> (FR5.2 Hide suspicious prices)
 |  1     | User taps desired fuel F |
 |  2     | User taps the pencil icon next to a gas station GS |
 |  3     | User receives a message stating that their account is not allowed to perform that operation|
+[Go to UI prototype](./UI_prototype.md#Scenario-1.2)
 
 ### Use case 2, UC2 - FR2 Check prices of fuel in various gas stations
 
@@ -213,6 +215,7 @@ da --> (FR5.2 Hide suspicious prices)
 |  1     | User taps the desired fuel|  
 |  2     | User scrolls the list of gas stations or pans around the map|
 |  3     | User taps the desired gas station and is presented with the shortest route to reach it by car|
+[Go to UI prototype](./UI_prototype.md#Scenario-2.1)
 
 ##### Scenario 2.2
 | Scenario ID: SC2.2        | Corresponds to UC2  |
@@ -223,6 +226,7 @@ da --> (FR5.2 Hide suspicious prices)
 | Step#        |  Step description   |
 |  1     | User taps the fuel they are interested in|  
 |  2     | User scrolls the list of gas stations or pans around the map|
+[Go to UI prototype](./UI_prototype.md#Scenario-2.2)
 
 ### Use case 3, UC3 - FR3 Authorize and authenticate
 
@@ -243,6 +247,7 @@ da --> (FR5.2 Hide suspicious prices)
 |  1     | User opens the web application |  
 |  2     | User fills the email and password fields with their information |  
 |  1     | User taps the login button |  
+[Go to UI prototype](./UI_prototype.md#Scenario-3.1)
 
 ##### Scenario 3.2
 | Scenario ID: SC3.2        | Corresponds to UC3  |
@@ -255,6 +260,7 @@ da --> (FR5.2 Hide suspicious prices)
 |  2     | User fills the form |  
 |  3     | User taps the Submit button |  
 |  4     | User confirms their email |  
+[Go to UI prototype](./UI_prototype.md#Scenario-3.2)
 
 ### Use case 4, UC4 - FR4 Report inaccurate fuel prices
 
@@ -278,6 +284,7 @@ da --> (FR5.2 Hide suspicious prices)
 |  3     | User confirms that they want to update the price|
 |  4     | User enters the new price |
 |  5     | User confirms the price update |
+[Go to UI prototype](./UI_prototype.md#Scenario-4.1)
 
 ##### Scenario 4.2
 | Scenario ID: SC4.2        | Corresponds to UC4  |
@@ -289,6 +296,7 @@ da --> (FR5.2 Hide suspicious prices)
 |  1     | User taps the octagonal icon with an exclamation mark to report the price |  
 |  2     | User taps the check mark button to confirm the report |
 |  3     | User taps the close button when asked if they want to update the price|
+[Go to UI prototype](./UI_prototype.md#Scenario-4.2)
 
 ### Use case 5, UC5 - FR5 Manage users and data
 
@@ -308,10 +316,11 @@ da --> (FR5.2 Hide suspicious prices)
 | Postcondition |  New Data Analyst account created |
 | Step#        |  Step description   |
 |  1     | Administrator clicks on "Manage accounts" in the navigation bar |
-|  2     | Administrator clicks on the "Add user" button |
+|  2     | Administrator clicks on the "Add account" button |
 |  3     | Administrator fills the form with the necessary information |
 |  4     | Administrator selects Data Analyst from the "Privileges" drop down menu |
 | 5 | Administrator clicks the "Submit" button|
+[Go to UI prototype](./UI_prototype.md#Scenario-5.1)
 
 ##### Scenario 5.2 
 | Scenario ID: SC5.2        | Corresponds to UC5  |
@@ -323,6 +332,7 @@ da --> (FR5.2 Hide suspicious prices)
 |  1     | Data Analyst clicks "User activity" in the navigation bar|  
 |  2     | Data Analyst clicks on the remove icon next to a User submitted price change |
 |  3     | Data Analyst confirms that he wishes to remove the current price and revert it to its previous value |
+[Go to UI prototype](./UI_prototype.md#Scenario-5.2)
 
 ##### Scenario 5.3
 | Scenario ID: SC5.3        | Corresponds to UC5  |
@@ -333,6 +343,7 @@ da --> (FR5.2 Hide suspicious prices)
 | Step#        |  Step description   |
 |  1     | Administrator clicks Reports in the navigation bar|  
 |  2     | Administrator clicks on the "Accept" icon next to a report |
+[Go to UI prototype](./UI_prototype.md#Scenario-5.3)
 
 ### Use case 6, UC6 - FR6 Manage personal account
 
@@ -354,6 +365,7 @@ da --> (FR5.2 Hide suspicious prices)
 |  2     | User taps the pencil icon next to their username |
 |  3     | User types a new username |
 |  4     | User taps the confirm button at the bottom of the screen |
+[Go to UI prototype](./UI_prototype.md#Scenario-6.1)
 
 ##### Scenario 6.2
 | Scenario ID: SC6.2        | Corresponds to UC5 |
@@ -365,7 +377,7 @@ da --> (FR5.2 Hide suspicious prices)
 |  1     | User taps the portrait icon in the top right|  
 |  2     | User taps the delete account button on the bottom of the page |
 |  3     | User confirms the deletion |
-
+[Go to UI prototype](./UI_prototype.md#Scenario-6.2)
 
 # Glossary
 
