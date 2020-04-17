@@ -294,7 +294,7 @@ da --> (FR5.2 Hide suspicious prices)
 
 | Actors Involved        | Administrator, Data Analyst  |
 | ------------- |:-------------:| 
-|  Precondition     | Administrator/Data Analyst logged in |  
+|  Precondition     | Administrator/Data Analyst logged in|  
 |  Postcondition     |  |
 |  Nominal Scenario     | Administrator can add, remove or ban users, add administrators or data analysts, inspect reports and take the necessary actions.|
 ||Administrator/Data Analyst can view gas stations with their fuels and relative prices. |
@@ -303,26 +303,36 @@ da --> (FR5.2 Hide suspicious prices)
 ##### Scenario 5.1 
 | Scenario ID: SC5.1        | Corresponds to UC5 |
 | ------------- |:-------------| 
-| Description | TODO|
-| Precondition |  TODO|
-| Postcondition |  TODO |
+| Description | Administrator wants to add a new Data Analyst|
+| Precondition |  Administrator registered and logged in  |
+| Postcondition |  New Data Analyst account created |
 | Step#        |  Step description   |
-|  1     | TODO |  
-|  2     | TODO |
-|  3     | TODO |
-|  4     | TODO |
+|  1     | Administrator clicks on "Manage accounts" in the navigation bar |
+|  2     | Administrator clicks on the "Add user" button |
+|  3     | Administrator fills the form with the necessary information |
+|  4     | Administrator selects Data Analyst from the "Privileges" drop down menu |
+| 5 | Administrator clicks the "Submit" button|
 
-##### Scenario TODO.TODO 
-| Scenario ID: SCTODO.TODO        | Corresponds to UCTODO  |
+##### Scenario 5.2 
+| Scenario ID: SC5.2        | Corresponds to UC5  |
 | ------------- |:-------------| 
-| Description | TODO|
-| Precondition |  TODO|
-| Postcondition |  TODO |
+| Description | Data Analyst wants to hide a fuel price|
+| Precondition |  Data Analyst is logged in and fuel price FP to be deleted exists and is visible |
+| Postcondition |  Fuel price FP exists, but it's hidden |
 | Step#        |  Step description   |
-|  1     | TODO |  
-|  2     | TODO |
-|  3     | TODO |
-|  4     | TODO |
+|  1     | Data Analyst clicks "User activity" in the navigation bar|  
+|  2     | Data Analyst clicks on the remove icon next to a User submitted price change |
+|  3     | Data Analyst confirms that he wishes to remove the current price and revert it to its previous value |
+
+##### Scenario 5.3
+| Scenario ID: SC5.3        | Corresponds to UC5  |
+| ------------- |:-------------| 
+| Description | Administrator wants to confirm a report as accurate|
+| Precondition |  Administrator is logged in and a non reviewed report exits |
+| Postcondition |  The report is marked as accepted |
+| Step#        |  Step description   |
+|  1     | Administrator clicks Reports in the navigation bar|  
+|  2     | Administrator clicks on the "Accept" icon next to a report |
 
 ### Use case 6, UC6 - FR6 Manage personal account
 
