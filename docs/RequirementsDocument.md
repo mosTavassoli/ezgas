@@ -346,7 +346,7 @@ da --> (FR5.3 Review user reports)
 | ------------- |:-------------| 
 | Description | Administrator wants to confirm a report as accurate|
 | Precondition |  Administrator is logged in and a non reviewed report exits |
-| Postcondition |  The report is marked as accepted, user automatically banned if reported more than 5 times |
+| Postcondition |  The report is marked as accepted. User automatically banned if reported more than 5 times (and reports marked as accepted) |
 | Step#        |  Step description   |
 |  1     | Administrator clicks "Reports" in the navigation bar|  
 |  2     | Administrator clicks on the "Accept" icon next to a report |
