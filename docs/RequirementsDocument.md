@@ -339,7 +339,7 @@ da --> (FR5.2 Hide suspicious prices)
 | ------------- |:-------------| 
 | Description | Administrator wants to confirm a report as accurate|
 | Precondition |  Administrator is logged in and a non reviewed report exits |
-| Postcondition |  The report is marked as accepted |
+| Postcondition |  The report is marked as accepted, user automatically banned if reported more than 5 times |
 | Step#        |  Step description   |
 |  1     | Administrator clicks Reports in the navigation bar|  
 |  2     | Administrator clicks on the "Accept" icon next to a report |
