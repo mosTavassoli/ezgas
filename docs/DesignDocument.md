@@ -280,17 +280,17 @@ package "it.polito.ezgas.repository" {
 \<for each functional requirement from the requirement document, list which classes concur to implement it>
 
 | | UserController          | GasStationController | UserService | GasStationService | UserRepository | GasStationRepository | User | GasStation |  Administrator  | GeoPoint      | CarSharingCompany  | PriceList        | UserConverter          | GasStationConverter  | UserDto        | GasStationDto           |
-| :-------------: |:-------------:| -----:| :-------------: |:-------------:| :-----:| :-------------: |:-------------:| :-----:| :-------------: |:-------------:| -----:| :-------------: |:-------------:| -----:| :-------------: |:-------------: |:-------------:| :-----:|
-| FR1 |X||X||X||||||||||||
-| FR1.1 |||||||||||||||||
-| FR1.2 |||||||||||||||||
-| FR1.3 |||||||||||||||||
-| FR1.4 |||||||||||||||||
-| FR2 |||||||||||||||||
-| FR3 |||||||||||||||||
-| FR3.1 |||||||||||||||||
-| FR3.2 |||||||||||||||||
-| FR3.3 |||||||||||||||||
+| :-------------: |:-------------:| :-----:| :-------------: |:-------------:| :-----:| :-------------: |:-------------:| :-----:| :-------------: |:-------------:| :-----:| :-------------: |:-------------:| :-----:| :-------------: |:-------------: |:-------------:| :-----:|
+| FR1   |X| |X| |X| |X| |X| | | |X| |X| |
+| FR1.1 |X| |X| |X| |X| |X| | | |X| |X| |
+| FR1.2 |X| |X| |X| |X| |X| | | |X| |X| |
+| FR1.3 |X| |X| |X| |X| |X| | | |X| |X| |
+| FR1.4 |X| |X| |X| |X| |X| | | |X| |X| |
+| FR2   |X| |X| |X| |X| |X| | | |X| |X| |
+| FR3   | |X| |X| |X| |X| |X|X|X| |X| |X|
+| FR3.1 | |X| |X| |X| |X| |X|X|X| |X| |X|
+| FR3.2 | |X| |X| |X| |X| |X|X|X| |X| |X|
+| FR3.3 | |X| |X| |X| |X| |X|X|X| |X| |X|
 | FR4 |||||||||||||||||
 | FR4.1 |||||||||||||||||
 | FR4.2 |||||||||||||||||
