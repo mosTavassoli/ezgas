@@ -226,12 +226,12 @@ Contains Service classes that implement the Service Interfaces in the Service pa
 
 ```plantuml
 @startuml
+left to right direction
 package "Backend" {
-
 package "it.polito.ezgas.service"  as ps {
    interface "GasStationService"
    interface "UserService"
-} 
+}
 
 
 package "it.polito.ezgas.controller" as pc{
@@ -240,8 +240,8 @@ package "it.polito.ezgas.controller" as pc{
 }
 
 package "it.polito.ezgas.converter" {
-   class "UserDtoConverter"
-   class "GasStationDtoConverter"
+   class "UserConverter"
+   class "GasStationConverter"
 }
 
 package "it.polito.ezgas.dto" {
@@ -252,6 +252,10 @@ package "it.polito.ezgas.dto" {
 package "it.polito.ezgas.entity" {
    class "User"
    class "GasStation"
+   class "PriceList"
+   class "GeoPoint"
+   class "Administrator"
+   class "CarSharingCompany"
 }
 
 package "it.polito.ezgas.repository" {
@@ -259,10 +263,8 @@ package "it.polito.ezgas.repository" {
    class "GasStationRepository"
 }
 
-    
 }
-note "see folder ServicePackage" as n
-n -- ps
+
 @enduml
 ```
 
@@ -277,14 +279,11 @@ n -- ps
 
 \<for each functional requirement from the requirement document, list which classes concur to implement it>
 
-
-
-
-
-
-
-
-
+|       | User           | GasStation  | GeoPoint        | Administrator           | CarSharingCompany  | Tables        | Are           | Cool  | Tables        | Are           | Cool  |
+| ------------- |:-------------:| -----:| ------------- |:-------------:| -----:| ------------- |:-------------:| -----:| ------------- |:-------------:| -----:|
+| col 3 is      | right-aligned | $1600 |
+| col 2 is      | centered      |   $12 |
+| zebra stripes | are neat      |    $1 |
 
 
 # Verification sequence diagrams 
