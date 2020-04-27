@@ -224,7 +224,47 @@ Contains Service classes that implement the Service Interfaces in the Service pa
 
 
 
+```plantuml
+@startuml
+package "Backend" {
 
+package "it.polito.ezgas.service"  as ps {
+   interface "GasStationService"
+   interface "UserService"
+} 
+
+
+package "it.polito.ezgas.controller" as pc{
+   class "UserController"
+   class "GasStationController"
+}
+
+package "it.polito.ezgas.converter" {
+   class "UserDtoConverter"
+   class "GasStationDtoConverter"
+}
+
+package "it.polito.ezgas.dto" {
+   class "UserDto"
+   class "GasStationDto"
+}
+
+package "it.polito.ezgas.entity" {
+   class "User"
+   class "GasStation"
+}
+
+package "it.polito.ezgas.repository" {
+   class "UserRepository"
+   class "GasStationRepository"
+}
+
+    
+}
+note "see folder ServicePackage" as n
+n -- ps
+@enduml
+```
 
 
 
