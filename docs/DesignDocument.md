@@ -297,7 +297,7 @@ package "it.polito.ezgas.repository" {
 | FR4.3 ||||||||||X||X||||X|
 | FR4.4 ||||||||||||X||||X|
 | FR4.5 |||||||||||X|X||||X|
-| FR5 |X|X|X|X|X|X|X|X|X|X||X|X|X|X|X|
+| FR5 |X|X|X|X|X|X|X|X|X|||X|X|X|X|X|
 | FR5.1 |X|X|X|X|X|X|X|X|X|||X|X|X|X|X|
 | FR5.2 |X|X|X|X|X|X|X|X||||X|X|X|X|X|
 | FR5.3 |X|X|X|X|X|X|X|X|X|||X|X|X|X|X|
