@@ -279,12 +279,28 @@ package "it.polito.ezgas.repository" {
 
 \<for each functional requirement from the requirement document, list which classes concur to implement it>
 
-|       | User           | GasStation  | GeoPoint        | Administrator           | CarSharingCompany  | Tables        | Are           | Cool  | Tables        | Are           | Cool  |
-| ------------- |:-------------:| -----:| ------------- |:-------------:| -----:| ------------- |:-------------:| -----:| ------------- |:-------------:| -----:|
-| col 3 is      | right-aligned | $1600 |
-| col 2 is      | centered      |   $12 |
-| zebra stripes | are neat      |    $1 |
-
+| | UserController          | GasStationController | UserService | GasStationService | UserRepository | GasStationRepository | User | GasStation |  Administrator  | GeoPoint      | CarSharingCompany  | PriceList        | UserConverter          | GasStationConverter  | UserDto        | GasStationDto           |
+| :-------------: |:-------------:| -----:| :-------------: |:-------------:| :-----:| :-------------: |:-------------:| :-----:| :-------------: |:-------------:| -----:| :-------------: |:-------------:| -----:| :-------------: |:-------------: |:-------------:| :-----:|
+| FR1 |X||X||X||||||||||||
+| FR1.1 |||||||||||||||||
+| FR1.2 |||||||||||||||||
+| FR1.3 |||||||||||||||||
+| FR1.4 |||||||||||||||||
+| FR2 |||||||||||||||||
+| FR3 |||||||||||||||||
+| FR3.1 |||||||||||||||||
+| FR3.2 |||||||||||||||||
+| FR3.3 |||||||||||||||||
+| FR4 |||||||||||||||||
+| FR4.1 |||||||||||||||||
+| FR4.2 |||||||||||||||||
+| FR4.3 |||||||||||||||||
+| FR4.4 |||||||||||||||||
+| FR4.5 |||||||||||||||||
+| FR5 |||||||||||||||||
+| FR5.1 |||||||||||||||||
+| FR5.2 |||||||||||||||||
+| FR5.3 |||||||||||||||||
 
 # Verification sequence diagrams 
 \<select key scenarios from the requirement document. For each of them define a sequence diagram showing that the scenario can be implemented by the classes and methods in the design>
