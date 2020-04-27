@@ -287,10 +287,10 @@ package "it.polito.ezgas.repository" {
 | FR1.3 |X| |X| |X| |X| |X| | | |X| |X| |
 | FR1.4 |X| |X| |X| |X| |X| | | |X| |X| |
 | FR2   |X| |X| |X| |X| |X| | | |X| |X| |
-| FR3   | |X| |X| |X| |X| |X|X|X| |X| |X|
-| FR3.1 | |X| |X| |X| |X| |X|X|X| |X| |X|
-| FR3.2 | |X| |X| |X| |X| |X|X|X| |X| |X|
-| FR3.3 | |X| |X| |X| |X| |X|X|X| |X| |X|
+| FR3   |X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|
+| FR3.1 |X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|
+| FR3.2 |X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|
+| FR3.3 |X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|
 | FR4 ||X||X||X||X||X|X|X||X||X|
 | FR4.1 ||X||X||X||X||X|X|X||X||X|
 | FR4.2 ||X||X||X||X||X|X|X||X||X|
