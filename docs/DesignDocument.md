@@ -291,16 +291,16 @@ package "it.polito.ezgas.repository" {
 | FR3.1 |||||||||||||||||
 | FR3.2 |||||||||||||||||
 | FR3.3 |||||||||||||||||
-| FR4 |||||||||||||||||
-| FR4.1 |||||||||||||||||
-| FR4.2 |||||||||||||||||
-| FR4.3 |||||||||||||||||
-| FR4.4 |||||||||||||||||
-| FR4.5 |||||||||||||||||
-| FR5 |||||||||||||||||
-| FR5.1 |||||||||||||||||
-| FR5.2 |||||||||||||||||
-| FR5.3 |||||||||||||||||
+| FR4 ||X||X||X||X||X|X|X||X||X|
+| FR4.1 ||X||X||X||X||X|X|X||X||X|
+| FR4.2 ||X||X||X||X||X|X|X||X||X|
+| FR4.3 ||||||||||X||X||||X|
+| FR4.4 ||||||||||||X||||X|
+| FR4.5 |||||||||||X|X||||X|
+| FR5 |X|X|X|X|X|X|X|X|X|X||X|X|X|X|X|
+| FR5.1 |X|X|X|X|X|X|X|X|X|||X|X|X|X|X|
+| FR5.2 |X|X|X|X|X|X|X|X||||X|X|X|X|X|
+| FR5.3 |X|X|X|X|X|X|X|X|X|||X|X|X|X|X|
 
 # Verification sequence diagrams 
 \<select key scenarios from the requirement document. For each of them define a sequence diagram showing that the scenario can be implemented by the classes and methods in the design>
