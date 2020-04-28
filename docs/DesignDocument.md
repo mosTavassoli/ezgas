@@ -309,18 +309,47 @@ package "it.polito.ezgas.repository" {
 ## Sequence diagram for scenario 10.1
 
 ```plantuml
-GasStationController -> GasStationService:1: getGasStationById(gasStationId)
-activate GasStationService
+"Front End" -> GasStationController:1 : getStationById()
+
+GasStationController -> GasStationServiceimpl:2 : getGasStationById()
+
+GasStationServiceimpl -> GasStationRepository:3 : getGasStationById()
+
+"Front End" -> UserController:4 : getUserById()
+
+UserController -> UserServiceimpl:5 : getUserById()
 
 
+UserServiceimpl -> UserRepository:6 : getUserById()
+
+"Front End" -> UserController :7 : increaseUserReputation()
+
+UserController -> UserServiceimpl :8 : increaseUserReputation()
+
+UserServiceimpl -> UserRepository :9 : increaseUserReputation()
+```
+
+## Sequence diagram for scenario 10.2
+
+```plantuml
+"Front End" -> GasStationController:1 : getStationById()
+
+GasStationController -> GasStationServiceimpl:2 : getGasStationById()
+
+GasStationServiceimpl -> GasStationRepository:3 : getGasStationById()
+
+"Front End" -> UserController:4 : getUserById()
+
+UserController -> UserServiceimpl:5 : getUserById()
 
 
-UserController -> UserService:?: increaseUserReputation(userId)
-activate UserService
+UserServiceimpl -> UserRepository:6 : getUserById()
 
-UserService -> UserDto:?: increaseUserReputation(userId)
-activate UserDto
+"Front End" -> UserController :7 : decreaseUserReputation()
 
+UserController -> UserServiceimpl :8 : decreaseUserReputation()
+
+UserServiceimpl -> UserRepository :9 : decreaseUserReputation()
 ```
 
 
