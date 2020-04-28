@@ -1,11 +1,11 @@
 # Design Document 
 
 
-Authors: 
+Authors: Mehdi Khrichfa, Alessandro Ricciuto, Toni Saliba, Mostafa Tavassoli
 
-Date:
+Date:23/04/2020
 
-Version:
+Version:1
 
 
 # Contents
@@ -237,25 +237,27 @@ package "it.polito.ezgas.service"  as ps {
 package "it.polito.ezgas.controller" as pc{
    class "UserController"
    class "GasStationController"
+   class "HomeController"
 }
 
 package "it.polito.ezgas.converter" {
    class "UserConverter"
    class "GasStationConverter"
+   class "PriceReportConverter"
 }
 
 package "it.polito.ezgas.dto" {
    class "UserDto"
    class "GasStationDto"
+   class "PriceReportDto"
+   class "LoginDto"
+   class "IdPw"
 }
 
 package "it.polito.ezgas.entity" {
    class "User"
    class "GasStation"
-   class "PriceList"
-   class "GeoPoint"
-   class "Administrator"
-   class "CarSharingCompany"
+   class "PriceReport"
 }
 
 package "it.polito.ezgas.repository" {
@@ -304,6 +306,22 @@ package "it.polito.ezgas.repository" {
 
 # Verification sequence diagrams 
 \<select key scenarios from the requirement document. For each of them define a sequence diagram showing that the scenario can be implemented by the classes and methods in the design>
+## Sequence diagram for scenario 10.1
+
+```plantuml
+GasStationController -> GasStationService:1: getGasStationById(gasStationId)
+activate GasStationService
+
+
+
+
+UserController -> UserService:?: increaseUserReputation(userId)
+activate UserService
+
+UserService -> UserDto:?: increaseUserReputation(userId)
+activate UserDto
+
+```
 
 
 
