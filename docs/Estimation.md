@@ -4,14 +4,14 @@ Authors: Mehdi Khrichfa, Alessandro Ricciuto, Toni Saliba, Mostafa Tavassoli
 
 Date: 27/04/2020
 
-Version: 1.1
+Version: 1.2
 
 # Contents
 
 
 
-- [Estimate by product decomposition](#Estimate-by-product-decomposition)
-- [Estimate by activity decomposition](#Estimate-by-activity-decomposition)
+- [Estimate by product decomposition]
+- [Estimate by activity decomposition ]
 
 
 
@@ -39,6 +39,7 @@ Version: 1.1
 
 |         Activity name    | Estimated effort (person hours)   |             
 | ----------- | ------------------------------- | 
+|**Requirements Planning** | |
 |Perform workflow analysis | 8|
 |Model process | 4|
 |Identify user requirements | 24|
@@ -46,19 +47,26 @@ Version: 1.1
 |Identify interface requirements |6|
 |Design GUI | 64|
 |Prepare software requirements specification | 32|
+|**Requirements V&V**| |
 |Requirements inspection | 16|
+|**Design document**| |
 |Analysis | 50|
 |Formalization| 15|
 |Verification | 10|
+|**Design document V&V**| |
 |Design document inspection |16|
+|**Coding**| |
 |Implement the code| 187|
+|**Documentation V&V**| |
 |Explain design document and code | 10|
+|**System test**| |
 |Test all units of application| 54|
+|**Test plan**| |
 |Prepare testing process | 16|
-|Test each unit of the software| 68 |
-
-
-
+|**Unit test**| |
+|Test each unit of the software| 80 |
+|**Integration test**| |
+|Combine individual units and test them as a group| 52 |
 
 
 ###
@@ -149,10 +157,10 @@ Project starts the 6th of april 2020
 
 [System test] as [TASK4] lasts 8 days
 [TASK4] is colored in Red
-[TASK4] starts at [TASK3]'s end
+[TASK4] starts 2 days after [TASK3]'s end
 
 [Test all units of application] lasts 8 days
-[TASK3]->[Test all units of application]
+[Test all units of application] starts 2 days after [TASK3]'s end
 
 
 
@@ -162,13 +170,18 @@ Project starts the 6th of april 2020
 [Prepare testing process] lasts 8 days
 
 
-[Unit test] lasts 12 days
-[Unit test] starts 5 days after [TASK1.2]'s end 
+[Unit test] lasts 14 days
+[Unit test] starts 15 days after [TASK1.2]'s end 
 [Unit test] is colored in LightBlue
 
-[Test each unit of the software] lasts 12 days
-[Test each unit of the software] starts 5 days after [TASK1.2]'s end 
+[Test each unit of the software] lasts 14 days
+[Test each unit of the software] starts 15 days after [TASK1.2]'s end 
 
+[Integration test] lasts 14 days
+[Integration test] starts 2 days after [Unit test]'s start 
+[Integration test] is colored in LightBlue
+[Combine individual units and test them as a group] lasts 14 days
+[Combine individual units and test them as a group] starts 2 days after [Unit test]'s start 
 
 
 ```
