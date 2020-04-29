@@ -414,14 +414,23 @@ GasStationController -> GasStationServiceimpl:2 : getGasStationById()
 
 GasStationServiceimpl -> GasStationRepository:3 : getGasStationById()
 
+"Front End" -> GasStationController:4 : setReport()
 
-"Front End" -> GasStationController:4 : saveGasStation()
+GasStationController -> GasStationServiceimpl:5 : setReport()
 
-GasStationController -> GasStationServiceimpl:5 : saveGasStation()
+GasStationServiceimpl -> GasStationRepository:6 : setReport()
 
-GasStationServiceimpl -> GasStationRepository:6 : saveGasStation()
+"Front End" -> GasStationController:7 : saveGasStation()
 
+GasStationController -> GasStationServiceimpl:8 : saveGasStation()
 
+GasStationServiceimpl -> GasStationRepository:9 : saveGasStation()
+
+"Front End" -> GasStationController :10 : getAllGasStations()
+
+GasStationController -> GasStationServiceimpl :11 : getAllGasStations()
+
+GasStationServiceimpl -> GasStationRepository :12 : getAllGasStations()
 ```
 ## Sequence diagram for use case 8
 
