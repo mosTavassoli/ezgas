@@ -263,6 +263,7 @@ package "it.polito.ezgas.entity" {
 package "it.polito.ezgas.repository" {
    class "UserRepository"
    class "GasStationRepository"
+   class "PriceReportRepository"
 }
 
 }
@@ -281,31 +282,64 @@ package "it.polito.ezgas.repository" {
 
 \<for each functional requirement from the requirement document, list which classes concur to implement it>
 
-|       | UserController | GasStationController | UserService | GasStationService | UserRepository | GasStationRepository | User          | GasStation |  Administrator  | GeoPoint      | CarSharingCompany  | PriceList       | UserConverter | GasStationConverter  | UserDto         | GasStationDto      |
-| :---: |:--------------:| :-------------:      | :---------: |:-------------:    | :-----:        | :-------------:      |:-------------:| :-----:    | :-------------: |:-------------:| :-----:            | :-------------: |:-------------:| :-----:              | :-------------: |:------------------:|
-| FR1   |X| |X| |X| |X| |X| | | |X| |X| |
-| FR1.1 |X| |X| |X| |X| |X| | | |X| |X| |
-| FR1.2 |X| |X| |X| |X| |X| | | |X| |X| |
-| FR1.3 |X| |X| |X| |X| |X| | | |X| |X| |
-| FR1.4 |X| |X| |X| |X| |X| | | |X| |X| |
-| FR2   |X| |X| |X| |X| |X| | | |X| |X| |
-| FR3   |X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|
-| FR3.1 |X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|
-| FR3.2 |X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|
-| FR3.3 |X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|
-| FR4 ||X||X||X||X||X|X|X||X||X|
-| FR4.1 ||X||X||X||X||X|X|X||X||X|
-| FR4.2 ||X||X||X||X||X|X|X||X||X|
-| FR4.3 ||||||||||X||X||||X|
-| FR4.4 ||||||||||||X||||X|
-| FR4.5 |||||||||||X|X||||X|
-| FR5 |X|X|X|X|X|X|X|X|X|||X|X|X|X|X|
-| FR5.1 |X|X|X|X|X|X|X|X|X|||X|X|X|X|X|
-| FR5.2 |X|X|X|X|X|X|X|X||||X|X|X|X|X|
-| FR5.3 |X|X|X|X|X|X|X|X|X|||X|X|X|X|X|
+|       | UserController | GasStationController | HomeController | UserService | GasStationService | UserRepository | GasStationRepository | PriceReportRepository | User          | GasStation |  PriceReport  | UserConverter | GasStationConverter  | PriceReportConverter | UserDto         | GasStationDto      | PriceReportDto | LoginDto | IdPw |
+| :---: |:--------------:| :-------------:      | :---------: |:-------------:    | :-----:        | :-------------:      |:-------------:| :-----:    | :-------------: |:-------------:| :-----:            | :-------------: |:-------------:| :-----:              | :-------------: |:------------------:| :---:|:---:|:---:|
+| FR1   |X| | |X| |X| | |X| |X| | | |X| |X| | | 
+| FR1.1 |X| | |X| |X| | |X| |X| | | |X| |X| | | 
+| FR1.2 |X| | |X| |X| | |X| |X| | | |X| |X| | | 
+| FR1.3 |X| | |X| |X| | |X| |X| | | |X| |X| | | 
+| FR1.4 |X| | |X| |X| | |X| |X| | | |X| |X| | | 
+| FR2   |X| | |X| |X| | |X| |X| | | |X| |X| | | 
+| FR3   |X|X| |X|X|X|X| |X|X|X|X|X|X|X|X|X|X| | 
+| FR3.1 |X|X| |X|X|X|X| |X|X|X|X|X|X|X|X|X|X| | 
+| FR3.2 |X|X| |X|X|X|X| |X|X|X|X|X|X|X|X|X|X| | 
+| FR3.3 |X|X| |X|X|X|X| |X|X|X|X|X|X|X|X|X|X| | 
+| FR4   | |X| | |X| |X| | |X| |X|X|X| |X| |X| | 
+| FR4.1 | |X| | |X| |X| | |X| |X|X|X| |X| |X| | 
+| FR4.2 | |X| | |X| |X| | |X| |X|X|X| |X| |X| | 
+| FR4.3 | | | | | | | | | | | |X| |X| | | |X| | 
+| FR4.4 | | | | | | | | | | | | | |X| | | |X| | 
+| FR4.5 | | | | | | | | | | | | |X|X| | | |X| | 
+| FR5   |X|X| |X|X|X|X| |X|X|X| | |X|X|X|X|X| | 
+| FR5.1 |X|X| |X|X|X|X| |X|X|X| | |X|X|X|X|X| | 
+| FR5.2 |X|X| |X|X|X|X| |X|X| | | |X|X|X|X|X| | 
+| FR5.3 |X|X| |X|X|X|X| |X|X|X| | |X|X|X|X|X| | 
 
 # Verification sequence diagrams 
 \<select key scenarios from the requirement document. For each of them define a sequence diagram showing that the scenario can be implemented by the classes and methods in the design>
+
+## Sequence diagram for use case 1
+```plantuml
+"Front End" -> UserController:1 : saveUser()
+
+UserController -> UserServiceimpl:2 : saveUser()
+
+UserServiceimpl -> UserRepository:3 : saveUser()
+
+"Front End" -> UserController:4 : getAllUsers()
+
+UserController -> UserServiceimpl:5 : getAllUsers()
+
+UserServiceimpl -> UserRepository:6 : getAllUsers()
+```
+
+## Sequence diagram for use case 5
+```plantuml
+"Front End" -> GasStationController:1 : saveGasStation()
+
+GasStationController -> GasStationServiceimpl:2 : saveGasStation()
+
+GasStationServiceimpl -> GasStationRepository:3 : saveGasStation()
+
+"Front End" -> GasStationController:4 : getAllGasStations()
+
+GasStationController -> GasStationServiceimpl:5 : getAllGasStations()
+
+GasStationServiceimpl -> GasStationRepository:6 : getAllGasStations()
+
+
+```
+
 ## Sequence diagram for scenario 10.1
 
 ```plantuml
@@ -318,7 +352,6 @@ GasStationServiceimpl -> GasStationRepository:3 : getGasStationById()
 "Front End" -> UserController:4 : getUserById()
 
 UserController -> UserServiceimpl:5 : getUserById()
-
 
 UserServiceimpl -> UserRepository:6 : getUserById()
 
