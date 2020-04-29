@@ -323,6 +323,23 @@ UserController -> UserServiceimpl:5 : getAllUsers()
 UserServiceimpl -> UserRepository:6 : getAllUsers()
 ```
 
+## Sequence diagram for use case 2
+
+```plantuml
+
+"Front End" -> UserController:1 : saveUser()
+
+UserController -> UserServiceimpl:2 : saveUser()
+
+UserServiceimpl -> UserRepository:3 : saveUser()
+
+"Front End" -> UserController :4 : getAllUsers()
+
+UserController -> UserServiceimpl :5 : getAllUsers()
+
+UserServiceimpl -> UserRepository :6 : getAllUsers()
+```
+
 ## Sequence diagram for use case 5
 ```plantuml
 "Front End" -> GasStationController:1 : saveGasStation()
@@ -339,6 +356,26 @@ GasStationServiceimpl -> GasStationRepository:6 : getAllGasStations()
 
 
 ```
+
+
+## Sequence diagram for use case 6
+
+```plantuml
+
+"Front End" -> GasStationController:1 : deleteGasStation()
+
+GasStationController -> GasStationServiceimpl:2 : deleteGasStation()
+
+
+GasStationServiceimpl -> GasStationRepository:3 : deleteGasStation()
+
+"Front End" -> GasStationController :4 : getAllGasStations()
+
+GasStationController -> GasStationServiceimpl :5 : getAllGasStations()
+
+GasStationServiceimpl -> GasStationRepository :6 : getAllGasStations()
+```
+
 
 ## Sequence diagram for scenario 10.1
 
@@ -360,6 +397,12 @@ UserServiceimpl -> UserRepository:6 : getUserById()
 UserController -> UserServiceimpl :8 : increaseUserReputation()
 
 UserServiceimpl -> UserRepository :9 : increaseUserReputation()
+
+"Front End" -> UserController :4 : getAllUsers()
+
+UserController -> UserServiceimpl :5 : getAllUsers()
+
+UserServiceimpl -> UserRepository :6 : getAllUsers()
 ```
 
 ## Sequence diagram for scenario 10.2
@@ -383,6 +426,12 @@ UserServiceimpl -> UserRepository:6 : getUserById()
 UserController -> UserServiceimpl :8 : decreaseUserReputation()
 
 UserServiceimpl -> UserRepository :9 : decreaseUserReputation()
+
+"Front End" -> UserController :4 : getAllUsers()
+
+UserController -> UserServiceimpl :5 : getAllUsers()
+
+UserServiceimpl -> UserRepository :6 : getAllUsers()
 ```
 
 
