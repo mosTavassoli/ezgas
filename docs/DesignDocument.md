@@ -340,6 +340,22 @@ UserController -> UserServiceimpl :5 : getAllUsers()
 UserServiceimpl -> UserRepository :6 : getAllUsers()
 ```
 
+## Sequence diagram for use case 4
+
+```plantuml
+"Front End" -> GasStationController:1 : saveGasStation()
+
+GasStationController -> GasStationServiceimpl:2 : saveGasStation()
+
+GasStationServiceimpl -> GasStationRepository:3 : saveGasStation()
+
+"Front End" -> GasStationController:4 : getAllGasStations()
+
+GasStationController -> GasStationServiceimpl:5 : getAllGasStations()
+
+GasStationServiceimpl -> GasStationRepository:6 : getAllGasStations()
+```
+
 ## Sequence diagram for use case 5
 ```plantuml
 "Front End" -> GasStationController:1 : saveGasStation()
@@ -376,6 +392,25 @@ GasStationController -> GasStationServiceimpl :5 : getAllGasStations()
 GasStationServiceimpl -> GasStationRepository :6 : getAllGasStations()
 ```
 
+## Sequence diagram for use case 8
+
+```plantuml
+"Front End" -> GasStationController:1 : getGasStationsWithCoordinates()
+GasStationController -> GasStationServiceimpl:2 : getGasStationsWithCoordinates()
+
+GasStationServiceimpl -> GasStationRepository:3 : getGasStationsWithCoordinates()
+
+```
+
+## Sequence diagram for use case 9
+
+```plantuml
+
+"Front End" -> UserController:1 : getAllUsers()
+UserController -> UserServiceimpl:2 : getAllUsers()
+UserServiceimpl -> UserRepository:2 : getAllUsers()
+
+```
 
 ## Sequence diagram for scenario 10.1
 
