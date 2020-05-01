@@ -420,13 +420,11 @@ GasStationController -> GasStationServiceimpl:5 : setGasStationReport()
 
 GasStationServiceimpl -> GasStationRepository:6 : setReport()
 
-
 "Front End" -> GasStationController:7 : getAllGasStations()
 
 GasStationController -> GasStationServiceimpl:8 : getAllGasStations()
 
 GasStationServiceimpl -> GasStationRepository:9 : getAllGasStations()
-
 
 ```
 ## Sequence diagram for use case 8
