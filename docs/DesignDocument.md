@@ -229,15 +229,63 @@ Contains Service classes that implement the Service Interfaces in the Service pa
 left to right direction
 package "Backend" {
 package "it.polito.ezgas.service"  as ps {
-   interface "GasStationService"
-   interface "UserService"
+   interface "GasStationService"{
+      +getGasStationById(gasStationId)
+      +saveGasStation(gasStationDto)
+      +getAllGasStations()
+      +deleteGasStation(gasStationId)
+      +getGasStationsByGasolineType(gasolinetype)
+      +getGasStationsByProximity(lat,lon)
+      +getGasStationsWithCoordinates(lat,lon,gasolinetype,carsharing)
+      +getGasStationsWithoutCoordinates(gasolinetype,carsharing) 
+      +setReport(gasStationId,dieselPrice,superPrice,superPlusPrice,gasPrice,methanePrice,userId)
+      +getGasStationByCarSharing(carSharing)
+   }
+   interface "UserService"{
+      +getUserById(userId)
+      +saveUser(userDto)
+      +getAllUsers()
+      +deleteUser(userId)
+      +login(credentials)
+      +increaseUserReputation(userId)
+      +decreaseUserReputation(userId)
+   }
+   class "GasStationServiceimpl"
+   class "UserServiceimpl"
+   "GasStationServiceimpl" -|> "GasStationService"
+   "UserServiceimpl" -|> "UserService"
+
 }
 
 
 package "it.polito.ezgas.controller" as pc{
-   class "UserController"
-   class "GasStationController"
-   class "HomeController"
+   class "UserController"{
+      +getUserById(userId)
+      +getAllUsers()
+      +saveUser(userDto)
+      +deleteUser(userId)
+      +increaseUserReputation(userId)
+      +decreaseUserReputation(userId)
+      +login(credentials)
+   }
+   class "GasStationController"{
+      +getGasStationById(gasStationId)
+      +getAllGasStations()
+      +saveGasStation()
+      +deleteUser(gasStationId)
+      +getGasStationsByGasolineType(gasolinetype)
+      +getGasStationsByProximity(myLat,myLon)
+      +getGasStationsWithCoordinates(myLat,myLon,gasolineType,carSharing)
+      +setGasStationReport(gasStationId,dieselPrice,superPrice,superPlusPrice,gasPrice,methanePrice,userId)
+   }
+   class "HomeController"{
+      +admin()
+      +index()
+      +map()
+      +login()
+      +update()
+      +signup()
+   }
 }
 
 package "it.polito.ezgas.converter" {
@@ -247,17 +295,96 @@ package "it.polito.ezgas.converter" {
 }
 
 package "it.polito.ezgas.dto" {
-   class "UserDto"
-   class "GasStationDto"
-   class "PriceReportDto"
-   class "LoginDto"
-   class "IdPw"
+   class "UserDto"{
+      -userId
+      -userName
+      -password
+      -email
+      -reputation
+      -admin
+   }
+   class "GasStationDto"{
+      -gasStationId
+      -gasStationName
+      -gasStationAddress
+      -hasDiesel
+      -hasSuper
+      -hasSuperPlus
+      -hasGas
+      -hasMethane
+      -carSharing
+      -lat
+      -lon
+      -dieselPrice
+      -superPrice
+      -superPlusPrice
+      -gasPrice
+      -methanePrice
+      -reportUser
+      -userDto
+      -reportTimestamp
+      -reportDependability
+   }
+   class "PriceReportDto"{
+      -priceReportId
+      -user
+      -dieselPrice
+      -superPrice
+      -superPlusPrice
+      -gasPrice
+   }
+   class "LoginDto"{
+      -userId
+      -userName
+      -token
+      -email
+      -reputation
+      -admin
+   }
+   class "IdPw"{
+      -user
+      -pw
+   }
 }
 
 package "it.polito.ezgas.entity" {
-   class "User"
-   class "GasStation"
-   class "PriceReport"
+   class "User"{
+      -userId
+      -userName
+      -password
+      -email
+      -reputation
+      -admin
+
+   }
+   class "GasStation"{
+      -gasStationId
+      -gasStationName
+      -gasStationAddress
+      -hasDiesel
+      -hasSuper
+      -hasSuperPlus
+      -hasGas
+      -hasMethane
+      -carSharing
+      -lat
+      -lon
+      -dieselPrice
+      -superPrice
+      -superPlusPrice
+      -gasPrice
+      -methanePrice
+      -reportUser
+      -reportTimestamp
+      -reportDependability
+
+   }
+   class "PriceReport"{
+      -dieselPrice
+      -superPrice
+      -superPlusPrice
+      -gasPrice
+   }
 }
 
 package "it.polito.ezgas.repository" {
@@ -284,22 +411,22 @@ package "it.polito.ezgas.repository" {
 
 |       | UserController | GasStationController | HomeController | UserService | GasStationService | UserRepository | GasStationRepository | PriceReportRepository | User          | GasStation |  PriceReport  | UserConverter | GasStationConverter  | PriceReportConverter | UserDto         | GasStationDto      | PriceReportDto | LoginDto | IdPw |
 | :---: |:--------------:| :-------------:      | :---------: |:-------------:    | :-----:        | :-------------:      |:-------------:| :-----:    | :-------------: |:-------------:| :-----:            | :-------------: |:-------------:| :-----:              | :-------------: |:------------------:| :---:|:---:|:---:|
-| FR1   |X| | |X| |X| | |X| | |X| | |X| | | | | 
-| FR1.1 |X| | |X| |X| | |X| | |X| | |X| | | | | 
-| FR1.2 |X| | |X| |X| | |X| | |X| | |X| | | | | 
-| FR1.3 |X| | |X| |X| | |X| | |X| | |X| | | | | 
-| FR1.4 |X| | |X| |X| | |X| | |X| | |X| | | | | 
-| FR2   |X| | |X| |X| | |X| | |X| | |X| | | | | 
-| FR3   | |X| | |X| |X| | |X|X| |X|X| |X|X| | | 
-| FR3.1 | |X| | |X| |X| | |X|X| |X|X| |X|X| | | 
-| FR3.2 | |X| | |X| |X| | |X|X| |X|X| |X|X| | | 
-| FR3.3 | |X| | |X| |X| | |X|X| |X|X| |X|X| | | 
-| FR4   | |X| | |X| |X| | |X|X| |X|X| |X|X| | | 
-| FR4.1 | |X| | |X| |X| | |X|X| |X|X| |X|X| | | 
-| FR4.2 | |X| | |X| |X| | |X|X| |X|X| |X|X| | | 
-| FR4.3 | |X| | |X| |X| | |X|X| |X|X| |X|X| | | 
-| FR4.4 | |X| | |X| |X| | |X|X| |X|X| |X|X| | | 
-| FR4.5 | |X| | |X| |X| | |X|X| |X|X| |X|X| | | 
+| FR1   |X| | |X| |X| | |X| | |X| | |X| | |X| | 
+| FR1.1 |X| | |X| |X| | |X| | |X| | |X| | |X| | 
+| FR1.2 |X| | |X| |X| | |X| | |X| | |X| | |X| | 
+| FR1.3 |X| | |X| |X| | |X| | |X| | |X| | |X| | 
+| FR1.4 |X| | |X| |X| | |X| | |X| | |X| | |X| | 
+| FR2   |X| | |X| |X| | |X| | |X| | |X| | |X|X| 
+| FR3   | |X| | |X| |X|X| |X|X| |X|X| |X|X| | | 
+| FR3.1 | |X| | |X| |X|X| |X|X| |X|X| |X|X| | | 
+| FR3.2 | |X| | |X| |X|X| |X|X| |X|X| |X|X| | | 
+| FR3.3 | |X| | |X| |X|X| |X|X| |X|X| |X|X| | | 
+| FR4   | |X| | |X| |X|X| |X|X| |X|X| |X|X| | | 
+| FR4.1 | |X| | |X| |X|X| |X|X| |X|X| |X|X| | | 
+| FR4.2 | |X| | |X| |X|X| |X|X| |X|X| |X|X| | | 
+| FR4.3 | |X| | |X| |X|X| |X|X| |X|X| |X|X| | | 
+| FR4.4 | |X| | |X| |X|X| |X|X| |X|X| |X|X| | | 
+| FR4.5 | |X| | |X| |X|X| |X|X| |X|X| |X|X| | | 
 | FR5   |X|X| |X|X|X|X|X|X|X|X|X|X|X|X|X|X| | | 
 | FR5.1 |X|X| |X|X|X|X|X|X|X|X|X|X|X|X|X|X| | | 
 | FR5.2 |X|X| |X|X|X|X|X|X|X|X|X|X|X|X|X|X| | | 
@@ -311,16 +438,27 @@ package "it.polito.ezgas.repository" {
 ## Sequence diagram for use case 1
 ```plantuml
 "Front End" -> UserController:1 : saveUser()
-
+activate UserController
 UserController -> UserServiceimpl:2 : saveUser()
 
 UserServiceimpl -> UserRepository:3 : saveUser()
 
-"Front End" -> UserController:4 : getAllUsers()
+UserController -> UserConverter:4 : saveUser()
 
-UserController -> UserServiceimpl:5 : getAllUsers()
+UserConverter -> UserDto:5 : saveUser()
+deactivate UserController
 
-UserServiceimpl -> UserRepository:6 : getAllUsers()
+"Front End" -> UserController:6 : getAllUsers()
+activate UserController
+
+UserController -> UserServiceimpl:7 : getAllUsers()
+
+UserServiceimpl -> UserRepository:8 : getAllUsers()
+
+UserController -> UserConverter:9 : getAllUsers()
+
+UserConverter -> UserDto:10 : getAllUsers()
+deactivate UserController
 ```
 
 ## Sequence diagram for use case 2
@@ -328,63 +466,105 @@ UserServiceimpl -> UserRepository:6 : getAllUsers()
 ```plantuml
 
 "Front End" -> UserController:1 : saveUser()
+activate UserController
 
 UserController -> UserServiceimpl:2 : saveUser()
 
 UserServiceimpl -> UserRepository:3 : saveUser()
 
-"Front End" -> UserController :4 : getAllUsers()
+UserController -> UserConverter:4 : saveUser()
 
-UserController -> UserServiceimpl :5 : getAllUsers()
+UserConverter -> UserDto:5 : saveUser()
+deactivate UserController
 
-UserServiceimpl -> UserRepository :6 : getAllUsers()
+"Front End" -> UserController :6 : getAllUsers()
+activate UserController
+UserController -> UserServiceimpl :7 : getAllUsers()
+
+UserServiceimpl -> UserRepository :8 : getAllUsers()
+
+UserController -> UserConverter:9 : getAllUsers()
+
+UserConverter -> UserDto:10 : getAllUsers()
+deactivate UserController
 ```
 ## Sequence diagram for use case 3
 ```plantuml
 "Front End" -> UserController:1 : deleteUser()
+activate UserController
 
 UserController -> UserServiceimpl:2 : deleteUser()
 
 UserServiceimpl -> UserRepository:3 : deleteUser()
 
-"Front End" -> UserController:4 : getAllUsers()
+UserController -> UserConverter:4 : deleteUser()
 
-UserController -> UserServiceimpl:5 : getAllUsers()
+UserConverter -> UserDto:5 : deleteUser()
+deactivate UserController
 
-UserServiceimpl -> UserRepository:6 : getAllUsers()
+"Front End" -> UserController:6 : getAllUsers()
+activate UserController
+
+UserController -> UserServiceimpl:7 : getAllUsers()
+
+UserServiceimpl -> UserRepository:8 : getAllUsers()
+
+UserController -> UserConverter:9 : getAllUsers()
+
+UserConverter -> UserDto:10 : getAllUsers()
+deactivate UserController
 ```
 
 ## Sequence diagram for use case 4
 
 ```plantuml
 "Front End" -> GasStationController:1 : saveGasStation()
-
+activate GasStationController
 GasStationController -> GasStationServiceimpl:2 : saveGasStation()
 
 GasStationServiceimpl -> GasStationRepository:3 : saveGasStation()
 
-"Front End" -> GasStationController:4 : getAllGasStations()
+GasStationController -> GasStationConverter:4 : saveGasStation()
 
-GasStationController -> GasStationServiceimpl:5 : getAllGasStations()
+GasStationConverter -> GasStationDto:5 : saveGasStation()
+deactivate GasStationController
 
-GasStationServiceimpl -> GasStationRepository:6 : getAllGasStations()
+"Front End" -> GasStationController:6 : getAllGasStations()
+activate GasStationController
+GasStationController -> GasStationServiceimpl:7 : getAllGasStations()
+
+GasStationServiceimpl -> GasStationRepository:8 : getAllGasStations()
+
+GasStationController -> GasStationConverter:9 : getAllGasStations()
+
+GasStationConverter -> GasStationDto:10 : getAllGasStations()
+deactivate GasStationController
+
 ```
 
 ## Sequence diagram for use case 5
 ```plantuml
 "Front End" -> GasStationController:1 : saveGasStation()
-
+activate GasStationController
 GasStationController -> GasStationServiceimpl:2 : saveGasStation()
 
 GasStationServiceimpl -> GasStationRepository:3 : saveGasStation()
 
-"Front End" -> GasStationController:4 : getAllGasStations()
+GasStationController -> GasStationConverter:4 : saveGasStation()
 
-GasStationController -> GasStationServiceimpl:5 : getAllGasStations()
+GasStationConverter -> GasStationDto:5 : saveGasStation()
+deactivate GasStationController
 
-GasStationServiceimpl -> GasStationRepository:6 : getAllGasStations()
+"Front End" -> GasStationController:6 : getAllGasStations()
+activate GasStationController
+GasStationController -> GasStationServiceimpl:7 : getAllGasStations()
 
+GasStationServiceimpl -> GasStationRepository:8 : getAllGasStations()
 
+GasStationController -> GasStationConverter:9 : getAllGasStation()
+
+GasStationConverter -> GasStationDto:10 : getAllGasStation()
+deactivate GasStationController
 ```
 
 
@@ -393,48 +573,81 @@ GasStationServiceimpl -> GasStationRepository:6 : getAllGasStations()
 ```plantuml
 
 "Front End" -> GasStationController:1 : deleteGasStation()
+activate GasStationController
 
 GasStationController -> GasStationServiceimpl:2 : deleteGasStation()
 
-
 GasStationServiceimpl -> GasStationRepository:3 : deleteGasStation()
 
-"Front End" -> GasStationController :4 : getAllGasStations()
+GasStationController -> GasStationConverter:4 : deleteGasStation()
 
-GasStationController -> GasStationServiceimpl :5 : getAllGasStations()
+GasStationConverter -> GasStationDto:5 : deleteGasStation()
+deactivate GasStationController
 
-GasStationServiceimpl -> GasStationRepository :6 : getAllGasStations()
+"Front End" -> GasStationController :6 : getAllGasStations()
+activate GasStationController
+
+GasStationController -> GasStationServiceimpl :7 : getAllGasStations()
+
+GasStationServiceimpl -> GasStationRepository :8 : getAllGasStations()
+
+GasStationController -> GasStationConverter:9 : getAllGasStation()
+
+GasStationConverter -> GasStationDto:10 : getAllGasStation()
+deactivate GasStationController
+
 ```
 ## Sequence diagram for use case 7
 
 ```plantuml
 "Front End" -> UserController:1 : getUserById()
+activate UserController
 
 UserController -> UserServiceimpl:2 : getUserById()
 
 UserServiceimpl -> UserRepository:3 : getUserById()
 
-"Front End" -> GasStationController:4 : setReport()
+UserController -> UserConverter:4 : getUserById()
 
-GasStationController -> GasStationServiceimpl:5 : setGasStationReport()
+UserConverter -> UserDto:5 : getUserById()
+deactivate UserController
 
-GasStationServiceimpl -> GasStationRepository:6 : setReport()
+"Front End" -> GasStationController:6 : setReport()
+activate GasStationController
+GasStationController -> GasStationServiceimpl:7 : setGasStationReport()
 
-"Front End" -> GasStationController:7 : getAllGasStations()
+GasStationServiceimpl -> GasStationRepository:8 : setReport()
 
-GasStationController -> GasStationServiceimpl:8 : getAllGasStations()
+GasStationController -> GasStationConverter:9 : setReport()
 
-GasStationServiceimpl -> GasStationRepository:9 : getAllGasStations()
+GasStationConverter -> GasStationDto:10 : setReport()
+deactivate GasStationController
+
+"Front End" -> GasStationController:11 : getAllGasStations()
+activate GasStationController
+GasStationController -> GasStationServiceimpl:12 : getAllGasStations()
+
+GasStationServiceimpl -> GasStationRepository:13 : getAllGasStations()
+
+GasStationController -> GasStationConverter:14 : getAllGasStation()
+
+GasStationConverter -> GasStationDto:15 : getAllGasStation()
+deactivate GasStationController
 
 ```
 ## Sequence diagram for use case 8
 
 ```plantuml
 "Front End" -> GasStationController:1 : getGasStationsWithCoordinates()
+activate GasStationController
 GasStationController -> GasStationServiceimpl:2 : getGasStationsWithCoordinates()
 
 GasStationServiceimpl -> GasStationRepository:3 : getGasStationsWithCoordinates()
 
+GasStationController -> GasStationConverter:4 : getGasStationsWithCoordinates()
+
+GasStationConverter -> GasStationDto:5 : getGasStationsWithCoordinates()
+deactivate GasStationController
 ```
 
 ## Sequence diagram for use case 9
@@ -442,8 +655,12 @@ GasStationServiceimpl -> GasStationRepository:3 : getGasStationsWithCoordinates(
 ```plantuml
 
 "Front End" -> UserController:1 : getAllUsers()
+activate UserController
 UserController -> UserServiceimpl:2 : getAllUsers()
 UserServiceimpl -> UserRepository:3 : getAllUsers()
+UserController -> UserConverter:4 : getAllUsers()
+UserConverter -> UserDto:5 : getAllUsers()
+deactivate UserController
 
 ```
 
@@ -451,62 +668,72 @@ UserServiceimpl -> UserRepository:3 : getAllUsers()
 
 ```plantuml
 "Front End" -> GasStationController:1 : getStationById()
-
+activate GasStationController
 GasStationController -> GasStationServiceimpl:2 : getGasStationById()
-
 GasStationServiceimpl -> GasStationRepository:3 : getGasStationById()
+GasStationController -> GasStationConverter:4 : getGasStationById()
+GasStationConverter -> GasStationDto:5 : getGasStationById()
+deactivate GasStationController
 
-"Front End" -> UserController:4 : getUserById()
 
-UserController -> UserServiceimpl:5 : getUserById()
+"Front End" -> UserController:6 : getUserById()
+activate UserController
+UserController -> UserServiceimpl:7 : getUserById()
+UserServiceimpl -> UserRepository:8 : getUserById()
+UserController -> UserConverter:9 : getUserById()
+UserConverter -> UserDto:10 : getUserById()
+deactivate UserController
 
-UserServiceimpl -> UserRepository:6 : getUserById()
+"Front End" -> UserController :11 : increaseUserReputation()
+activate UserController
+UserController -> UserServiceimpl :12 : increaseUserReputation()
+UserServiceimpl -> UserRepository :13 : increaseUserReputation()
+UserController -> UserConverter:14 : increaseUserReputation()
+UserConverter -> UserDto:15 : increaseUserReputation()
+deactivate UserController
 
-"Front End" -> UserController :7 : increaseUserReputation()
-
-UserController -> UserServiceimpl :8 : increaseUserReputation()
-
-UserServiceimpl -> UserRepository :9 : increaseUserReputation()
-
-"Front End" -> UserController :10 : getAllUsers()
-
-UserController -> UserServiceimpl :11 : getAllUsers()
-
-UserServiceimpl -> UserRepository :12 : getAllUsers()
+"Front End" -> UserController :16 : getAllUsers()
+activate UserController
+UserController -> UserServiceimpl :17 : getAllUsers()
+UserServiceimpl -> UserRepository :18 : getAllUsers()
+UserController -> UserConverter:19 : getAllUsers()
+UserConverter -> UserDto:20 : getAllUsers()
+deactivate UserController
 ```
 
 ## Sequence diagram for scenario 10.2
 
 ```plantuml
 "Front End" -> GasStationController:1 : getStationById()
-
+activate GasStationController
 GasStationController -> GasStationServiceimpl:2 : getGasStationById()
-
 GasStationServiceimpl -> GasStationRepository:3 : getGasStationById()
+GasStationController -> GasStationConverter:4 : getGasStationById()
+GasStationConverter -> GasStationDto:5 : getGasStationById()
+deactivate GasStationController
 
-"Front End" -> UserController:4 : getUserById()
 
-UserController -> UserServiceimpl:5 : getUserById()
+"Front End" -> UserController:6 : getUserById()
+activate UserController
+UserController -> UserServiceimpl:7 : getUserById()
+UserServiceimpl -> UserRepository:8 : getUserById()
+UserController -> UserConverter:9 : getUserById()
+UserConverter -> UserDto:10 : getUserById()
+deactivate UserController
 
+"Front End" -> UserController :11 : increaseUserReputation()
+activate UserController
+UserController -> UserServiceimpl :12 : decreaseUserReputation()
+UserServiceimpl -> UserRepository :13 : decreaseUserReputation()
+UserController -> UserConverter:14 : decreaseUserReputation()
+UserConverter -> UserDto:15 : decreaseUserReputation()
+deactivate UserController
 
-UserServiceimpl -> UserRepository:6 : getUserById()
-
-"Front End" -> UserController :7 : decreaseUserReputation()
-
-UserController -> UserServiceimpl :8 : decreaseUserReputation()
-
-UserServiceimpl -> UserRepository :9 : decreaseUserReputation()
-
-"Front End" -> UserController :10 : getAllUsers()
-
-UserController -> UserServiceimpl :11 : getAllUsers()
-
-UserServiceimpl -> UserRepository :12 : getAllUsers()
+"Front End" -> UserController :16 : getAllUsers()
+activate UserController
+UserController -> UserServiceimpl :17 : getAllUsers()
+UserServiceimpl -> UserRepository :18 : getAllUsers()
+UserController -> UserConverter:19 : getAllUsers()
+UserConverter -> UserDto:20 : getAllUsers()
+deactivate UserController
 ```
-
-
-
-
-
-
-
