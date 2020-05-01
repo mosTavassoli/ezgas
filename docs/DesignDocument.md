@@ -408,18 +408,24 @@ GasStationServiceimpl -> GasStationRepository :6 : getAllGasStations()
 ## Sequence diagram for use case 7
 
 ```plantuml
-"Front End" -> GasStationController:1 : getGasStationById()
+"Front End" -> UserController:1 : getUserById()
 
-GasStationController -> GasStationServiceimpl:2 : getGasStationById()
+UserController -> UserServiceimpl:2 : getUserById()
 
-GasStationServiceimpl -> GasStationRepository:3 : getGasStationById()
+UserServiceimpl -> UserRepository:3 : getUserById()
+
+"Front End" -> GasStationController:4 : setReport()
+
+GasStationController -> GasStationServiceimpl:5 : setGasStationReport()
+
+GasStationServiceimpl -> GasStationRepository:6 : setReport()
 
 
-"Front End" -> GasStationController:4 : saveGasStation()
+"Front End" -> GasStationController:7 : getAllGasStations()
 
-GasStationController -> GasStationServiceimpl:5 : saveGasStation()
+GasStationController -> GasStationServiceimpl:8 : getAllGasStations()
 
-GasStationServiceimpl -> GasStationRepository:6 : saveGasStation()
+GasStationServiceimpl -> GasStationRepository:9 : getAllGasStations()
 
 
 ```
@@ -439,7 +445,7 @@ GasStationServiceimpl -> GasStationRepository:3 : getGasStationsWithCoordinates(
 
 "Front End" -> UserController:1 : getAllUsers()
 UserController -> UserServiceimpl:2 : getAllUsers()
-UserServiceimpl -> UserRepository:2 : getAllUsers()
+UserServiceimpl -> UserRepository:3 : getAllUsers()
 
 ```
 
@@ -464,11 +470,11 @@ UserController -> UserServiceimpl :8 : increaseUserReputation()
 
 UserServiceimpl -> UserRepository :9 : increaseUserReputation()
 
-"Front End" -> UserController :4 : getAllUsers()
+"Front End" -> UserController :10 : getAllUsers()
 
-UserController -> UserServiceimpl :5 : getAllUsers()
+UserController -> UserServiceimpl :11 : getAllUsers()
 
-UserServiceimpl -> UserRepository :6 : getAllUsers()
+UserServiceimpl -> UserRepository :12 : getAllUsers()
 ```
 
 ## Sequence diagram for scenario 10.2
@@ -493,11 +499,11 @@ UserController -> UserServiceimpl :8 : decreaseUserReputation()
 
 UserServiceimpl -> UserRepository :9 : decreaseUserReputation()
 
-"Front End" -> UserController :4 : getAllUsers()
+"Front End" -> UserController :10 : getAllUsers()
 
-UserController -> UserServiceimpl :5 : getAllUsers()
+UserController -> UserServiceimpl :11 : getAllUsers()
 
-UserServiceimpl -> UserRepository :6 : getAllUsers()
+UserServiceimpl -> UserRepository :12 : getAllUsers()
 ```
 
 
