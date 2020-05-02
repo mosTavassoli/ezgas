@@ -289,9 +289,18 @@ package "it.polito.ezgas.controller" as pc{
 }
 
 package "it.polito.ezgas.converter" {
-   class "UserConverter"
-   class "GasStationConverter"
-   class "PriceReportConverter"
+   class "UserConverter"{
+      toDto(user)
+      toEntity(userDto)
+   }
+   class "GasStationConverter"{
+      toDto(gasStation)
+      toEntity(gasStationDto)
+   }
+   class "PriceReportConverter"{
+      toDto(priceReport)
+      toEntity(priceReportDto)
+   }
 }
 
 package "it.polito.ezgas.dto" {
