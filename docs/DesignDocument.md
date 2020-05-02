@@ -226,7 +226,6 @@ Contains Service classes that implement the Service Interfaces in the Service pa
 
 ```plantuml
 @startuml
-left to right direction
 package "Backend" {
 package "it.polito.ezgas.service"  as ps {
    interface "GasStationService"{
@@ -290,16 +289,17 @@ package "it.polito.ezgas.controller" as pc{
 
 package "it.polito.ezgas.converter" {
    class "UserConverter"{
-      toDto(user)
-      toEntity(userDto)
+      +toUserDto(user)
+      +toLoginDto(user)
+      +toEntity(userDto)
    }
    class "GasStationConverter"{
-      toDto(gasStation)
-      toEntity(gasStationDto)
+      +toGasStationDto(gasStation)
+      +toEntity(gasStationDto)
    }
    class "PriceReportConverter"{
-      toDto(priceReport)
-      toEntity(priceReportDto)
+      +toPriceReportDto(priceReport)
+      +toEntity(priceReportDto)
    }
 }
 
@@ -394,24 +394,52 @@ package "it.polito.ezgas.entity" {
       -superPlusPrice
       -gasPrice
    }
+
 }
 
 package "it.polito.ezgas.repository" {
-   class "UserRepository"
-   class "GasStationRepository"
-   class "PriceReportRepository"
+   class "UserRepository"{
+      +findAll()
+      +findById(userId)
+      +save(user)
+      +delete(user)
+      +existsById(userId)
+   }
+   class "GasStationRepository"{
+      +findAll()
+      +findById(gasStationId)
+      +save(gasStation)
+      +delete(gasStation)
+   }
+   class "PriceReportRepository"{
+      +findAll()
+      +findById(priceReportId)
+      +save(priceReport)
+      +delete(priceReport)
+   }
 }
 
 }
+
+"UserController" "1"-----"1" "UserService"
+"UserServiceimpl" "1"-----"1" "UserRepository"
+"UserServiceimpl" "1"-----"1" "UserConverter"
+"UserConverter" "1"-----"1" "UserDto"
+"UserConverter" "1"-----"1" "LoginDto"
+"UserServiceimpl" "1"-----"1" "IdPw"
+
+
+"GasStationController" "1"-----"1" "GasStationService"
+"GasStationServiceimpl" "1"-----"1" "PriceReportRepository"
+"GasStationServiceimpl" "1"-----"1" "GasStationRepository"
+"GasStationServiceimpl" "1"-----"1" "GasStationConverter"
+"GasStationConverter" "1"-----"1" "GasStationDto"
+
+"GasStationServiceimpl" "1"-----"1" "PriceReportConverter"
+"PriceReportConverter" "1"-----"1" "PriceReportDto"
 
 @enduml
 ```
-
-
-
-
-
-
 
 
 # Verification traceability matrix
