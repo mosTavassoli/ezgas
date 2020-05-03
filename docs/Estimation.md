@@ -210,13 +210,13 @@ Then we have the design document, which is an activity running in parallel with 
 
 And as always we have the design document verification and validation which is only an inspection of the design document because we need to catch errors before continuing our project in order to minimize future costs. This phase takes a total of 16 hours. 
 
-Then we have the coding, which is an activity running in parallel with the design document verification and validation and starts right after the end of the Design document because the code is implementing the design mentioned in the Design document. It took 168 hours, because in this activity we are implementing our sofwtare.
+Then we have the coding, which is an activity running in parallel with the design document verification and validation and starts right after the end of the Design document because the code is implementing the design mentioned in the Design document. It took 168 hours, because in this activity we are implementing our software.
 
 When the coding starts, we have Unit test activity which is running in parallel with coding. Unit test takes parts of the code individually, and tests them. We need to test the whole code, that's why Unit test activity ends with the coding activity. Unit test takes 80 hours.
 
 And, running in parallel to the coding, we have the documentation which takes 10 hours. The interval of time of the documentation activity is made such that the documentation starts with the coding activity and ends way before the end of the coding activity, because during the first stages of our coding, we are defining functions, classes, variables and getting a clear idea of the structure of our software, so we immediately document them in the documentation.
 
-Shorlty after the start of the Unit test activity, we have Integration testing which is runned in parallel with unit test because it uses the results of the unit test activity, and ends shortly after the end of unit test activity. Integration testing takes 52 hours.
+Shortly after the start of the Unit test activity, we have Integration testing which is run in parallel with unit test because it uses the results of the unit test activity, and ends shortly after the end of unit test activity. Integration testing takes 52 hours.
 
 At the end we have system test which is 54 hours. It starts right after Integration testing because system test is going to be our final testing activity and it uses the results from integration testing and unit testing.
 
