@@ -194,11 +194,11 @@ Project starts the 6th of april 2020
 
 Considering the fact that we are students, the calculations made were not based on 8 hours of work per day. And the calculations did not take into consideration weekends. Weekends were considered as normal work days (since we're students).
 
-The red activities are our main critical activities. They cannot overlap each other, and they should always be executed in this order. Red acivities describe Tier1 activities.
+The red activities are our main critical activities. They cannot overlap each other, and they should always be executed in this order. Red activities describe Tier1 activities.
 
 The light-blue activities are also main activities, but they can overlap other main activities. They can be executed in parallel with other activities. Light-blue activities describe Tier2 activities.
 
-The green activities are the sub activities for the main activities (the red activities). The green activities give a general overview on the type of actions and subactivities that are executed during its main activity.
+The green activities are the sub activities for the main activities (the red activities). The green activities give a general overview on the type of actions and sub activities that are executed during its main activity.
 
 First, we have Requirements Planning which takes a total of 141 hours, and that is the first phase of the project. 
 
