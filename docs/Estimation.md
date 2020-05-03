@@ -59,7 +59,7 @@ Version: 1.3
 |**Design document V&V**| |
 |Design document inspection |16|
 |**Coding**| |
-|Implement the code| 187|
+|Implement the code| 168|
 |**Documentation**| |
 |Explain design document and code | 10|
 |**System test**| |
@@ -190,6 +190,8 @@ Project starts the 6th of april 2020
 
 
 ```
+
+
 Considering the fact that we are students, the calculations made were not based on 8 hours of work per day. And the calculations did not take into consideration weekends. Weekends were considered as normal work days (since we're students).
 
 The red activities are our main critical activities. They cannot overlap each other, and they should always be executed in this order. Red acivities describe Tier1 activities.
@@ -206,9 +208,9 @@ In parallel to the Requirements Planning activity, we have the Test plan activit
 
 Then we have the design document, which is an activity running in parallel with the Requirements document verification and validation that starts right after the end of Requirements Planning activity. It took 75 hours. 
 
-And as always we have the design document verification and validation which is only an inspection of the design document because we need to catch errors before continuing our project in order to minimize future costs.
+And as always we have the design document verification and validation which is only an inspection of the design document because we need to catch errors before continuing our project in order to minimize future costs. This phase takes a total of 16 hours. 
 
-Then we have the coding, which is an activity running in parallel with the design document verification and validation and starts right after the end of the Design document because the code is implementing the design mentioned in the Design document. It took 187 hours, because in this activity we are implementing our sofwtare.
+Then we have the coding, which is an activity running in parallel with the design document verification and validation and starts right after the end of the Design document because the code is implementing the design mentioned in the Design document. It took 168 hours, because in this activity we are implementing our sofwtare.
 
 When the coding starts, we have Unit test activity which is running in parallel with coding. Unit test takes parts of the code individually, and tests them. We need to test the whole code, that's why Unit test activity ends with the coding activity. Unit test takes 80 hours.
 
