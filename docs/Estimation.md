@@ -7,13 +7,8 @@ Date: 03/05/2020
 Version: 1.4
 
 # Contents
-- [Project Estimation](#project-estimation)
-- [Contents](#contents)
 - [Estimate by product decomposition](#estimate-by-product-decomposition)
-    - [](#)
 - [Estimate by activity decomposition](#estimate-by-activity-decomposition)
-    - [](#-1)
-    - [Gantt chart](#gantt-chart)
 
 
 
