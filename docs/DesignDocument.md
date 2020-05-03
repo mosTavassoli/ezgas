@@ -220,9 +220,6 @@ Contains Service classes that implement the Service Interfaces in the Service pa
 
 # Low level design
 
-<Based on the official requirements and on the Spring Boot design guidelines, define the required classes (UML class diagram) of the back-end in the proper packages described in the high-level design section.>
-
-
 
 ```plantuml
 @startuml
@@ -449,7 +446,6 @@ package "it.polito.ezgas.repository" {
 
 # Verification traceability matrix
 
-\<for each functional requirement from the requirement document, list which classes concur to implement it>
 
 |       | UserController | GasStationController | HomeController | UserService | GasStationService | UserRepository | GasStationRepository | PriceReportRepository | User          | GasStation |  PriceReport  | UserConverter | GasStationConverter  | PriceReportConverter | UserDto         | GasStationDto      | PriceReportDto | LoginDto | IdPw |
 | :---: |:--------------:| :-------------:      | :---------: |:-------------:    | :-----:        | :-------------:      |:-------------:| :-----:    | :-------------: |:-------------:| :-----:            | :-------------: |:-------------:| :-----:              | :-------------: |:------------------:| :---:|:---:|:---:|
@@ -475,7 +471,7 @@ package "it.polito.ezgas.repository" {
 | FR5.3 |X|X| |X|X|X|X|X|X|X|X|X|X|X|X|X|X| | | 
 
 # Verification sequence diagrams 
-\<select key scenarios from the requirement document. For each of them define a sequence diagram showing that the scenario can be implemented by the classes and methods in the design>
+
 
 ## Sequence diagram for use case 1
 ```plantuml
