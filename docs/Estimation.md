@@ -38,33 +38,33 @@ Version: 1.4
 |         Activity name    | Estimated effort (person hours)   |             
 | ----------- | ------------------------------- | 
 |**Requirements Planning** | |
-|Perform workflow analysis | 8|
-|Model process | 4|
-|Identify user requirements | 24|
-|Identify performance requirements | 3|
-|Identify interface requirements |6|
-|Design GUI | 64|
-|Prepare software requirements specification | 32|
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Perform workflow analysis | 8|
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Model process | 4|
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Identify user requirements | 24|
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Identify performance requirements | 3|
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Identify interface requirements |6|
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Design GUI | 64|
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Prepare software requirements specification | 32|
 |**Requirements V&V**| |
-|Requirements inspection | 16|
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Requirements inspection | 16|
 |**Design document**| |
-|Analysis | 50|
-|Formalization| 15|
-|Verification | 10|
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Analysis | 50|
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Formalization| 15|
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Verification | 10|
 |**Design document V&V**| |
-|Design document inspection |16|
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Design document inspection |16|
 |**Coding**| |
-|Implement the code| 168|
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Implement the code| 168|
 |**Documentation**| |
-|Explain design document and code | 10|
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Explain design document and code | 10|
 |**System test**| |
-|Test all units of application| 54|
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Test all units of application| 54|
 |**Test plan**| |
-|Prepare testing process | 16|
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Prepare testing process | 16|
 |**Unit test**| |
-|Test each unit of the software| 80 |
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Test each unit of the software| 80 |
 |**Integration test**| |
-|Combine individual units and test them as a group| 52 |
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Combine individual units and test them as a group| 52 |
 
 
 
