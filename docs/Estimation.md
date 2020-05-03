@@ -4,16 +4,16 @@ Authors: Mehdi Khrichfa, Alessandro Ricciuto, Toni Saliba, Mostafa Tavassoli
 
 Date: 03/05/2020
 
-Version: 1.3
+Version: 1.4
 
 # Contents
-
 - [Project Estimation](#project-estimation)
 - [Contents](#contents)
 - [Estimate by product decomposition](#estimate-by-product-decomposition)
     - [](#)
 - [Estimate by activity decomposition](#estimate-by-activity-decomposition)
     - [](#-1)
+    - [Gantt chart](#gantt-chart)
 
 
 
@@ -74,8 +74,7 @@ Version: 1.3
 
 
 
-###
-Gantt chart
+### Gantt chart
 ```plantuml
 
 printscale daily
