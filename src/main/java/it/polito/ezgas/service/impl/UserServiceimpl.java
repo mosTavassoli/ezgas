@@ -52,7 +52,7 @@ public class UserServiceimpl implements UserService {
 		return true;
 	}
 
-	public static String generateNewToken() {
+	public String generateNewToken() {
 		SecureRandom secureRandom = new SecureRandom();
 		Base64.Encoder base64Encoder = Base64.getUrlEncoder();
 	    byte[] randomBytes = new byte[24];
