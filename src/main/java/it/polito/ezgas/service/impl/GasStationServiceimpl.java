@@ -32,14 +32,15 @@ public class GasStationServiceimpl implements GasStationService {
 
 	@Override
 	public GasStationDto getGasStationById(Integer gasStationId) throws InvalidGasStationException {
+		logger.log(Level.INFO, "GET - gas station with ID = " + gasStationId);
 		GasStation gasStation = gasStationRepository.findOne(gasStationId);
 		return GasStationConverter.toDto(gasStation);
 	}
 
 	@Override
 	public GasStationDto saveGasStation(GasStationDto gasStationDto) throws PriceException, GPSDataException {
-		logger.log(Level.INFO, "POST - save gas station " + gasStationDto.getGasStationId());
 		GasStation gasStation = gasStationRepository.save(GasStationConverter.toEntity(gasStationDto));
+		logger.log(Level.INFO, "POST - saved gas station with ID = " + gasStation.getGasStationId());
 		return GasStationConverter.toDto(gasStation);
 	}
 
