@@ -1,5 +1,7 @@
 package it.polito.ezgas.service.impl;
 
+import java.security.SecureRandom;
+import java.util.Base64;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,15 +28,16 @@ public class UserServiceimpl implements UserService {
 	
 	@Override
 	public UserDto getUserById(Integer userId) throws InvalidUserException {
-		// TODO Auto-generated method stub
-		return null;
+		UserDto userDto;
+		userDto = UserConverter.toDto(userRepository.findByUserId(userId));
+		return userDto;
 	}
 
 	@Override
 	public UserDto saveUser(UserDto userDto) {
 		User user = UserConverter.toEntity(userDto);
 		userRepository.save(user);
-		return null;
+		return userDto;
 	}
 
 	@Override
@@ -45,26 +48,50 @@ public class UserServiceimpl implements UserService {
 
 	@Override
 	public Boolean deleteUser(Integer userId) throws InvalidUserException {
-		// TODO Auto-generated method stub
-		return null;
+		userRepository.delete(userId);
+		return true;
 	}
 
+	public String generateNewToken() {
+		SecureRandom secureRandom = new SecureRandom();
+		Base64.Encoder base64Encoder = Base64.getUrlEncoder();
+	    byte[] randomBytes = new byte[24];
+	    secureRandom.nextBytes(randomBytes);
+	    return base64Encoder.encodeToString(randomBytes);
+	}
+	
 	@Override
 	public LoginDto login(IdPw credentials) throws InvalidLoginDataException {
-		// TODO Auto-generated method stub
-		return null;
+		LoginDto loginDto;
+		User user = userRepository.findByEmail(credentials.getUser());
+		if(user.getPassword().equals(credentials.getPw())) {
+			 loginDto= UserConverter.toLoginDto(user);
+			 loginDto.setToken(generateNewToken());
+			 return loginDto;
+		}
+		throw new InvalidLoginDataException("Invalid email or password!");
 	}
 
 	@Override
 	public Integer increaseUserReputation(Integer userId) throws InvalidUserException {
-		// TODO Auto-generated method stub
-		return null;
+		UserDto user = getUserById(userId);
+		Integer rep = user.getReputation();
+		if (rep <5) {
+			user.setReputation(rep + 1);
+			user = saveUser(user);
+		}
+		return user.getReputation();
 	}
 
 	@Override
 	public Integer decreaseUserReputation(Integer userId) throws InvalidUserException {
-		// TODO Auto-generated method stub
-		return null;
+		UserDto user = getUserById(userId);
+		Integer rep = user.getReputation();
+		if (rep >-5) {
+			user.setReputation(rep - 1);
+			user = saveUser(user);
+		}
+		return user.getReputation();
 	}
 	
 }
