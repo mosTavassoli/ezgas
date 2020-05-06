@@ -26,15 +26,16 @@ public class UserServiceimpl implements UserService {
 	
 	@Override
 	public UserDto getUserById(Integer userId) throws InvalidUserException {
-		// TODO Auto-generated method stub
-		return null;
+		UserDto userDto;
+		userDto = UserConverter.toDto(userRepository.findOne(userId));
+		return userDto;
 	}
 
 	@Override
 	public UserDto saveUser(UserDto userDto) {
 		User user = UserConverter.toEntity(userDto);
 		userRepository.save(user);
-		return null;
+		return userDto;
 	}
 
 	@Override
@@ -45,8 +46,8 @@ public class UserServiceimpl implements UserService {
 
 	@Override
 	public Boolean deleteUser(Integer userId) throws InvalidUserException {
-		// TODO Auto-generated method stub
-		return null;
+		userRepository.delete(userId);
+		return true;
 	}
 
 	@Override
