@@ -51,12 +51,10 @@ public class UserServiceimpl implements UserService {
 		userRepository.delete(userId);
 		return true;
 	}
-	
-	
-	private static final SecureRandom secureRandom = new SecureRandom();
-	private static final Base64.Encoder base64Encoder = Base64.getUrlEncoder();
 
 	public static String generateNewToken() {
+		SecureRandom secureRandom = new SecureRandom();
+		Base64.Encoder base64Encoder = Base64.getUrlEncoder();
 	    byte[] randomBytes = new byte[24];
 	    secureRandom.nextBytes(randomBytes);
 	    return base64Encoder.encodeToString(randomBytes);
