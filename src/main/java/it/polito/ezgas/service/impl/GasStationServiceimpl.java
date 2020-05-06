@@ -1,5 +1,6 @@
 package it.polito.ezgas.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +32,8 @@ public class GasStationServiceimpl implements GasStationService {
 
 	@Override
 	public GasStationDto getGasStationById(Integer gasStationId) throws InvalidGasStationException {
-		// TODO Auto-generated method stub
-		return null;
+		GasStation gasStation = gasStationRepository.findOne(gasStationId);
+		return GasStationConverter.toDto(gasStation);
 	}
 
 	@Override
@@ -57,7 +58,12 @@ public class GasStationServiceimpl implements GasStationService {
 
 	@Override
 	public List<GasStationDto> getGasStationsByGasolineType(String gasolinetype) throws InvalidGasTypeException {
-		// TODO Auto-generated method stub
+//		List<GasStation> gasStations = new ArrayList<GasStation>();
+//		if(gasolinetype != null) {
+//			if(gasolinetype.equals("methane"))
+//				gasStations = gasStationRepository.getGasStationHasMethane();
+//		}
+//		return GasStationConverter.toDto(gasStations);
 		return null;
 	}
 
