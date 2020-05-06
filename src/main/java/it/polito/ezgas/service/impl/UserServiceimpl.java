@@ -61,11 +61,16 @@ public class UserServiceimpl implements UserService {
 	    secureRandom.nextBytes(randomBytes);
 	    return base64Encoder.encodeToString(randomBytes);
 	}
+	
 	@Override
 	public LoginDto login(IdPw credentials) throws InvalidLoginDataException {
+		LoginDto loginDto;
 		User user = userRepository.findByEmail(credentials.getUser());
-		if(user.getPassword().equals(credentials.getPw()))
-			return UserConverter.toLoginDto(user);
+		if(user.getPassword().equals(credentials.getPw())) {
+			 loginDto= UserConverter.toLoginDto(user);
+			 loginDto.setToken(generateNewToken());
+			 return loginDto;
+		}
 		throw new InvalidLoginDataException("Invalid email or password!");
 	}
 
