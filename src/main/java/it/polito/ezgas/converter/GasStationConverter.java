@@ -71,6 +71,11 @@ public class GasStationConverter {
 		entity.setReportTimestamp(dto.getReportTimestamp());
 		entity.setReportDependability(dto.getReportDependability());
 		
+		//TODO
+		/*
+		 * PRICE REPORT
+		 */
+		
 		return entity;
 	}
 
