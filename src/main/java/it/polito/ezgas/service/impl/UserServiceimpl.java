@@ -27,7 +27,7 @@ public class UserServiceimpl implements UserService {
 	@Override
 	public UserDto getUserById(Integer userId) throws InvalidUserException {
 		UserDto userDto;
-		userDto = UserConverter.toDto(userRepository.findOne(userId));
+		userDto = UserConverter.toDto(userRepository.findByUserId(userId));
 		return userDto;
 	}
 
@@ -52,22 +52,11 @@ public class UserServiceimpl implements UserService {
 
 	@Override
 	public LoginDto login(IdPw credentials) throws InvalidLoginDataException {
-		// TODO Auto-generated method stub
-		List<UserDto> arr = getAllUsers();
-		for(int i=0; i<arr.size(); i++) {
-			if(arr.get(i).getEmail() == credentials.getUser() && arr.get(i).getPassword()==credentials.getPw()) {
-				LoginDto ld = new LoginDto(
-						arr.get(i).getUserId(),
-						arr.get(i).getUserName(),
-						"a token",//TODO:token where do i get the token from ?
-						arr.get(i).getEmail(),
-						arr.get(i).getReputation()
-						);
-				ld.setAdmin(arr.get(i).getAdmin());
-				return ld;
-			}
-		}
-		return null; //TODO change null maybe ?
+		User user = userRepository.findByEmail(credentials.getUser());
+		if(user.getPassword().equals(credentials.getPw()))
+			return UserConverter.toLoginDto(user);
+		System.out.println("Bruh moment!");
+		throw new InvalidLoginDataException("Invalid email or password!");
 	}
 
 	@Override

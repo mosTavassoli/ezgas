@@ -3,13 +3,14 @@ package it.polito.ezgas.converter;
 import java.util.LinkedList;
 import java.util.List;
 
+import it.polito.ezgas.dto.LoginDto;
 import it.polito.ezgas.dto.UserDto;
 import it.polito.ezgas.entity.User;
 
 public class UserConverter {
 	public static User toEntity(UserDto userDto) {
 		User user;
-		user = new User(userDto.getUserName(),userDto.getEmail(),userDto.getPassword(),0);
+		user = new User(userDto.getUserName(),userDto.getPassword(),userDto.getEmail(),0);
 		return user;
 	}
 	
@@ -25,6 +26,11 @@ public class UserConverter {
 		UserDto userDto; 
 		userDto = new UserDto(user.getUserId(),user.getUserName(),user.getPassword(),user.getEmail(),user.getReputation(),user.getAdmin());
 		return userDto;
+	}
+
+	public static LoginDto toLoginDto(User user) {
+		LoginDto loginDto = new LoginDto(user.getUserId(),user.getUserName(),"token",user.getEmail(),user.getReputation());
+		return loginDto;
 	}
 	
 	
