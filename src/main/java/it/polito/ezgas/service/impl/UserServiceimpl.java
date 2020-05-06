@@ -1,5 +1,7 @@
 package it.polito.ezgas.service.impl;
 
+import java.security.SecureRandom;
+import java.util.Base64;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,19 +51,26 @@ public class UserServiceimpl implements UserService {
 		userRepository.delete(userId);
 		return true;
 	}
+	
+	
+	private static final SecureRandom secureRandom = new SecureRandom();
+	private static final Base64.Encoder base64Encoder = Base64.getUrlEncoder();
 
+	public static String generateNewToken() {
+	    byte[] randomBytes = new byte[24];
+	    secureRandom.nextBytes(randomBytes);
+	    return base64Encoder.encodeToString(randomBytes);
+	}
 	@Override
 	public LoginDto login(IdPw credentials) throws InvalidLoginDataException {
 		User user = userRepository.findByEmail(credentials.getUser());
 		if(user.getPassword().equals(credentials.getPw()))
 			return UserConverter.toLoginDto(user);
-		System.out.println("Bruh moment!");
 		throw new InvalidLoginDataException("Invalid email or password!");
 	}
 
 	@Override
 	public Integer increaseUserReputation(Integer userId) throws InvalidUserException {
-		// TODO Auto-generated method stub
 		UserDto user = getUserById(userId);
 		Integer rep = user.getReputation();
 		if (rep <5) {
@@ -73,7 +82,6 @@ public class UserServiceimpl implements UserService {
 
 	@Override
 	public Integer decreaseUserReputation(Integer userId) throws InvalidUserException {
-		// TODO Auto-generated method stub
 		UserDto user = getUserById(userId);
 		Integer rep = user.getReputation();
 		if (rep >-5) {
