@@ -39,8 +39,8 @@ public class UserServiceimpl implements UserService {
 
 	@Override
 	public List<UserDto> getAllUsers() {
-		// TODO Auto-generated method stub
-		return null;
+		List<UserDto> list = UserConverter.toDto(userRepository.findAll());
+		return list;
 	}
 
 	@Override
