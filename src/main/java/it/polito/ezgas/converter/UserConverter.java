@@ -20,4 +20,12 @@ public class UserConverter {
 		}
 		return userDtoList;
 	}
+	
+	public static UserDto toDto(User user) {
+		UserDto userDto; 
+		userDto = new UserDto(user.getUserId(),user.getUserName(),user.getPassword(),user.getEmail(),user.getReputation(),user.getAdmin());
+		return userDto;
+	}
+	
+	
 }
