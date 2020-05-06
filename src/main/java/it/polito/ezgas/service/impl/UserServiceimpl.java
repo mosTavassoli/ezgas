@@ -1,5 +1,7 @@
 package it.polito.ezgas.service.impl;
 
+import java.security.SecureRandom;
+import java.util.Base64;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,17 +51,25 @@ public class UserServiceimpl implements UserService {
 		userRepository.delete(userId);
 		return true;
 	}
+	
+	
+	private static final SecureRandom secureRandom = new SecureRandom();
+	private static final Base64.Encoder base64Encoder = Base64.getUrlEncoder();
 
+	public static String generateNewToken() {
+	    byte[] randomBytes = new byte[24];
+	    secureRandom.nextBytes(randomBytes);
+	    return base64Encoder.encodeToString(randomBytes);
+	}
 	@Override
 	public LoginDto login(IdPw credentials) throws InvalidLoginDataException {
-		// TODO Auto-generated method stub
 		List<UserDto> arr = getAllUsers();
 		for(int i=0; i<arr.size(); i++) {
 			if(arr.get(i).getEmail() == credentials.getUser() && arr.get(i).getPassword()==credentials.getPw()) {
 				LoginDto ld = new LoginDto(
 						arr.get(i).getUserId(),
 						arr.get(i).getUserName(),
-						"a token",//TODO:token where do i get the token from ?
+						generateNewToken(),
 						arr.get(i).getEmail(),
 						arr.get(i).getReputation()
 						);
@@ -72,7 +82,6 @@ public class UserServiceimpl implements UserService {
 
 	@Override
 	public Integer increaseUserReputation(Integer userId) throws InvalidUserException {
-		// TODO Auto-generated method stub
 		UserDto user = getUserById(userId);
 		Integer rep = user.getReputation();
 		if (rep <5) {
@@ -84,7 +93,6 @@ public class UserServiceimpl implements UserService {
 
 	@Override
 	public Integer decreaseUserReputation(Integer userId) throws InvalidUserException {
-		// TODO Auto-generated method stub
 		UserDto user = getUserById(userId);
 		Integer rep = user.getReputation();
 		if (rep >-5) {
