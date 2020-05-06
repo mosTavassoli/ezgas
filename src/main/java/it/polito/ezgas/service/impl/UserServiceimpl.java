@@ -52,19 +52,45 @@ public class UserServiceimpl implements UserService {
 	@Override
 	public LoginDto login(IdPw credentials) throws InvalidLoginDataException {
 		// TODO Auto-generated method stub
-		return null;
+		List<UserDto> arr = getAllUsers();
+		for(int i=0; i<arr.size(); i++) {
+			if(arr.get(i).getEmail() == credentials.getUser() && arr.get(i).getPassword()==credentials.getPw()) {
+				LoginDto ld = new LoginDto(
+						arr.get(i).getUserId(),
+						arr.get(i).getUserName(),
+						"a token",//TODO:token where do i get the token from ?
+						arr.get(i).getEmail(),
+						arr.get(i).getReputation()
+						);
+				ld.setAdmin(arr.get(i).getAdmin());
+				return ld;
+			}
+		}
+		return null; //TODO change null maybe ?
 	}
 
 	@Override
 	public Integer increaseUserReputation(Integer userId) throws InvalidUserException {
 		// TODO Auto-generated method stub
-		return null;
+		UserDto user = getUserById(userId);
+		Integer rep = user.getReputation();
+		if (rep <5) {
+			user.setReputation(rep + 1);
+			user = saveUser(user);
+		}
+		return user.getReputation();
 	}
 
 	@Override
 	public Integer decreaseUserReputation(Integer userId) throws InvalidUserException {
 		// TODO Auto-generated method stub
-		return null;
+		UserDto user = getUserById(userId);
+		Integer rep = user.getReputation();
+		if (rep >-5) {
+			user.setReputation(rep - 1);
+			user = saveUser(user);
+		}
+		return user.getReputation();
 	}
 	
 }
