@@ -82,40 +82,47 @@ public class GasStationServiceimpl implements GasStationService {
 
 	@Override
 	public List<GasStationDto> getGasStationsByProximity(double lat, double lon) throws GPSDataException {
-		List<GasStation> gasStations = gasStationRepository.findGasStationByProximity(lat, lon);
+		List<GasStation> gasStations = gasStationRepository.findGasStationByLatAndLon(lat, lon);
 		return GasStationConverter.toDto(gasStations);
 	}
 
 	@Override
 	public List<GasStationDto> getGasStationsWithCoordinates(double lat, double lon, String gasolinetype,
 			String carsharing) throws InvalidGasTypeException, GPSDataException {
-//		List<GasStation> gasStations = gasStationRepository.findGasStationWithCoordinates(lat, lon, gasoli);
-//		return GasStationConverter.toDto(gasStations);
+		/*
+		 * TODO Mostafa
+		 */
 		return null;
 	}
 
 	@Override
 	public List<GasStationDto> getGasStationsWithoutCoordinates(String gasolinetype, String carsharing)
 			throws InvalidGasTypeException {
-//		List<GasStationDto> gasStationsByGasolineType = getGasStationsByGasolineType(gasolinetype);
-//		List<GasStationDto> gasStationsByCarSharing = getGasStationByCarSharing(carsharing);
-//		List<GasStationDto> gasStations = new ArrayList<GasStationDto>();
-//		
-//		if(gasStationsByGasolineType != null && 
-//				!gasStationsByGasolineType.isEmpty() &&
-//				gasStationsByCarSharing != null &&
-//				!gasStationsByCarSharing.isEmpty()) {
-//			
-//			gasStations = gasStationsByGasolineType.stream()
-//					.filter(gs -> gasStationsByCarSharing.stream()
-//									.map(e -> e.getGasStationId())
-//									.collect(toList())
-//									.contains(gs.getGasStationId()))
-//					.collect(toList());
-//					
-//		}
-//		return gasStations;
-		return null;
+		/**
+		 * ISSUE:
+		 * 
+		 * getGasStationsWithoutCoordinates not mapped in GasStationConverter.
+		 * It could not be called.
+		 * 
+		 */
+		List<GasStationDto> gasStationsByGasolineType = getGasStationsByGasolineType(gasolinetype);
+		List<GasStationDto> gasStationsByCarSharing = getGasStationByCarSharing(carsharing);
+		List<GasStationDto> gasStations = new ArrayList<GasStationDto>();
+		
+		if(gasStationsByGasolineType != null && 
+				!gasStationsByGasolineType.isEmpty() &&
+				gasStationsByCarSharing != null &&
+				!gasStationsByCarSharing.isEmpty()) {
+			
+			gasStations = gasStationsByGasolineType.stream()
+					.filter(gs -> gasStationsByCarSharing.stream()
+									.map(e -> e.getGasStationId())
+									.collect(toList())
+									.contains(gs.getGasStationId()))
+					.collect(toList());
+					
+		}
+		return gasStations;
 	}
 
 	@Override
@@ -123,7 +130,6 @@ public class GasStationServiceimpl implements GasStationService {
 			double gasPrice, double methanePrice, Integer userId)
 			throws InvalidGasStationException, PriceException, InvalidUserException {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
