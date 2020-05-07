@@ -74,24 +74,24 @@ public class UserServiceimpl implements UserService {
 
 	@Override
 	public Integer increaseUserReputation(Integer userId) throws InvalidUserException {
-		UserDto user = getUserById(userId);
-		Integer rep = user.getReputation();
-		if (rep <5) {
-			user.setReputation(rep + 1);
-			user = saveUser(user);
+		UserDto userDto = getUserById(userId);
+		Integer reputation = userDto.getReputation();
+		if (reputation <5) {
+			userDto.setReputation(reputation + 1);
+			userDto = saveUser(userDto);
 		}
-		return user.getReputation();
+		return userDto.getReputation();
 	}
 
 	@Override
 	public Integer decreaseUserReputation(Integer userId) throws InvalidUserException {
-		UserDto user = getUserById(userId);
-		Integer rep = user.getReputation();
-		if (rep >-5) {
-			user.setReputation(rep - 1);
-			user = saveUser(user);
+		UserDto userDto = getUserById(userId);
+		Integer reputation = userDto.getReputation();
+		if (reputation >-5) {
+			userDto.setReputation(reputation - 1);
+			userDto = saveUser(userDto);
 		}
-		return user.getReputation();
+		return userDto.getReputation();
 	}
 	
 }
