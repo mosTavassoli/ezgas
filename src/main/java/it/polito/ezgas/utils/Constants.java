@@ -18,5 +18,11 @@ public interface Constants {
 	static final String SET_GASSTATION_REPORT = "/setGasStationReport/{gasStationId}/{dieselPrice}/{superPrice}/{superPlusPrice}/{gasPrice}/{methanePrice}/{userId}";
 	static final String GET_GASSTATIONS_WITH_COORDINATES = "/getGasStationsWithCoordinates/{myLat}/{myLon}/{gasolineType}/{carSharing}";
 	static final String GET_GASSTATIONS_WITHOUT_COORDINATES = "/getGasStationsWithoutCoordinates/{gasolineType}/{carSharing}";
+	
+    static final String METHANE = "methane";
+    static final String SUPER = "gasoline";
+    static final String GAS = "lpg";
+    static final String SUPER_PLUS = "premium gasoline";
+    static final String DIESEL = "diesel";
 
 }

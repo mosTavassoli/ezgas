@@ -16,6 +16,7 @@ import it.polito.ezgas.dto.GasStationDto;
 import it.polito.ezgas.entity.GasStation;
 import it.polito.ezgas.repository.GasStationRepository;
 import it.polito.ezgas.service.GasStationService;
+import it.polito.ezgas.utils.Constants;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -53,25 +54,34 @@ public class GasStationServiceimpl implements GasStationService {
 
 	@Override
 	public Boolean deleteGasStation(Integer gasStationId) throws InvalidGasStationException {
-		// TODO Auto-generated method stub
-		return null;
+		logger.log(Level.INFO, "DELETE - remove gas station with ID = " + gasStationId);
+		gasStationRepository.delete(gasStationId);
+		return true;
 	}
 
 	@Override
 	public List<GasStationDto> getGasStationsByGasolineType(String gasolinetype) throws InvalidGasTypeException {
-//		List<GasStation> gasStations = new ArrayList<GasStation>();
-//		if(gasolinetype != null) {
-//			if(gasolinetype.equals("methane"))
-//				gasStations = gasStationRepository.getGasStationHasMethane();
-//		}
-//		return GasStationConverter.toDto(gasStations);
-		return null;
+		logger.log(Level.INFO, "GET - gas stations with gasolinetype = " + gasolinetype);
+		List<GasStation> gasStations = new ArrayList<GasStation>();
+		if(gasolinetype != null) {
+			if(gasolinetype.toLowerCase().equals(Constants.METHANE))
+				gasStations = gasStationRepository.findGasStationByHasMethane(true);
+			else if(gasolinetype.toLowerCase().equals(Constants.DIESEL))
+				gasStations = gasStationRepository.findGasStationByHasGas(true);
+			else if(gasolinetype.toLowerCase().equals(Constants.SUPER))
+				gasStations = gasStationRepository.findGasStationByHasSuper(true);
+			else if(gasolinetype.toLowerCase().equals(Constants.SUPER_PLUS))
+				gasStations = gasStationRepository.findGasStationByHasSuperPlus(true);
+			else if(gasolinetype.toLowerCase().equals(Constants.GAS))
+				gasStations = gasStationRepository.findGasStationByHasDiesel(true);
+		}
+		return GasStationConverter.toDto(gasStations);
 	}
 
 	@Override
 	public List<GasStationDto> getGasStationsByProximity(double lat, double lon) throws GPSDataException {
-		// TODO Auto-generated method stub
-		return null;
+		List<GasStation> gasStations = gasStationRepository.findGasStationByLatAndLon(lat, lon);
+		return GasStationConverter.toDto(gasStations);
 	}
 
 	@Override

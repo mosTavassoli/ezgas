@@ -11,6 +11,18 @@ import it.polito.ezgas.entity.GasStation;
 @Repository
 public interface GasStationRepository extends JpaRepository<GasStation,Integer>{
 	
-//	@Query("SELECT gs FROM GasStation gs WHERE gs.hasMethane = 1")
-//	public List<GasStation> getGasStationHasMethane();
+	public List<GasStation> findGasStationByHasMethane(boolean hasMethane);
+	
+	public List<GasStation> findGasStationByHasGas(boolean hasGas);
+	
+	public List<GasStation> findGasStationByHasSuper(boolean hasSuper);
+	
+	public List<GasStation> findGasStationByHasSuperPlus(boolean hasSuperPlus);
+	
+	public List<GasStation> findGasStationByHasDiesel(boolean hasDiesel);
+	
+	@Query("SELECT gs FROM GasStation gs WHERE gs.lat = ?1 AND gs.lon = ?2")
+	public List<GasStation> findGasStationByLatAndLon(double lat, double lon);
+	
+	
 }
