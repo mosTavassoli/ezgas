@@ -29,7 +29,7 @@ public class UserConverter {
 	}
 
 	public static LoginDto toLoginDto(User user) {
-		LoginDto loginDto = new LoginDto(user.getUserId(),user.getUserName(),"token",user.getEmail(),user.getReputation());
+		LoginDto loginDto = new LoginDto(user.getUserId(),user.getUserName(),"",user.getEmail(),user.getReputation());
 		return loginDto;
 	}
 	

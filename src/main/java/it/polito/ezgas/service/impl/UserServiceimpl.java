@@ -26,10 +26,14 @@ public class UserServiceimpl implements UserService {
 	@Autowired
 	UserRepository userRepository;
 	
+	private final int reputationLowerBound=-5;
+	private final int reputationUpperBound=5;
+	
 	@Override
 	public UserDto getUserById(Integer userId) throws InvalidUserException {
 		UserDto userDto;
-		userDto = UserConverter.toDto(userRepository.findByUserId(userId));
+		User user = userRepository.findByUserId(userId);
+		userDto = UserConverter.toDto(user);
 		return userDto;
 	}
 
@@ -48,8 +52,10 @@ public class UserServiceimpl implements UserService {
 
 	@Override
 	public Boolean deleteUser(Integer userId) throws InvalidUserException {
-		userRepository.delete(userId);
-		return true;
+		if(userRepository.existsByUserId(userId)) {
+			userRepository.delete(userId);
+		}
+		throw new InvalidUserException("No user found!");
 	}
 
 	public String generateNewToken() {
@@ -71,9 +77,10 @@ public class UserServiceimpl implements UserService {
 		}
 		throw new InvalidLoginDataException("Invalid email or password!");
 	}
-
+	
 	@Override
 	public Integer increaseUserReputation(Integer userId) throws InvalidUserException {
+<<<<<<< Updated upstream
 		UserDto userDto = getUserById(userId);
 		Integer reputation = userDto.getReputation();
 		if (reputation <5) {
@@ -81,10 +88,14 @@ public class UserServiceimpl implements UserService {
 			userDto = saveUser(userDto);
 		}
 		return userDto.getReputation();
+=======
+		return editUserReputation(userId, +1);
+>>>>>>> Stashed changes
 	}
 
 	@Override
 	public Integer decreaseUserReputation(Integer userId) throws InvalidUserException {
+<<<<<<< Updated upstream
 		UserDto userDto = getUserById(userId);
 		Integer reputation = userDto.getReputation();
 		if (reputation >-5) {
@@ -92,6 +103,19 @@ public class UserServiceimpl implements UserService {
 			userDto = saveUser(userDto);
 		}
 		return userDto.getReputation();
+=======
+		return editUserReputation(userId,-1);
+>>>>>>> Stashed changes
 	}
 	
+	private Integer editUserReputation(Integer userId,Integer modifier) throws InvalidUserException {
+		UserDto userDto = getUserById(userId);
+		Integer reputation = userDto.getReputation();
+		if (reputation+modifier <= reputationUpperBound 
+				&& reputation+modifier >= reputationLowerBound) {
+			userDto.setReputation(reputation + modifier);
+			userDto = saveUser(userDto);
+		}
+		return userDto.getReputation();
+	}
 }
