@@ -21,8 +21,12 @@ public interface GasStationRepository extends JpaRepository<GasStation,Integer>{
 	
 	public List<GasStation> findGasStationByHasDiesel(boolean hasDiesel);
 	
-	@Query("SELECT gs FROM GasStation gs WHERE gs.lat = ?1 AND gs.lon = ?2")
-	public List<GasStation> findGasStationByLatAndLon(double lat, double lon);
+	@Query("SELECT gs "
+			+ "FROM GasStation gs "
+			+ "WHERE gs.lat = ?1 "
+			+ "AND gs.lon = ?2")
+	public List<GasStation> findGasStationByProximity(double lat, double lon);
 	
+	public List<GasStation> findGasStationByCarSharing(String carSharing);
 	
 }

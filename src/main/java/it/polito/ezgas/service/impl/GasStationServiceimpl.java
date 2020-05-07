@@ -21,6 +21,8 @@ import it.polito.ezgas.utils.Constants;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static java.util.stream.Collectors.toList;
+
 /**
  * Created by softeng on 27/4/2020.
  */
@@ -80,21 +82,39 @@ public class GasStationServiceimpl implements GasStationService {
 
 	@Override
 	public List<GasStationDto> getGasStationsByProximity(double lat, double lon) throws GPSDataException {
-		List<GasStation> gasStations = gasStationRepository.findGasStationByLatAndLon(lat, lon);
+		List<GasStation> gasStations = gasStationRepository.findGasStationByProximity(lat, lon);
 		return GasStationConverter.toDto(gasStations);
 	}
 
 	@Override
 	public List<GasStationDto> getGasStationsWithCoordinates(double lat, double lon, String gasolinetype,
 			String carsharing) throws InvalidGasTypeException, GPSDataException {
-		// TODO Auto-generated method stub
+//		List<GasStation> gasStations = gasStationRepository.findGasStationWithCoordinates(lat, lon, gasoli);
+//		return GasStationConverter.toDto(gasStations);
 		return null;
 	}
 
 	@Override
 	public List<GasStationDto> getGasStationsWithoutCoordinates(String gasolinetype, String carsharing)
 			throws InvalidGasTypeException {
-		// TODO Auto-generated method stub
+//		List<GasStationDto> gasStationsByGasolineType = getGasStationsByGasolineType(gasolinetype);
+//		List<GasStationDto> gasStationsByCarSharing = getGasStationByCarSharing(carsharing);
+//		List<GasStationDto> gasStations = new ArrayList<GasStationDto>();
+//		
+//		if(gasStationsByGasolineType != null && 
+//				!gasStationsByGasolineType.isEmpty() &&
+//				gasStationsByCarSharing != null &&
+//				!gasStationsByCarSharing.isEmpty()) {
+//			
+//			gasStations = gasStationsByGasolineType.stream()
+//					.filter(gs -> gasStationsByCarSharing.stream()
+//									.map(e -> e.getGasStationId())
+//									.collect(toList())
+//									.contains(gs.getGasStationId()))
+//					.collect(toList());
+//					
+//		}
+//		return gasStations;
 		return null;
 	}
 
@@ -108,8 +128,8 @@ public class GasStationServiceimpl implements GasStationService {
 
 	@Override
 	public List<GasStationDto> getGasStationByCarSharing(String carSharing) {
-		// TODO Auto-generated method stub
-		return null;
+		List<GasStation> gasStations = gasStationRepository.findGasStationByCarSharing(carSharing);
+		return GasStationConverter.toDto(gasStations);
 	}
 	
 	
