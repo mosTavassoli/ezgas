@@ -78,28 +78,30 @@ public class GasStationServiceimpl implements GasStationService {
 		
 		if(gasStationRepository.exists(gasStationId))
 			gasStationRepository.delete(gasStationId);
-		else return false;
+		else return null;
 		
 		return true;
 	}
 
 	@Override
 	public List<GasStationDto> getGasStationsByGasolineType(String gasolinetype) throws InvalidGasTypeException {
-		logger.log(Level.INFO, "GET - gas stations with gasolinetype = " + gasolinetype);
-		List<GasStation> gasStations = new ArrayList<GasStation>();
-		if(gasolinetype != null) {
-			if(gasolinetype.toLowerCase().equals(Constants.METHANE))
-				gasStations = gasStationRepository.findGasStationByHasMethane(true);
-			else if(gasolinetype.toLowerCase().equals(Constants.DIESEL))
-				gasStations = gasStationRepository.findGasStationByHasGas(true);
-			else if(gasolinetype.toLowerCase().equals(Constants.SUPER))
-				gasStations = gasStationRepository.findGasStationByHasSuper(true);
-			else if(gasolinetype.toLowerCase().equals(Constants.SUPER_PLUS))
-				gasStations = gasStationRepository.findGasStationByHasSuperPlus(true);
-			else if(gasolinetype.toLowerCase().equals(Constants.GAS))
-				gasStations = gasStationRepository.findGasStationByHasDiesel(true);
+		logger.log(Level.INFO, "getGasStationsByGasolineType - gasolinetype = " + gasolinetype);
+		
+		switch(gasolinetype.toLowerCase()){
+			case Constants.DIESEL:
+				return GasStationConverter.toDto(gasStationRepository.findGasStationByHasDiesel(true));
+			case Constants.SUPER:
+				return GasStationConverter.toDto(gasStationRepository.findGasStationByHasSuper(true));
+			case Constants.SUPER_PLUS:
+				return GasStationConverter.toDto(gasStationRepository.findGasStationByHasSuperPlus(true));
+			case Constants.GAS:
+				return GasStationConverter.toDto(gasStationRepository.findGasStationByHasGas(true));
+			case Constants.METHANE:
+				return GasStationConverter.toDto(gasStationRepository.findGasStationByHasMethane(true));
+			default:
+				throw new InvalidGasTypeException("InvalidGasTypeException: gasolinetype = " + gasolinetype);
 		}
-		return GasStationConverter.toDto(gasStations);
+		
 	}
 
 	@Override
