@@ -90,13 +90,13 @@ public class GasStationServiceimpl implements GasStationService {
 		if(gasolinetype != null) {
 			if(gasolinetype.toLowerCase().equals(Constants.METHANE))
 				gasStations = gasStationRepository.findGasStationByHasMethane(true);
-			else if(gasolinetype.toLowerCase().equals(Constants.DIESEL))
+			else if(gasolinetype.toLowerCase().equals(Constants.GAS))
 				gasStations = gasStationRepository.findGasStationByHasGas(true);
 			else if(gasolinetype.toLowerCase().equals(Constants.SUPER))
 				gasStations = gasStationRepository.findGasStationByHasSuper(true);
 			else if(gasolinetype.toLowerCase().equals(Constants.SUPER_PLUS))
 				gasStations = gasStationRepository.findGasStationByHasSuperPlus(true);
-			else if(gasolinetype.toLowerCase().equals(Constants.GAS))
+			else if(gasolinetype.toLowerCase().equals(Constants.DIESEL))
 				gasStations = gasStationRepository.findGasStationByHasDiesel(true);
 		}
 		return GasStationConverter.toDto(gasStations);
