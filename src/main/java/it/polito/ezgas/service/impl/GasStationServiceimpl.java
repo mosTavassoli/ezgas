@@ -89,10 +89,30 @@ public class GasStationServiceimpl implements GasStationService {
 	@Override
 	public List<GasStationDto> getGasStationsWithCoordinates(double lat, double lon, String gasolinetype,
 			String carsharing) throws InvalidGasTypeException, GPSDataException {
-		/*
-		 * TODO Mostafa
-		 */
-		return null;
+		
+		List<GasStationDto> gasStationsByProximity = getGasStationsByProximity(lat, lon);
+		List<GasStationDto> gasStationsByGasolineType = getGasStationsByGasolineType(gasolinetype);
+		List<GasStationDto> gasStationsByCarSharing = getGasStationByCarSharing(carsharing);
+		List<GasStationDto> gasStations = new ArrayList<GasStationDto>();
+		
+		
+		if(gasStationsByGasolineType != null && 
+				!gasStationsByGasolineType.isEmpty() &&
+				gasStationsByCarSharing != null &&
+				!gasStationsByCarSharing.isEmpty()) {
+			
+			gasStations = gasStationsByGasolineType.stream()
+					.filter(gs -> gasStationsByCarSharing.stream()
+									.map(e -> e.getGasStationId())
+									.collect(toList())
+									.contains(gs.getGasStationId()))
+					.filter(gs -> gasStationsByProximity.stream()
+									.map(e -> e.getGasStationId())
+									.collect(toList())
+									.contains(gs.getGasStationId()))
+					.collect(toList());		
+		}
+	return gasStations;
 	}
 
 	@Override
