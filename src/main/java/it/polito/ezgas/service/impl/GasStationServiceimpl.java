@@ -34,10 +34,15 @@ public class GasStationServiceimpl implements GasStationService {
 	Logger logger = Logger.getLogger(GasStationServiceimpl.class.getName());
 
 	@Override
-	public GasStationDto getGasStationById(Integer gasStationId) throws InvalidGasStationException {
-		logger.log(Level.INFO, "GET - gas station with ID = " + gasStationId);
-		GasStation gasStation = gasStationRepository.findOne(gasStationId);
-		return GasStationConverter.toDto(gasStation);
+	public GasStationDto getGasStationById(Integer gasStationId) throws InvalidGasStationException {	
+		if(gasStationId < 0)
+			throw new InvalidGasStationException("InvalidGasStationException: gasStationId = " + gasStationId);
+		
+		logger.log(Level.INFO, "getGasStationById - gasStationId = " + gasStationId);
+		if(gasStationRepository.exists(gasStationId))
+			return GasStationConverter.toDto(
+					gasStationRepository.findOne(gasStationId));
+		else return null;
 	}
 
 	@Override
