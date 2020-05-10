@@ -13,9 +13,11 @@ import exception.InvalidUserException;
 import exception.PriceException;
 import it.polito.ezgas.converter.GasStationConverter;
 import it.polito.ezgas.dto.GasStationDto;
+import it.polito.ezgas.dto.UserDto;
 import it.polito.ezgas.entity.GasStation;
 import it.polito.ezgas.repository.GasStationRepository;
 import it.polito.ezgas.service.GasStationService;
+import it.polito.ezgas.service.UserService;
 import it.polito.ezgas.utils.Constants;
 
 import java.util.logging.Level;
@@ -31,6 +33,9 @@ public class GasStationServiceimpl implements GasStationService {
 	
 	@Autowired
 	GasStationRepository gasStationRepository;
+	@Autowired
+	UserService userService;
+	
 	Logger logger = Logger.getLogger(GasStationServiceimpl.class.getName());
 
 	@Override
@@ -187,7 +192,22 @@ public class GasStationServiceimpl implements GasStationService {
 	public void setReport(Integer gasStationId, double dieselPrice, double superPrice, double superPlusPrice,
 			double gasPrice, double methanePrice, Integer userId)
 			throws InvalidGasStationException, PriceException, InvalidUserException {
-		// TODO Auto-generated method stub
+		
+		GasStationDto gasStationDto = getGasStationById(gasStationId);
+		UserDto userDto = userService.getUserById(userId);
+		
+		gasStationDto.setDieselPrice(dieselPrice);
+		gasStationDto.setSuperPrice(superPrice);
+		gasStationDto.setSuperPlusPrice(superPlusPrice);
+		gasStationDto.setGasPrice(gasPrice);
+		gasStationDto.setMethanePrice(methanePrice);
+		gasStationDto.setReportUser(userId);
+		gasStationDto.setUserDto(userDto);
+		
+		if(!gasStationDto.checkPrices())
+			throw new PriceException("PriceException: " + gasStationDto.toString());
+		
+		gasStationRepository.save(GasStationConverter.toEntity(gasStationDto));
 	}
 
 	@Override
