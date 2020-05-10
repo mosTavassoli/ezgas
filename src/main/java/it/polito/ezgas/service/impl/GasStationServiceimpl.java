@@ -34,11 +34,12 @@ public class GasStationServiceimpl implements GasStationService {
 	Logger logger = Logger.getLogger(GasStationServiceimpl.class.getName());
 
 	@Override
-	public GasStationDto getGasStationById(Integer gasStationId) throws InvalidGasStationException {	
+	public GasStationDto getGasStationById(Integer gasStationId) throws InvalidGasStationException {
+		logger.log(Level.INFO, "getGasStationById - gasStationId = " + gasStationId);
+		
 		if(gasStationId < 0)
 			throw new InvalidGasStationException("InvalidGasStationException: gasStationId = " + gasStationId);
 		
-		logger.log(Level.INFO, "getGasStationById - gasStationId = " + gasStationId);
 		if(!gasStationRepository.exists(gasStationId))
 			return null;
 		
@@ -70,8 +71,15 @@ public class GasStationServiceimpl implements GasStationService {
 
 	@Override
 	public Boolean deleteGasStation(Integer gasStationId) throws InvalidGasStationException {
-		logger.log(Level.INFO, "DELETE - remove gas station with ID = " + gasStationId);
-		gasStationRepository.delete(gasStationId);
+		logger.log(Level.INFO, "deleteGasStation - gasStationId = " + gasStationId);
+		
+		if(gasStationId < 0)
+			throw new InvalidGasStationException("InvalidGasStationException: gasStationId = " + gasStationId);
+		
+		if(gasStationRepository.exists(gasStationId))
+			gasStationRepository.delete(gasStationId);
+		else return false;
+		
 		return true;
 	}
 
