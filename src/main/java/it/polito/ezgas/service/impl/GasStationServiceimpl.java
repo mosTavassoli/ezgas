@@ -89,15 +89,15 @@ public class GasStationServiceimpl implements GasStationService {
 		
 		switch(gasolinetype.toLowerCase()){
 			case Constants.DIESEL:
-				return GasStationConverter.toDto(gasStationRepository.findGasStationByHasDiesel(true));
+				return GasStationConverter.toDto(gasStationRepository.findByHasDieselOrderByDieselPriceAsc(true));
 			case Constants.SUPER:
-				return GasStationConverter.toDto(gasStationRepository.findGasStationByHasSuper(true));
+				return GasStationConverter.toDto(gasStationRepository.findByHasSuperOrderBySuperPriceAsc(true));
 			case Constants.SUPER_PLUS:
-				return GasStationConverter.toDto(gasStationRepository.findGasStationByHasSuperPlus(true));
+				return GasStationConverter.toDto(gasStationRepository.findByHasSuperPlusOrderBySuperPlusPriceAsc(true));
 			case Constants.GAS:
-				return GasStationConverter.toDto(gasStationRepository.findGasStationByHasGas(true));
+				return GasStationConverter.toDto(gasStationRepository.findByHasGasOrderByGasPriceAsc(true));
 			case Constants.METHANE:
-				return GasStationConverter.toDto(gasStationRepository.findGasStationByHasMethane(true));
+				return GasStationConverter.toDto(gasStationRepository.findByHasMethaneOrderByMethanePriceAsc(true));
 			default:
 				throw new InvalidGasTypeException("InvalidGasTypeException: gasolinetype = " + gasolinetype);
 		}
@@ -123,7 +123,7 @@ public class GasStationServiceimpl implements GasStationService {
 		
 		return GasStationConverter
 				.toDto(gasStationRepository
-						.findGasStationByLatBetweenAndLonBetween(lat - Constants.KM1_LAT, 
+						.findByLatBetweenAndLonBetween(lat - Constants.KM1_LAT, 
 																lat + Constants.KM1_LAT, 
 																lon - Constants.KM1_LON, 
 																lon + Constants.KM1_LON));
@@ -197,7 +197,7 @@ public class GasStationServiceimpl implements GasStationService {
 
 	@Override
 	public List<GasStationDto> getGasStationByCarSharing(String carSharing) {
-		List<GasStation> gasStations = gasStationRepository.findGasStationByCarSharing(carSharing);
+		List<GasStation> gasStations = gasStationRepository.findByCarSharing(carSharing);
 		return GasStationConverter.toDto(gasStations);
 	}
 	

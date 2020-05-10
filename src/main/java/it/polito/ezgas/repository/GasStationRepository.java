@@ -10,18 +10,18 @@ import it.polito.ezgas.entity.GasStation;
 @Repository
 public interface GasStationRepository extends JpaRepository<GasStation,Integer>{
 	
-	public List<GasStation> findGasStationByHasMethane(boolean hasMethane);
+	public List<GasStation> findByHasMethaneOrderByMethanePriceAsc(boolean hasMethane);
 	
-	public List<GasStation> findGasStationByHasGas(boolean hasGas);
+	public List<GasStation> findByHasGasOrderByGasPriceAsc(boolean hasGas);
 	
-	public List<GasStation> findGasStationByHasSuper(boolean hasSuper);
+	public List<GasStation> findByHasSuperOrderBySuperPriceAsc(boolean hasSuper);
 	
-	public List<GasStation> findGasStationByHasSuperPlus(boolean hasSuperPlus);
+	public List<GasStation> findByHasSuperPlusOrderBySuperPlusPriceAsc(boolean hasSuperPlus);
 	
-	public List<GasStation> findGasStationByHasDiesel(boolean hasDiesel);
+	public List<GasStation> findByHasDieselOrderByDieselPriceAsc(boolean hasDiesel);
 	
-	public List<GasStation> findGasStationByLatBetweenAndLonBetween(double latStart, double latEnd, double lonStart, double lonEnd);
+	public List<GasStation> findByLatBetweenAndLonBetween(double latStart, double latEnd, double lonStart, double lonEnd);
 	
-	public List<GasStation> findGasStationByCarSharing(String carSharing);
+	public List<GasStation> findByCarSharing(String carSharing);
 	
 }
