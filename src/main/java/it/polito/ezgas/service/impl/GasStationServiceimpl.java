@@ -165,27 +165,28 @@ public class GasStationServiceimpl implements GasStationService {
 		 * ISSUE:
 		 * 
 		 * getGasStationsWithoutCoordinates not mapped in GasStationConverter.
-		 * It could not be called.
+		 * It could not be called out of this class.
 		 * 
 		 */
-		List<GasStationDto> gasStationsByGasolineType = getGasStationsByGasolineType(gasolinetype);
-		List<GasStationDto> gasStationsByCarSharing = getGasStationByCarSharing(carsharing);
-		List<GasStationDto> gasStations = new ArrayList<GasStationDto>();
+		logger.log(Level.INFO, "getGasStationsWithoutCoordinates - gasolinetype = " + gasolinetype + ", carsharing = " + carsharing);
 		
-		if(gasStationsByGasolineType != null && 
-				!gasStationsByGasolineType.isEmpty() &&
-				gasStationsByCarSharing != null &&
-				!gasStationsByCarSharing.isEmpty()) {
-			
-			gasStations = gasStationsByGasolineType.stream()
+		List<GasStationDto> gasStationsByGasolineType = gasolinetype != null && !gasolinetype.equals(Constants.NULL) ? 
+				getGasStationsByGasolineType(gasolinetype) : null;
+		List<GasStationDto> gasStationsByCarSharing = carsharing != null && !carsharing.equals(Constants.NULL) ?
+				getGasStationByCarSharing(carsharing) : null;
+				
+		if(gasStationsByGasolineType != null && gasStationsByCarSharing != null)	
+			return gasStationsByGasolineType.stream()
 					.filter(gs -> gasStationsByCarSharing.stream()
 									.map(e -> e.getGasStationId())
 									.collect(toList())
 									.contains(gs.getGasStationId()))
 					.collect(toList());
-					
-		}
-		return gasStations;
+		else if(gasStationsByGasolineType != null)
+			return gasStationsByGasolineType;
+		else if(gasStationsByCarSharing != null)
+			return gasStationsByCarSharing;
+		else return new ArrayList<GasStationDto>();
 	}
 
 	@Override
@@ -197,6 +198,13 @@ public class GasStationServiceimpl implements GasStationService {
 
 	@Override
 	public List<GasStationDto> getGasStationByCarSharing(String carSharing) {
+		/**
+		 * ISSUE:
+		 * 
+		 * getGasStationByCarSharing not mapped in GasStationConverter.
+		 * It could not be called.
+		 * 
+		 */
 		return GasStationConverter
 				.toDto(gasStationRepository.findByCarSharingOrderByGasStationName(carSharing));
 	}
