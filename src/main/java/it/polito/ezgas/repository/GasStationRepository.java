@@ -22,6 +22,6 @@ public interface GasStationRepository extends JpaRepository<GasStation,Integer>{
 	
 	public List<GasStation> findByLatBetweenAndLonBetween(double latStart, double latEnd, double lonStart, double lonEnd);
 	
-	public List<GasStation> findByCarSharing(String carSharing);
+	public List<GasStation> findByCarSharingOrderByGasStationName(String carSharing);
 	
 }

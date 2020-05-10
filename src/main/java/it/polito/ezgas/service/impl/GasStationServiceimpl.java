@@ -124,10 +124,10 @@ public class GasStationServiceimpl implements GasStationService {
 		return GasStationConverter
 				.toDto(gasStationRepository
 						.findByLatBetweenAndLonBetween(lat - Constants.KM1_LAT, 
-																lat + Constants.KM1_LAT, 
-																lon - Constants.KM1_LON, 
-																lon + Constants.KM1_LON));
-	}
+														lat + Constants.KM1_LAT, 
+														lon - Constants.KM1_LON, 
+														lon + Constants.KM1_LON));
+}
 
 	@Override
 	public List<GasStationDto> getGasStationsWithCoordinates(double lat, double lon, String gasolinetype,
@@ -197,8 +197,8 @@ public class GasStationServiceimpl implements GasStationService {
 
 	@Override
 	public List<GasStationDto> getGasStationByCarSharing(String carSharing) {
-		List<GasStation> gasStations = gasStationRepository.findByCarSharing(carSharing);
-		return GasStationConverter.toDto(gasStations);
+		return GasStationConverter
+				.toDto(gasStationRepository.findByCarSharingOrderByGasStationName(carSharing));
 	}
 	
 	
