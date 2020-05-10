@@ -133,29 +133,23 @@ public class GasStationServiceimpl implements GasStationService {
 	public List<GasStationDto> getGasStationsWithCoordinates(double lat, double lon, String gasolinetype,
 			String carsharing) throws InvalidGasTypeException, GPSDataException {
 		
+		logger.log(Level.INFO, "getGasStationsWithCoordinates - "
+				+ "lat = " + lat 
+				+ ", lon = " + lon 
+				+ ", gasolinetype = " + gasolinetype 
+				+ ", carsharing = " + carsharing);
+		
 		List<GasStationDto> gasStationsByProximity = getGasStationsByProximity(lat, lon);
-		List<GasStationDto> gasStationsByGasolineType = getGasStationsByGasolineType(gasolinetype);
-		List<GasStationDto> gasStationsByCarSharing = getGasStationByCarSharing(carsharing);
-		List<GasStationDto> gasStations = new ArrayList<GasStationDto>();
+		List<GasStationDto> gasStationsWithoutCoordinates = getGasStationsWithoutCoordinates(gasolinetype, carsharing);
 		
-		
-		if(gasStationsByGasolineType != null && 
-				!gasStationsByGasolineType.isEmpty() &&
-				gasStationsByCarSharing != null &&
-				!gasStationsByCarSharing.isEmpty()) {
-			
-			gasStations = gasStationsByGasolineType.stream()
-					.filter(gs -> gasStationsByCarSharing.stream()
-									.map(e -> e.getGasStationId())
-									.collect(toList())
-									.contains(gs.getGasStationId()))
-					.filter(gs -> gasStationsByProximity.stream()
-									.map(e -> e.getGasStationId())
-									.collect(toList())
-									.contains(gs.getGasStationId()))
-					.collect(toList());		
-		}
-		return gasStations;
+		if(!gasStationsWithoutCoordinates.isEmpty())
+			return gasStationsByProximity.stream()
+					.filter(gs -> gasStationsWithoutCoordinates.stream()
+							.map(e -> e.getGasStationId())
+							.collect(toList())
+							.contains(gs.getGasStationId()))
+					.collect(toList());
+		else return gasStationsByProximity;
 	}
 
 	@Override
@@ -205,6 +199,8 @@ public class GasStationServiceimpl implements GasStationService {
 		 * It could not be called.
 		 * 
 		 */
+		logger.log(Level.INFO, "getGasStationByCarSharing - carSharing = " + carSharing);
+		
 		return GasStationConverter
 				.toDto(gasStationRepository.findByCarSharingOrderByGasStationName(carSharing));
 	}
