@@ -3,6 +3,8 @@ package it.polito.ezgas.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import it.polito.ezgas.utils.Constants;
+
 public class GasStationDto {
 
 	
@@ -310,7 +312,55 @@ public class GasStationDto {
 	}
 	
 	
+	public boolean checkPrices() {
+		if(this.hasDiesel && this.dieselPrice < 0)
+			return false;
+		if(this.hasGas && this.gasPrice < 0)
+			return false;
+		if(this.hasMethane && this.methanePrice < 0)
+			return false;
+		if(this.hasSuper && this.superPrice < 0)
+			return false;
+		if(this.hasSuperPlus && this.superPlusPrice < 0)
+			return false;
+		return true;
+	}
 	
+	
+	public boolean checkCoordinates() {
+		if(this.lat < Constants.MIN_LAT || this.lat > Constants.MAX_LAT)
+			return false;
+		if(this.lon < Constants.MIN_LON || this.lon > Constants.MAX_LON)
+			return false;
+		return true;
+	}
+
+	
+	@Override
+	public String toString() {
+		return "\n{\n"
+				+ "gasStationId = " + this.gasStationId + ",\n"
+				+ "gasStationName = " + this.gasStationName + ",\n"
+				+ "gasStationAddress = " + this.gasStationAddress + ",\n"
+				+ "hasDiesel = " + this.hasDiesel + ",\n"
+				+ "hasSuper = " + this.hasSuper + ",\n"
+				+ "hasSuperPlus = " + this.hasSuperPlus + ",\n"
+				+ "hasGas = " + this.hasGas + ",\n"
+				+ "hasMethane = " + this.hasMethane + ",\n"
+				+ "carSharing = " + this.carSharing + ",\n"
+				+ "lat = " + this.lat + ",\n"
+				+ "lon = " + this.lon + ",\n"
+				+ "dieselPrice = " + this.dieselPrice + ",\n"
+				+ "superPrice = " + this.superPrice + ",\n"
+				+ "superPlusPrice = " + this.superPlusPrice + ",\n"
+				+ "gasPrice = " + this.gasPrice + ",\n"
+				+ "methanePrice = " + this.methanePrice + ",\n"
+				+ "reportUser = " + this.reportUser + ",\n"
+				+ "userDto = " + this.userDto + ",\n"
+				+ "reportTimestamp = " + this.reportTimestamp + ",\n"
+				+ "reportDependability = " + this.reportDependability + ",\n"
+				+ "}\n";
+	}
 	
 
 }

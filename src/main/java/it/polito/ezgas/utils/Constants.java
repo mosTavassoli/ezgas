@@ -24,5 +24,10 @@ public interface Constants {
     static final String GAS = "lpg";
     static final String SUPER_PLUS = "premium gasoline";
     static final String DIESEL = "diesel";
+    
+    static final double MIN_LAT = -90;
+    static final double MAX_LAT = 90;
+    static final double MIN_LON = -180;
+    static final double MAX_LON = 180;
 
 }

@@ -47,8 +47,14 @@ public class GasStationServiceimpl implements GasStationService {
 
 	@Override
 	public GasStationDto saveGasStation(GasStationDto gasStationDto) throws PriceException, GPSDataException {
+		if(!gasStationDto.checkPrices())
+			throw new PriceException("PriceException: " + gasStationDto.toString());
+		
+		if(!gasStationDto.checkCoordinates())
+			throw new GPSDataException("GPSDataException: " + gasStationDto.toString());
+		
 		GasStation gasStation = gasStationRepository.save(GasStationConverter.toEntity(gasStationDto));
-		logger.log(Level.INFO, "POST - saved gas station with ID = " + gasStation.getGasStationId());
+		logger.log(Level.INFO, "saveGasStation - gasStationId = " + gasStation.getGasStationId());
 		return GasStationConverter.toDto(gasStation);
 	}
 
