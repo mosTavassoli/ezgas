@@ -31,7 +31,11 @@ public class GasStationConverter {
 		dto.setReportUser(entity.getReportUser());
 		dto.setUserDto(entity.getUser() != null ? UserConverter.toDto(entity.getUser()): null);
 		dto.setReportTimestamp(entity.getReportTimestamp());
-		dto.setReportDependability(entity.getReportDependability());
+		/*
+		 * TODO
+		 * Need to compute every time when a gas station is retrieved
+		 */
+		dto.setReportDependability(dto.computeReportDependability());
 		
 		//TODO
 		/*
@@ -73,7 +77,7 @@ public class GasStationConverter {
 		
 		//TODO
 		/*
-		 * PRICE REPORT
+		 * PRICE REPORT LIST
 		 */
 		
 		return entity;

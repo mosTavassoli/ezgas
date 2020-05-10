@@ -1,6 +1,7 @@
 package it.polito.ezgas.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static java.util.stream.Collectors.toList;
+
+import java.sql.Timestamp;
 
 /**
  * Created by softeng on 27/4/2020.
@@ -112,7 +115,6 @@ public class GasStationServiceimpl implements GasStationService {
 	@Override
 	public List<GasStationDto> getGasStationsByProximity(double lat, double lon) throws GPSDataException {
 		logger.log(Level.INFO, "getGasStationsByProximity - lat = " + lat + ", lon = " + lon);
-		
 		/*
 		 * To get work properly:
 		 * 
@@ -120,7 +122,6 @@ public class GasStationServiceimpl implements GasStationService {
 		 * in recognize the end of a double number.
 		 * 
 		 * What happens without final /: 60.13 -> 60.0
-		 * 
 		 */
 		
 		if(!GasStationDto.checkCoordinates(lat, lon))
@@ -162,10 +163,8 @@ public class GasStationServiceimpl implements GasStationService {
 			throws InvalidGasTypeException {
 		/**
 		 * ISSUE:
-		 * 
 		 * getGasStationsWithoutCoordinates not mapped in GasStationConverter.
 		 * It could not be called out of this class.
-		 * 
 		 */
 		logger.log(Level.INFO, "getGasStationsWithoutCoordinates - gasolinetype = " + gasolinetype + ", carsharing = " + carsharing);
 		
@@ -193,8 +192,15 @@ public class GasStationServiceimpl implements GasStationService {
 			double gasPrice, double methanePrice, Integer userId)
 			throws InvalidGasStationException, PriceException, InvalidUserException {
 		
+		logger.log(Level.INFO, "setReport - gasStationId = " + gasStationId 
+				+ ", dieselPrice = " + dieselPrice
+				+ ", superPrice = " + superPrice
+				+ ", superPlusPrice = " + superPlusPrice
+				+ ", gasPrice = " + gasPrice
+				+ ", methanePrice = " + methanePrice
+				+ ", userId = " + userId);
+		
 		GasStationDto gasStationDto = getGasStationById(gasStationId);
-		UserDto userDto = userService.getUserById(userId);
 		
 		gasStationDto.setDieselPrice(dieselPrice);
 		gasStationDto.setSuperPrice(superPrice);
@@ -202,10 +208,11 @@ public class GasStationServiceimpl implements GasStationService {
 		gasStationDto.setGasPrice(gasPrice);
 		gasStationDto.setMethanePrice(methanePrice);
 		gasStationDto.setReportUser(userId);
-		gasStationDto.setUserDto(userDto);
+		gasStationDto.setReportTimestamp(new Timestamp(new Date().getTime()).toString());
+		gasStationDto.setReportDependability(gasStationDto.computeReportDependability());
 		
 		if(!gasStationDto.checkPrices())
-			throw new PriceException("PriceException: " + gasStationDto.toString());
+			throw new PriceException("PriceException: " + gasStationDto.toString());              
 		
 		gasStationRepository.save(GasStationConverter.toEntity(gasStationDto));
 	}
@@ -214,10 +221,8 @@ public class GasStationServiceimpl implements GasStationService {
 	public List<GasStationDto> getGasStationByCarSharing(String carSharing) {
 		/**
 		 * ISSUE:
-		 * 
 		 * getGasStationByCarSharing not mapped in GasStationConverter.
 		 * It could not be called.
-		 * 
 		 */
 		logger.log(Level.INFO, "getGasStationByCarSharing - carSharing = " + carSharing);
 		

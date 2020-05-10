@@ -1,8 +1,11 @@
 package it.polito.ezgas.dto;
 
 import java.lang.reflect.Field;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import it.polito.ezgas.utils.Constants;
 
@@ -329,11 +332,34 @@ public class GasStationDto {
 	
 	
 	public static boolean checkCoordinates(double lat, double lon) {
-		if(lat < Constants.MIN_LAT || lat > Constants.MAX_LAT)
+		if(lat < Constants.MIN_LAT || lat >= Constants.MAX_LAT)
 			return false;
-		if(lon < Constants.MIN_LON || lon > Constants.MAX_LON)
+		if(lon < Constants.MIN_LON || lon >= Constants.MAX_LON)
 			return false;
 		return true;
+	}
+	
+	
+	public double computeReportDependability() {
+		/*
+		 * TODO
+		 * Add check on this.userDto == null
+		 */
+		if(this.reportTimestamp == null)
+			return 0;
+		
+		double obsolescence;
+		Integer userReputation = this.userDto.getReputation() == null ? 0: this.userDto.getReputation();
+		Date today = new Date();
+		Date reportDate = new Date(Timestamp.valueOf(this.reportTimestamp).getTime());
+		
+		long diffInMillies = today.getTime() - reportDate.getTime();
+		long diffInDays = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+		if(diffInDays > 7)
+			obsolescence = 0;
+		else obsolescence = 1 - (double) diffInDays / 7;
+		
+		return 50 * (userReputation + 5) / 10 + 50 * obsolescence;
 	}
 
 	
