@@ -39,10 +39,10 @@ public class GasStationServiceimpl implements GasStationService {
 			throw new InvalidGasStationException("InvalidGasStationException: gasStationId = " + gasStationId);
 		
 		logger.log(Level.INFO, "getGasStationById - gasStationId = " + gasStationId);
-		if(gasStationRepository.exists(gasStationId))
-			return GasStationConverter.toDto(
-					gasStationRepository.findOne(gasStationId));
-		else return null;
+		if(!gasStationRepository.exists(gasStationId))
+			return null;
+		
+		return GasStationConverter.toDto(gasStationRepository.findOne(gasStationId));
 	}
 
 	@Override
@@ -55,14 +55,17 @@ public class GasStationServiceimpl implements GasStationService {
 		
 		GasStation gasStation = gasStationRepository.save(GasStationConverter.toEntity(gasStationDto));
 		logger.log(Level.INFO, "saveGasStation - gasStationId = " + gasStation.getGasStationId());
+		
 		return GasStationConverter.toDto(gasStation);
 	}
 
 	@Override
 	public List<GasStationDto> getAllGasStations() {
-		logger.log(Level.INFO, "GET - all gas stations");
-		List<GasStation> gasStations = gasStationRepository.findAll();
-		return GasStationConverter.toDto(gasStations);
+		logger.log(Level.INFO, "getAllGasStations");
+		
+		if(gasStationRepository.count() > 0)
+			return GasStationConverter.toDto(gasStationRepository.findAll());
+		return new ArrayList<GasStationDto>();
 	}
 
 	@Override
