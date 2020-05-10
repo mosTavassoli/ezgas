@@ -328,10 +328,10 @@ public class GasStationDto {
 	}
 	
 	
-	public boolean checkCoordinates() {
-		if(this.lat < Constants.MIN_LAT || this.lat > Constants.MAX_LAT)
+	public static boolean checkCoordinates(double lat, double lon) {
+		if(lat < Constants.MIN_LAT || lat > Constants.MAX_LAT)
 			return false;
-		if(this.lon < Constants.MIN_LON || this.lon > Constants.MAX_LON)
+		if(lon < Constants.MIN_LON || lon > Constants.MAX_LON)
 			return false;
 		return true;
 	}

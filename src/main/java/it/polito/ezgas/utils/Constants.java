@@ -29,5 +29,7 @@ public interface Constants {
     static final double MAX_LAT = 90;
     static final double MIN_LON = -180;
     static final double MAX_LON = 180;
+    static final double KM1_LAT = 0.01;
+    static final double KM1_LON = 0.005;
 
 }

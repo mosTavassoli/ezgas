@@ -51,7 +51,7 @@ public class GasStationServiceimpl implements GasStationService {
 		if(!gasStationDto.checkPrices())
 			throw new PriceException("PriceException: " + gasStationDto.toString());
 		
-		if(!gasStationDto.checkCoordinates())
+		if(!GasStationDto.checkCoordinates(gasStationDto.getLat(), gasStationDto.getLon()))
 			throw new GPSDataException("GPSDataException: " + gasStationDto.toString());
 		
 		GasStation gasStation = gasStationRepository.save(GasStationConverter.toEntity(gasStationDto));
@@ -106,8 +106,27 @@ public class GasStationServiceimpl implements GasStationService {
 
 	@Override
 	public List<GasStationDto> getGasStationsByProximity(double lat, double lon) throws GPSDataException {
-		List<GasStation> gasStations = gasStationRepository.findGasStationByLatAndLon(lat, lon);
-		return GasStationConverter.toDto(gasStations);
+		logger.log(Level.INFO, "getGasStationsByProximity - lat = " + lat + ", lon = " + lon);
+		
+		/*
+		 * To get work properly:
+		 * 
+		 * Add a final / after lon value in the request URL for some problems 
+		 * in recognize the end of a double number.
+		 * 
+		 * What happens without final /: 60.13 -> 60.0
+		 * 
+		 */
+		
+		if(!GasStationDto.checkCoordinates(lat, lon))
+			throw new GPSDataException("GPSDataException: lat = " + lat + ", lon = " + lon );
+		
+		return GasStationConverter
+				.toDto(gasStationRepository
+						.findGasStationByLatBetweenAndLonBetween(lat - Constants.KM1_LAT, 
+																lat + Constants.KM1_LAT, 
+																lon - Constants.KM1_LON, 
+																lon + Constants.KM1_LON));
 	}
 
 	@Override
@@ -136,7 +155,7 @@ public class GasStationServiceimpl implements GasStationService {
 									.contains(gs.getGasStationId()))
 					.collect(toList());		
 		}
-	return gasStations;
+		return gasStations;
 	}
 
 	@Override
