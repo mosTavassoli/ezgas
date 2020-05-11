@@ -10,7 +10,7 @@ import it.polito.ezgas.entity.User;
 public class UserConverter {
 	public static User toEntity(UserDto userDto) {
 		User user;
-		user = new User(userDto.getUserName(),userDto.getPassword(),userDto.getEmail(),0);
+		user = new User(userDto.getUserName(),userDto.getPassword(),userDto.getEmail(),userDto.getReputation());
 		return user;
 	}
 	
