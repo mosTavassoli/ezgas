@@ -208,6 +208,7 @@ public class GasStationServiceimpl implements GasStationService {
 		gasStationDto.setGasPrice(gasPrice);
 		gasStationDto.setMethanePrice(methanePrice);
 		gasStationDto.setReportUser(userId);
+		gasStationDto.setUserDto(userService.getUserById(userId));
 		gasStationDto.setReportTimestamp(new Timestamp(new Date().getTime()).toString());
 		gasStationDto.setReportDependability(gasStationDto.computeReportDependability());
 		
