@@ -6,6 +6,7 @@ import it.polito.ezgas.entity.User;
 public class LoginConverter {
 	public static LoginDto toDto(User user) {
 		LoginDto loginDto = new LoginDto(user.getUserId(),user.getUserName(),"",user.getEmail(),user.getReputation());
+		loginDto.setAdmin(user.getAdmin());
 		return loginDto;
 	}
 }

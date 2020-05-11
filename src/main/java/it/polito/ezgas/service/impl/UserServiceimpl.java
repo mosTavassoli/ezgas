@@ -42,8 +42,6 @@ public class UserServiceimpl implements UserService {
 	@Override
 	public UserDto saveUser(UserDto userDto) {
 		User user = UserConverter.toEntity(userDto);
-		user.setUserId(userDto.getUserId());
-		user.setAdmin(userDto.getAdmin());
 		user = userRepository.save(user);
 		if(user == null) {
 			return null;

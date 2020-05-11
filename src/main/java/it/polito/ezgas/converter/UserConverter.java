@@ -10,6 +10,8 @@ public class UserConverter {
 	public static User toEntity(UserDto userDto) {
 		User user;
 		user = new User(userDto.getUserName(),userDto.getPassword(),userDto.getEmail(),userDto.getReputation());
+		user.setUserId(userDto.getUserId());
+		user.setAdmin(userDto.getAdmin());
 		return user;
 	}
 	
