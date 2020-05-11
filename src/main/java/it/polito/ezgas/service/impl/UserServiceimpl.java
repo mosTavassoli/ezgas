@@ -79,22 +79,18 @@ public class UserServiceimpl implements UserService {
 	
 	@Override
 	public Integer increaseUserReputation(Integer userId) throws InvalidUserException {
-		return editUserReputation(userId, +1);
+		UserDto userDto = getUserById(userId);
+		userDto.editUserReputation(+1);
+		userDto = saveUser(userDto);
+		return userDto.getReputation();
 	}
 
 	@Override
 	public Integer decreaseUserReputation(Integer userId) throws InvalidUserException {
-		return editUserReputation(userId,-1);
-	}
-	
-	private Integer editUserReputation(Integer userId,Integer modifier) throws InvalidUserException {
 		UserDto userDto = getUserById(userId);
-		Integer reputation = userDto.getReputation();
-		if (reputation+modifier <= Constants.REPUTATION_UPPER_BOUND 
-				&& reputation+modifier >= Constants.REPUTATION_LOWER_BOUND) {
-			userDto.setReputation(reputation + modifier);
-			userDto = saveUser(userDto);
-		}
+		userDto.editUserReputation(-1);
+		userDto = saveUser(userDto);
 		return userDto.getReputation();
 	}
+	
 }
