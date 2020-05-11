@@ -3,7 +3,6 @@ package it.polito.ezgas.converter;
 import java.util.LinkedList;
 import java.util.List;
 
-import it.polito.ezgas.dto.LoginDto;
 import it.polito.ezgas.dto.UserDto;
 import it.polito.ezgas.entity.User;
 

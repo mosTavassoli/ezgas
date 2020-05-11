@@ -1,7 +1,5 @@
 package it.polito.ezgas.service.impl;
 
-import java.security.SecureRandom;
-import java.util.Base64;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +15,6 @@ import it.polito.ezgas.dto.UserDto;
 import it.polito.ezgas.entity.User;
 import it.polito.ezgas.repository.UserRepository;
 import it.polito.ezgas.service.UserService;
-import it.polito.ezgas.utils.Constants;
 
 /**
  * Created by softeng on 27/4/2020.
