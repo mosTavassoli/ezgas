@@ -57,21 +57,12 @@ public class UserServiceimpl implements UserService {
 		throw new InvalidUserException("No user found!");
 	}
 
-	public String generateNewToken() {
-		SecureRandom secureRandom = new SecureRandom();
-		Base64.Encoder base64Encoder = Base64.getUrlEncoder();
-	    byte[] randomBytes = new byte[24];
-	    secureRandom.nextBytes(randomBytes);
-	    return base64Encoder.encodeToString(randomBytes);
-	}
-	
 	@Override
 	public LoginDto login(IdPw credentials) throws InvalidLoginDataException {
 		LoginDto loginDto;
 		User user = userRepository.findByEmail(credentials.getUser());
 		if(user.getPassword().equals(credentials.getPw())) {
 			 loginDto= LoginConverter.toDto(user);
-			 loginDto.setToken(generateNewToken());
 			 return loginDto;
 		}
 		throw new InvalidLoginDataException("Invalid email or password!");
