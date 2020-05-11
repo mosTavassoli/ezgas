@@ -17,7 +17,7 @@ public class UserConverter {
 	public static List<UserDto> toDto(List<User> userList) {
 		List<UserDto> userDtoList = new LinkedList<UserDto>(); 
 		for (User user : userList) {
-			userDtoList.add(new UserDto(user.getUserId(),user.getUserName(),user.getPassword(),user.getEmail(),user.getReputation(),user.getAdmin()));
+			userDtoList.add(toDto(user));
 		}
 		return userDtoList;
 	}
