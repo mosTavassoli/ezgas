@@ -69,7 +69,7 @@ public class UserServiceimpl implements UserService {
 		LoginDto loginDto;
 		User user = userRepository.findByEmail(credentials.getUser());
 		if(user.getPassword().equals(credentials.getPw())) {
-			 loginDto= UserConverter.toLoginDto(user);
+			 loginDto= LoginConverter.toDto(user);
 			 loginDto.setToken(generateNewToken());
 			 return loginDto;
 		}

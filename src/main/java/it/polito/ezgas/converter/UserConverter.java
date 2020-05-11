@@ -27,11 +27,5 @@ public class UserConverter {
 		userDto = new UserDto(user.getUserId(),user.getUserName(),user.getPassword(),user.getEmail(),user.getReputation(),user.getAdmin());
 		return userDto;
 	}
-
-	public static LoginDto toLoginDto(User user) {
-		LoginDto loginDto = new LoginDto(user.getUserId(),user.getUserName(),"",user.getEmail(),user.getReputation());
-		return loginDto;
-	}
-	
 	
 }
