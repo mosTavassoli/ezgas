@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import exception.InvalidLoginDataException;
 import exception.InvalidUserException;
+import it.polito.ezgas.converter.LoginConverter;
 import it.polito.ezgas.converter.UserConverter;
 import it.polito.ezgas.dto.IdPw;
 import it.polito.ezgas.dto.LoginDto;
