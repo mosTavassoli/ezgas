@@ -49,10 +49,16 @@ public class UserServiceimpl implements UserService {
 
 	@Override
 	public Boolean deleteUser(Integer userId) throws InvalidUserException {
+		if(userId<0) {
+			throw new InvalidUserException("Invalid user id!");
+		}
 		if(userRepository.existsByUserId(userId)) {
 			userRepository.delete(userId);
+			if(!userRepository.existsByUserId(userId)) {
+				return true;
+			}
 		}
-		throw new InvalidUserException("No user found!");
+		return false;
 	}
 
 	@Override
