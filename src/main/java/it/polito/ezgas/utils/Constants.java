@@ -32,6 +32,7 @@ public interface Constants {
     static final double MAX_LON = 180;
     static final double KM1_LAT = 0.0089;
     static final double KM1_LON = 0.0114;
+    static final double DEFAULT_PRICE=999;
     
     //User
     static final int REPUTATION_LOWER_BOUND=-5;

@@ -317,16 +317,32 @@ public class GasStationDto {
 	
 	
 	public boolean checkPrices() {
-		if(this.hasDiesel && this.dieselPrice < 0)
-			return false;
-		if(this.hasGas && this.gasPrice < 0)
-			return false;
-		if(this.hasMethane && this.methanePrice < 0)
-			return false;
-		if(this.hasSuper && this.superPrice < 0)
-			return false;
-		if(this.hasSuperPlus && this.superPlusPrice < 0)
-			return false;
+		if(this.hasDiesel && this.dieselPrice < 0) {
+			if(this.dieselPrice != -1)
+				return false;
+			this.dieselPrice=Constants.DEFAULT_PRICE;
+		}
+		if(this.hasGas && this.gasPrice < 0) {
+			if(this.gasPrice != -1)
+				return false;
+			this.gasPrice=Constants.DEFAULT_PRICE;
+		}
+		if(this.hasMethane && this.methanePrice < 0) {
+			if(this.methanePrice != -1)
+				return false;
+			this.methanePrice=Constants.DEFAULT_PRICE;
+		}
+		if(this.hasSuper && this.superPrice < 0) {
+			if(this.superPrice != -1)
+				return false;
+			this.superPrice=Constants.DEFAULT_PRICE;
+		}
+		if(this.hasSuperPlus && this.superPlusPrice < 0) {
+			if(this.superPlusPrice != -1)
+				return false;
+			this.superPlusPrice=Constants.DEFAULT_PRICE;
+		}
+		
 		return true;
 	}
 	
