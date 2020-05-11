@@ -19,11 +19,11 @@ public interface Constants {
 	static final String GET_GASSTATIONS_WITH_COORDINATES = "/getGasStationsWithCoordinates/{myLat}/{myLon}/{gasolineType}/{carSharing}";
 	static final String GET_GASSTATIONS_WITHOUT_COORDINATES = "/getGasStationsWithoutCoordinates/{gasolineType}/{carSharing}";
 	
-    static final String METHANE = "methane";
-    static final String SUPER = "gasoline";
-    static final String GAS = "lpg";
-    static final String SUPER_PLUS = "premium gasoline";
-    static final String DIESEL = "diesel";
+    static final String METHANE = "Methane";
+    static final String SUPER = "Super";
+    static final String GAS = "Gas";
+    static final String SUPER_PLUS = "SuperPlus";
+    static final String DIESEL = "Diesel";
     
     //GasStation
     static final double MIN_LAT = -90;

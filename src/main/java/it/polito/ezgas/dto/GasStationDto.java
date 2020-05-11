@@ -357,11 +357,7 @@ public class GasStationDto {
 	
 	
 	public double computeReportDependability() {
-		/*
-		 * TODO
-		 * Add check on this.userDto == null
-		 */
-		if(this.reportTimestamp == null)
+		if(this.userDto == null || this.reportTimestamp == null)
 			return 0;
 		
 		double obsolescence;

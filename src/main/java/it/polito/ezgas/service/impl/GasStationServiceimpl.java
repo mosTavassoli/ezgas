@@ -95,7 +95,7 @@ public class GasStationServiceimpl implements GasStationService {
 	public List<GasStationDto> getGasStationsByGasolineType(String gasolinetype) throws InvalidGasTypeException {
 		logger.log(Level.INFO, "getGasStationsByGasolineType - gasolinetype = " + gasolinetype);
 		
-		switch(gasolinetype.toLowerCase()){
+		switch(gasolinetype){
 			case Constants.DIESEL:
 				return GasStationConverter.toDto(gasStationRepository.findByHasDieselOrderByDieselPriceAsc(true));
 			case Constants.SUPER:
@@ -106,6 +106,8 @@ public class GasStationServiceimpl implements GasStationService {
 				return GasStationConverter.toDto(gasStationRepository.findByHasGasOrderByGasPriceAsc(true));
 			case Constants.METHANE:
 				return GasStationConverter.toDto(gasStationRepository.findByHasMethaneOrderByMethanePriceAsc(true));
+			case Constants.NULL:
+				return null;
 			default:
 				throw new InvalidGasTypeException("InvalidGasTypeException: gasolinetype = " + gasolinetype);
 		}
@@ -148,7 +150,7 @@ public class GasStationServiceimpl implements GasStationService {
 		List<GasStationDto> gasStationsByProximity = getGasStationsByProximity(lat, lon);
 		List<GasStationDto> gasStationsWithoutCoordinates = getGasStationsWithoutCoordinates(gasolinetype, carsharing);
 		
-		if(!gasStationsWithoutCoordinates.isEmpty())
+		if(gasStationsWithoutCoordinates != null)
 			return gasStationsByProximity.stream()
 					.filter(gs -> gasStationsWithoutCoordinates.stream()
 							.map(e -> e.getGasStationId())
@@ -168,10 +170,8 @@ public class GasStationServiceimpl implements GasStationService {
 		 */
 		logger.log(Level.INFO, "getGasStationsWithoutCoordinates - gasolinetype = " + gasolinetype + ", carsharing = " + carsharing);
 		
-		List<GasStationDto> gasStationsByGasolineType = gasolinetype != null && !gasolinetype.equals(Constants.NULL) ? 
-				getGasStationsByGasolineType(gasolinetype) : null;
-		List<GasStationDto> gasStationsByCarSharing = carsharing != null && !carsharing.equals(Constants.NULL) ?
-				getGasStationByCarSharing(carsharing) : null;
+		List<GasStationDto> gasStationsByGasolineType = getGasStationsByGasolineType(gasolinetype);
+		List<GasStationDto> gasStationsByCarSharing = getGasStationByCarSharing(carsharing);
 				
 		if(gasStationsByGasolineType != null && gasStationsByCarSharing != null)	
 			return gasStationsByGasolineType.stream()
@@ -184,7 +184,7 @@ public class GasStationServiceimpl implements GasStationService {
 			return gasStationsByGasolineType;
 		else if(gasStationsByCarSharing != null)
 			return gasStationsByCarSharing;
-		else return new ArrayList<GasStationDto>();
+		else return null;
 	}
 
 	@Override
@@ -227,8 +227,13 @@ public class GasStationServiceimpl implements GasStationService {
 		 */
 		logger.log(Level.INFO, "getGasStationByCarSharing - carSharing = " + carSharing);
 		
-		return GasStationConverter
-				.toDto(gasStationRepository.findByCarSharingOrderByGasStationName(carSharing));
+		switch(carSharing) {
+			case Constants.NULL:
+				return null;
+			default:
+				return GasStationConverter
+						.toDto(gasStationRepository.findByCarSharingOrderByGasStationName(carSharing));
+		}
 	}
 	
 	

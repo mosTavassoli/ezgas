@@ -66,9 +66,9 @@ public class UserServiceimpl implements UserService {
 		if(userId<0) {
 			throw new InvalidUserException("Invalid user!");
 		}
-		if(userRepository.existsByUserId(userId)) {
+		if(userRepository.exists(userId)) {
 			userRepository.delete(userId);
-			if(!userRepository.existsByUserId(userId)) {
+			if(!userRepository.exists(userId)) {
 				return true;
 			}
 		}
@@ -79,7 +79,7 @@ public class UserServiceimpl implements UserService {
 	public LoginDto login(IdPw credentials) throws InvalidLoginDataException {
 		LoginDto loginDto;
 		User user = userRepository.findByEmail(credentials.getUser());
-		if(user.getPassword().equals(credentials.getPw())) {
+		if(user != null && user.getPassword().equals(credentials.getPw())) {
 			 loginDto= LoginConverter.toDto(user);
 			 return loginDto;
 		}
