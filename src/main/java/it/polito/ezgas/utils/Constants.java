@@ -25,12 +25,17 @@ public interface Constants {
     static final String SUPER_PLUS = "premium gasoline";
     static final String DIESEL = "diesel";
     
+    //GasStation
     static final double MIN_LAT = -90;
     static final double MAX_LAT = 90;
     static final double MIN_LON = -180;
     static final double MAX_LON = 180;
     static final double KM1_LAT = 0.0089;
     static final double KM1_LON = 0.0114;
+    
+    //User
+    static final int REPUTATION_LOWER_BOUND=-5;
+	static final int REPUTATION_UPPER_BOUND=5;
     
     static final String NULL = "null";
 

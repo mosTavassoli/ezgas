@@ -16,6 +16,7 @@ import it.polito.ezgas.dto.UserDto;
 import it.polito.ezgas.entity.User;
 import it.polito.ezgas.repository.UserRepository;
 import it.polito.ezgas.service.UserService;
+import it.polito.ezgas.utils.Constants;
 
 /**
  * Created by softeng on 27/4/2020.
@@ -25,9 +26,6 @@ public class UserServiceimpl implements UserService {
 	
 	@Autowired
 	UserRepository userRepository;
-	
-	private final int reputationLowerBound=-5;
-	private final int reputationUpperBound=5;
 	
 	@Override
 	public UserDto getUserById(Integer userId) throws InvalidUserException {
@@ -91,8 +89,8 @@ public class UserServiceimpl implements UserService {
 	private Integer editUserReputation(Integer userId,Integer modifier) throws InvalidUserException {
 		UserDto userDto = getUserById(userId);
 		Integer reputation = userDto.getReputation();
-		if (reputation+modifier <= reputationUpperBound 
-				&& reputation+modifier >= reputationLowerBound) {
+		if (reputation+modifier <= Constants.REPUTATION_UPPER_BOUND 
+				&& reputation+modifier >= Constants.REPUTATION_LOWER_BOUND) {
 			userDto.setReputation(reputation + modifier);
 			userDto = saveUser(userDto);
 		}
