@@ -1,6 +1,6 @@
 package it.polito.ezgas.converter;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 import it.polito.ezgas.dto.UserDto;
@@ -14,7 +14,7 @@ public class UserConverter {
 	}
 	
 	public static List<UserDto> toDto(List<User> userList) {
-		List<UserDto> userDtoList = new LinkedList<UserDto>(); 
+		List<UserDto> userDtoList = new ArrayList<UserDto>(); 
 		for (User user : userList) {
 			userDtoList.add(toDto(user));
 		}

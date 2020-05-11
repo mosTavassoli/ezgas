@@ -28,7 +28,13 @@ public class UserServiceimpl implements UserService {
 	@Override
 	public UserDto getUserById(Integer userId) throws InvalidUserException {
 		UserDto userDto;
+		if(userId<0) {
+			throw new InvalidUserException("Invalid user!");
+		}
 		User user = userRepository.findByUserId(userId);
+		if(user == null) {
+			return null;
+		}
 		userDto = UserConverter.toDto(user);
 		return userDto;
 	}
@@ -37,20 +43,28 @@ public class UserServiceimpl implements UserService {
 	public UserDto saveUser(UserDto userDto) {
 		User user = UserConverter.toEntity(userDto);
 		user = userRepository.save(user);
+		if(user == null) {
+			return null;
+		}
 		userDto = UserConverter.toDto(user);
 		return userDto;
 	}
 
 	@Override
 	public List<UserDto> getAllUsers() {
-		List<UserDto> list = UserConverter.toDto(userRepository.findAll());
-		return list;
+		List<User> userList = userRepository.findAll();
+		if(userList == null) {
+			return null;
+		}
+		//list can be empty
+		List<UserDto> userDtoList = UserConverter.toDto(userList);
+		return userDtoList;
 	}
 
 	@Override
 	public Boolean deleteUser(Integer userId) throws InvalidUserException {
 		if(userId<0) {
-			throw new InvalidUserException("Invalid user id!");
+			throw new InvalidUserException("Invalid user!");
 		}
 		if(userRepository.existsByUserId(userId)) {
 			userRepository.delete(userId);
@@ -69,11 +83,14 @@ public class UserServiceimpl implements UserService {
 			 loginDto= LoginConverter.toDto(user);
 			 return loginDto;
 		}
-		throw new InvalidLoginDataException("Invalid email or password!");
+		throw new InvalidLoginDataException("Invalid login data!");
 	}
 	
 	@Override
 	public Integer increaseUserReputation(Integer userId) throws InvalidUserException {
+		if(userId<0) {
+			throw new InvalidUserException("Invalid user!");
+		}
 		UserDto userDto = getUserById(userId);
 		userDto.editUserReputation(+1);
 		userDto = saveUser(userDto);
@@ -82,6 +99,9 @@ public class UserServiceimpl implements UserService {
 
 	@Override
 	public Integer decreaseUserReputation(Integer userId) throws InvalidUserException {
+		if(userId<0) {
+			throw new InvalidUserException("Invalid user!");
+		}
 		UserDto userDto = getUserById(userId);
 		userDto.editUserReputation(-1);
 		userDto = saveUser(userDto);
