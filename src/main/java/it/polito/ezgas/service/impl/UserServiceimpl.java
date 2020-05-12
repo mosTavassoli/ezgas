@@ -42,8 +42,11 @@ public class UserServiceimpl implements UserService {
 	@Override
 	public UserDto saveUser(UserDto userDto) {
 		User user = UserConverter.toEntity(userDto);
-		user = userRepository.save(user);
-		if(user == null) {
+		
+		// Check if the user exists or not, If not we can save the user
+		if (userRepository.findByEmail(userDto.getEmail()) == null) { 
+			userRepository.save(user);
+		} else {
 			return null;
 		}
 		userDto = UserConverter.toDto(user);
