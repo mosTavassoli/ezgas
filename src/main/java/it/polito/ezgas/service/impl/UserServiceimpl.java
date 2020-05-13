@@ -95,9 +95,6 @@ public class UserServiceimpl implements UserService {
 	
 	@Override
 	public Integer increaseUserReputation(Integer userId) throws InvalidUserException {
-		if(userId<0) {
-			throw new InvalidUserException("Invalid user!");
-		}
 		UserDto userDto = getUserById(userId);
 		userDto.editUserReputation(+1);
 		userDto = saveUser(userDto);
@@ -106,9 +103,6 @@ public class UserServiceimpl implements UserService {
 
 	@Override
 	public Integer decreaseUserReputation(Integer userId) throws InvalidUserException {
-		if(userId<0) {
-			throw new InvalidUserException("Invalid user!");
-		}
 		UserDto userDto = getUserById(userId);
 		userDto.editUserReputation(-1);
 		userDto = saveUser(userDto);
