@@ -45,8 +45,12 @@ public class UserServiceimpl implements UserService {
 		
 		// Check if the user exists or not, If not we can save the user
 		if (userRepository.findByEmail(userDto.getEmail()) == null) { 
-			userRepository.save(user);
+			user=userRepository.save(user);
 		} else {
+			return null;
+		}
+		
+		if(user == null) {
 			return null;
 		}
 		userDto = UserConverter.toDto(user);
