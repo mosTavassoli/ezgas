@@ -1,6 +1,6 @@
 # Unit Testing Documentation
 
-Authors:Mehdi Khrichfa, Alessandro Ricciuto, Toni Saliba, Mostafa Tavassoli
+Authors: Mehdi Khrichfa, Alessandro Ricciuto, Toni Saliba, Mostafa Tavassoli
 
 Date:15/05/2020
 
@@ -22,28 +22,24 @@ Version:1
     the set up of all Spring components
     >
 
- ### **Class *class_name* - method *name***
+ ### **Class *User* - method *setUserId***
 
 
 
-**Criteria for method *name*:**
-	
+**Criteria for method *setUserId*:**
 
- - 
- - 
-
+ - Type of parameter
+ - Value of parameter
 
 
-
-
-**Predicates for method *name*:**
+**Predicates for method *setUserId*:**
 
 | Criteria | Predicate |
 | -------- | --------- |
-|          |           |
-|          |           |
-|          |           |
-|          |           |
+|Type of parameter        |int  |
+|                         |other|
+|Value of parameter       |[minint,-1]|
+|                         |[0,maxint]|
 
 
 
@@ -53,7 +49,7 @@ Version:1
 
 | Criteria | Boundary values |
 | -------- | --------------- |
-|          |                 |
+| Value of parameter | minint, minint+1, -1, 0, maxint-1, maxint |
 |          |                 |
 
 
