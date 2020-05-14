@@ -1,18 +1,14 @@
 # Unit Testing Documentation
 
-Authors:
+Authors: Mehdi Khrichfa, Alessandro Ricciuto, Toni Saliba, Mostafa Tavassoli
 
-Date:
+Date: 14/05/2020
 
-Version:
+Version: 1
 
 # Contents
 
 - [Black Box Unit Tests](#black-box-unit-tests)
-
-
-
-
 - [White Box Unit Tests](#white-box-unit-tests)
 
 
@@ -25,6 +21,47 @@ Version:
     <JUnit test classes must be in src/test/java/it/polito/ezgas   You find here, and you can use,  class EZGasApplicationTests.java that is executed before 
     the set up of all Spring components
     >
+
+### **Class *GasStation* - method *setGasStationId()***
+
+
+
+**Criteria for method *setGasStationId()*:**
+ - Type of parameter
+ - Value of parameter
+
+**Predicates for method *name*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+| Type of parameter  | int         |
+|                    | other       |
+| Value of parameter | [minint,-1] |
+|                    | [0,maxint]  |
+|          |                 |
+
+
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+| Value of parameter | minint, minint+1, -1, 0, maxint-1, maxint |
+|          |                 |
+
+
+
+**Combination of predicates**:
+
+
+| Type of parameter | Value of parameter | Valid / Invalid | Description of the test case | JUnit test case |
+|-------|-------|-------|-------|-------|-------|
+|other|-|Invalid|Try to pass parameter of type different from int | T1("test") -> Error |
+|int|minint|Invalid|Try to set a value and then test the value stored in the object |T2(minint) -> InvalidUserException|
+||-1|Invalid||T3(-1) -> InvalidUserException|
+||0|Valid||T4(0) -> User|
+||maxint|Valid||T5(maxint) -> maxint|
+||||||
 
  ### **Class *class_name* - method *name***
 
