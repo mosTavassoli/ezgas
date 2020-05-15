@@ -1,18 +1,14 @@
 # Unit Testing Documentation
 
-Authors:
+Authors: Mehdi Khrichfa, Alessandro Ricciuto, Toni Saliba, Mostafa Tavassoli
 
-Date:
+Date: 14/05/2020
 
-Version:
+Version: 1
 
 # Contents
 
 - [Black Box Unit Tests](#black-box-unit-tests)
-
-
-
-
 - [White Box Unit Tests](#white-box-unit-tests)
 
 
@@ -25,6 +21,50 @@ Version:
     <JUnit test classes must be in src/test/java/it/polito/ezgas   You find here, and you can use,  class EZGasApplicationTests.java that is executed before 
     the set up of all Spring components
     >
+
+### **Class *User* - method *setReputation***
+
+
+
+**Criteria for method *setReputation*:**
+ - Type of reputation
+ - Value of reputation
+
+**Predicates for method *setReputation*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+| Type of reputation  | int         |
+|                    | other       |
+| Value of reputation | [minint,-6] |
+|                    | [-5,5]  |
+|                    | [6,maxint]  |
+|          |                 |
+
+
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+| Value of reputation | minint, minint+1, -6, -5, 5, 6, maxint-1, maxint |
+|          |                 |
+
+
+
+**Combination of predicates**:
+
+
+| Type of reputation | Value of reputation | Valid / Invalid | Description of the test case                    | JUnit test case |
+|-------------------|--------------------|-----------------|-------------------------------------------------|---------------------|
+|       other       |   -                |    Invalid      |Try to pass parameter of type different from int                | T1("test") -> Error |
+|       int         |minint              |Valid            |Try to set a value and then test the value stored in the object |T2(minint) -> -5|
+|                   |-6                  |Valid            |                                                                |T3(-6) -> -5|
+|                   |-5                  |Valid            |                                                                |T4(-5) -> -5|
+|                   |5                   |Valid            |                                                                |T5(5) -> 5|
+|                   |6                   |Valid            |                                                                |T6(6) -> 5|
+|                   |maxint              |Valid            |                                                                |T7(maxint) -> 5|
+|                   |                    |                 |                                                                |                    |
 
  ### **Class *class_name* - method *name***
 
@@ -107,6 +147,3 @@ Version:
 |||||
 |||||
 ||||||
-
-
-
