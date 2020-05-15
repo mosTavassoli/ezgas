@@ -50,8 +50,7 @@ Version:1
 | Criteria | Boundary values |
 | -------- | --------------- |
 | Value of parameter | minint, minint+1, -1, 0, maxint-1, maxint |
-|          |                 |
-
+|||
 
 
 **Combination of predicates**:
@@ -64,7 +63,25 @@ Version:1
 ||-1|invalid||T3(-1) -> InvalidUserException|
 ||0|valid||T4(0) -> User|
 ||maxint|valid||T(5) -> maxint|
+||||||
 
+
+ ### **Class *User* - method *getUserId***
+
+
+**Combination of predicates**:
+
+| Type of parameter | Value of parameter | Valid / Invalid | Description of the test case | test cases |
+|-------|-------|-------|-------|-------|
+|other|-|Invalid|Try to set parameter of type different from int| setUserId("test"); -> Exception|
+||||| setUserId(1.5); -> Exception|
+|int|minint|Invalid||setUserId(minint); -> Exception|
+|int|minint+1|Invalid||setUserId(minint+1); -> Exception|
+||-1|invalid||setUserId(-1); -> Exception|
+||0|valid||setUserId(0); <br> getUserId() -> 0|
+||maxint|valid||setUserId(maxint); <br> getUserId() -> maxint |
+||maxint+1|Invalid||setUserId(maxint+1);-> Exception|
+||||||
 
 
 
