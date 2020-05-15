@@ -35,10 +35,12 @@ public class UserDto {
     }
     
     public Integer editUserReputation(Integer modifier) {
-		if (this.reputation+modifier <= Constants.REPUTATION_UPPER_BOUND 
-				&& this.reputation+modifier >= Constants.REPUTATION_LOWER_BOUND) {
-			this.reputation += modifier;
-		}
+		if(this.reputation + modifier > Constants.REPUTATION_UPPER_BOUND )
+			this.reputation = Constants.REPUTATION_UPPER_BOUND;
+		else if(this.reputation + modifier < Constants.REPUTATION_LOWER_BOUND)
+			this.reputation = Constants.REPUTATION_LOWER_BOUND;
+		else this.reputation += modifier;
+		
 		return this.reputation;
 	}
 
