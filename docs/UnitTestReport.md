@@ -57,13 +57,13 @@ Version:1
 **Combination of predicates**:
 
 
-| Criteria 1 | Criteria 2 | ... | Valid / Invalid | Description of the test case | JUnit test case |
-|-------|-------|-------|-------|-------|-------|
-|||||||
-|||||||
-|||||||
-|||||||
-|||||||
+| Type of parameter | Value of parameter | Valid / Invalid | Description of the test case | JUnit test case |
+|-------|-------|-------|-------|-------|
+|other|-|Invalid|Try to pass parameter of type different from int	| T1("test") -> Error|
+|int|minint|Invalid|Try to set a value and then test the value stored in the object|T2(minint) -> InvalidUserException|
+||-1|invalid||T3(-1) -> InvalidUserException|
+||0|valid||T4(0) -> User|
+||maxint|valid||T(5) -> maxint|
 
 
 
