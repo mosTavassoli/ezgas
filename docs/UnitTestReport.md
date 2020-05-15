@@ -50,7 +50,7 @@ Version:1
 | Criteria | Boundary values |
 | -------- | --------------- |
 | Value of parameter | minint, minint+1, -1, 0, maxint-1, maxint |
-|||
+
 
 
 **Combination of predicates**:
@@ -63,7 +63,7 @@ Version:1
 ||-1|invalid||T3(-1) -> InvalidUserException|
 ||0|valid||T4(0) -> User|
 ||maxint|valid||T(5) -> maxint|
-||||||
+
 
 
  ### **Class *User* - method *getUserId***
@@ -80,8 +80,9 @@ Version:1
 ||-1|invalid||setUserId(-1); -> Exception|
 ||0|valid||setUserId(0); <br> getUserId() -> 0|
 ||maxint|valid||setUserId(maxint); <br> getUserId() -> maxint |
+||maxint-1|valid||setUserId(maxint-1); <br> getUserId() -> maxint-1 |
 ||maxint+1|Invalid||setUserId(maxint+1);-> Exception|
-||||||
+
 
 
 
