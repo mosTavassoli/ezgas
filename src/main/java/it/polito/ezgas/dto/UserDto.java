@@ -1,6 +1,5 @@
 package it.polito.ezgas.dto;
 
-import exception.InvalidUserException;
 import it.polito.ezgas.utils.Constants;
 
 /**
@@ -35,7 +34,7 @@ public class UserDto {
     public UserDto() {
     }
     
-    public Integer editUserReputation(Integer modifier) throws InvalidUserException {
+    public Integer editUserReputation(Integer modifier) {
 		if (this.reputation+modifier <= Constants.REPUTATION_UPPER_BOUND 
 				&& this.reputation+modifier >= Constants.REPUTATION_LOWER_BOUND) {
 			this.reputation += modifier;
