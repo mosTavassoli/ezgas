@@ -29,6 +29,7 @@ Version: 1
 **Criteria for method *editUserReputation*:**
  - Type of modifier
  - Value of modifier
+ - Within bounds
 
 **Predicates for method *editUserReputation*:**
 
@@ -38,8 +39,8 @@ Version: 1
 |                    | other       |
 | Value of modifier | [minint,-1] |
 |                    | [0,maxint]  |
-| Within bounds | Y: result = [-5,5]  |
-|               | N: result = [minint,-6] or [6,maxint]  |
+| Within bounds | Y (result = [-5,5])  |
+|               | N (result = [minint,-6] or [6,maxint])  |
 
 
 
@@ -47,7 +48,7 @@ Version: 1
 
 | Criteria | Boundary values |
 | -------- | --------------- |
-| Value of modifier | minint, minint+1, -1, 0, maxint-1, maxint |
+| Value of modifier | minint, -1, 0, maxint |
 |          |                 |
 
 
@@ -64,30 +65,50 @@ Version: 1
 |                  |                   |       Y       |Valid            |                                                    |T4 {<br/>setReputation(3);<br/>editUserReputation(1) -> 4<br/>}|
 |                  |                   |               |                 |                                                    |               |
 
- ### **Class *class_name* - method *name***
+ ### **Class *UserDto* - constructor *UserDto***
 
 
 
-**Criteria for method *name*:**
+**Criteria for constructor *UserDto*:**
 	
 
- - 
- - 
-
-
-
+ - Type of userId
+ - Value of userId
+ - Type of userName
+ - Length of userName
+ - Type of password
+ - Length of userName
+ - Type of email 
+ - Length of userName
+ - Type of reputation
+ - Value of reputation
+ - Type of admin
+ - Value of admin
 
 
 **Predicates for method *name*:**
 
 | Criteria | Predicate |
 | -------- | --------- |
-|          |           |
-|          |           |
-|          |           |
-|          |           |
-
-
+| Type of userId |    int    |
+|                |   other   |
+| Value of userId | [minint,maxint] |
+| Type of userName |    String    |
+|                  |     other    |
+| Length of userName | [0,maxint] |
+| Type of password |    String    |
+|                  |     other    |
+| Length of password | [0,maxint] |
+| Type of email |    String    |
+|               |     other    |
+| Length of email | [0,maxint] |
+| Type of reputation |    int    |
+|                    |   other   |
+| Value of reputation | [minint,maxint] |
+| Type of admin |    boolean    |
+|               |      other    |
+| Value of admin | true |
+|                | false |
 
 
 
@@ -95,22 +116,26 @@ Version: 1
 
 | Criteria | Boundary values |
 | -------- | --------------- |
-|          |                 |
-|          |                 |
-
+|  Value of userId  |   minint, maxint  |
+|    Length of userName      |   0, maxint |
+|    Length of password      |   0, maxint |
+|    Length of email      |   0, maxint |
+|  Value of reputation  |   minint, maxint  |
 
 
 **Combination of predicates**:
 
 
-| Criteria 1 | Criteria 2 | ... | Valid / Invalid | Description of the test case | JUnit test case |
-|-------|-------|-------|-------|-------|-------|
-|||||||
-|||||||
-|||||||
-|||||||
-|||||||
-
+| Type of userId | Value of userId | Type of userName | Length of userName | Type of password | Length of password | Type of email | Length of email | Type of reputation | Value of reputation | Type of admin | Value of admin | Valid / Invalid | Description of the test case | JUnit test case |
+|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|
+|  other  |  -  |  -  |  -  |  -  |  -  |  -  |  -  |  -  |  -  |  -  |  -  |Invalid |Try to pass userId of type different from int | T1("string") -> Error|
+|  -  |  -  |  other  |  -  |  -  |  -  |  -  |  -  |  -  |  -  |  -  |  -  |Invalid |Try to pass userName of type different from String | T2(10) -> Error|
+|  -  |  -  |  -  |  -  |  other  |  -  |  -  |  -  |  -  |  -  |  -  |  -  |Invalid |Try to pass password of type different from String | T3(9.7) -> Error|
+|  -  |  -  |  -  |  -  |  -  |  -  |  other  |  -  |  -  |  -  |  -  |  -  |Invalid |Try to pass email of type different from String | T4(-8) -> Error|
+|  -  |  -  |  -  |  -  |  -  |  -  |  -  |  -  |  other  |  -  |  -  |  -  |Invalid |Try to pass reputation of type different from int | T5(false) -> Error|
+|  -  |  -  |  -  |  -  |  -  |  -  |  -  |  -  |  -  |  -  |  other  |  -  |Invalid |Try to pass admin of type different from boolean | T2(10.56) -> Error|
+|  int   |  [minint,maxint]  |  String  |  [0,maxint]  |  String  |  [0,maxint]  |  String  |  [0,maxint]  |  int   |  [minint,maxint]  |  boolean  |  true  |Valid |Try to add values and then test the returned UserDto | T1(12, "username12", "pass12", "test12 @example.com", 3, true) -> <!-- TODO --> |
+|     |   |    |    |    |    |    |    |     |    |    |  false  |Valid | | T1(45, "username45", "pass45", "test45 @example.com", -5, false) -> <!-- TODO --> |
 
 
 
