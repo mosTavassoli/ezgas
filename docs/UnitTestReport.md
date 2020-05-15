@@ -63,6 +63,54 @@ Version: 1
 ||maxint|Valid||T5(maxint) -> maxint|
 ||||||
 
+
+ ### **Class *GasStationDto* - method *checkPrices()***
+
+The function should perform the same checks on every type of fuel so here we will use a generic fuel instead of repeating the same thing multiple times.
+
+**Criteria for method *checkPrices()*:**
+ - Value of fuel price
+ - Availability of fuel
+
+
+
+
+
+**Predicates for method *checkPrices()*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+| Value of fuel price | [minfloat,-1) |
+|          |      -1     |
+|          |      (-1,0) |
+|          |      [0,maxfloat]   |
+| Availability of fuel | Yes |
+|                      | No |
+
+
+
+
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+| Value of fuel price  | minfloat, -1, 0, maxfloat              |
+|          |                 |
+
+
+
+**Combination of predicates**:
+
+
+| Availability of fuel | Value of fuel price | Valid / Invalid | Description of the test case | JUnit test case |
+|-------|-------|-------|-------|-------|-------|
+| No | - | Valid | A particular fuel is not available at this gas station |  |
+| Yes | [minfloat,-1) U (-1,0) | Valid | A particular fuel is available and has a negative price different that -1 |  |
+|  | -1 | Valid | A particular fuel is available and has a price equal to -1 |  |
+|  | [0,maxfloat] | Valid | A particular fuel is available and has a non-negative price |  |
+|  |  |  |  |  |
+
  ### **Class *class_name* - method *name***
 
 
@@ -109,6 +157,54 @@ Version: 1
 |||||||
 |||||||
 |||||||
+
+ ### **Class *class_name* - method *name***
+
+
+
+**Criteria for method *name*:**
+	
+
+ - 
+ - 
+
+
+
+
+
+**Predicates for method *name*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|          |           |
+|          |           |
+|          |           |
+|          |           |
+
+
+
+
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|          |                 |
+|          |                 |
+
+
+
+**Combination of predicates**:
+
+
+| Criteria 1 | Criteria 2 | ... | Valid / Invalid | Description of the test case | JUnit test case |
+|-------|-------|-------|-------|-------|-------|
+|||||||
+|||||||
+|||||||
+|||||||
+|||||||
+
 
 
 
