@@ -22,17 +22,17 @@ Version:1
     the set up of all Spring components
     >
 
- ### **Class *User* - method *setUserId***
+ ### **Class *User* - method *setUserId()***
 
 
 
-**Criteria for method *setUserId*:**
+**Criteria for method *setUserId()*:**
 
  - Type of parameter
  - Value of parameter
 
 
-**Predicates for method *setUserId*:**
+**Predicates for method *setUserId()*:**
 
 | Criteria | Predicate |
 | -------- | --------- |
@@ -66,23 +66,41 @@ Version:1
 
 
 
- ### **Class *User* - method *getUserId***
+ ### **Class *User* - method *getUserId()***
 
 
 **Combination of predicates**:
 
 | Type of parameter | Value of parameter | Valid / Invalid | Description of the test case | test cases |
 |-------|-------|-------|-------|-------|
-|other|-|Invalid|Try to set parameter of type different from int| setUserId("test"); -> Exception|
-||||| setUserId(1.5); -> Exception|
-|int|minint|Invalid||setUserId(minint); -> Exception|
-|int|minint+1|Invalid||setUserId(minint+1); -> Exception|
-||-1|invalid||setUserId(-1); -> Exception|
+|other|-|Invalid|Try to set parameter of type different from int| setUserId("test"); -> InvalidUserException|
+||||| setUserId(1.5); -> InvalidUserException|
+|int|minint|Invalid||setUserId(minint); -> InvalidUserException|
+|int|minint+1|Invalid||setUserId(minint+1); -> InvalidUserException|
+||-1|invalid||setUserId(-1); -> InvalidUserException|
 ||0|valid||setUserId(0); <br> getUserId() -> 0|
 ||maxint|valid||setUserId(maxint); <br> getUserId() -> maxint |
 ||maxint-1|valid||setUserId(maxint-1); <br> getUserId() -> maxint-1 |
-||maxint+1|Invalid||setUserId(maxint+1);-> Exception|
+||maxint+1|Invalid||setUserId(maxint+1);-> InvalidUserException|
 
+
+
+ ### **Class *GasStation* - method *getGasStationId()***
+
+
+**Combination of predicates**:
+
+| Type of parameter | Value of parameter | Valid / Invalid | Description of the test case | test cases |
+|-------|-------|-------|-------|-------|
+|other|-|Invalid|Try to set parameter of type different from int| setGasStationId("test"); -> InvalidGasStationException|
+||||| setGasStationId(1.5); -> InvalidGasStationException|
+|int|minint|Invalid||setGasStationId(minint); -> InvalidGasStationException|
+|int|minint+1|Invalid||setGasStationId(minint+1); -> InvalidGasStationException|
+||-1|invalid||setGasStationId(-1); -> InvalidGasStationException|
+||0|valid||setGasStationId(0); <br> getGasStationId() -> 0|
+||maxint|valid||setGasStationId(maxint); <br> getGasStationId() -> maxint |
+||maxint-1|valid||setGasStationId(maxint-1); <br> getGasStationId() -> maxint-1 |
+||maxint+1|Invalid||setGasStationId(maxint+1);-> InvalidGasStationException|
 
 
 
