@@ -22,24 +22,24 @@ Version: 1
     the set up of all Spring components
     >
 
-### **Class *User* - method *setReputation***
+### **Class *UserDto* - method *editUserReputation***
 
 
 
-**Criteria for method *setReputation*:**
- - Type of reputation
- - Value of reputation
+**Criteria for method *editUserReputation*:**
+ - Type of modifier
+ - Value of modifier
 
-**Predicates for method *setReputation*:**
+**Predicates for method *editUserReputation*:**
 
 | Criteria | Predicate |
 | -------- | --------- |
-| Type of reputation  | int         |
+| Type of modifier  | int         |
 |                    | other       |
-| Value of reputation | [minint,-6] |
-|                    | [-5,5]  |
-|                    | [6,maxint]  |
-|          |                 |
+| Value of modifier | [minint,-1] |
+|                    | [0,maxint]  |
+| Within bounds | Y: result = [-5,5]  |
+|               | N: result = [minint,-6] or [6,maxint]  |
 
 
 
@@ -47,7 +47,7 @@ Version: 1
 
 | Criteria | Boundary values |
 | -------- | --------------- |
-| Value of reputation | minint, minint+1, -6, -5, 5, 6, maxint-1, maxint |
+| Value of modifier | minint, minint+1, -1, 0, maxint-1, maxint |
 |          |                 |
 
 
@@ -55,16 +55,14 @@ Version: 1
 **Combination of predicates**:
 
 
-| Type of reputation | Value of reputation | Valid / Invalid | Description of the test case                    | JUnit test case |
-|-------------------|--------------------|-----------------|-------------------------------------------------|---------------------|
-|       other       |   -                |    Invalid      |Try to pass parameter of type different from int                | T1("test") -> Error |
-|       int         |minint              |Valid            |Try to set a value and then test the value stored in the object |T2(minint) -> -5|
-|                   |-6                  |Valid            |                                                                |T3(-6) -> -5|
-|                   |-5                  |Valid            |                                                                |T4(-5) -> -5|
-|                   |5                   |Valid            |                                                                |T5(5) -> 5|
-|                   |6                   |Valid            |                                                                |T6(6) -> 5|
-|                   |maxint              |Valid            |                                                                |T7(maxint) -> 5|
-|                   |                    |                 |                                                                |                    |
+| Type of modifier | Value of modifier | Within bounds | Valid / Invalid | Description of the test case    | JUnit test case |
+|------------------|-------------------|---------------|-----------------|---------------------------------|-----------------|
+|       other      |   -               |       -       |Invalid          |Try to pass parameter of type different from int | T1("string") -> Error |
+|       int        | [minint,-1]       |       N       |Valid            |Try to edit a value and then test the returned value |T2 {<br/>setReputation(3);<br/>editUserReputation(-50) -> -5<br/>}|
+|                  |                   |       Y       |Valid            |                                                    |T3 {<br/>setReputation(3);<br/>editUserReputation(-7) -> -4<br/>}|
+|                  | [0,maxint]        |       N       |Valid            |                                                    |T4 {<br/>setReputation(3);<br/>editUserReputation(609) -> 5<br/>}|
+|                  |                   |       Y       |Valid            |                                                    |T4 {<br/>setReputation(3);<br/>editUserReputation(1) -> 4<br/>}|
+|                  |                   |               |                 |                                                    |               |
 
  ### **Class *class_name* - method *name***
 
