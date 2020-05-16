@@ -710,8 +710,11 @@ database Database order 30
 activate GasStationController
 GasStationController -> GasStationServiceimpl:2 : deleteGasStation()
 activate GasStationServiceimpl
-GasStationServiceimpl -> GasStationConverter:3 : toEntity()
-activate GasStationConverter
+GasStationServiceimpl -> GasStationRepository:4 : exists()
+activate GasStationRepository
+GasStationRepository -> Database
+activate Database
+return
 return
 GasStationServiceimpl -> GasStationRepository:4 : delete()
 activate GasStationRepository
@@ -722,29 +725,24 @@ return
 return
 return
 
-"Front End" -> GasStationController:5 : getAllGasStations()
+"Front End" -> GasStationController:6 : getAllGasStations()
 activate GasStationController
-GasStationController -> GasStationServiceimpl:6 : getAllGasStations()
+GasStationController -> GasStationServiceimpl:7 : getAllGasStations()
 activate GasStationServiceimpl
-GasStationServiceimpl -> GasStationRepository:7 : findAll()
+GasStationServiceimpl -> GasStationRepository:8 : count()
 activate GasStationRepository
 GasStationRepository -> Database
 activate Database
 return
 return
-GasStationServiceimpl -> GasStationServiceimpl:8 : getAllPriceReports()
-activate GasStationServiceimpl
-GasStationServiceimpl -> PriceReportRepository:9 : findAll()
-activate PriceReportRepository
-PriceReportRepository -> Database
+GasStationServiceimpl -> GasStationRepository:9 : findAll()
+activate GasStationRepository
+GasStationRepository -> Database
 activate Database
 return
 return
-GasStationServiceimpl -> PriceReportConverter:10 : toPriceReportDto()
-activate PriceReportConverter
-return
-deactivate GasStationServiceimpl
-GasStationServiceimpl -> GasStationConverter:11 : toGasStationDto()
+
+GasStationServiceimpl -> GasStationConverter:10 : toDto()
 activate GasStationConverter
 return
 return
