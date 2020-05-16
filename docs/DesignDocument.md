@@ -483,26 +483,34 @@ activate UserServiceimpl
 UserServiceimpl -> UserConverter:3 : toEntity()
 activate UserConverter
 return
-UserServiceimpl -> UserRepository:4 : save()
+UserServiceimpl -> UserRepository:4 : findByEmail()
+activate UserRepository
+UserRepository -> Database:
+activate Database
+return
+return
+UserServiceimpl -> UserRepository:5 : save()
 activate UserRepository
 UserRepository -> Database
 activate Database
 return
 return
+UserServiceimpl -> UserConverter:6 : toDto()
+activate UserConverter
 return
 return
-
-"Front End" -> UserController:5 : getAllUsers()
+return
+"Front End" -> UserController:7 : getAllUsers()
 activate UserController
-UserController -> UserServiceimpl:6 : getAllUsers()
+UserController -> UserServiceimpl:8 : getAllUsers()
 activate UserServiceimpl
-UserServiceimpl -> UserRepository:7 : findAll()
+UserServiceimpl -> UserRepository:9 : findAll()
 activate UserRepository
 UserRepository -> Database
 activate Database
 return
 return
-UserServiceimpl -> UserConverter:8 : toUserDto()
+UserServiceimpl -> UserConverter:10 : toDto()
 activate UserConverter
 return
 return
@@ -520,30 +528,25 @@ activate UserServiceimpl
 UserServiceimpl -> UserConverter:3 : toEntity()
 activate UserConverter
 return
-UserServiceimpl -> UserRepository:4 : save()
+UserServiceimpl -> UserRepository:4 : findByEmail()
+activate UserRepository
+UserRepository -> Database:
+activate Database
+return
+return
+UserServiceimpl -> UserRepository:5 : save()
 activate UserRepository
 UserRepository -> Database
 activate Database
 return
 return
-return
-return
-
-"Front End" -> UserController:5 : getAllUsers()
-activate UserController
-UserController -> UserServiceimpl:6 : getAllUsers()
-activate UserServiceimpl
-UserServiceimpl -> UserRepository:7 : findAll()
-activate UserRepository
-UserRepository -> Database
-activate Database
-return
-return
-UserServiceimpl -> UserConverter:8 : toUserDto()
+UserServiceimpl -> UserConverter:6 : toDto()
 activate UserConverter
 return
 return
 return
+
+
 ```
 ## Sequence diagram for use case 3
 ```plantuml
