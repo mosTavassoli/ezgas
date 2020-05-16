@@ -546,6 +546,21 @@ return
 return
 return
 
+"Front End" -> UserController:7 : getAllUsers()
+activate UserController
+UserController -> UserServiceimpl:8 : getAllUsers()
+activate UserServiceimpl
+UserServiceimpl -> UserRepository:9 : findAll()
+activate UserRepository
+UserRepository -> Database
+activate Database
+return
+return
+UserServiceimpl -> UserConverter:10 : toDto()
+activate UserConverter
+return
+return
+return
 
 ```
 ## Sequence diagram for use case 3
