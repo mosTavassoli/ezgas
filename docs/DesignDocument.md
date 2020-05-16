@@ -853,9 +853,6 @@ return
 GasStationServiceimpl -> GasStationServiceimpl: 3 : getGasStationsWithoutCoordinates()
 activate GasStationServiceimpl
 return
-
-
-
 return
 return
 ```
@@ -874,35 +871,30 @@ UserRepository -> Database
 activate Database
 return
 return
-UserServiceimpl -> UserConverter:5 : toUserDto()
+UserServiceimpl -> UserConverter:4 : toDto()
 activate UserConverter
 return
 return
 return
 
-"Front End" -> GasStationController:9 : getAllGasStations()
+"Front End" -> GasStationController:5 : getAllGasStations()
 activate GasStationController
-GasStationController -> GasStationServiceimpl:10 : getAllGasStations()
+GasStationController -> GasStationServiceimpl:6 : getAllGasStations()
 activate GasStationServiceimpl
-GasStationServiceimpl -> GasStationRepository:11 : findAll()
+GasStationServiceimpl -> GasStationRepository:7 : count()
 activate GasStationRepository
 GasStationRepository -> Database
 activate Database
 return
 return
-GasStationServiceimpl -> GasStationServiceimpl:12 : getAllPriceReports()
-activate GasStationServiceimpl
-GasStationServiceimpl -> PriceReportRepository:13 : findAll()
-activate PriceReportRepository
-PriceReportRepository -> Database
+GasStationServiceimpl -> GasStationRepository:8 : findAll()
+activate GasStationRepository
+GasStationRepository -> Database
 activate Database
 return
 return
-GasStationServiceimpl -> PriceReportConverter:14 : toPriceReportDto()
-activate PriceReportConverter
-return
-deactivate GasStationServiceimpl
-GasStationServiceimpl -> GasStationConverter:15 : toGasStationDto()
+
+GasStationServiceimpl -> GasStationConverter:9 : toDto()
 activate GasStationConverter
 return
 return
