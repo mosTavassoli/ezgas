@@ -570,10 +570,19 @@ database Database order 30
 activate UserController
 UserController -> UserServiceimpl:2 : deleteUser()
 activate UserServiceimpl
-UserServiceimpl -> UserConverter:3 : toEntity()
-activate UserConverter
+UserServiceimpl -> UserRepository:3 : exists()
+activate UserRepository
+UserRepository -> Database
+activate Database
+return
 return
 UserServiceimpl -> UserRepository:4 : delete()
+activate UserRepository
+UserRepository -> Database
+activate Database
+return
+return
+UserServiceimpl -> UserRepository:5 : exists()
 activate UserRepository
 UserRepository -> Database
 activate Database
@@ -582,17 +591,17 @@ return
 return
 return
 
-"Front End" -> UserController:5 : getAllUsers()
+"Front End" -> UserController:6 : getAllUsers()
 activate UserController
-UserController -> UserServiceimpl:6 : getAllUsers()
+UserController -> UserServiceimpl:7 : getAllUsers()
 activate UserServiceimpl
-UserServiceimpl -> UserRepository:7 : findAll()
+UserServiceimpl -> UserRepository:8 : findAll()
 activate UserRepository
 UserRepository -> Database
 activate Database
 return
 return
-UserServiceimpl -> UserConverter:8 : toUserDto()
+UserServiceimpl -> UserConverter:9 : toDto()
 activate UserConverter
 return
 return
