@@ -781,19 +781,19 @@ GasStationRepository -> Database
 activate Database
 return
 return
-GasStationServiceimpl -> GasStationRepository:8 : findOne()
+GasStationServiceimpl -> GasStationRepository:9 : findOne()
 activate GasStationRepository
 GasStationRepository -> Database
 activate Database
 return
 return
-GasStationServiceimpl -> GasStationConverter:8 : toDto()
+GasStationServiceimpl -> GasStationConverter:10 : toDto()
 activate GasStationConverter
 return
 return
 
 
-GasStationServiceimpl -> GasStationRepository:8 : save()
+GasStationServiceimpl -> GasStationRepository:11 : save()
 activate GasStationRepository
 GasStationRepository -> Database
 activate Database
@@ -802,24 +802,24 @@ return
 return
 return
 
-"Front End" -> GasStationController:6 : getAllGasStations()
+"Front End" -> GasStationController:12 : getAllGasStations()
 activate GasStationController
-GasStationController -> GasStationServiceimpl:7 : getAllGasStations()
+GasStationController -> GasStationServiceimpl:13 : getAllGasStations()
 activate GasStationServiceimpl
-GasStationServiceimpl -> GasStationRepository:8 : count()
+GasStationServiceimpl -> GasStationRepository:14 : count()
 activate GasStationRepository
 GasStationRepository -> Database
 activate Database
 return
 return
-GasStationServiceimpl -> GasStationRepository:9 : findAll()
+GasStationServiceimpl -> GasStationRepository:15 : findAll()
 activate GasStationRepository
 GasStationRepository -> Database
 activate Database
 return
 return
 
-GasStationServiceimpl -> GasStationConverter:10 : toDto()
+GasStationServiceimpl -> GasStationConverter:16 : toDto()
 activate GasStationConverter
 return
 return
