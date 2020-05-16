@@ -756,13 +756,13 @@ database Database order 30
 activate UserController
 UserController -> UserServiceimpl:2 : getUserById()
 activate UserServiceimpl
-UserServiceimpl -> UserRepository:3 : findById()
+UserServiceimpl -> UserRepository:3 : findByUserId()
 activate UserRepository
 UserRepository -> Database
 activate Database
 return
 return
-UserServiceimpl -> UserConverter:4 : toUserDto()
+UserServiceimpl -> UserConverter:4 : toDto()
 activate UserConverter
 return
 return
@@ -772,9 +772,27 @@ return
 activate GasStationController
 GasStationController -> GasStationServiceimpl:6 : setReport()
 activate GasStationServiceimpl
-GasStationServiceimpl -> PriceReportConverter:7 : toEntity()
-activate PriceReportConverter
+
+GasStationServiceimpl -> GasStationServiceimpl:7 : getGasStationById()
+activate GasStationServiceimpl
+GasStationServiceimpl -> GasStationRepository:8 : exists()
+activate GasStationRepository
+GasStationRepository -> Database
+activate Database
 return
+return
+GasStationServiceimpl -> GasStationRepository:8 : findOne()
+activate GasStationRepository
+GasStationRepository -> Database
+activate Database
+return
+return
+GasStationServiceimpl -> GasStationConverter:8 : toDto()
+activate GasStationConverter
+return
+return
+
+
 GasStationServiceimpl -> GasStationRepository:8 : save()
 activate GasStationRepository
 GasStationRepository -> Database
@@ -784,29 +802,24 @@ return
 return
 return
 
-"Front End" -> GasStationController:9 : getAllGasStations()
+"Front End" -> GasStationController:6 : getAllGasStations()
 activate GasStationController
-GasStationController -> GasStationServiceimpl:10 : getAllGasStations()
+GasStationController -> GasStationServiceimpl:7 : getAllGasStations()
 activate GasStationServiceimpl
-GasStationServiceimpl -> GasStationRepository:11 : findAll()
+GasStationServiceimpl -> GasStationRepository:8 : count()
 activate GasStationRepository
 GasStationRepository -> Database
 activate Database
 return
 return
-GasStationServiceimpl -> GasStationServiceimpl:12 : getAllPriceReports()
-activate GasStationServiceimpl
-GasStationServiceimpl -> PriceReportRepository:13 : findAll()
-activate PriceReportRepository
-PriceReportRepository -> Database
+GasStationServiceimpl -> GasStationRepository:9 : findAll()
+activate GasStationRepository
+GasStationRepository -> Database
 activate Database
 return
 return
-GasStationServiceimpl -> PriceReportConverter:14 : toPriceReportDto()
-activate PriceReportConverter
-return
-deactivate GasStationServiceimpl
-GasStationServiceimpl -> GasStationConverter:15 : toGasStationDto()
+
+GasStationServiceimpl -> GasStationConverter:10 : toDto()
 activate GasStationConverter
 return
 return
