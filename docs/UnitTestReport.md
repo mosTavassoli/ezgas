@@ -30,7 +30,7 @@ Version: 1
  - Type of parameter
  - Value of parameter
 
-**Predicates for method *name*:**
+**Predicates for method *setGasStationId()*:**
 
 | Criteria | Predicate |
 | -------- | --------- |
@@ -57,16 +57,17 @@ Version: 1
 | Type of parameter | Value of parameter | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|-------|
 |other|-|Invalid|Try to pass parameter of type different from int | T1("test") -> Error |
-|int|minint|Invalid|Try to set a value and then test the value stored in the object |T2(minint) -> InvalidUserException|
-||-1|Invalid||T3(-1) -> InvalidUserException|
-||0|Valid||T4(0) -> User|
+|int|minint|Valid|Try to set a value and then test the value stored in the object |T2(minint) -> minint|
+||-1|Valid||T3(-1) -> -1|
+||0|Valid||T4(0) -> 0|
 ||maxint|Valid||T5(maxint) -> maxint|
 ||||||
 
 
  ### **Class *GasStationDto* - method *checkPrices()***
 
-The function should perform the same checks on every type of fuel so here we will use a generic fuel instead of repeating the same thing multiple times.
+The function should perform the same checks for all 5 types of fuel so here we will use a generic fuel instead of repeating the same thing multiple times.
+The JUnit test case will be exhaustive.
 
 **Criteria for method *checkPrices()*:**
  - Value of fuel price
@@ -80,12 +81,12 @@ The function should perform the same checks on every type of fuel so here we wil
 
 | Criteria | Predicate |
 | -------- | --------- |
-| Value of fuel price | [minfloat,-1) |
+| Value of fuel price | [mindouble,-1) |
 |          |      -1     |
 |          |      (-1,0) |
-|          |      [0,maxfloat]   |
+|          |      [0,maxdouble]   |
 | Availability of fuel | Yes |
-|                      | No |
+|                      | No  |
 
 
 
@@ -95,7 +96,7 @@ The function should perform the same checks on every type of fuel so here we wil
 
 | Criteria | Boundary values |
 | -------- | --------------- |
-| Value of fuel price  | minfloat, -1, 0, maxfloat              |
+| Value of fuel price  | mindouble, -1, 0, maxdouble              |
 |          |                 |
 
 
@@ -105,34 +106,40 @@ The function should perform the same checks on every type of fuel so here we wil
 
 | Availability of fuel | Value of fuel price | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|-------|
-| No | - | Valid | A particular fuel is not available at this gas station |  |
-| Yes | [minfloat,-1) U (-1,0) | Valid | A particular fuel is available and has a negative price different that -1 |  |
-|  | -1 | Valid | A particular fuel is available and has a price equal to -1 |  |
-|  | [0,maxfloat] | Valid | A particular fuel is available and has a non-negative price |  |
+| No | - | Valid | A particular fuel is not available at this gas station | GasStationDto gasStationDto=new GasStationDto();<br/>gasStationDto.setHasFuel(false)<br/>gasStationDto.checkPrices() -> true |
+| Yes | [mindouble,-1) U (-1,0) | Valid | A particular fuel is available and has a negative price different that -1 | GasStationDto gasStationDto=new GasStationDto();<br/>gasStationDto.setHasFuel(true)<br/>gasStationDto.setFuelPrice(-2.5)<br/>gasStationDto.checkPrices() -> false |
+|  | -1 | Valid | A particular fuel is available and has a price equal to -1 | GasStationDto gasStationDto=new GasStationDto();<br/>gasStationDto.setHasFuel(true)<br/>gasStationDto.setFuelPrice(-1)<br/>gasStationDto.checkPrices() -> true |
+|  | [0,maxdouble] | Valid | A particular fuel is available and has a non-negative price | GasStationDto gasStationDto=new GasStationDto();<br/>gasStationDto.setHasFuel(true)<br/>gasStationDto.setFuelPrice(1.56)<br/>gasStationDto.checkPrices() -> true |
 |  |  |  |  |  |
 
- ### **Class *class_name* - method *name***
+ ### **Class *GasStationDto* - method *checkCoordinates()***
 
 
 
-**Criteria for method *name*:**
-	
-
- - 
- - 
-
-
+**Criteria for method *checkCoordinates()*:**
+ - Value of longitude
+ - Value of latitude
+ - Type of latitude parameter
+ - Type of longitude parameter
 
 
 
-**Predicates for method *name*:**
+
+
+**Predicates for method *checkCoordinates()*:**
 
 | Criteria | Predicate |
 | -------- | --------- |
-|          |           |
-|          |           |
-|          |           |
-|          |           |
+|    Value of longitude          | [-180,180] |
+|                                | [mindouble,-180) |
+|                                | (180,maxdouble] |
+|    Value of latitude           | [-90,90] |
+|                                | [mindouble,-90) |
+|                                | (90,maxdouble] |
+|    Type of latitude parameter  | double |
+|                                | other |
+|    Type of longitude parameter | double |
+|                                | other |
 
 
 
@@ -142,44 +149,41 @@ The function should perform the same checks on every type of fuel so here we wil
 
 | Criteria | Boundary values |
 | -------- | --------------- |
-|          |                 |
-|          |                 |
+| Value of longitude | mindouble, -180, 180, maxdouble |
+| Value of latitude  | mindouble, -90, 90, maxdouble   |
 
 
 
 **Combination of predicates**:
 
 
-| Criteria 1 | Criteria 2 | ... | Valid / Invalid | Description of the test case | JUnit test case |
-|-------|-------|-------|-------|-------|-------|
-|||||||
-|||||||
-|||||||
-|||||||
-|||||||
+| Type of longitude parameter | Type of latitude parameter | Value of longitude | Value of latitude | Valid / Invalid | Description of the test case | JUnit test case |
+|-------|-------|-------|-------|-------|-------|------|
+| other | - | - | - | Invalid | Try to pass a longitude parameter of type different from double | GasStationDto.checkCoordinates(0,"test") -> error |
+| double | other | - | - | Invalid | Try to pass a latitude parameter of type different from double | GasStationDto.checkCoordinates("test",0) -> error |
+| double | double | [mindouble,-180) U (180,maxdouble] | - | Valid | The value of the longitude is outside the allowed boundaries | GasStationDto.checkCoordinates(0,-200) -> false |
+|  |  | [-180,180] | [mindouble,-90) U (90,maxdouble] | Valid | The value of the latitude is outside the allowed boundaries | GasStationDto.checkCoordinates(120,0) -> false |
+|  |  | [-180,180] | [-90,90] | Valid | Both latitude and longitude within the allowed boundaries | GasStationDto.checkCoordinates(43,168) -> true |
 
- ### **Class *class_name* - method *name***
+ ### **Class *GasStationDto* - method *toString()***
 
 
 
-**Criteria for method *name*:**
-	
-
- - 
+**Criteria for method *toString()*:**
+ - Returned string contains correct, previously set, values
  - 
 
 
 
 
 
-**Predicates for method *name*:**
+**Predicates for method *toString()*:**
 
 | Criteria | Predicate |
 | -------- | --------- |
-|          |           |
-|          |           |
-|          |           |
-|          |           |
+| Any attributes with null values | Yes |
+|          |      No     |
+
 
 
 
@@ -189,21 +193,20 @@ The function should perform the same checks on every type of fuel so here we wil
 
 | Criteria | Boundary values |
 | -------- | --------------- |
-|          |                 |
-|          |                 |
+| Any attributes with null values | 1 object attribute null, all object attributes null |
 
 
 
 **Combination of predicates**:
 
 
-| Criteria 1 | Criteria 2 | ... | Valid / Invalid | Description of the test case | JUnit test case |
+| Any attributes with null values | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|-------|
-|||||||
-|||||||
-|||||||
-|||||||
-|||||||
+| Yes | Valid | One or more object attributes with null values | GasStationDto gasStationDto = new GasStationDto()<br/>gasStationDto.toString() -> string containing multiple "null" strings|
+| No | Valid | No null attributes (Except for userDto) | GasStationDto gasStationDto = new GasStationDto(gasStationId,gasStationName, ...)<br/>gasStationDto.toString() -> string containing all the attributes set by the constructor (userDto is set to null) |
+|  |  |  |  |
+|  |  |  |  |
+|  |  |  |  |
 
 
 
