@@ -710,7 +710,7 @@ database Database order 30
 activate GasStationController
 GasStationController -> GasStationServiceimpl:2 : deleteGasStation()
 activate GasStationServiceimpl
-GasStationServiceimpl -> GasStationRepository:4 : exists()
+GasStationServiceimpl -> GasStationRepository:3 : exists()
 activate GasStationRepository
 GasStationRepository -> Database
 activate Database
@@ -725,24 +725,24 @@ return
 return
 return
 
-"Front End" -> GasStationController:6 : getAllGasStations()
+"Front End" -> GasStationController:5 : getAllGasStations()
 activate GasStationController
-GasStationController -> GasStationServiceimpl:7 : getAllGasStations()
+GasStationController -> GasStationServiceimpl:6 : getAllGasStations()
 activate GasStationServiceimpl
-GasStationServiceimpl -> GasStationRepository:8 : count()
+GasStationServiceimpl -> GasStationRepository:7 : count()
 activate GasStationRepository
 GasStationRepository -> Database
 activate Database
 return
 return
-GasStationServiceimpl -> GasStationRepository:9 : findAll()
+GasStationServiceimpl -> GasStationRepository:8 : findAll()
 activate GasStationRepository
 GasStationRepository -> Database
 activate Database
 return
 return
 
-GasStationServiceimpl -> GasStationConverter:10 : toDto()
+GasStationServiceimpl -> GasStationConverter:9 : toDto()
 activate GasStationConverter
 return
 return
