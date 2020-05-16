@@ -842,15 +842,15 @@ gasStationRepository -> Database
 activate Database
 return
 return
-GasStationServiceimpl -> GasStationConverter: 4 : toDto()
+GasStationServiceimpl -> GasStationConverter: 5 : toDto()
 activate GasStationConverter
-GasStationConverter -> GasStationConverter: 4 : toDto()
+GasStationConverter -> GasStationConverter: 6 : toDto()
 activate GasStationConverter
 return
 return
 return
 
-GasStationServiceimpl -> GasStationServiceimpl: 3 : getGasStationsWithoutCoordinates()
+GasStationServiceimpl -> GasStationServiceimpl: 7 : getGasStationsWithoutCoordinates()
 activate GasStationServiceimpl
 return
 return
