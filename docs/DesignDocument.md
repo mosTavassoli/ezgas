@@ -500,6 +500,7 @@ activate UserConverter
 return
 return
 return
+
 "Front End" -> UserController:7 : getAllUsers()
 activate UserController
 UserController -> UserServiceimpl:8 : getAllUsers()
@@ -908,74 +909,97 @@ database Database order 30
 "Front End" -> GasStationController:1 : getGasStationById()
 activate GasStationController
 GasStationController -> GasStationServiceimpl:2 : getGasStationById()
+
 activate GasStationServiceimpl
-GasStationServiceimpl -> GasStationRepository:3 : findById()
+GasStationServiceimpl -> GasStationRepository:8 : exists()
 activate GasStationRepository
 GasStationRepository -> Database
 activate Database
 return
 return
-GasStationServiceimpl -> GasStationServiceimpl:4 : getAllPriceReports()
-activate GasStationServiceimpl
-GasStationServiceimpl -> PriceReportRepository:5 : findAll()
-activate PriceReportRepository
-PriceReportRepository -> Database
+GasStationServiceimpl -> GasStationRepository:9 : findOne()
+activate GasStationRepository
+GasStationRepository -> Database
 activate Database
 return
 return
-GasStationServiceimpl -> PriceReportConverter:6 : toPriceReportDto()
-activate PriceReportConverter
-return
-deactivate GasStationServiceimpl
-GasStationServiceimpl -> GasStationConverter:7 : toGasStationDto()
+GasStationServiceimpl -> GasStationConverter:10 : toDto()
 activate GasStationConverter
 return
 return
 return
 
-"Front End" -> UserController:8 : getUserById()
+
+"Front End" -> UserController:1 : getUserById()
 activate UserController
-UserController -> UserServiceimpl:9 : getUserById()
+UserController -> UserServiceimpl:2 : getUserById()
 activate UserServiceimpl
-UserServiceimpl -> UserRepository:10 : findById()
+UserServiceimpl -> UserRepository:3 : findByUserId()
 activate UserRepository
 UserRepository -> Database
 activate Database
 return
 return
-UserServiceimpl -> UserConverter:11 : toUserDto()
+UserServiceimpl -> UserConverter:4 : toDto()
 activate UserConverter
 return
 return
 return
+
 
 "Front End" -> UserController:12 : increaseUserReputation()
 activate UserController
 UserController -> UserServiceimpl:13 : increaseUserReputation()
 activate UserServiceimpl
-UserServiceimpl -> UserConverter:14 : toEntity()
-activate UserConverter
-return
-UserServiceimpl -> UserRepository:15 : save()
+UserServiceimpl -> UserServiceimpl:2 : getUserById()
+activate UserServiceimpl
+UserServiceimpl -> UserRepository:3 : findByUserId()
 activate UserRepository
 UserRepository -> Database
 activate Database
 return
 return
+UserServiceimpl -> UserConverter:4 : toDto()
+activate UserConverter
 return
 return
 
-"Front End" -> UserController:16 : getAllUsers()
-activate UserController
-UserController -> UserServiceimpl:17 : getAllUsers()
+UserServiceimpl -> UserServiceimpl:2 : saveUser()
 activate UserServiceimpl
-UserServiceimpl -> UserRepository:18 : findAll()
+UserServiceimpl -> UserConverter:3 : toEntity()
+activate UserConverter
+return
+UserServiceimpl -> UserRepository:4 : findByEmail()
+activate UserRepository
+UserRepository -> Database:
+activate Database
+return
+return
+UserServiceimpl -> UserRepository:5 : save()
 activate UserRepository
 UserRepository -> Database
 activate Database
 return
 return
-UserServiceimpl -> UserConverter:19 : toUserDto()
+UserServiceimpl -> UserConverter:6 : toDto()
+activate UserConverter
+return
+return
+
+return
+return
+
+"Front End" -> UserController:1 : getAllUsers()
+activate UserController
+UserController -> UserServiceimpl:2 : getAllUsers()
+activate UserServiceimpl
+UserServiceimpl -> UserRepository:3 : findAll()
+activate UserRepository
+UserRepository -> Database
+activate Database
+return
+return
+UserServiceimpl -> UserConverter:4 : toDto()
 activate UserConverter
 return
 return
