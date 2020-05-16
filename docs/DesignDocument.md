@@ -833,27 +833,29 @@ database Database order 30
 activate GasStationController
 GasStationController -> GasStationServiceimpl:2 : getGasStationsWithCoordinates()
 activate GasStationServiceimpl
-GasStationServiceimpl -> GasStationRepository:3 : findAll()
-activate GasStationRepository
-GasStationRepository -> Database
-activate Database
-return
-return
-GasStationServiceimpl -> GasStationServiceimpl:4 : getAllPriceReports()
+
+GasStationServiceimpl -> GasStationServiceimpl: 3 : getGasStationsByProximity()
 activate GasStationServiceimpl
-GasStationServiceimpl -> PriceReportRepository:5 : findAll()
-activate PriceReportRepository
-PriceReportRepository -> Database
+GasStationServiceimpl -> gasStationRepository: 4 : findByLatBetweenAndLonBetween()
+activate gasStationRepository
+gasStationRepository -> Database
 activate Database
 return
 return
-GasStationServiceimpl -> PriceReportConverter:6 : toPriceReportDto()
-activate PriceReportConverter
-return
-deactivate GasStationServiceimpl
-GasStationServiceimpl -> GasStationConverter:7 : toGasStationDto()
+GasStationServiceimpl -> GasStationConverter: 4 : toDto()
+activate GasStationConverter
+GasStationConverter -> GasStationConverter: 4 : toDto()
 activate GasStationConverter
 return
+return
+return
+
+GasStationServiceimpl -> GasStationServiceimpl: 3 : getGasStationsWithoutCoordinates()
+activate GasStationServiceimpl
+return
+
+
+
 return
 return
 ```
