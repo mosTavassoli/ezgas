@@ -188,7 +188,7 @@ Version: 1.5
  ### **Class *GasStationDto* - method *checkPrices()***
 
 The function should perform the same checks for all 5 types of fuel so here we will use a generic fuel instead of repeating the same thing multiple times.
-The JUnit test case will be exhaustive.
+The JUnit test cases will be exhaustive.
 
 **Criteria for method *checkPrices()*:**
  - Value of fuel price
@@ -284,7 +284,7 @@ The JUnit test case will be exhaustive.
 | double | other | - | - | Invalid | Try to pass a latitude parameter of type different from double | GasStationDto.checkCoordinates("test",0) -> error |
 | double | double | [mindouble,-180) U (180,maxdouble] | - | Valid | The value of the longitude is outside the allowed boundaries | GasStationDto.checkCoordinates(0,-200) -> false |
 |  |  | [-180,180] | [mindouble,-90) U (90,maxdouble] | Valid | The value of the latitude is outside the allowed boundaries | GasStationDto.checkCoordinates(120,0) -> false |
-|  |  | [-180,180] | [-90,90] | Valid | Both latitude and longitude within the allowed boundaries | GasStationDto.checkCoordinates(43,168) -> true |
+|  |  | [-180,180] | [-90,90] | Valid | Both latitude and longitude within the allowed boundaries | GasStationDto.checkCoordinates(43.63,168.111) -> true |
 
  ### **Class *GasStationDto* - method *toString()***
 
