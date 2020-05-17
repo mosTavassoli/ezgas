@@ -69,7 +69,28 @@ Version: 1.5
 
 
  ### **Class *User* - method *getUserId()***
+ 
+**Criteria for method *getUserId()*:**
 
+ - Type of parameter
+ - Value of parameter
+
+
+**Predicates for method *getUserId()*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|Type of parameter        |int  |
+|                         |other|
+|Value of parameter       |[minint,-1]|
+|                         |[0,maxint]|
+
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+| Value of parameter | minint, minint+1, -1, 0, maxint-1, maxint |
 
 **Combination of predicates**:
 
@@ -126,22 +147,42 @@ Version: 1.5
 ||maxint|Valid||T5(maxint) -> maxint|
 ||||||
 
+
+
 ### **Class *GasStation* - method *getGasStationId()***
 
+**Criteria for method *getGasStationId()*:**
+ - Type of parameter
+ - Value of parameter
+
+**Predicates for method *getGasStationId()*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+| Type of parameter  | int         |
+|                    | other       |
+| Value of parameter | [minint,-1] |
+|                    | [0,maxint]  |
+
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+| Value of parameter | minint, minint+1, -1, 0, maxint-1, maxint |
 
 **Combination of predicates**:
 
-| Type of parameter | Value of parameter | Valid / Invalid | Description of the test case | test cases |
+| Type of parameter | Value of parameter | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|
-|other|-|Invalid|Try to set parameter of type different from int| setGasStationId("test"); -> InvalidGasStationException|
-||||| setGasStationId(1.5); -> InvalidGasStationException|
-|int|minint|Invalid||setGasStationId(minint); -> InvalidGasStationException|
-|int|minint+1|Invalid||setGasStationId(minint+1); -> InvalidGasStationException|
-||-1|invalid||setGasStationId(-1); -> InvalidGasStationException|
-||0|valid||setGasStationId(0); <br> getGasStationId() -> 0|
-||maxint|valid||setGasStationId(maxint); <br> getGasStationId() -> maxint |
-||maxint-1|valid||setGasStationId(maxint-1); <br> getGasStationId() -> maxint-1 |
-||maxint+1|Invalid||setGasStationId(maxint+1);-> InvalidGasStationException|
+|other|-|Invalid|Try to set parameter of type different from int| setGasStationId("string");<br> -> Error|
+||-|Invalid|| setGasStationId(1.5);<br> -> Error|
+|int|minint|Valid|Try to set a value and then test the value stored in the object|setGasStationId(minint);<br> getGasStationId() -> minint|
+||minint+1|Valid||setGasStationId(minint+1);<br>getGasStationId() -> minint+1|
+||-1|Valid||setGasStationId(-1);<br>getGasStationId() -> -1|
+||0|Valid||setGasStationId(0); <br> getGasStationId() -> 0|
+||maxint|Valid||setGasStationId(maxint); <br> getGasStationId() -> maxint |
+||maxint-1|Valid||setGasStationId(maxint-1); <br> getGasStationId() -> maxint-1 |
 
 
  ### **Class *GasStationDto* - method *checkPrices()***
