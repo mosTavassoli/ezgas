@@ -2,13 +2,18 @@ package it.polito.ezgas;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import it.polito.ezgas.entity.User;
 
 public class UserTest {
-
-User user;
+	User user;
+	
+	@Before
+	public void init() {
+		this.user = new User();
+	}
 	
 	private Integer userId = 15;
 	private String userName = "Username";
@@ -26,35 +31,30 @@ User user;
 	
 	@Test
 	public void testUserIdMinIntPlusOne() {
-		user = new User();
 		user.setUserId(Integer.MIN_VALUE + 1);
 		assertTrue(user.getUserId() == Integer.MIN_VALUE + 1 );
 	}
 	
 	@Test
 	public void testUserIdMinusOne() {
-		user = new User();
 		user.setUserId(-1);
 		assertTrue(user.getUserId() == -1);
 	}
 	
 	@Test
 	public void testUserIdZero() {
-		user = new User();
 		user.setUserId(0);
 		assertTrue(user.getUserId() == 0);
 	}
 	
 	@Test
 	public void testUserIdMaxInt() {
-		user = new User();
 		user.setUserId(Integer.MAX_VALUE);
 		assertTrue(user.getUserId() == Integer.MAX_VALUE);
 	}
 	
 	@Test
 	public void testUserIdMaxIntMinusOne() {
-		user = new User();
 		user.setUserId(Integer.MAX_VALUE -1);
 		assertTrue(user.getUserId() == Integer.MAX_VALUE -1);
 	}
