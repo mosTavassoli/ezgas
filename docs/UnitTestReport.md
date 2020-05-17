@@ -4,7 +4,7 @@ Authors: Mehdi Khrichfa, Alessandro Ricciuto, Toni Saliba, Mostafa Tavassoli
 
 Date: 14/05/2020
 
-Version: 1
+Version: 1.5
 
 # Contents
 
@@ -21,6 +21,69 @@ Version: 1
     <JUnit test classes must be in src/test/java/it/polito/ezgas   You find here, and you can use,  class EZGasApplicationTests.java that is executed before 
     the set up of all Spring components
     >
+
+### **Class *User* - method *setUserId()***
+
+
+
+**Criteria for method *setUserId()*:**
+
+ - Type of parameter
+ - Value of parameter
+
+
+**Predicates for method *setUserId()*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|Type of parameter        |int  |
+|                         |other|
+|Value of parameter       |[minint,-1]|
+|                         |[0,maxint]|
+
+
+
+
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+| Value of parameter | minint, minint+1, -1, 0, maxint-1, maxint |
+
+
+
+**Combination of predicates**:
+
+
+| Type of parameter | Value of parameter | Valid / Invalid | Description of the test case | JUnit test case |
+|-------|-------|-------|-------|-------|
+|other|-|Invalid|Try to pass parameter of type different from int	| T1("test");<br> -> Error|
+||-|Invalid|| T2(1.5);<br> -> Error|
+|int|minint|Valid|Try to set a value and then test the value stored in the object|T3(minint);<br> -> minint|
+||minint+1|Valid||T4(minint+1);<br> -> minint+1|
+||-1|Valid||T5(-1);<br> -> -1|
+||0|Valid||T6(0);<br> -> 0|
+||maxint|Valid||T7(maxint);<br> -> maxint|
+||maxint-1|Valid||T8(maxint-1);<br> -> maxint-1|
+
+
+ ### **Class *User* - method *getUserId()***
+
+
+**Combination of predicates**:
+
+| Type of parameter | Value of parameter | Valid / Invalid | Description of the test case | JUnit test case |
+|-------|-------|-------|-------|-------|
+|other|-|Invalid|Try to set parameter of type different from int|setUserId("test"); <br>-> Error|
+||-|Invalid||setUserId(1.5);<br> -> Error|
+|int|minint|Valid|Try to set a value and then test the value stored in the object|setUserId(minint);<br> getUserId(); -> minint|
+||minint+1|Valid||setUserId(minint+1);<br> getUserId(); -> minint+1|
+||-1|Valid||setUserId(-1); <br> getUserId(); ->-1|
+||0|Valid||setUserId(0); <br> getUserId() -> 0|
+||maxint|Valid||setUserId(maxint); <br> getUserId() -> maxint|
+||maxint-1|Valid||setUserId(maxint-1); <br> getUserId() -> maxint-1|
+
 
 ### **Class *GasStation* - method *setGasStationId()***
 
@@ -62,6 +125,23 @@ Version: 1
 ||0|Valid||T4(0) -> 0|
 ||maxint|Valid||T5(maxint) -> maxint|
 ||||||
+
+### **Class *GasStation* - method *getGasStationId()***
+
+
+**Combination of predicates**:
+
+| Type of parameter | Value of parameter | Valid / Invalid | Description of the test case | test cases |
+|-------|-------|-------|-------|-------|
+|other|-|Invalid|Try to set parameter of type different from int| setGasStationId("test"); -> InvalidGasStationException|
+||||| setGasStationId(1.5); -> InvalidGasStationException|
+|int|minint|Invalid||setGasStationId(minint); -> InvalidGasStationException|
+|int|minint+1|Invalid||setGasStationId(minint+1); -> InvalidGasStationException|
+||-1|invalid||setGasStationId(-1); -> InvalidGasStationException|
+||0|valid||setGasStationId(0); <br> getGasStationId() -> 0|
+||maxint|valid||setGasStationId(maxint); <br> getGasStationId() -> maxint |
+||maxint-1|valid||setGasStationId(maxint-1); <br> getGasStationId() -> maxint-1 |
+||maxint+1|Invalid||setGasStationId(maxint+1);-> InvalidGasStationException|
 
 
  ### **Class *GasStationDto* - method *checkPrices()***
