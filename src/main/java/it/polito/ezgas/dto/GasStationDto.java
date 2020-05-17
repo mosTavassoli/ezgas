@@ -1,7 +1,13 @@
 package it.polito.ezgas.dto;
 
+import java.lang.reflect.Field;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import it.polito.ezgas.utils.Constants;
 
 public class GasStationDto {
 
@@ -310,7 +316,90 @@ public class GasStationDto {
 	}
 	
 	
+	public boolean checkPrices() {
+		if(this.hasDiesel && this.dieselPrice < 0) {
+			if(this.dieselPrice != -1)
+				return false;
+			this.dieselPrice=Constants.DEFAULT_PRICE;
+		}
+		if(this.hasGas && this.gasPrice < 0) {
+			if(this.gasPrice != -1)
+				return false;
+			this.gasPrice=Constants.DEFAULT_PRICE;
+		}
+		if(this.hasMethane && this.methanePrice < 0) {
+			if(this.methanePrice != -1)
+				return false;
+			this.methanePrice=Constants.DEFAULT_PRICE;
+		}
+		if(this.hasSuper && this.superPrice < 0) {
+			if(this.superPrice != -1)
+				return false;
+			this.superPrice=Constants.DEFAULT_PRICE;
+		}
+		if(this.hasSuperPlus && this.superPlusPrice < 0) {
+			if(this.superPlusPrice != -1)
+				return false;
+			this.superPlusPrice=Constants.DEFAULT_PRICE;
+		}
+		
+		return true;
+	}
 	
+	
+	public static boolean checkCoordinates(double lat, double lon) {
+		if(lat < Constants.MIN_LAT || lat >= Constants.MAX_LAT)
+			return false;
+		if(lon < Constants.MIN_LON || lon >= Constants.MAX_LON)
+			return false;
+		return true;
+	}
+	
+	
+	public double computeReportDependability() {
+		if(this.userDto == null || this.reportTimestamp == null)
+			return 0;
+		
+		double obsolescence;
+		Integer userReputation = this.userDto.getReputation() == null ? 0: this.userDto.getReputation();
+		Date today = new Date();
+		Date reportDate = new Date(Timestamp.valueOf(this.reportTimestamp).getTime());
+		
+		long diffInMillies = today.getTime() - reportDate.getTime();
+		long diffInDays = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+		if(diffInDays > 7)
+			obsolescence = 0;
+		else obsolescence = 1 - (double) diffInDays / 7;
+		
+		return 50 * (userReputation + 5) / 10 + 50 * obsolescence;
+	}
+
+	
+	@Override
+	public String toString() {
+		return "\n{\n"
+				+ "gasStationId = " + this.gasStationId + ",\n"
+				+ "gasStationName = " + this.gasStationName + ",\n"
+				+ "gasStationAddress = " + this.gasStationAddress + ",\n"
+				+ "hasDiesel = " + this.hasDiesel + ",\n"
+				+ "hasSuper = " + this.hasSuper + ",\n"
+				+ "hasSuperPlus = " + this.hasSuperPlus + ",\n"
+				+ "hasGas = " + this.hasGas + ",\n"
+				+ "hasMethane = " + this.hasMethane + ",\n"
+				+ "carSharing = " + this.carSharing + ",\n"
+				+ "lat = " + this.lat + ",\n"
+				+ "lon = " + this.lon + ",\n"
+				+ "dieselPrice = " + this.dieselPrice + ",\n"
+				+ "superPrice = " + this.superPrice + ",\n"
+				+ "superPlusPrice = " + this.superPlusPrice + ",\n"
+				+ "gasPrice = " + this.gasPrice + ",\n"
+				+ "methanePrice = " + this.methanePrice + ",\n"
+				+ "reportUser = " + this.reportUser + ",\n"
+				+ "userDto = " + this.userDto + ",\n"
+				+ "reportTimestamp = " + this.reportTimestamp + ",\n"
+				+ "reportDependability = " + this.reportDependability + ",\n"
+				+ "}\n";
+	}
 	
 
 }

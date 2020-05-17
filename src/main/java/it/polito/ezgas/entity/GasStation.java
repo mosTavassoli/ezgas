@@ -258,10 +258,6 @@ public class GasStation implements Serializable {
 	}
 
 	
-	
-	
-	
-	
 
 	
 	

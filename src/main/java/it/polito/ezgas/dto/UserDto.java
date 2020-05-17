@@ -1,5 +1,8 @@
 package it.polito.ezgas.dto;
 
+import exception.InvalidUserException;
+import it.polito.ezgas.utils.Constants;
+
 /**
  * Created by softeng on 27/4/2020.
  */
@@ -31,6 +34,14 @@ public class UserDto {
 
     public UserDto() {
     }
+    
+    public Integer editUserReputation(Integer modifier) throws InvalidUserException {
+		if (this.reputation+modifier <= Constants.REPUTATION_UPPER_BOUND 
+				&& this.reputation+modifier >= Constants.REPUTATION_LOWER_BOUND) {
+			this.reputation += modifier;
+		}
+		return this.reputation;
+	}
 
     public Integer getUserId() {
         return userId;
