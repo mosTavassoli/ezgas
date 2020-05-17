@@ -52,7 +52,13 @@ public class UserDtoTest {
 		assertEquals(5, reputation);
 	}
 	
-
+	@Test
+	public void testEdiUserReputationPositiveWithinBounds() {
+		userDto.setReputation(3);
+		int reputation = userDto.editUserReputation(1);
+		
+		assertEquals(4, reputation);
+	}
 
 
 }
