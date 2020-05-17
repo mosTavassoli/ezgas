@@ -24,8 +24,16 @@ public class UserDtoTest {
 		assertEquals("username12", userDto.getUserName());
 		assertEquals("pass12", userDto.getPassword());
 		assertEquals("test12@example.com", userDto.getEmail());
-		assertEquals((Integer)12, userDto.getReputation());
+		assertEquals((Integer)3, userDto.getReputation());
 		assertEquals(true, userDto.getAdmin());
+	}
+	
+	@Test
+	public void testEdiUserReputationNegativeOutOfBounds() {
+		userDto.setReputation(3);
+		int reputation = userDto.editUserReputation(-50);
+		
+		assertEquals(-5, reputation);
 	}
 	
 
