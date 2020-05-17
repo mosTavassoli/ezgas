@@ -84,11 +84,13 @@ public class GasStationServiceimpl implements GasStationService {
 		if(gasStationId < 0)
 			throw new InvalidGasStationException("InvalidGasStationException: gasStationId = " + gasStationId);
 		
-		if(gasStationRepository.exists(gasStationId))
+		if(gasStationRepository.exists(gasStationId)) {
 			gasStationRepository.delete(gasStationId);
-		else return null;
+			if(!gasStationRepository.exists(gasStationId))
+				return true;
+		}
 		
-		return true;
+		return null;
 	}
 
 	@Override
