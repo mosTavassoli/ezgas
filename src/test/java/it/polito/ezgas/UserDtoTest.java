@@ -36,6 +36,15 @@ public class UserDtoTest {
 		assertEquals(-5, reputation);
 	}
 	
+	@Test
+	public void testEdiUserReputationNegativeWithinBounds() {
+		userDto.setReputation(3);
+		int reputation = userDto.editUserReputation(-7);
+		
+		assertEquals(-4, reputation);
+	}
+	
+
 
 
 }
