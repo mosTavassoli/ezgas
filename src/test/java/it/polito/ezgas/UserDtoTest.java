@@ -44,6 +44,14 @@ public class UserDtoTest {
 		assertEquals(-4, reputation);
 	}
 	
+	@Test
+	public void testEdiUserReputationPositiveOutOfBounds() {
+		userDto.setReputation(3);
+		int reputation = userDto.editUserReputation(609);
+		
+		assertEquals(5, reputation);
+	}
+	
 
 
 
