@@ -31,10 +31,8 @@ public class UserTest {
 		assertEquals(this.password, user.getPassword());
 		assertEquals(this.email, user.getEmail());
 		assertEquals(this.reputation, user.getReputation());
-
 	}
 	
-
 	@Test
 	public void testUserIdMinInt() {
 		user.setUserId(Integer.MIN_VALUE);
@@ -53,8 +51,7 @@ public class UserTest {
 	public void testUserIdMinusOne() {
 		user.setUserId(-1);
 		actualValue = user.getUserId();
-		assertEquals(-1, actualValue);
-		
+		assertEquals(-1, actualValue);	
 	}
 	
 	@Test
@@ -78,35 +75,33 @@ public class UserTest {
 		assertEquals(Integer.MAX_VALUE -1, actualValue);
 	}
 	
-	
 	@Test
 	public void testUserName() {
-		user = new User(this.userName,this.password,this.email,this.reputation);
+		user.setUserName(this.userName);
 		assertEquals(this.userName,this.user.getUserName());
 	}
 	
 	@Test
 	public void testPassword() {
-		user = new User(this.userName,this.password,this.email,this.reputation);
+		user.setPassword(password);
 		assertEquals(this.password,this.user.getPassword()); 
 	}
 	
 	@Test
 	public void testEmail() {
-		user = new User(this.userName,this.password,this.email,this.reputation);
+		user.setEmail(email);
 		assertEquals(this.email,this.user.getEmail()); 
 	}
 	
 	@Test
 	public void testReputation() {
-		user = new User(this.userName,this.password,this.email,this.reputation);
+		user.setReputation(reputation);
 		assertEquals(this.reputation,this.user.getReputation()); 
 	}
 	
 	@Test
 	public void testAdmin() {
-		user = new User(this.userName,this.password,this.email,this.reputation);
-		this.user.setAdmin(admin);
+		user.setAdmin(admin);
 		assertEquals(this.admin,this.user.getAdmin()); 
 	}
 	
