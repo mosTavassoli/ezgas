@@ -29,7 +29,7 @@ public class UserDtoTest {
 	}
 	
 	@Test
-	public void testEdiUserReputationNegativeOutOfBounds() {
+	public void testEditUserReputationNegativeOutOfBounds() {
 		userDto.setReputation(3);
 		int reputation = userDto.editUserReputation(-50);
 		
@@ -37,7 +37,7 @@ public class UserDtoTest {
 	}
 	
 	@Test
-	public void testEdiUserReputationNegativeWithinBounds() {
+	public void testEditUserReputationNegativeWithinBounds() {
 		userDto.setReputation(3);
 		int reputation = userDto.editUserReputation(-7);
 		
@@ -45,7 +45,7 @@ public class UserDtoTest {
 	}
 	
 	@Test
-	public void testEdiUserReputationPositiveOutOfBounds() {
+	public void testEditUserReputationPositiveOutOfBounds() {
 		userDto.setReputation(3);
 		int reputation = userDto.editUserReputation(609);
 		
@@ -53,7 +53,7 @@ public class UserDtoTest {
 	}
 	
 	@Test
-	public void testEdiUserReputationPositiveWithinBounds() {
+	public void testEditUserReputationPositiveWithinBounds() {
 		userDto.setReputation(3);
 		int reputation = userDto.editUserReputation(1);
 		

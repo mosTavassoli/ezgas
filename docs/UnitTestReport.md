@@ -457,9 +457,51 @@ The JUnit test cases will be exhaustive.
 
 | Unit name | JUnit test case |
 |--|--|
-|||
-|||
-||||
+| User | UserTest.testUserEntityConstructor |
+|      | UserTest.testUserIdMinInt |
+|      | UserTest.testUserIdMinIntPlusOne |
+|      | UserTest.testUserIdMinusOne |
+|      | UserTest.testUserIdZero |
+|      | UserTest.testUserIdMaxInt |
+|      | UserTest.testUserIdMaxIntMinusOne |
+| UserDto | UserDtoTest.testConstructor |
+|         | UserDtoTest.testEditUserReputationNegativeOutOfBounds |
+|         | UserDtoTest.testEditUserReputationNegativeWithinBounds |
+|         | UserDtoTest.testEditUserReputationPositiveOutOfBounds |
+|         | UserDtoTest.testEditUserReputationPositiveWithinBounds |
+| GasStation | GasStationTest.testGasStationIdMinInt |
+|            | GasStationTest.testGasStationIdMinIntPlusOne |
+|            | GasStationTest.testGasStationIdMinusOne |
+|            | GasStationTest.testGasStationIdZero |
+|            | GasStationTest.testGasStationIdMaxInt |
+|            | GasStationTest.testGasStationIdMaxIntMinusOne |
+| GasStationDto | GasStationDtoTest.testGasStationDoesNotHaveDiesel |
+|               | GasStationDtoTest.testGasStationDoesNotHaveGas |
+|               | GasStationDtoTest.testGasStationDoesNotHaveMethane |
+|               | GasStationDtoTest.testGasStationDoesNotHaveSuper |
+|               | GasStationDtoTest.testGasStationDoesNotHaveSuperPlus |
+|               | GasStationDtoTest.testNegativeDieselPrice |
+|               | GasStationDtoTest.testNegativeGasPrice |
+|               | GasStationDtoTest.testNegativeMethanePrice |
+|               | GasStationDtoTest.testNegativeSuperPrice |
+|               | GasStationDtoTest.testNegativeSuperPlusPrice |
+|               | GasStationDtoTest.testMinusOneDieselPrice |
+|               | GasStationDtoTest.testMinusOneGasPrice |
+|               | GasStationDtoTest.testMinusOneMethanePrice |
+|               | GasStationDtoTest.testMinusOneSuperPrice |
+|               | GasStationDtoTest.testMinusOneSuperPlusPrice |
+|               | GasStationDtoTest.testNonNegativeDieselPrice |
+|               | GasStationDtoTest.testNonNegativeGasPrice |
+|               | GasStationDtoTest.testNonNegativeMethanePrice |
+|               | GasStationDtoTest.testNonNegativeSuperPrice |
+|               | GasStationDtoTest.testNonNegativeSuperPlusPrice |
+|               | GasStationDtoTest.testLatitudeOutOfBounds |
+|               | GasStationDtoTest.testLongitudeOutOfBounds |
+|               | GasStationDtoTest.testLatitudeAndLongitudeOutOfBounds |
+|               | GasStationDtoTest.testLatitudeAndLongitudeInsideBounds |
+|               | GasStationDtoTest.testToStringWithUninitializedAttributes |
+|               | GasStationDtoTest.testToStringWithInitializedAttributes |
+
 
 ### Code coverage report
 
