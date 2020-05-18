@@ -78,4 +78,36 @@ public class UserTest {
 		assertEquals(Integer.MAX_VALUE -1, actualValue);
 	}
 	
+	
+	@Test
+	public void testUserName() {
+		user = new User(this.userName,this.password,this.email,this.reputation);
+		assertEquals(this.userName,this.user.getUserName());
+	}
+	
+	@Test
+	public void testPassword() {
+		user = new User(this.userName,this.password,this.email,this.reputation);
+		assertEquals(this.password,this.user.getPassword()); 
+	}
+	
+	@Test
+	public void testEmail() {
+		user = new User(this.userName,this.password,this.email,this.reputation);
+		assertEquals(this.email,this.user.getEmail()); 
+	}
+	
+	@Test
+	public void testReputation() {
+		user = new User(this.userName,this.password,this.email,this.reputation);
+		assertEquals(this.reputation,this.user.getReputation()); 
+	}
+	
+	@Test
+	public void testAdmin() {
+		user = new User(this.userName,this.password,this.email,this.reputation);
+		this.user.setAdmin(admin);
+		assertEquals(this.admin,this.user.getAdmin()); 
+	}
+	
 }
