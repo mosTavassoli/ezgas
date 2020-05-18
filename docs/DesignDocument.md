@@ -247,7 +247,8 @@ package "it.polito.ezgas.service"  as ps {
       +decreaseUserReputation(userId)
    }
    class "GasStationServiceimpl"{
-      -getAllPriceReports(gasStationId)
+
+      
    }
    class "UserServiceimpl"
    "GasStationServiceimpl" -|> "GasStationService"
@@ -288,18 +289,14 @@ package "it.polito.ezgas.controller" as pc{
 
 package "it.polito.ezgas.converter" {
    class "UserConverter"{
-      +toUserDto(user)
-      +toLoginDto(user)
+      +toDto(user)
+      +toDto(userList)
       +toEntity(userDto)
    }
    class "GasStationConverter"{
-      +toGasStationDto(gasStation)
-      +toGasStationDto(gasStation,priceReportDtos)
-      +toEntity(gasStationDto)
-   }
-   class "PriceReportConverter"{
-      +toPriceReportDto(priceReport)
-      +toEntity(priceReportDto)
+      +toDto(entity)
+      +toDto(entityList)
+      +toEntity(dto)
    }
 }
 
@@ -311,6 +308,7 @@ package "it.polito.ezgas.dto" {
       -email
       -reputation
       -admin
+      +editUserReputation(modifier)
    }
    class "GasStationDto"{
       -gasStationId
@@ -333,14 +331,10 @@ package "it.polito.ezgas.dto" {
       -userDto
       -reportTimestamp
       -reportDependability
-   }
-   class "PriceReportDto"{
-      -priceReportId
-      -user
-      -dieselPrice
-      -superPrice
-      -superPlusPrice
-      -gasPrice
+      +checkCoordinates(lat, lon)
+      +checkPrices()
+      +computeReportDependability()
+
    }
    class "LoginDto"{
       -userId
@@ -388,36 +382,22 @@ package "it.polito.ezgas.entity" {
       -reportDependability
 
    }
-   class "PriceReport"{
-      -priceReportId
-      -user
-      -dieselPrice
-      -superPrice
-      -superPlusPrice
-      -gasPrice
-   }
 
 }
 
 package "it.polito.ezgas.repository" {
    class "UserRepository"{
-      +findAll()
-      +findById(userId)
-      +save(user)
-      +delete(user)
-      +existsById(userId)
+      +findByEmail(user)
+      +findByUserId(userId)
    }
    class "GasStationRepository"{
-      +findAll()
-      +findById(gasStationId)
-      +save(gasStation)
-      +delete(gasStation)
-   }
-   class "PriceReportRepository"{
-      +findAll()
-      +findById(priceReportId)
-      +save(priceReport)
-      +delete(priceReport)
+      +findByCarSharingOrderByGasStationName(carSharing)
+      +findByHasDieselOrderByDieselPriceAsc(hasDiesel)
+      +findByHasGasOrderByGasPriceAsc(hasGas)
+      +findByHasMethaneOrderByMethanePriceAsc(hasMethane)
+      +findByHasSuperOrderBySuperPriceAsc(hasSuper)
+      +findByHasSuperPlusOrderBySuperPlusPriceAsc(hasSuperPlus)
+      +findByLatBetweenAndLonBetween(latStart, latEnd, lonStart, lonEnd)
    }
 }
 
@@ -432,13 +412,10 @@ package "it.polito.ezgas.repository" {
 
 
 "GasStationController" "1"-----"1" "GasStationService"
-"GasStationServiceimpl" "1"-----"1" "PriceReportRepository"
 "GasStationServiceimpl" "1"-----"1" "GasStationRepository"
 "GasStationServiceimpl" "1"-----"1" "GasStationConverter"
 "GasStationConverter" "1"-----"1" "GasStationDto"
 
-"GasStationServiceimpl" "1"-----"1" "PriceReportConverter"
-"PriceReportConverter" "1"-----"1" "PriceReportDto"
 
 @enduml
 ```
