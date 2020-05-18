@@ -842,7 +842,7 @@ GasStationServiceimpl -> GasStationServiceimpl: 3 : getGasStationsByProximity()
 activate GasStationServiceimpl
 GasStationServiceimpl -> GasStationRepository: 4 : findByLatBetweenAndLonBetween()
 activate GasStationRepository
-gasStationRepository -> Database
+GasStationRepository -> Database
 activate Database
 return
 return
@@ -866,6 +866,7 @@ activate GasStationRepository
 return
 GasStationServiceimpl -> GasStationConverter: 11 : toDto()
 activate GasStationConverter
+return
 return
 return
 return
