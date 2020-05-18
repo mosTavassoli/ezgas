@@ -977,24 +977,24 @@ UserServiceimpl -> userDto:15 : editUserReputation()
 activate userDto
 return
 
-UserServiceimpl -> UserServiceimpl:15 : saveUser()
+UserServiceimpl -> UserServiceimpl:16 : saveUser()
 activate UserServiceimpl
-UserServiceimpl -> UserConverter:16 : toEntity()
+UserServiceimpl -> UserConverter:17 : toEntity()
 activate UserConverter
 return
-UserServiceimpl -> UserRepository:17 : findByEmail()
+UserServiceimpl -> UserRepository:18 : findByEmail()
 activate UserRepository
 UserRepository -> Database:
 activate Database
 return
 return
-UserServiceimpl -> UserRepository:18 : save()
+UserServiceimpl -> UserRepository:19 : save()
 activate UserRepository
 UserRepository -> Database
 activate Database
 return
 return
-UserServiceimpl -> UserConverter:18 : toDto()
+UserServiceimpl -> UserConverter:20 : toDto()
 activate UserConverter
 return
 return
@@ -1002,17 +1002,17 @@ return
 return
 return
 
-"Front End" -> UserController:1 : getAllUsers()
+"Front End" -> UserController:21 : getAllUsers()
 activate UserController
-UserController -> UserServiceimpl:2 : getAllUsers()
+UserController -> UserServiceimpl:22 : getAllUsers()
 activate UserServiceimpl
-UserServiceimpl -> UserRepository:3 : findAll()
+UserServiceimpl -> UserRepository:23 : findAll()
 activate UserRepository
 UserRepository -> Database
 activate Database
 return
 return
-UserServiceimpl -> UserConverter:4 : toDto()
+UserServiceimpl -> UserConverter:24 : toDto()
 activate UserConverter
 return
 return
