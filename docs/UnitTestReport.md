@@ -139,7 +139,7 @@ Version: 1.5
 
 
 | Type of parameter | Value of parameter | Valid / Invalid | Description of the test case | JUnit test case |
-|-------|-------|-------|-------|-------|-------|
+|-------|-------|-------|-------|-------|
 |other|-|Invalid|Try to pass parameter of type different from int | T1("test") -> Error |
 |int|minint|Valid|Try to set a value and then test the value stored in the object |T2(minint) -> minint|
 ||-1|Valid||T3(-1) -> -1|
@@ -226,7 +226,7 @@ The JUnit test cases will be exhaustive.
 
 
 | Availability of fuel | Value of fuel price | Valid / Invalid | Description of the test case | JUnit test case |
-|-------|-------|-------|-------|-------|-------|
+|-------|-------|-------|-------|-------|
 | No | - | Valid | A particular fuel is not available at this gas station | GasStationDto gasStationDto=new GasStationDto();<br/>gasStationDto.setHasFuel(false)<br/>gasStationDto.checkPrices() -> true |
 | Yes | [mindouble,-1) U (-1,0) | Valid | A particular fuel is available and has a negative price different that -1 | GasStationDto gasStationDto=new GasStationDto();<br/>gasStationDto.setHasFuel(true)<br/>gasStationDto.setFuelPrice(-2.5)<br/>gasStationDto.checkPrices() -> false |
 |  | -1 | Valid | A particular fuel is available and has a price equal to -1 | GasStationDto gasStationDto=new GasStationDto();<br/>gasStationDto.setHasFuel(true)<br/>gasStationDto.setFuelPrice(-1)<br/>gasStationDto.checkPrices() -> true |
