@@ -864,13 +864,21 @@ GasStationServiceimpl -> GasStationServiceimpl: 7 : getGasStationsWithoutCoordin
 activate GasStationServiceimpl
 GasStationServiceimpl -> GasStationServiceimpl: 8 : getGasStationsByGasolineType()
 activate GasStationServiceimpl
-return
-GasStationServiceimpl -> GasStationServiceimpl: 9 : getGasStationByCarSharing()
+GasStationServiceimpl ->GasStationServiceimpl: 9 : findByHas<Fuel>OrderBy<Fuel>PriceAsc()
 activate GasStationServiceimpl
-GasStationServiceimpl -> GasStationRepository: 10 : findByCarSharingOrderByGasStationName()
+return
+GasStationServiceimpl -> GasStationConverter: 10 : toDto()
+activate GasStationConverter
+
+return
+
+return
+GasStationServiceimpl -> GasStationServiceimpl: 11 : getGasStationByCarSharing()
+activate GasStationServiceimpl
+GasStationServiceimpl -> GasStationRepository: 12 : findByCarSharingOrderByGasStationName()
 activate GasStationRepository
 return
-GasStationServiceimpl -> GasStationConverter: 11 : toDto()
+GasStationServiceimpl -> GasStationConverter: 13 : toDto()
 activate GasStationConverter
 return
 return
