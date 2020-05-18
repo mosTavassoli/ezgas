@@ -322,12 +322,11 @@ The JUnit test cases will be exhaustive.
 
 
 | Any attributes with null values | Valid / Invalid | Description of the test case | JUnit test case |
-|-------|-------|-------|-------|-------|-------|
+|-------|-------|-------|-------|
 | Yes | Valid | One or more object attributes with null values | GasStationDto gasStationDto = new GasStationDto()<br/>gasStationDto.toString() -> string containing multiple "null" strings|
 | No | Valid | No null attributes (Except for userDto) | GasStationDto gasStationDto = new GasStationDto(gasStationId,gasStationName, ...)<br/>gasStationDto.toString() -> string containing all the attributes set by the constructor (userDto is set to null) |
 |  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
+
 
 ### **Class *UserDto* - method *editUserReputation***
 
@@ -457,50 +456,50 @@ The JUnit test cases will be exhaustive.
 
 | Unit name | JUnit test case |
 |--|--|
-| User | UserTest.testUserEntityConstructor |
-|      | UserTest.testUserIdMinInt |
-|      | UserTest.testUserIdMinIntPlusOne |
-|      | UserTest.testUserIdMinusOne |
-|      | UserTest.testUserIdZero |
-|      | UserTest.testUserIdMaxInt |
-|      | UserTest.testUserIdMaxIntMinusOne |
-| UserDto | UserDtoTest.testConstructor |
-|         | UserDtoTest.testEditUserReputationNegativeOutOfBounds |
-|         | UserDtoTest.testEditUserReputationNegativeWithinBounds |
-|         | UserDtoTest.testEditUserReputationPositiveOutOfBounds |
-|         | UserDtoTest.testEditUserReputationPositiveWithinBounds |
-| GasStation | GasStationTest.testGasStationIdMinInt |
-|            | GasStationTest.testGasStationIdMinIntPlusOne |
-|            | GasStationTest.testGasStationIdMinusOne |
-|            | GasStationTest.testGasStationIdZero |
-|            | GasStationTest.testGasStationIdMaxInt |
-|            | GasStationTest.testGasStationIdMaxIntMinusOne |
-| GasStationDto | GasStationDtoTest.testGasStationDoesNotHaveDiesel |
-|               | GasStationDtoTest.testGasStationDoesNotHaveGas |
-|               | GasStationDtoTest.testGasStationDoesNotHaveMethane |
-|               | GasStationDtoTest.testGasStationDoesNotHaveSuper |
-|               | GasStationDtoTest.testGasStationDoesNotHaveSuperPlus |
-|               | GasStationDtoTest.testNegativeDieselPrice |
-|               | GasStationDtoTest.testNegativeGasPrice |
-|               | GasStationDtoTest.testNegativeMethanePrice |
-|               | GasStationDtoTest.testNegativeSuperPrice |
-|               | GasStationDtoTest.testNegativeSuperPlusPrice |
-|               | GasStationDtoTest.testMinusOneDieselPrice |
-|               | GasStationDtoTest.testMinusOneGasPrice |
-|               | GasStationDtoTest.testMinusOneMethanePrice |
-|               | GasStationDtoTest.testMinusOneSuperPrice |
-|               | GasStationDtoTest.testMinusOneSuperPlusPrice |
-|               | GasStationDtoTest.testNonNegativeDieselPrice |
-|               | GasStationDtoTest.testNonNegativeGasPrice |
-|               | GasStationDtoTest.testNonNegativeMethanePrice |
-|               | GasStationDtoTest.testNonNegativeSuperPrice |
-|               | GasStationDtoTest.testNonNegativeSuperPlusPrice |
-|               | GasStationDtoTest.testLatitudeOutOfBounds |
-|               | GasStationDtoTest.testLongitudeOutOfBounds |
-|               | GasStationDtoTest.testLatitudeAndLongitudeOutOfBounds |
-|               | GasStationDtoTest.testLatitudeAndLongitudeInsideBounds |
-|               | GasStationDtoTest.testToStringWithUninitializedAttributes |
-|               | GasStationDtoTest.testToStringWithInitializedAttributes |
+| User.User | UserTest.testUserEntityConstructor |
+| User.getUserId | UserTest.testUserIdMinInt |
+|                | UserTest.testUserIdMinIntPlusOne |
+|                | UserTest.testUserIdMinusOne |
+|                | UserTest.testUserIdZero |
+|                | UserTest.testUserIdMaxInt |
+|                | UserTest.testUserIdMaxIntMinusOne |
+| UserDto.UserDto | UserDtoTest.testConstructor |
+| UserDto.editUserReputation | UserDtoTest.testEditUserReputationNegativeOutOfBounds |
+|                            | UserDtoTest.testEditUserReputationNegativeWithinBounds |
+|                            | UserDtoTest.testEditUserReputationPositiveOutOfBounds |
+|                            | UserDtoTest.testEditUserReputationPositiveWithinBounds |
+| GasStation.getGasStationId | GasStationTest.testGasStationIdMinInt |
+|                            | GasStationTest.testGasStationIdMinIntPlusOne |
+|                            | GasStationTest.testGasStationIdMinusOne |
+|                            | GasStationTest.testGasStationIdZero |
+|                            | GasStationTest.testGasStationIdMaxInt |
+|                            | GasStationTest.testGasStationIdMaxIntMinusOne |
+| GasStationDto.checkPrices | GasStationDtoTest.testGasStationDoesNotHaveDiesel |
+|                           | GasStationDtoTest.testGasStationDoesNotHaveGas |
+|                           | GasStationDtoTest.testGasStationDoesNotHaveMethane |
+|                           | GasStationDtoTest.testGasStationDoesNotHaveSuper |
+|                           | GasStationDtoTest.testGasStationDoesNotHaveSuperPlus |
+|                           | GasStationDtoTest.testNegativeDieselPrice |
+|                           | GasStationDtoTest.testNegativeGasPrice |
+|                           | GasStationDtoTest.testNegativeMethanePrice |
+|                           | GasStationDtoTest.testNegativeSuperPrice |
+|                           | GasStationDtoTest.testNegativeSuperPlusPrice |
+|                           | GasStationDtoTest.testMinusOneDieselPrice |
+|                           | GasStationDtoTest.testMinusOneGasPrice |
+|                           | GasStationDtoTest.testMinusOneMethanePrice |
+|                           | GasStationDtoTest.testMinusOneSuperPrice |
+|                           | GasStationDtoTest.testMinusOneSuperPlusPrice |
+|                           | GasStationDtoTest.testNonNegativeDieselPrice |
+|                           | GasStationDtoTest.testNonNegativeGasPrice |
+|                           | GasStationDtoTest.testNonNegativeMethanePrice |
+|                           | GasStationDtoTest.testNonNegativeSuperPrice |
+|                           | GasStationDtoTest.testNonNegativeSuperPlusPrice |
+| GasStationDto.checkCoordinates | GasStationDtoTest.testLatitudeOutOfBounds |
+|                                | GasStationDtoTest.testLongitudeOutOfBounds |
+|                                | GasStationDtoTest.testLatitudeAndLongitudeOutOfBounds |
+|                                | GasStationDtoTest.testLatitudeAndLongitudeInsideBounds |
+| GasStationDto.toString | GasStationDtoTest.testToStringWithUninitializedAttributes |
+|                        | GasStationDtoTest.testToStringWithInitializedAttributes |
 
 
 ### Code coverage report
