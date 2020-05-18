@@ -10,8 +10,32 @@ import it.polito.ezgas.dto.GasStationDto;
 public class GasStationDtoTest {
 	
 	GasStationDto gasStationDto;
+	private Integer gasStationId=2342;
+    private String gasStationName="GAS STATION NAME";
+    private String gasStationAddress="GAS STATION ADDRESS";
+    private boolean hasDiesel=true;
+    private boolean hasSuper=true;
+    private boolean hasSuperPlus=true;
+    private boolean hasGas=true;
+    private boolean hasMethane=true;
+    
+    private String carSharing="CAR SHARING";
+    private double lat=123.321;
+    private double lon=546.234;
+    private double dieselPrice=56.98;
+    private double superPrice=23.67;
+    private double superPlusPrice=99.1;
+    private double gasPrice=32.33;
+    private double methanePrice=65.78;
+    private Integer reportUser=735;
+    private String reportTimestamp="01/01/1000";
+    private double reportDependability=139.695;
 	
-	@Before
+    private final double acceptableLatitudeAndLongitudeDelta=0.0001;
+    private final double acceptablePriceDelta=0.001;
+    private final double acceptableReportDependabilityDelta=0.001;
+	
+    @Before
 	public void init() {
 		this.gasStationDto=new GasStationDto();
 	}
@@ -225,4 +249,120 @@ public class GasStationDtoTest {
 				+ "reportDependability = 4.36,\n"
 				+ "}\n", gasStationDto.toString());
 	}
+	
+	
+	@Test
+	public void testGasStationId() {
+		this.gasStationDto.setGasStationId(this.gasStationId);
+		assertEquals(this.gasStationId, this.gasStationDto.getGasStationId());
+	}
+	
+	@Test
+	public void testGasStationName() {
+		this.gasStationDto.setGasStationName(this.gasStationName);
+		assertEquals(this.gasStationName, this.gasStationDto.getGasStationName());
+	}
+	
+	@Test
+	public void testGasStationAddress() {
+		this.gasStationDto.setGasStationAddress(this.gasStationAddress);
+		assertEquals(this.gasStationAddress, this.gasStationDto.getGasStationAddress());
+	}
+	
+	@Test
+	public void testHasDiesel() {
+		this.gasStationDto.setHasDiesel(this.hasDiesel);
+		assertEquals(this.hasDiesel, this.gasStationDto.getHasDiesel());
+	}
+	
+	@Test
+	public void testHasSuper() {
+		this.gasStationDto.setHasSuper(this.hasSuper);
+		assertEquals(this.hasSuper, this.gasStationDto.getHasSuper());
+	}
+	
+	@Test
+	public void testHasSuperPlus() {
+		this.gasStationDto.setHasSuperPlus(this.hasSuperPlus);
+		assertEquals(this.hasSuperPlus, this.gasStationDto.getHasSuperPlus());
+	}
+	
+	@Test
+	public void testHasGas() {
+		this.gasStationDto.setHasGas(this.hasGas);
+		assertEquals(this.hasGas, this.gasStationDto.getHasGas());
+	}
+	
+	@Test
+	public void testHasMethane() {
+		this.gasStationDto.setHasMethane(this.hasMethane);
+		assertEquals(this.hasMethane, this.gasStationDto.getHasMethane());
+	}
+	
+	@Test
+	public void testCarSharing() {
+		this.gasStationDto.setCarSharing(this.carSharing);
+		assertEquals(this.carSharing, this.gasStationDto.getCarSharing());
+	}
+	
+	@Test
+	public void testLat() {
+		this.gasStationDto.setLat(this.lat);
+		assertEquals(this.lat, this.gasStationDto.getLat(),this.acceptableLatitudeAndLongitudeDelta);
+	}
+	
+	@Test
+	public void testLon() {
+		this.gasStationDto.setLon(this.lon);
+		assertEquals(this.lon, this.gasStationDto.getLon(),this.acceptableLatitudeAndLongitudeDelta);
+	}
+	
+	@Test
+	public void testDieselPrice() {
+		this.gasStationDto.setDieselPrice(this.dieselPrice);
+		assertEquals(this.dieselPrice, this.gasStationDto.getDieselPrice(),this.acceptablePriceDelta);
+	}
+	
+	@Test
+	public void testSuperPrice() {
+		this.gasStationDto.setSuperPrice(this.superPrice);
+		assertEquals(this.superPrice, this.gasStationDto.getSuperPrice(),this.acceptablePriceDelta);
+	}
+	
+	@Test
+	public void testSuperPlusPrice() {
+		this.gasStationDto.setSuperPlusPrice(this.superPlusPrice);
+		assertEquals(this.superPlusPrice, this.gasStationDto.getSuperPlusPrice(),this.acceptablePriceDelta);
+	}
+	
+	@Test
+	public void testGasPrice() {
+		this.gasStationDto.setGasPrice(this.gasPrice);
+		assertEquals(this.gasPrice, this.gasStationDto.getGasPrice(),this.acceptablePriceDelta);
+	}
+	
+	@Test
+	public void testMethanePrice() {
+		this.gasStationDto.setMethanePrice(this.methanePrice);
+		assertEquals(this.methanePrice, this.gasStationDto.getMethanePrice(),this.acceptablePriceDelta);
+	}
+	
+	@Test
+	public void testReportUser() {
+		this.gasStationDto.setReportUser(this.reportUser);
+		assertEquals(this.reportUser, this.gasStationDto.getReportUser());
+	}
+	
+	@Test
+	public void testReportTimestamp() {
+		this.gasStationDto.setReportTimestamp(this.reportTimestamp);
+		assertEquals(this.reportTimestamp, this.gasStationDto.getReportTimestamp());
+	}
+
+	@Test
+	public void testReportDependability() {
+		this.gasStationDto.setReportDependability(this.reportDependability);
+		assertEquals(this.reportDependability, this.gasStationDto.getReportDependability(),this.acceptableReportDependabilityDelta);
+	}
+
 }
