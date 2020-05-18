@@ -793,8 +793,11 @@ activate GasStationConverter
 return
 return
 
+GasStationServiceimpl -> GasStationConverter:11 : toEntity()
+activate GasStationConverter
+return
 
-GasStationServiceimpl -> GasStationRepository:11 : save()
+GasStationServiceimpl -> GasStationRepository:12 : save()
 activate GasStationRepository
 GasStationRepository -> Database
 activate Database
@@ -803,24 +806,24 @@ return
 return
 return
 
-"Front End" -> GasStationController:12 : getAllGasStations()
+"Front End" -> GasStationController:13 : getAllGasStations()
 activate GasStationController
-GasStationController -> GasStationServiceimpl:13 : getAllGasStations()
+GasStationController -> GasStationServiceimpl:14 : getAllGasStations()
 activate GasStationServiceimpl
-GasStationServiceimpl -> GasStationRepository:14 : count()
+GasStationServiceimpl -> GasStationRepository:15 : count()
 activate GasStationRepository
 GasStationRepository -> Database
 activate Database
 return
 return
-GasStationServiceimpl -> GasStationRepository:15 : findAll()
+GasStationServiceimpl -> GasStationRepository:16 : findAll()
 activate GasStationRepository
 GasStationRepository -> Database
 activate Database
 return
 return
 
-GasStationServiceimpl -> GasStationConverter:16 : toDto()
+GasStationServiceimpl -> GasStationConverter:17 : toDto()
 activate GasStationConverter
 return
 return
