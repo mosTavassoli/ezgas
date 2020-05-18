@@ -840,8 +840,8 @@ activate GasStationServiceimpl
 
 GasStationServiceimpl -> GasStationServiceimpl: 3 : getGasStationsByProximity()
 activate GasStationServiceimpl
-GasStationServiceimpl -> gasStationRepository: 4 : findByLatBetweenAndLonBetween()
-activate gasStationRepository
+GasStationServiceimpl -> GasStationRepository: 4 : findByLatBetweenAndLonBetween()
+activate GasStationRepository
 gasStationRepository -> Database
 activate Database
 return
@@ -861,6 +861,11 @@ activate GasStationServiceimpl
 return
 GasStationServiceimpl -> GasStationServiceimpl: 9 : getGasStationByCarSharing()
 activate GasStationServiceimpl
+GasStationServiceimpl -> GasStationRepository: 10 : findByCarSharingOrderByGasStationName()
+activate GasStationRepository
+return
+GasStationServiceimpl -> GasStationConverter: 11 : toDto()
+activate GasStationConverter
 return
 return
 return
