@@ -723,27 +723,33 @@ GasStationRepository -> Database
 activate Database
 return
 return
+GasStationServiceimpl -> GasStationRepository:5 : exists()
+activate GasStationRepository
+GasStationRepository -> Database
+activate Database
+return
+return
 return
 return
 
-"Front End" -> GasStationController:5 : getAllGasStations()
+"Front End" -> GasStationController:6 : getAllGasStations()
 activate GasStationController
-GasStationController -> GasStationServiceimpl:6 : getAllGasStations()
+GasStationController -> GasStationServiceimpl:7 : getAllGasStations()
 activate GasStationServiceimpl
-GasStationServiceimpl -> GasStationRepository:7 : count()
+GasStationServiceimpl -> GasStationRepository:8 : count()
 activate GasStationRepository
 GasStationRepository -> Database
 activate Database
 return
 return
-GasStationServiceimpl -> GasStationRepository:8 : findAll()
+GasStationServiceimpl -> GasStationRepository:9 : findAll()
 activate GasStationRepository
 GasStationRepository -> Database
 activate Database
 return
 return
 
-GasStationServiceimpl -> GasStationConverter:9 : toDto()
+GasStationServiceimpl -> GasStationConverter:10 : toDto()
 activate GasStationConverter
 return
 return
