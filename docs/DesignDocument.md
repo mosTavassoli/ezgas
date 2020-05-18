@@ -447,28 +447,28 @@ package "it.polito.ezgas.repository" {
 # Verification traceability matrix
 
 
-|       | UserController | GasStationController | HomeController | UserService | GasStationService | UserRepository | GasStationRepository | PriceReportRepository | User          | GasStation |  PriceReport  | UserConverter | GasStationConverter  | PriceReportConverter | UserDto         | GasStationDto      | PriceReportDto | LoginDto | IdPw |
-| :---: |:--------------:| :-------------:      | :---------: |:-------------:    | :-----:        | :-------------:      |:-------------:| :-----:    | :-------------: |:-------------:| :-----:            | :-------------: |:-------------:| :-----:              | :-------------: |:------------------:| :---:|:---:|:---:|
-| FR1   |X| | |X| |X| | |X| | |X| | |X| | |X| | 
-| FR1.1 |X| | |X| |X| | |X| | |X| | |X| | |X| | 
-| FR1.2 |X| | |X| |X| | |X| | |X| | |X| | |X| | 
-| FR1.3 |X| | |X| |X| | |X| | |X| | |X| | |X| | 
-| FR1.4 |X| | |X| |X| | |X| | |X| | |X| | |X| | 
-| FR2   |X| | |X| |X| | |X| | |X| | |X| | |X|X| 
-| FR3   | |X| | |X| |X|X| |X|X| |X|X| |X|X| | | 
-| FR3.1 | |X| | |X| |X|X| |X|X| |X|X| |X|X| | | 
-| FR3.2 | |X| | |X| |X|X| |X|X| |X|X| |X|X| | | 
-| FR3.3 | |X| | |X| |X|X| |X|X| |X|X| |X|X| | | 
-| FR4   | |X| | |X| |X|X| |X|X| |X|X| |X|X| | | 
-| FR4.1 | |X| | |X| |X|X| |X|X| |X|X| |X|X| | | 
-| FR4.2 | |X| | |X| |X|X| |X|X| |X|X| |X|X| | | 
-| FR4.3 | |X| | |X| |X|X| |X|X| |X|X| |X|X| | | 
-| FR4.4 | |X| | |X| |X|X| |X|X| |X|X| |X|X| | | 
-| FR4.5 | |X| | |X| |X|X| |X|X| |X|X| |X|X| | | 
-| FR5   |X|X| |X|X|X|X|X|X|X|X|X|X|X|X|X|X| | | 
-| FR5.1 |X|X| |X|X|X|X|X|X|X|X|X|X|X|X|X|X| | | 
-| FR5.2 |X|X| |X|X|X|X|X|X|X|X|X|X|X|X|X|X| | | 
-| FR5.3 |X|X| |X|X|X|X|X|X|X|X|X|X|X|X|X|X| | | 
+|       | UserController | GasStationController | HomeController | UserService | GasStationService | UserRepository | GasStationRepository | User          | GasStation | UserConverter | GasStationConverter  | UserDto         | GasStationDto      | LoginDto | IdPw |
+| :---: |:--------------:| :-------------:      | :---------: |:-------------:    | :-----:        | :-------------:      |:-------------:| :-------------: |:-------------:| :-------------: |:-------------:| :-------------: |:------------------:|:---:|:---:|
+| FR1   |X| | |X| |X| |X| |X| |X| |X| | 
+| FR1.1 |X| | |X| |X| |X| |X| |X| |X| | 
+| FR1.2 |X| | |X| |X| |X| |X| |X| |X| | 
+| FR1.3 |X| | |X| |X| |X| |X| |X| |X| | 
+| FR1.4 |X| | |X| |X| |X| |X| |X| |X| | 
+| FR2   |X| | |X| |X| |X| |X| |X| |X|X| 
+| FR3   | |X| | |X| |X| |X| |X| |X| | | 
+| FR3.1 | |X| | |X| |X| |X| |X| |X| | | 
+| FR3.2 | |X| | |X| |X| |X| |X| |X| | | 
+| FR3.3 | |X| | |X| |X| |X| |X| |X| | | 
+| FR4   | |X| | |X| |X| |X| |X| |X| | | 
+| FR4.1 | |X| | |X| |X| |X| |X| |X| | | 
+| FR4.2 | |X| | |X| |X| |X| |X| |X| | | 
+| FR4.3 | |X| | |X| |X| |X| |X| |X| | | 
+| FR4.4 | |X| | |X| |X| |X| |X| |X| | | 
+| FR4.5 | |X| | |X| |X| |X| |X| |X| | | 
+| FR5   |X|X| |X|X|X|X|X|X|X|X|X|X| | | 
+| FR5.1 |X|X| |X|X|X|X|X|X|X|X|X|X| | | 
+| FR5.2 |X|X| |X|X|X|X|X|X|X|X|X|X| | | 
+| FR5.3 |X|X| |X|X|X|X|X|X|X|X|X|X| | | 
 
 # Verification sequence diagrams 
 
@@ -864,8 +864,8 @@ GasStationServiceimpl -> GasStationServiceimpl: 7 : getGasStationsWithoutCoordin
 activate GasStationServiceimpl
 GasStationServiceimpl -> GasStationServiceimpl: 8 : getGasStationsByGasolineType()
 activate GasStationServiceimpl
-GasStationServiceimpl ->GasStationServiceimpl: 9 : findByHas<Fuel>OrderBy<Fuel>PriceAsc()
-activate GasStationServiceimpl
+GasStationServiceimpl ->GasStationRepository: 9 : findByHas<Fuel>OrderBy<Fuel>PriceAsc()
+activate GasStationRepository
 return
 GasStationServiceimpl -> GasStationConverter: 10 : toDto()
 activate GasStationConverter
@@ -1086,7 +1086,7 @@ return
 
 "Front End" -> UserController:10 : decreaseUserReputation()
 activate UserController
-UserController -> UserServiceimpl:11 : increaseUserReputation()
+UserController -> UserServiceimpl:11 : decreaseUserReputation()
 activate UserServiceimpl
 UserServiceimpl -> UserServiceimpl:12 : getUserById()
 activate UserServiceimpl
