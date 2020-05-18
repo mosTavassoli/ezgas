@@ -856,6 +856,12 @@ return
 
 GasStationServiceimpl -> GasStationServiceimpl: 7 : getGasStationsWithoutCoordinates()
 activate GasStationServiceimpl
+GasStationServiceimpl -> GasStationServiceimpl: 8 : getGasStationsByGasolineType()
+activate GasStationServiceimpl
+return
+GasStationServiceimpl -> GasStationServiceimpl: 9 : getGasStationByCarSharing()
+activate GasStationServiceimpl
+return
 return
 return
 return
@@ -965,6 +971,10 @@ return
 UserServiceimpl -> UserConverter:14 : toDto()
 activate UserConverter
 return
+return
+
+UserServiceimpl -> userDto:15 : editUserReputation()
+activate userDto
 return
 
 UserServiceimpl -> UserServiceimpl:15 : saveUser()
