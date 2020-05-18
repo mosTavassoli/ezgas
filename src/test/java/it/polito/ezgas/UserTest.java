@@ -26,9 +26,9 @@ public class UserTest {
 	public void testUserEntityConstructor() {
 		user = new User(this.userName,this.password,this.email,this.reputation);
 		assertNull(user.getUserId());
-		assertTrue(user.getUserName() == this.userName);
-		assertTrue(user.getPassword() == this.password);
-		assertTrue(user.getEmail() == this.email);
+		assertEquals("Username15", user.getUserName());
+		assertEquals("pass15", user.getPassword());
+		assertEquals("test15@email.com", user.getEmail());
 		assertTrue(user.getReputation() == this.reputation);
 	}
 	
