@@ -9,7 +9,7 @@ import it.polito.ezgas.entity.User;
 
 public class UserTest {
 	User user;
-	 
+	int actualValue;
 	@Before
 	public void init() {
 		this.user = new User();
@@ -22,52 +22,60 @@ public class UserTest {
 	private Integer reputation = 3;
 	private Boolean admin = false;
 	
+
 	@Test
 	public void testUserEntityConstructor() {
 		user = new User(this.userName,this.password,this.email,this.reputation);
-		assertNull(user.getUserId());
-		assertEquals("Username15", user.getUserName());
-		assertEquals("pass15", user.getPassword());
-		assertEquals("test15@email.com", user.getEmail());
-		assertTrue(user.getReputation() == this.reputation);
+		assertEquals(null, user.getUserId());
+		assertEquals(this.userName, user.getUserName());
+		assertEquals(this.password, user.getPassword());
+		assertEquals(this.email, user.getEmail());
+		assertEquals(this.reputation, user.getReputation());
+
 	}
 	
-	
+
 	@Test
 	public void testUserIdMinInt() {
 		user.setUserId(Integer.MIN_VALUE);
-		assertTrue(user.getUserId() == Integer.MIN_VALUE);
+		actualValue = user.getUserId();
+		assertEquals(Integer.MIN_VALUE, actualValue);
 	}
 	
 	@Test
 	public void testUserIdMinIntPlusOne() {
 		user.setUserId(Integer.MIN_VALUE + 1);
-		assertTrue(user.getUserId() == Integer.MIN_VALUE + 1 );
+		actualValue = user.getUserId();
+		assertEquals(Integer.MIN_VALUE + 1, actualValue);
 	}
 	
 	@Test
 	public void testUserIdMinusOne() {
 		user.setUserId(-1);
-		assertTrue(user.getUserId() == -1);
+		actualValue = user.getUserId();
+		assertEquals(-1, actualValue);
+		
 	}
 	
 	@Test
 	public void testUserIdZero() {
 		user.setUserId(0);
-		assertTrue(user.getUserId() == 0);
+		actualValue = user.getUserId();
+		assertEquals(0, actualValue);
 	}
 	
 	@Test
 	public void testUserIdMaxInt() {
 		user.setUserId(Integer.MAX_VALUE);
-		assertTrue(user.getUserId() == Integer.MAX_VALUE);
+		actualValue = user.getUserId();
+		assertEquals(Integer.MAX_VALUE, actualValue);
 	}
 	
 	@Test
 	public void testUserIdMaxIntMinusOne() {
 		user.setUserId(Integer.MAX_VALUE -1);
-		assertTrue(user.getUserId() == Integer.MAX_VALUE -1);
+		actualValue = user.getUserId();
+		assertEquals(Integer.MAX_VALUE -1, actualValue);
 	}
 	
-
 }
