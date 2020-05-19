@@ -457,23 +457,84 @@ The JUnit test cases will be exhaustive.
 | Unit name | JUnit test case |
 |--|--|
 | User.User | UserTest.testUserEntityConstructor |
-| User.getUserId | UserTest.testUserIdMinInt |
+| User.getUserId<br/>User.setUserId | UserTest.testUserIdMinInt |
 |                | UserTest.testUserIdMinIntPlusOne |
 |                | UserTest.testUserIdMinusOne |
 |                | UserTest.testUserIdZero |
 |                | UserTest.testUserIdMaxInt |
 |                | UserTest.testUserIdMaxIntMinusOne |
+|User.getUserName|UserTest.testUserName|
+|User.getPassword|UserTest.testPassword|
+|User.getEmail|UserTest.testEmail|
+|User.getReputation|UserTest.testReputation|
+|User.getAdmin|UserTest.testAdmin|
+|User.setUserName|UserTest.testUserName|
+|User.setPassword|UserTest.testPassword|
+|User.setEmail|UserTest.testEmail|
+|User.setReputation|UserTest.testReputation|
+|User.setAdmin|UserTest.testAdmin|
 | UserDto.UserDto | UserDtoTest.testConstructor |
+|                 | UserDtoTest.testConstructorRegularUser |
 | UserDto.editUserReputation | UserDtoTest.testEditUserReputationNegativeOutOfBounds |
 |                            | UserDtoTest.testEditUserReputationNegativeWithinBounds |
 |                            | UserDtoTest.testEditUserReputationPositiveOutOfBounds |
 |                            | UserDtoTest.testEditUserReputationPositiveWithinBounds |
-| GasStation.getGasStationId | GasStationTest.testGasStationIdMinInt |
+| UserDto.getUserId          | UserDtoTest.testUserId|
+| UserDto.getUserName        | UserDtoTest.testUserName|
+| UserDto.getPassword        | UserDtoTest.testPassword|
+| UserDto.getEmail           | UserDtoTest.testEmail|
+| UserDto.getReputation      | UserDtoTest.testReputation|
+| UserDto.getAdmin           | UserDtoTest.testAdmin|
+| UserDto.setUserId          | UserDtoTest.testUserId|
+| UserDto.setUserName        | UserDtoTest.testUserName|
+| UserDto.setPassword        | UserDtoTest.testPassword|
+| UserDto.setEmail           | UserDtoTest.testEmail|
+| UserDto.setReputation      | UserDtoTest.testReputation|
+| UserDto.setAdmin           | UserDtoTest.testAdmin|
+| GasStation.GasStation | GasStationTest.testConstructor |
+| GasStation.getGasStationId<br>GasStation.setGasStationId | GasStationTest.testGasStationIdMinInt |
 |                            | GasStationTest.testGasStationIdMinIntPlusOne |
 |                            | GasStationTest.testGasStationIdMinusOne |
 |                            | GasStationTest.testGasStationIdZero |
 |                            | GasStationTest.testGasStationIdMaxInt |
 |                            | GasStationTest.testGasStationIdMaxIntMinusOne |
+|                            | GasStationTest.testGasStationId |
+| GasStation.getGasStationName | GasStationTest.testGasStationName |
+| GasStation.getGasStationAddress | GasStationTest.testGasStationAddress |
+| GasStation.getReportDependability | GasStationTest.testReportDependability |
+| GasStation.getReportUser | GasStationTest.testReportUser |
+| GasStation.getReportTimestamp | GasStationTest.testReportTimestamp |
+| GasStation.getHasDiesel | GasStationTest.testHasDiesel |
+| GasStation.getHasSuper | GasStationTest.testHasSuper |
+| GasStation.getHasSuperPlus | GasStationTest.testHasSuperPlus |
+| GasStation.getHasGas | GasStationTest.testHasGas |
+| GasStation.getHasMethane | GasStationTest.testHasMethane |
+| GasStation.getLat | GasStationTest.testLat |
+| GasStation.getLon | GasStationTest.testLon |
+| GasStation.getDieselPrice | GasStationTest.testDieselPrice |
+| GasStation.getSuperPrice | GasStationTest.testSuperPrice |
+| GasStation.getSuperPlusPrice | GasStationTest.testSuperPlusPrice |
+| GasStation.getGasPrice | GasStationTest.testGasPrice |
+| GasStation.getMethanePrice | GasStationTest.testMethanePrice |
+| GasStation.getCarSharing | GasStationTest.testCarSharing |
+| GasStation.setGasStationName | GasStationTest.testGasStationName |
+| GasStation.setGasStationAddress | GasStationTest.testGasStationAddress |
+| GasStation.setReportDependability | GasStationTest.testReportDependability |
+| GasStation.setReportUser | GasStationTest.testReportUser |
+| GasStation.setReportTimestamp | GasStationTest.testReportTimestamp |
+| GasStation.setHasDiesel | GasStationTest.testHasDiesel |
+| GasStation.setHasSuper | GasStationTest.testHasSuper |
+| GasStation.setHasSuperPlus | GasStationTest.testHasSuperPlus |
+| GasStation.setHasGas | GasStationTest.testHasGas |
+| GasStation.setHasMethane | GasStationTest.testHasMethane |
+| GasStation.setLat | GasStationTest.testLat |
+| GasStation.setLon | GasStationTest.testLon |
+| GasStation.setDieselPrice | GasStationTest.testDieselPrice |
+| GasStation.setSuperPrice | GasStationTest.testSuperPrice |
+| GasStation.setSuperPlusPrice | GasStationTest.testSuperPlusPrice |
+| GasStation.setGasPrice | GasStationTest.testGasPrice |
+| GasStation.setMethanePrice | GasStationTest.testMethanePrice |
+| GasStation.setCarSharing | GasStationTest.testCarSharing |
 | GasStationDto.checkPrices | GasStationDtoTest.testGasStationDoesNotHaveDiesel |
 |                           | GasStationDtoTest.testGasStationDoesNotHaveGas |
 |                           | GasStationDtoTest.testGasStationDoesNotHaveMethane |
@@ -494,12 +555,76 @@ The JUnit test cases will be exhaustive.
 |                           | GasStationDtoTest.testNonNegativeMethanePrice |
 |                           | GasStationDtoTest.testNonNegativeSuperPrice |
 |                           | GasStationDtoTest.testNonNegativeSuperPlusPrice |
-| GasStationDto.checkCoordinates | GasStationDtoTest.testLatitudeOutOfBounds |
-|                                | GasStationDtoTest.testLongitudeOutOfBounds |
+| GasStationDto.checkCoordinates | GasStationDtoTest.testLatitudeLargerThanUpperBound |
+|                                | GasStationDtoTest.testLatitudeSmallerThanLowerBound |
+|                                | GasStationDtoTest.testLongitudeLargerThanUpperBound |
+|                                | GasStationDtoTest.testLongitudeSmallerThanLowerBound |
 |                                | GasStationDtoTest.testLatitudeAndLongitudeOutOfBounds |
 |                                | GasStationDtoTest.testLatitudeAndLongitudeInsideBounds |
 | GasStationDto.toString | GasStationDtoTest.testToStringWithUninitializedAttributes |
 |                        | GasStationDtoTest.testToStringWithInitializedAttributes |
+| GasStationDto.GasStationDto | GasStationDtoTest.testToStringWithInitializedAttributes |
+| GasStationDto.getGasStationId | GasStationDtoTest.testGasStationId |
+| GasStationDto.getGasStationName       | GasStationDtoTest.testGasStationName |
+| GasStationDto.getGasStationAddress    | GasStationDtoTest.testGasStationAddress |
+| GasStationDto.getReportDependability  | GasStationDtoTest.testReportDependability |
+| GasStationDto.getReportUser           | GasStationDtoTest.testReportUser |
+| GasStationDto.getReportTimestamp      | GasStationDtoTest.testReportTimestamp |
+| GasStationDto.getHasDiesel            | GasStationDtoTest.testHasDiesel |
+| GasStationDto.getHasSuper             | GasStationDtoTest.testHasSuper |
+| GasStationDto.getHasSuperPlus         | GasStationDtoTest.testHasSuperPlus |
+| GasStationDto.getHasGas               | GasStationDtoTest.testHasGas |
+| GasStationDto.getHasMethane           | GasStationDtoTest.testHasMethane |
+| GasStationDto.getLat                  | GasStationDtoTest.testLat |
+| GasStationDto.getLon                  | GasStationDtoTest.testLon |
+| GasStationDto.getDieselPrice          | GasStationDtoTest.testDieselPrice |
+| GasStationDto.getSuperPrice           | GasStationDtoTest.testSuperPrice |
+| GasStationDto.getSuperPlusPrice       | GasStationDtoTest.testSuperPlusPrice |
+| GasStationDto.getGasPrice             | GasStationDtoTest.testGasPrice |
+| GasStationDto.getMethanePrice         | GasStationDtoTest.testMethanePrice |
+| GasStationDto.getCarSharing           | GasStationDtoTest.testCarSharing |
+| GasStationDto.setGasStationId         | GasStationDtoTest.testGasStationId |
+| GasStationDto.setGasStationName       | GasStationDtoTest.testGasStationName |
+| GasStationDto.setGasStationAddress    | GasStationDtoTest.testGasStationAddress |
+| GasStationDto.setReportDependability  | GasStationDtoTest.testReportDependability |
+| GasStationDto.setReportUser           | GasStationDtoTest.testReportUser |
+| GasStationDto.setReportTimestamp      | GasStationDtoTest.testReportTimestamp |
+| GasStationDto.setHasDiesel            | GasStationDtoTest.testHasDiesel |
+| GasStationDto.setHasSuper             | GasStationDtoTest.testHasSuper |
+| GasStationDto.setHasSuper             | GasStationDtoTest.testHasSuperBoolean |
+| GasStationDto.setHasSuperPlus         | GasStationDtoTest.testHasSuperPlus |
+| GasStationDto.setHasSuperPlus         | GasStationDtoTest.testHasSuperPlusBoolean |
+| GasStationDto.setHasGas               | GasStationDtoTest.testHasGas |
+| GasStationDto.setHasGas               | GasStationDtoTest.testHasGasBoolean |
+| GasStationDto.setHasMethane           | GasStationDtoTest.testHasMethane |
+| GasStationDto.setLat                  | GasStationDtoTest.testLat |
+| GasStationDto.setLon                  | GasStationDtoTest.testLon |
+| GasStationDto.setDieselPrice          | GasStationDtoTest.testDieselPrice |
+| GasStationDto.setSuperPrice           | GasStationDtoTest.testSuperPrice |
+| GasStationDto.setSuperPlusPrice       | GasStationDtoTest.testSuperPlusPrice |
+| GasStationDto.setGasPrice             | GasStationDtoTest.testGasPrice |
+| GasStationDto.setMethanePrice         | GasStationDtoTest.testMethanePrice |
+| GasStationDto.setCarSharing           | GasStationDtoTest.testCarSharing |
+| IdPw.IdPw             | IdPwTest.testConstructor |
+|                       | IdPwTest.testNullObject  |
+| IdPw.getUser | IdPw.testUserId |
+| IdPw.setUser | IdPw.testUserId |
+| IdPw.getPw | IdPw.testUserPw |
+| IdPw.setPw | IdPw.testUserPw |
+| LoginDto.LoginDto             | LoginDtoTest.testConstructor |
+|                       | LoginDtoTest.testNullObject  |
+| LoginDto.getUserId | LoginDtoTest.testSetGet |
+| LoginDto.setUserId | LoginDtoTest.testSetGet |
+| LoginDto.getUserName | LoginDtoTest.testSetGet |
+| LoginDto.setUserName | LoginDtoTest.testSetGet |
+| LoginDto.getToken | LoginDtoTest.testSetGet |
+| LoginDto.setToken | LoginDtoTest.testSetGet |
+| LoginDto.getEmail | LoginDtoTest.testSetGet |
+| LoginDto.setEmail | LoginDtoTest.testSetGet |
+| LoginDto.getReputation | LoginDtoTest.testSetGet |
+| LoginDto.setReputation | LoginDtoTest.testSetGet |
+| LoginDto.getAdmin | LoginDtoTest.testSetGet |
+| LoginDto.setAdmin | LoginDtoTest.testSetGet |
 
 
 ### Code coverage report
