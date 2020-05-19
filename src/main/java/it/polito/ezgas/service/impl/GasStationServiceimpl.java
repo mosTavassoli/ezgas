@@ -131,13 +131,8 @@ public class GasStationServiceimpl implements GasStationService {
 		if(!GasStationDto.checkCoordinates(lat, lon))
 			throw new GPSDataException("GPSDataException: lat = " + lat + ", lon = " + lon );
 		
-		return GasStationConverter
-				.toDto(gasStationRepository
-						.findByLatBetweenAndLonBetween(lat - Constants.KM1_LAT, 
-														lat + Constants.KM1_LAT, 
-														lon - Constants.KM1_LON, 
-														lon + Constants.KM1_LON));
-}
+		return GasStationConverter.toDto(gasStationRepository.findByProximity(lat, lon));
+	}
 
 	@Override
 	public List<GasStationDto> getGasStationsWithCoordinates(double lat, double lon, String gasolinetype,
