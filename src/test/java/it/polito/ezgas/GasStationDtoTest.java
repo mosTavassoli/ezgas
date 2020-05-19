@@ -181,12 +181,22 @@ public class GasStationDtoTest {
 	}
 	
 	@Test
-	public void testLatitudeOutOfBounds() {
+	public void testLatitudeLargerThanUpperBound() {
 		assertEquals(false,GasStationDto.checkCoordinates(120, 0));
 	}
 	
 	@Test
-	public void testLongitudeOutOfBounds() {
+	public void testLatitudeSmallerThanLowerBound() {
+		assertEquals(false,GasStationDto.checkCoordinates(-120, 0));
+	}
+	
+	@Test
+	public void testLongitudeLargerThanUpperBound() {
+		assertEquals(false,GasStationDto.checkCoordinates(0, 200));
+	}
+	
+	@Test
+	public void testLongitudeSmallerThanLowerBound() {
 		assertEquals(false,GasStationDto.checkCoordinates(0, -200));
 	}
 	
