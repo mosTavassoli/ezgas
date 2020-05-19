@@ -426,7 +426,7 @@ package "it.polito.ezgas.repository" {
 "UserServiceimpl" "1"-----"1" "UserRepository"
 "UserServiceimpl" "1"-----"1" "UserConverter"
 "UserConverter" "1"-----"1" "UserDto"
-"UserConverter" "1"-----"1" "LoginDto"
+"LoginConverter" "1"-----"1" "LoginDto"
 "UserServiceimpl" "1"-----"1" "IdPw"
 
 
@@ -434,7 +434,7 @@ package "it.polito.ezgas.repository" {
 "GasStationServiceimpl" "1"-----"1" "GasStationRepository"
 "GasStationServiceimpl" "1"-----"1" "GasStationConverter"
 "GasStationConverter" "1"-----"1" "GasStationDto"
-
+"UserServiceimpl" "1"-----"1" "LoginConverter"
 
 @enduml
 ```
