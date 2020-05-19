@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import it.polito.ezgas.dto.IdPw;
 
-public class IdPwDtoTest {
+public class IdPwTest {
 
 	IdPw idpw;
 	
