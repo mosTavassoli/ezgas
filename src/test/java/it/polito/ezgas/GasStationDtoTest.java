@@ -19,6 +19,11 @@ public class GasStationDtoTest {
     private boolean hasGas=true;
     private boolean hasMethane=true;
     
+    private Boolean hasSuperBoolean=true;
+    private Boolean hasGasBoolean=true;
+    private Boolean hasSuperPlusBoolean=true;
+    
+    
     private String carSharing="CAR SHARING";
     private double lat=123.321;
     private double lon=546.234;
@@ -291,6 +296,24 @@ public class GasStationDtoTest {
 	public void testHasGas() {
 		this.gasStationDto.setHasGas(this.hasGas);
 		assertEquals(this.hasGas, this.gasStationDto.getHasGas());
+	}
+	
+	@Test
+	public void testHasSuperBoolean() {
+		this.gasStationDto.setHasSuper(this.hasSuperBoolean);
+		assertEquals(this.hasSuperBoolean, this.gasStationDto.getHasSuper());
+	}
+	
+	@Test
+	public void testHasSuperPlusBoolean() {
+		this.gasStationDto.setHasSuperPlus(this.hasSuperPlusBoolean);
+		assertEquals(this.hasSuperPlusBoolean, this.gasStationDto.getHasSuperPlus());
+	}
+	
+	@Test
+	public void testHasGasBoolean() {
+		this.gasStationDto.setHasGas(this.hasGasBoolean);
+		assertEquals(this.hasGasBoolean, this.gasStationDto.getHasGas());
 	}
 	
 	@Test

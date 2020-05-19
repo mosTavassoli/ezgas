@@ -200,8 +200,33 @@ public class GasStationTest {
 	}
 	
 	@Test
-	public void testGasStation() {
-		
+	public void testConstructor() {
+		gasStation = new GasStation(gasStationName, gasStationAddress, hasDiesel, hasSuper, 
+				hasSuperPlus, hasGas, hasMethane, carSharing, lat, lon, dieselPrice, superPrice, 
+				superPlusPrice, gasPrice, methanePrice, reportUser, reportTimestamp, 
+				reportDependability);
+		gasStation.setGasStationId(gasStationId);
+		assertEquals(this.gasStationId, this.gasStation.getGasStationId());
+		assertEquals(this.gasStationName, this.gasStation.getGasStationName());
+		assertEquals(this.gasStationAddress, this.gasStation.getGasStationAddress());
+		assertEquals(this.hasDiesel, this.gasStation.getHasDiesel());
+		assertEquals(this.hasSuper, this.gasStation.getHasSuper());
+		assertEquals(this.hasSuperPlus, this.gasStation.getHasSuperPlus());
+		assertEquals(this.hasGas, this.gasStation.getHasGas());
+		assertEquals(this.hasMethane, this.gasStation.getHasMethane());
+		assertEquals(this.carSharing, this.gasStation.getCarSharing());
+		assertEquals(this.lat, this.gasStation.getLat(),this.acceptableLatitudeAndLongitudeDelta);
+		assertEquals(this.lon, this.gasStation.getLon(),this.acceptableLatitudeAndLongitudeDelta);
+		assertEquals(this.dieselPrice, this.gasStation.getDieselPrice(),this.acceptablePriceDelta);
+		assertEquals(this.superPrice, this.gasStation.getSuperPrice(),this.acceptablePriceDelta);
+		assertEquals(this.superPlusPrice, this.gasStation.getSuperPlusPrice(),this.acceptablePriceDelta);
+		assertEquals(this.gasPrice, this.gasStation.getGasPrice(),this.acceptablePriceDelta);
+		assertEquals(this.methanePrice, this.gasStation.getMethanePrice(),this.acceptablePriceDelta);
+		assertEquals(this.reportUser, this.gasStation.getReportUser());
+		assertEquals(this.reportTimestamp, this.gasStation.getReportTimestamp());
+		assertEquals(this.reportDependability, this.gasStation.getReportDependability(),this.acceptableReportDependabilityDelta);
+
+
 	}
 
 
