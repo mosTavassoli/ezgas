@@ -398,10 +398,10 @@ package "it.polito.ezgas.repository" {
    class "UserRepository"{
       +findByEmail(user)
       +findByUserId(userId)
-      +save()
+      +save(user)
       +findAll()
-      +exists()
-      +delete()
+      +exists(userId)
+      +delete(userId)
    }
    class "GasStationRepository"{
       +findByCarSharingOrderByGasStationName(carSharing)
@@ -411,12 +411,12 @@ package "it.polito.ezgas.repository" {
       +findByHasSuperOrderBySuperPriceAsc(hasSuper)
       +findByHasSuperPlusOrderBySuperPlusPriceAsc(hasSuperPlus)
       +findByLatBetweenAndLonBetween(latStart, latEnd, lonStart, lonEnd)
-      +save()
+      +save(gasStation)
       +findAll()
-      +exists()
-      +delete()
-      +count()
-      +findOne()
+      +exists(gasStationId)
+      +delete(gasStationId)
+      +count(gasStationId)
+      +findOne(gasStationId)
    }
 }
 
