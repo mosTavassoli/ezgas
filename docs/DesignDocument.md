@@ -595,19 +595,19 @@ return
 return
 return
 
-"Front End" -> UserController:7 : getAllUsers()
+"Front End" -> UserController:6 : getAllUsers()
 activate UserController
-UserController -> UserServiceimpl:8 : getAllUsers()
+UserController -> UserServiceimpl:7 : getAllUsers()
 activate UserServiceimpl
-UserServiceimpl -> UserRepository:9 : findAll()
+UserServiceimpl -> UserRepository:8 : findAll()
 activate UserRepository
 UserRepository -> Database
 activate Database
 return
 return
-UserServiceimpl -> UserConverter:10 : toDto()
+UserServiceimpl -> UserConverter:9 : toDto()
 activate UserConverter
-UserConverter -> UserConverter:11 : toDto()
+UserConverter -> UserConverter:10 : toDto()
 activate UserConverter
 return
 return
@@ -635,15 +635,15 @@ GasStationConverter -> UserConverter:6 : toEntity()
 activate UserConverter
 return
 return
-GasStationServiceimpl -> GasStationRepository:6 : save()
+GasStationServiceimpl -> GasStationRepository:7 : save()
 activate GasStationRepository
 GasStationRepository -> Database
 activate Database
 return
 return
-GasStationServiceimpl -> GasStationConverter:7 : toDto()
+GasStationServiceimpl -> GasStationConverter:8 : toDto()
 activate GasStationConverter
-GasStationConverter -> GasStationDto:8 : computeReportDependability()
+GasStationConverter -> GasStationDto:9 : computeReportDependability()
 activate GasStationDto
 
 return
@@ -651,28 +651,28 @@ return
 return
 return
 
-"Front End" -> GasStationController:8 : getAllGasStations()
+"Front End" -> GasStationController:10 : getAllGasStations()
 activate GasStationController
-GasStationController -> GasStationServiceimpl:9 : getAllGasStations()
+GasStationController -> GasStationServiceimpl:11 : getAllGasStations()
 activate GasStationServiceimpl
-GasStationServiceimpl -> GasStationRepository:10 : count()
+GasStationServiceimpl -> GasStationRepository:12 : count()
 activate GasStationRepository
 GasStationRepository -> Database
 activate Database
 return
 return
-GasStationServiceimpl -> GasStationRepository:11 : findAll()
+GasStationServiceimpl -> GasStationRepository:13 : findAll()
 activate GasStationRepository
 GasStationRepository -> Database
 activate Database
 return
 return
 
-GasStationServiceimpl -> GasStationConverter:12 : toDto()
+GasStationServiceimpl -> GasStationConverter:14 : toDto()
 activate GasStationConverter
-GasStationConverter -> GasStationConverter:13 : toDto()
+GasStationConverter -> GasStationConverter:15 : toDto()
 activate GasStationConverter
-GasStationConverter -> GasStationDto:8 : computeReportDependability()
+GasStationConverter -> GasStationDto:16 : computeReportDependability()
 activate GasStationDto
 return
 return
@@ -700,15 +700,15 @@ GasStationConverter -> UserConverter:6 : toEntity()
 activate UserConverter
 return
 return
-GasStationServiceimpl -> GasStationRepository:6 : save()
+GasStationServiceimpl -> GasStationRepository:7 : save()
 activate GasStationRepository
 GasStationRepository -> Database
 activate Database
 return
 return
-GasStationServiceimpl -> GasStationConverter:7 : toDto()
+GasStationServiceimpl -> GasStationConverter:8 : toDto()
 activate GasStationConverter
-GasStationConverter -> GasStationDto:8 : computeReportDependability()
+GasStationConverter -> GasStationDto:9 : computeReportDependability()
 activate GasStationDto
 
 return
@@ -716,28 +716,28 @@ return
 return
 return
 
-"Front End" -> GasStationController:8 : getAllGasStations()
+"Front End" -> GasStationController:10 : getAllGasStations()
 activate GasStationController
-GasStationController -> GasStationServiceimpl:9 : getAllGasStations()
+GasStationController -> GasStationServiceimpl:11 : getAllGasStations()
 activate GasStationServiceimpl
-GasStationServiceimpl -> GasStationRepository:10 : count()
+GasStationServiceimpl -> GasStationRepository:12 : count()
 activate GasStationRepository
 GasStationRepository -> Database
 activate Database
 return
 return
-GasStationServiceimpl -> GasStationRepository:11 : findAll()
+GasStationServiceimpl -> GasStationRepository:13 : findAll()
 activate GasStationRepository
 GasStationRepository -> Database
 activate Database
 return
 return
 
-GasStationServiceimpl -> GasStationConverter:12 : toDto()
+GasStationServiceimpl -> GasStationConverter:14 : toDto()
 activate GasStationConverter
-GasStationConverter -> GasStationConverter:13 : toDto()
+GasStationConverter -> GasStationConverter:15 : toDto()
 activate GasStationConverter
-GasStationConverter -> GasStationDto:8 : computeReportDependability()
+GasStationConverter -> GasStationDto:16 : computeReportDependability()
 activate GasStationDto
 return
 return
@@ -776,28 +776,28 @@ return
 return
 return
 
-"Front End" -> GasStationController:8 : getAllGasStations()
+"Front End" -> GasStationController:6 : getAllGasStations()
 activate GasStationController
-GasStationController -> GasStationServiceimpl:9 : getAllGasStations()
+GasStationController -> GasStationServiceimpl:7 : getAllGasStations()
 activate GasStationServiceimpl
-GasStationServiceimpl -> GasStationRepository:10 : count()
+GasStationServiceimpl -> GasStationRepository:8 : count()
 activate GasStationRepository
 GasStationRepository -> Database
 activate Database
 return
 return
-GasStationServiceimpl -> GasStationRepository:11 : findAll()
+GasStationServiceimpl -> GasStationRepository:9 : findAll()
 activate GasStationRepository
 GasStationRepository -> Database
 activate Database
 return
 return
 
-GasStationServiceimpl -> GasStationConverter:12 : toDto()
+GasStationServiceimpl -> GasStationConverter:10 : toDto()
 activate GasStationConverter
-GasStationConverter -> GasStationConverter:13 : toDto()
+GasStationConverter -> GasStationConverter:11 : toDto()
 activate GasStationConverter
-GasStationConverter -> GasStationDto:8 : computeReportDependability()
+GasStationConverter -> GasStationDto:12 : computeReportDependability()
 activate GasStationDto
 return
 return
@@ -846,18 +846,21 @@ return
 return
 GasStationServiceimpl -> GasStationConverter:10 : toDto()
 activate GasStationConverter
+GasStationConverter -> GasStationDto:11 : computeReportDependability()
+activate GasStationDto
+return
 return
 return
 
-GasStationServiceimpl -> UserServiceimpl:11 : getUserById()
+GasStationServiceimpl -> UserServiceimpl:12 : getUserById()
 activate UserServiceimpl
-UserServiceimpl -> UserRepository:12 : findByUserId()
+UserServiceimpl -> UserRepository:13 : findByUserId()
 activate UserRepository
 UserRepository -> Database
 activate Database
 return
 return
-UserServiceimpl -> UserConverter:13 : toDto()
+UserServiceimpl -> UserConverter:14 : toDto()
 activate UserConverter
 return
 return
@@ -866,24 +869,24 @@ return
 
 
 
-GasStationServiceimpl -> GasStationDto:14 computeReportDependability()
+GasStationServiceimpl -> GasStationDto:15 computeReportDependability()
 activate GasStationDto
 
 return
 
-GasStationServiceimpl -> GasStationDto:15 checkPrices()
+GasStationServiceimpl -> GasStationDto:16 checkPrices()
 activate GasStationDto
 
 return
 
-GasStationServiceimpl -> GasStationConverter:16 : toEntity()
+GasStationServiceimpl -> GasStationConverter:17 : toEntity()
 activate GasStationConverter
-GasStationConverter -> UserConverter:6 : toEntity()
+GasStationConverter -> UserConverter:18 : toEntity()
 activate UserConverter
 return
 return
 
-GasStationServiceimpl -> GasStationRepository:17 : save()
+GasStationServiceimpl -> GasStationRepository:19 : save()
 activate GasStationRepository
 GasStationRepository -> Database
 activate Database
@@ -892,28 +895,28 @@ return
 return
 return
 
-"Front End" -> GasStationController:8 : getAllGasStations()
+"Front End" -> GasStationController:20 : getAllGasStations()
 activate GasStationController
-GasStationController -> GasStationServiceimpl:9 : getAllGasStations()
+GasStationController -> GasStationServiceimpl:21 : getAllGasStations()
 activate GasStationServiceimpl
-GasStationServiceimpl -> GasStationRepository:10 : count()
+GasStationServiceimpl -> GasStationRepository:22 : count()
 activate GasStationRepository
 GasStationRepository -> Database
 activate Database
 return
 return
-GasStationServiceimpl -> GasStationRepository:11 : findAll()
+GasStationServiceimpl -> GasStationRepository:23 : findAll()
 activate GasStationRepository
 GasStationRepository -> Database
 activate Database
 return
 return
 
-GasStationServiceimpl -> GasStationConverter:12 : toDto()
+GasStationServiceimpl -> GasStationConverter:24 : toDto()
 activate GasStationConverter
-GasStationConverter -> GasStationConverter:13 : toDto()
+GasStationConverter -> GasStationConverter:25 : toDto()
 activate GasStationConverter
-GasStationConverter -> GasStationDto:8 : computeReportDependability()
+GasStationConverter -> GasStationDto:26 : computeReportDependability()
 activate GasStationDto
 return
 return
@@ -947,30 +950,44 @@ GasStationServiceimpl -> GasStationConverter: 6 : toDto()
 activate GasStationConverter
 GasStationConverter -> GasStationConverter: 7 : toDto()
 activate GasStationConverter
+GasStationConverter -> GasStationDto:8 : computeReportDependability()
+activate GasStationDto
+return
 return
 return
 return
 
-GasStationServiceimpl -> GasStationServiceimpl: 8 : getGasStationsWithoutCoordinates()
+GasStationServiceimpl -> GasStationServiceimpl: 9 : getGasStationsWithoutCoordinates()
 activate GasStationServiceimpl
-GasStationServiceimpl -> GasStationServiceimpl: 9 : getGasStationsByGasolineType()
+GasStationServiceimpl -> GasStationServiceimpl: 10 : getGasStationsByGasolineType()
 activate GasStationServiceimpl
-GasStationServiceimpl ->GasStationRepository: 10 : findByHas<Fuel>OrderBy<Fuel>PriceAsc()
+GasStationServiceimpl ->GasStationRepository: 11 : findByHas<Fuel>OrderBy<Fuel>PriceAsc()
 activate GasStationRepository
 return
-GasStationServiceimpl -> GasStationConverter: 11 : toDto()
+GasStationServiceimpl -> GasStationConverter: 12 : toDto()
 activate GasStationConverter
-
+GasStationConverter -> GasStationConverter: 13 : toDto()
+activate GasStationConverter
+GasStationConverter -> GasStationDto:14 : computeReportDependability()
+activate GasStationDto
+return
+return
 return
 
 return
-GasStationServiceimpl -> GasStationServiceimpl: 12 : getGasStationByCarSharing()
+GasStationServiceimpl -> GasStationServiceimpl: 15 : getGasStationByCarSharing()
 activate GasStationServiceimpl
-GasStationServiceimpl -> GasStationRepository: 13 : findByCarSharingOrderByGasStationName()
+GasStationServiceimpl -> GasStationRepository: 16 : findByCarSharingOrderByGasStationName()
 activate GasStationRepository
 return
-GasStationServiceimpl -> GasStationConverter: 14 : toDto()
+GasStationServiceimpl -> GasStationConverter: 17 : toDto()
 activate GasStationConverter
+GasStationConverter -> GasStationConverter: 18 : toDto()
+activate GasStationConverter
+GasStationConverter -> GasStationDto:19 : computeReportDependability()
+activate GasStationDto
+return
+return
 return
 return
 return
@@ -982,47 +999,47 @@ return
 
 ```plantuml
 database Database order 30
-"Front End" -> UserController:7 : getAllUsers()
+"Front End" -> UserController:1 : getAllUsers()
 activate UserController
-UserController -> UserServiceimpl:8 : getAllUsers()
+UserController -> UserServiceimpl:2 : getAllUsers()
 activate UserServiceimpl
-UserServiceimpl -> UserRepository:9 : findAll()
+UserServiceimpl -> UserRepository:3 : findAll()
 activate UserRepository
 UserRepository -> Database
 activate Database
 return
 return
-UserServiceimpl -> UserConverter:10 : toDto()
+UserServiceimpl -> UserConverter:4 : toDto()
 activate UserConverter
-UserConverter -> UserConverter:11 : toDto()
+UserConverter -> UserConverter:5 : toDto()
 activate UserConverter
 return
 return
 return
 return
 
-"Front End" -> GasStationController:8 : getAllGasStations()
+"Front End" -> GasStationController:6 : getAllGasStations()
 activate GasStationController
-GasStationController -> GasStationServiceimpl:9 : getAllGasStations()
+GasStationController -> GasStationServiceimpl:7 : getAllGasStations()
 activate GasStationServiceimpl
-GasStationServiceimpl -> GasStationRepository:10 : count()
+GasStationServiceimpl -> GasStationRepository:8 : count()
 activate GasStationRepository
 GasStationRepository -> Database
 activate Database
 return
 return
-GasStationServiceimpl -> GasStationRepository:11 : findAll()
+GasStationServiceimpl -> GasStationRepository:9 : findAll()
 activate GasStationRepository
 GasStationRepository -> Database
 activate Database
 return
 return
 
-GasStationServiceimpl -> GasStationConverter:12 : toDto()
+GasStationServiceimpl -> GasStationConverter:10 : toDto()
 activate GasStationConverter
-GasStationConverter -> GasStationConverter:13 : toDto()
+GasStationConverter -> GasStationConverter:11 : toDto()
 activate GasStationConverter
-GasStationConverter -> GasStationDto:8 : computeReportDependability()
+GasStationConverter -> GasStationDto:12 : computeReportDependability()
 activate GasStationDto
 return
 return
@@ -1054,79 +1071,19 @@ return
 return
 GasStationServiceimpl -> GasStationConverter:5 : toDto()
 activate GasStationConverter
+GasStationConverter -> GasStationDto:6 : computeReportDependability()
+activate GasStationDto
+return
 return
 return
 return
 
 
-"Front End" -> UserController:6 : getUserById()
+"Front End" -> UserController:7 : getUserById()
 activate UserController
-UserController -> UserServiceimpl:7 : getUserById()
+UserController -> UserServiceimpl:8 : getUserById()
 activate UserServiceimpl
-UserServiceimpl -> UserRepository:8 : findByUserId()
-activate UserRepository
-UserRepository -> Database
-activate Database
-return
-return
-UserServiceimpl -> UserConverter:9 : toDto()
-activate UserConverter
-return
-return
-return
-
-
-"Front End" -> UserController:10 : increaseUserReputation()
-activate UserController
-UserController -> UserServiceimpl:11 : increaseUserReputation()
-activate UserServiceimpl
-UserServiceimpl -> UserServiceimpl:12 : getUserById()
-activate UserServiceimpl
-UserServiceimpl -> UserRepository:13 : findByUserId()
-activate UserRepository
-UserRepository -> Database
-activate Database
-return
-return
-UserServiceimpl -> UserConverter:14 : toDto()
-activate UserConverter
-return
-return
-
-UserServiceimpl -> userDto:15 : editUserReputation()
-activate userDto
-return
-
-UserServiceimpl -> UserServiceimpl:16 : saveUser()
-activate UserServiceimpl
-UserServiceimpl -> UserConverter:17 : toEntity()
-activate UserConverter
-return
-UserServiceimpl -> UserRepository:18 : findByEmail()
-activate UserRepository
-UserRepository -> Database:
-activate Database
-return
-return
-UserServiceimpl -> UserRepository:19 : save()
-activate UserRepository
-UserRepository -> Database
-activate Database
-return
-return
-UserServiceimpl -> UserConverter:20 : toDto()
-activate UserConverter
-return
-return
-
-return
-return
-
-"Front End" -> UserController:7 : getAllUsers()
-activate UserController
-UserController -> UserServiceimpl:8 : getAllUsers()
-activate UserServiceimpl
-UserServiceimpl -> UserRepository:9 : findAll()
+UserServiceimpl -> UserRepository:9 : findByUserId()
 activate UserRepository
 UserRepository -> Database
 activate Database
@@ -1134,7 +1091,70 @@ return
 return
 UserServiceimpl -> UserConverter:10 : toDto()
 activate UserConverter
-UserConverter -> UserConverter:11 : toDto()
+return
+return
+return
+
+
+"Front End" -> UserController:11 : increaseUserReputation()
+activate UserController
+UserController -> UserServiceimpl:12 : increaseUserReputation()
+activate UserServiceimpl
+UserServiceimpl -> UserServiceimpl:13 : getUserById()
+activate UserServiceimpl
+UserServiceimpl -> UserRepository:14 : findByUserId()
+activate UserRepository
+UserRepository -> Database
+activate Database
+return
+return
+UserServiceimpl -> UserConverter:15 : toDto()
+activate UserConverter
+return
+return
+
+UserServiceimpl -> userDto:16 : editUserReputation()
+activate userDto
+return
+
+UserServiceimpl -> UserServiceimpl:17 : saveUser()
+activate UserServiceimpl
+UserServiceimpl -> UserConverter:18 : toEntity()
+activate UserConverter
+return
+UserServiceimpl -> UserRepository:19 : findByEmail()
+activate UserRepository
+UserRepository -> Database:
+activate Database
+return
+return
+UserServiceimpl -> UserRepository:20 : save()
+activate UserRepository
+UserRepository -> Database
+activate Database
+return
+return
+UserServiceimpl -> UserConverter:21 : toDto()
+activate UserConverter
+return
+return
+
+return
+return
+
+"Front End" -> UserController:22 : getAllUsers()
+activate UserController
+UserController -> UserServiceimpl:23 : getAllUsers()
+activate UserServiceimpl
+UserServiceimpl -> UserRepository:24 : findAll()
+activate UserRepository
+UserRepository -> Database
+activate Database
+return
+return
+UserServiceimpl -> UserConverter:25 : toDto()
+activate UserConverter
+UserConverter -> UserConverter:26 : toDto()
 activate UserConverter
 return
 return
@@ -1233,19 +1253,19 @@ return
 return
 return
 
-"Front End" -> UserController:7 : getAllUsers()
+"Front End" -> UserController:21 : getAllUsers()
 activate UserController
-UserController -> UserServiceimpl:8 : getAllUsers()
+UserController -> UserServiceimpl:22 : getAllUsers()
 activate UserServiceimpl
-UserServiceimpl -> UserRepository:9 : findAll()
+UserServiceimpl -> UserRepository:23 : findAll()
 activate UserRepository
 UserRepository -> Database
 activate Database
 return
 return
-UserServiceimpl -> UserConverter:10 : toDto()
+UserServiceimpl -> UserConverter:24 : toDto()
 activate UserConverter
-UserConverter -> UserConverter:11 : toDto()
+UserConverter -> UserConverter:25 : toDto()
 activate UserConverter
 return
 return
