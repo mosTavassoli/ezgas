@@ -247,10 +247,12 @@ package "it.polito.ezgas.service"  as ps {
       +decreaseUserReputation(userId)
    }
    class "GasStationServiceimpl"{
-
-      
+      -gasStationRepository
+      -userService
    }
-   class "UserServiceimpl"
+   class "UserServiceimpl"{
+      -userRepository
+   }
    "GasStationServiceimpl" -|> "GasStationService"
    "UserServiceimpl" -|> "UserService"
 
@@ -259,6 +261,7 @@ package "it.polito.ezgas.service"  as ps {
 
 package "it.polito.ezgas.controller" as pc{
    class "UserController"{
+      -userService
       +getUserById(userId)
       +getAllUsers()
       +saveUser(userDto)
@@ -268,9 +271,10 @@ package "it.polito.ezgas.controller" as pc{
       +login(credentials)
    }
    class "GasStationController"{
+      -gasStationService
       +getGasStationById(gasStationId)
       +getAllGasStations()
-      +saveGasStation()
+      +saveGasStation(gasStationDto)
       +deleteUser(gasStationId)
       +getGasStationsByGasolineType(gasolinetype)
       +getGasStationsByProximity(myLat,myLon)
@@ -297,6 +301,9 @@ package "it.polito.ezgas.converter" {
       +toDto(entity)
       +toDto(entityList)
       +toEntity(dto)
+   }
+   class "LoginConverter"{
+      +toDto(user)
    }
 }
 
@@ -352,6 +359,7 @@ package "it.polito.ezgas.dto" {
 
 package "it.polito.ezgas.entity" {
    class "User"{
+      -serialVersionUID
       -userId
       -userName
       -password
@@ -361,6 +369,7 @@ package "it.polito.ezgas.entity" {
 
    }
    class "GasStation"{
+      -serialVersionUID
       -gasStationId
       -gasStationName
       -gasStationAddress
@@ -380,7 +389,7 @@ package "it.polito.ezgas.entity" {
       -reportUser
       -reportTimestamp
       -reportDependability
-
+      -user
    }
 
 }
@@ -389,6 +398,10 @@ package "it.polito.ezgas.repository" {
    class "UserRepository"{
       +findByEmail(user)
       +findByUserId(userId)
+      +save()
+      +findAll()
+      +exists()
+      +delete()
    }
    class "GasStationRepository"{
       +findByCarSharingOrderByGasStationName(carSharing)
@@ -398,6 +411,12 @@ package "it.polito.ezgas.repository" {
       +findByHasSuperOrderBySuperPriceAsc(hasSuper)
       +findByHasSuperPlusOrderBySuperPlusPriceAsc(hasSuperPlus)
       +findByLatBetweenAndLonBetween(latStart, latEnd, lonStart, lonEnd)
+      +save()
+      +findAll()
+      +exists()
+      +delete()
+      +count()
+      +findOne()
    }
 }
 
