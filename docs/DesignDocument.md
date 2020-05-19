@@ -1185,67 +1185,70 @@ return
 return
 GasStationServiceimpl -> GasStationConverter:5 : toDto()
 activate GasStationConverter
+GasStationConverter -> GasStationDto:6 : computeReportDependability()
+activate GasStationDto
+return
 return
 return
 return
 
 
-"Front End" -> UserController:6 : getUserById()
+"Front End" -> UserController:7 : getUserById()
 activate UserController
-UserController -> UserServiceimpl:7 : getUserById()
+UserController -> UserServiceimpl:8 : getUserById()
 activate UserServiceimpl
-UserServiceimpl -> UserRepository:8 : findByUserId()
+UserServiceimpl -> UserRepository:9 : findByUserId()
 activate UserRepository
 UserRepository -> Database
 activate Database
 return
 return
-UserServiceimpl -> UserConverter:9 : toDto()
+UserServiceimpl -> UserConverter:10 : toDto()
 activate UserConverter
 return
 return
 return
 
 
-"Front End" -> UserController:10 : decreaseUserReputation()
+"Front End" -> UserController:11 : decreaseUserReputation()
 activate UserController
-UserController -> UserServiceimpl:11 : decreaseUserReputation()
+UserController -> UserServiceimpl:12 : decreaseUserReputation()
 activate UserServiceimpl
-UserServiceimpl -> UserServiceimpl:12 : getUserById()
+UserServiceimpl -> UserServiceimpl:13 : getUserById()
 activate UserServiceimpl
-UserServiceimpl -> UserRepository:13 : findByUserId()
+UserServiceimpl -> UserRepository:14 : findByUserId()
 activate UserRepository
 UserRepository -> Database
 activate Database
 return
 return
-UserServiceimpl -> UserConverter:14 : toDto()
+UserServiceimpl -> UserConverter:15 : toDto()
 activate UserConverter
 return
 return
 
-UserServiceimpl -> userDto:15 : editUserReputation()
+UserServiceimpl -> userDto:16 : editUserReputation()
 activate userDto
 return
 
-UserServiceimpl -> UserServiceimpl:16 : saveUser()
+UserServiceimpl -> UserServiceimpl:17 : saveUser()
 activate UserServiceimpl
-UserServiceimpl -> UserConverter:17 : toEntity()
+UserServiceimpl -> UserConverter:18 : toEntity()
 activate UserConverter
 return
-UserServiceimpl -> UserRepository:18 : findByEmail()
+UserServiceimpl -> UserRepository:19 : findByEmail()
 activate UserRepository
 UserRepository -> Database:
 activate Database
 return
 return
-UserServiceimpl -> UserRepository:19 : save()
+UserServiceimpl -> UserRepository:20 : save()
 activate UserRepository
 UserRepository -> Database
 activate Database
 return
 return
-UserServiceimpl -> UserConverter:20 : toDto()
+UserServiceimpl -> UserConverter:21 : toDto()
 activate UserConverter
 return
 return
@@ -1253,19 +1256,19 @@ return
 return
 return
 
-"Front End" -> UserController:21 : getAllUsers()
+"Front End" -> UserController:22 : getAllUsers()
 activate UserController
-UserController -> UserServiceimpl:22 : getAllUsers()
+UserController -> UserServiceimpl:23 : getAllUsers()
 activate UserServiceimpl
-UserServiceimpl -> UserRepository:23 : findAll()
+UserServiceimpl -> UserRepository:24 : findAll()
 activate UserRepository
 UserRepository -> Database
 activate Database
 return
 return
-UserServiceimpl -> UserConverter:24 : toDto()
+UserServiceimpl -> UserConverter:25 : toDto()
 activate UserConverter
-UserConverter -> UserConverter:25 : toDto()
+UserConverter -> UserConverter:26 : toDto()
 activate UserConverter
 return
 return
