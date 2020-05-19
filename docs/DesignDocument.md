@@ -410,7 +410,8 @@ package "it.polito.ezgas.repository" {
       +findByHasMethaneOrderByMethanePriceAsc(hasMethane)
       +findByHasSuperOrderBySuperPriceAsc(hasSuper)
       +findByHasSuperPlusOrderBySuperPlusPriceAsc(hasSuperPlus)
-      +findByLatBetweenAndLonBetween(latStart, latEnd, lonStart, lonEnd)
+      
+      +findByProximity(lat, lon)
       +save(gasStation)
       +findAll()
       +exists(gasStationId)
@@ -886,7 +887,7 @@ activate GasStationDto
 return
 
 
-GasStationServiceimpl -> GasStationRepository: 5 : findByLatBetweenAndLonBetween()
+GasStationServiceimpl -> GasStationRepository: 5 : findByProximity()
 activate GasStationRepository
 GasStationRepository -> Database
 activate Database
