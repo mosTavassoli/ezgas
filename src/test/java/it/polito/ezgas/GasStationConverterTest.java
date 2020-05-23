@@ -101,7 +101,7 @@ public class GasStationConverterTest {
 	
     
     @Test
-	public void testToEntityList() {
+	public void testToDtoList() {
 		GasStation gasStation1 = new GasStation(gasStationName,gasStationAddress,hasDiesel,hasSuper, 
 				hasSuperPlus, hasGas, hasMethane, carSharing, lat, lon ,
 				dieselPrice,superPrice,superPlusPrice,gasPrice,methanePrice,reportUser,
