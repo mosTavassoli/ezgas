@@ -66,6 +66,38 @@ public class GasStationConverterTest {
 				+ "}\n";
 		assertEquals(correctString,gasStationDto.toString());
 	}
+    
+    @Test
+	public void testToEntity() {
+		GasStationDto gasStationDto = new GasStationDto(123,gasStationName,gasStationAddress,hasDiesel,hasSuper, 
+				hasSuperPlus, hasGas, hasMethane, carSharing, lat, lon ,
+				dieselPrice,superPrice,superPlusPrice,gasPrice,methanePrice,reportUser,
+				reportTimestamp,reportDependability);
+		GasStation gasStation = GasStationConverter.toEntity(gasStationDto);
+		correctString = "\n{\n"
+				+ "gasStationId = " + gasStation.getGasStationId() + ",\n"
+				+ "gasStationName = " + gasStation.getGasStationName() + ",\n"
+				+ "gasStationAddress = " + gasStation.getGasStationAddress() + ",\n"
+				+ "hasDiesel = " + gasStation.getHasDiesel() + ",\n"
+				+ "hasSuper = " + gasStation.getHasSuper()+ ",\n"
+				+ "hasSuperPlus = " + gasStation.getHasSuperPlus() + ",\n"
+				+ "hasGas = " + gasStation.getHasGas() + ",\n"
+				+ "hasMethane = " + gasStation.getHasMethane() + ",\n"
+				+ "carSharing = " + gasStation.getCarSharing() + ",\n"
+				+ "lat = " + gasStation.getLat() + ",\n"
+				+ "lon = " + gasStation.getLon() + ",\n"
+				+ "dieselPrice = " + gasStation.getDieselPrice() + ",\n"
+				+ "superPrice = " + gasStation.getSuperPrice() + ",\n"
+				+ "superPlusPrice = " + gasStation.getSuperPlusPrice() + ",\n"
+				+ "gasPrice = " + gasStation.getGasPrice() + ",\n"
+				+ "methanePrice = " + gasStation.getMethanePrice() + ",\n"
+				+ "reportUser = " + gasStation.getReportUser() + ",\n"
+				+ "userDto = " + null + ",\n"
+				+ "reportTimestamp = " + gasStation.getReportTimestamp() + ",\n"
+				+ "reportDependability = " + gasStation.getReportDependability() + ",\n"
+				+ "}\n";
+		assertEquals(correctString, gasStationDto.toString());
+	}
 	
 	
 }
