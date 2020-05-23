@@ -99,5 +99,68 @@ public class GasStationConverterTest {
 		assertEquals(correctString, gasStationDto.toString());
 	}
 	
+    
+    @Test
+	public void testToEntityList() {
+		GasStation gasStation1 = new GasStation(gasStationName,gasStationAddress,hasDiesel,hasSuper, 
+				hasSuperPlus, hasGas, hasMethane, carSharing, lat, lon ,
+				dieselPrice,superPrice,superPlusPrice,gasPrice,methanePrice,reportUser,
+				reportTimestamp,reportDependability);
+		gasStationId = gasStation1.getGasStationId();
+		
+		GasStation gasStation2 = new GasStation("station", "5th street", true, false, 
+				false, true, false, "CarCar", 35, 45.787, 0.54, -110, 12, 356.768, 
+				0.007, 4321, "12/12/2012", 4.36);
+		int gasStationId2 = gasStation2.getGasStationId();
+		List<GasStation> listEntity = Arrays.asList(gasStation1, gasStation2);
+		List<GasStationDto> listDto = GasStationConverter.toDto(listEntity);
+		String correctString1 ="\n{\n"
+				+ "gasStationId = " + this.gasStationId + ",\n"
+				+ "gasStationName = " + this.gasStationName + ",\n"
+				+ "gasStationAddress = " + this.gasStationAddress + ",\n"
+				+ "hasDiesel = " + this.hasDiesel + ",\n"
+				+ "hasSuper = " + this.hasSuper + ",\n"
+				+ "hasSuperPlus = " + this.hasSuperPlus + ",\n"
+				+ "hasGas = " + this.hasGas + ",\n"
+				+ "hasMethane = " + this.hasMethane + ",\n"
+				+ "carSharing = " + this.carSharing + ",\n"
+				+ "lat = " + this.lat + ",\n"
+				+ "lon = " + this.lon + ",\n"
+				+ "dieselPrice = " + this.dieselPrice + ",\n"
+				+ "superPrice = " + this.superPrice + ",\n"
+				+ "superPlusPrice = " + this.superPlusPrice + ",\n"
+				+ "gasPrice = " + this.gasPrice + ",\n"
+				+ "methanePrice = " + this.methanePrice + ",\n"
+				+ "reportUser = " + this.reportUser + ",\n"
+				+ "userDto = " + null + ",\n"
+				+ "reportTimestamp = " + this.reportTimestamp + ",\n"
+				+ "reportDependability = " + this.reportDependability + ",\n"
+				+ "}\n";
+		
+		String correctString2="\n{\n"
+				+ "gasStationId = +"+gasStationId2+",\n"
+				+ "gasStationName = station,\n"
+				+ "gasStationAddress = 5th street,\n"
+				+ "hasDiesel = true,\n"
+				+ "hasSuper = false,\n"
+				+ "hasSuperPlus = false,\n"
+				+ "hasGas = true,\n"
+				+ "hasMethane = false,\n"
+				+ "carSharing = CarCar,\n"
+				+ "lat = 35.0,\n"
+				+ "lon = 45.787,\n"
+				+ "dieselPrice = 0.54,\n"
+				+ "superPrice = -110.0,\n"
+				+ "superPlusPrice = 12.0,\n"
+				+ "gasPrice = 356.768,\n"
+				+ "methanePrice = 0.007,\n"
+				+ "reportUser = 4321,\n"
+				+ "userDto = null,\n"
+				+ "reportTimestamp = 12/12/2012,\n"
+				+ "reportDependability = 4.36,\n"
+				+ "}\n";
+		assertEquals(true, correctString1.equals(listDto.get(0).toString()) && correctString2.equals(listDto.get(1).toString()) );
+		
+	}
 	
 }
