@@ -20,19 +20,19 @@ import it.polito.ezgas.repository.UserRepository;
 public class UserRepositoryTest {
 
 	    @Autowired
-	    UserRepository userRepo;
+	    UserRepository userRepository;
 	    
 	    @Before
 	    public void init() {
-	        userRepo.save(new User("user1", "password1", "user1@example.com", 2));
-	        userRepo.save(new User("user2", "password2", "user2@example.com", -3));
-	        userRepo.save(new User("user3", "password3", "user3@example.com", 1));
-	        userRepo.save(new User("user4", "password4", "user4@example.com", 5));
+	    	userRepository.save(new User("user1", "password1", "user1@example.com", 2));
+	    	userRepository.save(new User("user2", "password2", "user2@example.com", -3));
+	    	userRepository.save(new User("user3", "password3", "user3@example.com", 1));
+	    	userRepository.save(new User("user4", "password4", "user4@example.com", 5));
 	    }
 	    
 	    @Test
 	    public void testFindByEmail() {
-	        assertNotNull(userRepo.findByEmail("user3@example.com"));
+	        assertNotNull(userRepository.findByEmail("user3@example.com"));
 	    }
 
 
