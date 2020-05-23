@@ -10,7 +10,62 @@ import it.polito.ezgas.converter.GasStationConverter;
 import it.polito.ezgas.dto.GasStationDto;
 import it.polito.ezgas.entity.GasStation;
 public class GasStationConverterTest {
-
+	private Integer gasStationId;
+    private String gasStationName="GAS STATION NAME";
+    private String gasStationAddress="GAS STATION ADDRESS";
+    private boolean hasDiesel=true;
+    private boolean hasSuper=true;
+    private boolean hasSuperPlus=true;
+    private boolean hasGas=true;
+    private boolean hasMethane=true;
+    
+    private String carSharing="CAR SHARING";
+    private double lat=123.321;
+    private double lon=546.234;
+    private double dieselPrice=56.98;
+    private double superPrice=23.67;
+    private double superPlusPrice=99.1;
+    private double gasPrice=32.33;
+    private double methanePrice=65.78;
+    private Integer reportUser=735;
+    private String reportTimestamp="01/01/1000";
+    private double reportDependability=139.695;
+	
+    private String correctString;
+	
+    @Test
+	public void testToDto() {
+		GasStation gasStation = new GasStation(gasStationName,gasStationAddress,hasDiesel,hasSuper, 
+				hasSuperPlus, hasGas, hasMethane, carSharing, lat, lon ,
+				dieselPrice,superPrice,superPlusPrice,gasPrice,methanePrice,reportUser,
+				reportTimestamp,reportDependability);
+		gasStationId = gasStation.getGasStationId();
+		
+		GasStationDto gasStationDto = GasStationConverter.toDto(gasStation);
+		correctString = "\n{\n"
+				+ "gasStationId = " + this.gasStationId + ",\n"
+				+ "gasStationName = " + this.gasStationName + ",\n"
+				+ "gasStationAddress = " + this.gasStationAddress + ",\n"
+				+ "hasDiesel = " + this.hasDiesel + ",\n"
+				+ "hasSuper = " + this.hasSuper + ",\n"
+				+ "hasSuperPlus = " + this.hasSuperPlus + ",\n"
+				+ "hasGas = " + this.hasGas + ",\n"
+				+ "hasMethane = " + this.hasMethane + ",\n"
+				+ "carSharing = " + this.carSharing + ",\n"
+				+ "lat = " + this.lat + ",\n"
+				+ "lon = " + this.lon + ",\n"
+				+ "dieselPrice = " + this.dieselPrice + ",\n"
+				+ "superPrice = " + this.superPrice + ",\n"
+				+ "superPlusPrice = " + this.superPlusPrice + ",\n"
+				+ "gasPrice = " + this.gasPrice + ",\n"
+				+ "methanePrice = " + this.methanePrice + ",\n"
+				+ "reportUser = " + this.reportUser + ",\n"
+				+ "userDto = " + null + ",\n"
+				+ "reportTimestamp = " + this.reportTimestamp + ",\n"
+				+ "reportDependability = " + this.reportDependability + ",\n"
+				+ "}\n";
+		assertEquals(correctString,gasStationDto.toString());
+	}
 	
 	
 }
