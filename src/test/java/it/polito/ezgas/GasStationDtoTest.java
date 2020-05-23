@@ -1,11 +1,13 @@
 package it.polito.ezgas;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import it.polito.ezgas.dto.GasStationDto;
+import it.polito.ezgas.dto.UserDto;
 
 public class GasStationDtoTest {
 	
@@ -35,6 +37,8 @@ public class GasStationDtoTest {
     private Integer reportUser=735;
     private String reportTimestamp="01/01/1000";
     private double reportDependability=139.695;
+    
+	UserDto userDto = new UserDto(15, "Username15", "pass15", "test15@email.com", 3, false);
 	
     private final double acceptableLatitudeAndLongitudeDelta=0.0001;
     private final double acceptablePriceDelta=0.001;
@@ -396,6 +400,12 @@ public class GasStationDtoTest {
 	public void testReportDependability() {
 		this.gasStationDto.setReportDependability(this.reportDependability);
 		assertEquals(this.reportDependability, this.gasStationDto.getReportDependability(),this.acceptableReportDependabilityDelta);
+	}
+	
+	@Test
+	public void testUserDto() {
+		this.gasStationDto.setUserDto(userDto);
+		assertNotNull(this.gasStationDto.getUserDto());
 	}
 
 }
