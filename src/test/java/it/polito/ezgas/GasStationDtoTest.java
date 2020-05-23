@@ -413,14 +413,77 @@ public class GasStationDtoTest {
 	}
 	
 	@Test
-	public void testComputeReportDependability() {
+	public void testComputeReportDependabilityMoreThan7Days() {
+		String reportTimestamp = new Timestamp(new Date(System.currentTimeMillis()-8*24*60*60*1000).getTime()).toString();
 		this.gasStationDto.setUserDto(userDto);
 		this.gasStationDto.setReportTimestamp(reportTimestamp);
 		
 		double obsolescence;
 		Integer userReputation = this.userDto.getReputation();
 		Date today = new Date();
-		Date reportDate = new Date(Timestamp.valueOf(this.reportTimestamp).getTime());
+		Date reportDate = new Date(Timestamp.valueOf(reportTimestamp).getTime());
+		
+		long diffInMillies = today.getTime() - reportDate.getTime();
+		long diffInDays = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+		if(diffInDays > 7)
+			obsolescence = 0;
+		else obsolescence = 1 - (double) diffInDays / 7;
+		
+		double reportDependability = 50 * (userReputation + 5) / 10 + 50 * obsolescence;
+		
+		assertEquals(reportDependability, this.gasStationDto.computeReportDependability(), acceptableReportDependabilityDelta);
+	}
+	
+	@Test
+	public void testComputeReportDependabilityLessThan7Days() {
+		String reportTimestamp = new Timestamp(new Date(System.currentTimeMillis()-24*60*60*1000).getTime()).toString();
+		this.gasStationDto.setUserDto(userDto);
+		this.gasStationDto.setReportTimestamp(reportTimestamp);
+		
+		double obsolescence;
+		Integer userReputation = this.userDto.getReputation();
+		Date today = new Date();
+		Date reportDate = new Date(Timestamp.valueOf(reportTimestamp).getTime());
+		
+		long diffInMillies = today.getTime() - reportDate.getTime();
+		long diffInDays = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+		if(diffInDays > 7)
+			obsolescence = 0;
+		else obsolescence = 1 - (double) diffInDays / 7;
+		
+		double reportDependability = 50 * (userReputation + 5) / 10 + 50 * obsolescence;
+		
+		assertEquals(reportDependability, this.gasStationDto.computeReportDependability(), acceptableReportDependabilityDelta);
+	}
+	
+	@Test
+	public void testComputeReportDependabilityWithNullUser() {
+		String reportTimestamp = new Timestamp(new Date(System.currentTimeMillis()-8*24*60*60*1000).getTime()).toString();
+		this.gasStationDto.setUserDto(null);
+		this.gasStationDto.setReportTimestamp(reportTimestamp);
+		
+		assertEquals(0, this.gasStationDto.computeReportDependability(), acceptableReportDependabilityDelta);
+	}
+	
+	@Test
+	public void testComputeReportDependabilityWithNullReportTimestamp() {
+		this.gasStationDto.setUserDto(userDto);
+		this.gasStationDto.setReportTimestamp(null);
+		
+		assertEquals(0, this.gasStationDto.computeReportDependability(), acceptableReportDependabilityDelta);
+	}
+	
+	@Test
+	public void testComputeReportDependabilityWithNullUserReputation() {
+		String reportTimestamp = new Timestamp(new Date(System.currentTimeMillis()-24*60*60*1000).getTime()).toString();
+		userDto.setReputation(null);
+		this.gasStationDto.setUserDto(userDto);
+		this.gasStationDto.setReportTimestamp(reportTimestamp);
+	
+		double obsolescence;
+		Integer userReputation = 0;
+		Date today = new Date();
+		Date reportDate = new Date(Timestamp.valueOf(reportTimestamp).getTime());
 		
 		long diffInMillies = today.getTime() - reportDate.getTime();
 		long diffInDays = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
