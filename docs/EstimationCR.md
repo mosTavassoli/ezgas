@@ -1,10 +1,10 @@
 # CR - Change Request Poll
 
-Authors:
+Authors: Mehdi Khrichfa, Alessandro Ricciuto, Toni Saliba, Mostafa Tavassoli
 
-Date:
+Date: 23/05/2020
 
-Version:
+Version: 1
 
 
 
@@ -23,11 +23,11 @@ update of documents. Consider only effort on the back end (changes to all packag
 
 |   CR          | Priority (1 lowest 5 highest)       |          Effort (person hours) |   
 | ----------- | ------------------------------- | ---------------------------- | 
-| CR1   | | |          
-| CR2   | | | 
-| CR3   | | | 
-| CR4   | | | 
-| CR5   | | | 
-| CR6   | | | 
-| CR7   | | | 
+| CR1   | 3 | 16  |          
+| CR2   | 4 | 24 | 
+| CR3   | 5 | 28 | 
+| CR4   | 3 | 8 | 
+| CR5   | 2 | 32 | 
+| CR6   | 3 | 36 | 
+| CR7   | 4 | 8 | 
 | CR8   | | | 
