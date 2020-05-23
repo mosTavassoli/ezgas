@@ -3,6 +3,10 @@ package it.polito.ezgas;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -35,7 +39,7 @@ public class GasStationDtoTest {
     private double gasPrice=32.33;
     private double methanePrice=65.78;
     private Integer reportUser=735;
-    private String reportTimestamp="01/01/1000";
+    private String reportTimestamp="2020-05-11 20:13:02.076";
     private double reportDependability=139.695;
     
 	UserDto userDto = new UserDto(15, "Username15", "pass15", "test15@email.com", 3, false);
@@ -406,6 +410,27 @@ public class GasStationDtoTest {
 	public void testUserDto() {
 		this.gasStationDto.setUserDto(userDto);
 		assertNotNull(this.gasStationDto.getUserDto());
+	}
+	
+	@Test
+	public void testComputeReportDependability() {
+		this.gasStationDto.setUserDto(userDto);
+		this.gasStationDto.setReportTimestamp(reportTimestamp);
+		
+		double obsolescence;
+		Integer userReputation = this.userDto.getReputation();
+		Date today = new Date();
+		Date reportDate = new Date(Timestamp.valueOf(this.reportTimestamp).getTime());
+		
+		long diffInMillies = today.getTime() - reportDate.getTime();
+		long diffInDays = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+		if(diffInDays > 7)
+			obsolescence = 0;
+		else obsolescence = 1 - (double) diffInDays / 7;
+		
+		double reportDependability = 50 * (userReputation + 5) / 10 + 50 * obsolescence;
+		
+		assertEquals(reportDependability, this.gasStationDto.computeReportDependability(), acceptableReportDependabilityDelta);
 	}
 
 }
