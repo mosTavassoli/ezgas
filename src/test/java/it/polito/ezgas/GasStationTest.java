@@ -32,6 +32,8 @@ public class GasStationTest {
     private Integer reportUser=735;
     private String reportTimestamp="01/01/1000";
     private double reportDependability=139.695;
+    
+	User user = new User("Username15", "pass15", "test15@email.com", 3);
 	
     private final double acceptableLatitudeAndLongitudeDelta=0.0001;
     private final double acceptablePriceDelta=0.001;
@@ -201,14 +203,6 @@ public class GasStationTest {
 	
 	@Test
 	public void testUser() {
-		User user = new User();
-		user.setUserId(15);
-		user.setUserName("Username15");
-		user.setPassword("pass15");
-		user.setEmail("test15@email.com");
-		user.setReputation(3);
-		user.setAdmin(false);
-		
 		this.gasStation.setUser(user);
 		assertNotNull(this.gasStation.getUser());
 	}
