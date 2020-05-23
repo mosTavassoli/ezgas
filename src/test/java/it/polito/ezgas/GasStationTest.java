@@ -2,12 +2,11 @@ package it.polito.ezgas;
 
 import static org.junit.Assert.*;
 
-import javax.persistence.Column;
-
 import org.junit.Before;
 import org.junit.Test;
 
 import it.polito.ezgas.entity.GasStation;
+import it.polito.ezgas.entity.User;
 
 public class GasStationTest {
  	
@@ -37,7 +36,8 @@ public class GasStationTest {
     private final double acceptableLatitudeAndLongitudeDelta=0.0001;
     private final double acceptablePriceDelta=0.001;
     private final double acceptableReportDependabilityDelta=0.001;
-
+    
+    
 	@Before
 	public void init() {
 		this.gasStation = new GasStation();
@@ -197,6 +197,20 @@ public class GasStationTest {
 	public void testReportDependability() {
 		this.gasStation.setReportDependability(this.reportDependability);
 		assertEquals(this.reportDependability, this.gasStation.getReportDependability(),this.acceptableReportDependabilityDelta);
+	}
+	
+	@Test
+	public void testUser() {
+		User user = new User();
+		user.setUserId(15);
+		user.setUserName("Username15");
+		user.setPassword("pass15");
+		user.setEmail("test15@email.com");
+		user.setReputation(3);
+		user.setAdmin(false);
+		
+		this.gasStation.setUser(user);
+		assertNotNull(this.gasStation.getUser());
 	}
 	
 	@Test
