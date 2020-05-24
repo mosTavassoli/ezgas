@@ -3,6 +3,8 @@ package it.polito.ezgas;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.*;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +13,7 @@ import java.util.Random;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.mockito.internal.matchers.apachecommons.ReflectionEquals;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -58,8 +61,9 @@ public class GasStationServiceimplTest {
     static class GasStationImplTestContextConfiguration {
   
         @Bean
-        public GasStationService gasStationService() {
-            return new GasStationServiceimpl();
+        @Autowired
+        public GasStationService gasStationService(GasStationRepository gasStationRepository) {
+            return new GasStationServiceimpl(gasStationRepository);
         }
     }
 	
@@ -166,5 +170,40 @@ public class GasStationServiceimplTest {
 		gasStationDtoList = gasStationService.getAllGasStations();
 		assertEquals(NUMBER_OF_GAS_STATIONS,gasStationDtoList.size());		
 	}
-
+	
+	@Test
+	public void testDeleteGasStationValid() throws InvalidGasStationException {
+		gasStationService.deleteGasStation(gasStationList.get(0).getGasStationId());
+		assertNull(gasStationRepository.findOne(gasStationList.get(0).getGasStationId()));		
+	}
+	
+	@Test(expected = InvalidGasStationException.class)
+	public void testDeleteGasStationIdNegative() throws InvalidGasStationException {
+		gasStationService.deleteGasStation(-300);
+	}
+	
+	@Test
+	public void testDeleteGasStationIdDoesNotExist() throws InvalidGasStationException {
+		assertNull(gasStationService.deleteGasStation(9999));
+	}
+	
+//	@Test
+//	public void testDeleteGasStationDeleteFails() throws InvalidGasStationException {
+//		GasStationRepository gasStationRepository = ((GasStationServiceimpl)gasStationService).gasStationRepository;
+//		
+//		((GasStationServiceimpl)gasStationService).gasStationRepository = Mockito.mock(GasStationRepository.class);
+//		Mockito.when(((GasStationServiceimpl)gasStationService).gasStationRepository.exists(gasStationList.get(0).getGasStationId())).thenReturn(true);
+//		assertNull(gasStationService.deleteGasStation(gasStationList.get(0).getGasStationId()));
+//		((GasStationServiceimpl)gasStationService).gasStationRepository = gasStationRepository;
+//	}
+	
+	@Test
+	public void testDeleteGasStationDeleteFails() throws InvalidGasStationException {
+		GasStationRepository gasStationRepositoryMock = mock(GasStationRepository.class);
+		GasStationService gasStationService;
+		
+		when(gasStationRepositoryMock.exists(gasStationList.get(0).getGasStationId())).thenReturn(true);
+		gasStationService = new GasStationServiceimpl(gasStationRepositoryMock);
+		assertNull(gasStationService.deleteGasStation(gasStationList.get(0).getGasStationId()));
+	}
 }
