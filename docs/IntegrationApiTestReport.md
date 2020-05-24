@@ -1,14 +1,14 @@
 # Integration and API Test Documentation
 
-Authors:
+Authors: Mehdi Khrichfa, Alessandro Ricciuto, Toni Saliba, Mostafa Tavassoli
 
-Date:
+Date: 23/05/2020
 
-Version:
+Version: 1
 
 # Contents
 
-- [Dependency graph](#dependency graph)
+- [Dependency graph](#dependency-graph)
 
 - [Integration approach](#integration)
 
@@ -24,6 +24,66 @@ Version:
 # Dependency graph 
 
      <report the here the dependency graph of the classes in it/polito/Ezgas, using plantuml>
+```plantuml
+top to bottom direction
+class User
+class UserDto
+class UserRepository
+class UserConverter
+class UserServiceimpl
+class UserService
+class UserController
+
+class IdPw
+
+class LoginDto
+class LoginConverter
+
+class GasStation
+class GasStationDto
+class GasStationRepository
+class GasStationServiceimpl
+class GasStationService
+
+UserRepository         ---> User
+   
+UserConverter          ---> User
+UserConverter          ---> UserDto
+   
+UserServiceimpl        ---> UserConverter
+UserServiceimpl        ---> UserRepository
+UserServiceimpl        ---> IdPw
+UserServiceimpl        ---> User
+UserServiceimpl        ---> UserDto
+UserServiceimpl        ---> LoginDto
+UserServiceimpl        ---> LoginConverter
+
+UserService            ---> UserServiceimpl
+
+UserController         ---> UserService
+
+LoginConverter         ---> LoginDto
+LoginConverter         ---> User
+
+GasStation             ---> User
+
+GasStationDto          ---> UserDto
+
+GasStationRepository   ---> GasStation
+
+GasStationConverter    ---> GasStation
+GasStationConverter    ---> GasStationDto
+
+GasStationServiceimpl  ---> GasStationRepository
+GasStationServiceimpl  ---> GasStationConverter
+GasStationServiceimpl  ---> GasStation
+GasStationServiceimpl  ---> GasStationDto
+
+GasStationService      ---> GasStationServiceimpl 
+
+GasStationController   ---> GasStationService
+
+```
      
 # Integration approach
 
