@@ -54,9 +54,6 @@ public class UserServiceimplTest {
 	@Before
 	public void init() {		
 		user = new User("user1", "passowrd1", "user1@example.com", 3);
-		user.setUserId(1);
-		userDto = new UserDto(1, "user1", "passowrd1", "user1@example.com", 3, false);
-		loginDto = new LoginDto(1, "user1", "token1", "user1@example.com", 3);
 		
 		userRepository.save(user);
 	}
