@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import org.junit.Before;
@@ -69,14 +71,15 @@ public class GasStationServiceimplTest {
 	
 	private int validGasStationId;
 	private int validUserId;
+	private List<GasStation> gasStationList;
 	
 	@Before
 	public void init() {
 		Random random = new Random();
-		GasStation gasStation=null;
+		gasStationList = new ArrayList<GasStation>();
 		User user=null;
 		for(int i=0;i<NUMBER_OF_GAS_STATIONS;i++) {
-			gasStation = gasStationRepository.save(new GasStation(
+			gasStationList.add(gasStationRepository.save(new GasStation(
 					"gasstationname"+i, 
 					"gasstationaddress"+i, 
 					random.nextBoolean(),
@@ -94,10 +97,10 @@ public class GasStationServiceimplTest {
 					random.nextDouble()*MAX_PRICE,
 					i,
 					"reporttimestamp"+i,
-					random.nextDouble()*MAX_DEPENDABILITY));
+					random.nextDouble()*MAX_DEPENDABILITY)));
 		}
-		if(gasStation!=null) {
-			this.validGasStationId = gasStation.getGasStationId();
+		if(gasStationList.get(0)!=null) {
+			this.validGasStationId = gasStationList.get(0).getGasStationId();
 		}
 		for(int i=0;i<NUMBER_OF_USERS;i++) {
 			user = userRepository.save(new User("user"+i, "password"+i, "user"+i+"@example.com", i));
@@ -145,6 +148,23 @@ public class GasStationServiceimplTest {
 		GasStationDto gasStationDtoReceived = gasStationService.saveGasStation(gasStationDtoSent);
 		assertTrue(new ReflectionEquals(gasStationDtoSent,"gasStationId","reportDependability").matches(gasStationDtoReceived));
 		assertEquals(0.0,gasStationDtoReceived.getReportDependability(),0.0);
+	}
+	
+	@Test
+	public void testGetAllGasStationsEmpty() {
+		List<GasStationDto> gasStationDtoList;
+		for(int i=0;i<NUMBER_OF_GAS_STATIONS;i++) {
+			gasStationRepository.delete(gasStationList.get(i));
+		}
+		gasStationDtoList = gasStationService.getAllGasStations();
+		assertEquals(0,gasStationDtoList.size());
+	}
+	
+	@Test
+	public void testGetAllGasStationsNotEmpty() {
+		List<GasStationDto> gasStationDtoList;
+		gasStationDtoList = gasStationService.getAllGasStations();
+		assertEquals(NUMBER_OF_GAS_STATIONS,gasStationDtoList.size());		
 	}
 
 }
