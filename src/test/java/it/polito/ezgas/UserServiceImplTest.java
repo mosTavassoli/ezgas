@@ -31,11 +31,21 @@ import it.polito.ezgas.service.impl.UserServiceimpl;
 @DataJpaTest
 public class UserServiceImplTest {
 	
+    @TestConfiguration
+    static class UserServiceImplTestContextConfiguration {
+  
+        @Bean
+        public UserService userService() {
+            return new UserServiceimpl();
+        }
+    }
+	
 	@Autowired
 	UserRepository userRepository;
 	
 	@Autowired
 	UserService userService;
+
 	
 	User user;
 	UserDto userDto;
