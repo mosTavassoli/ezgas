@@ -28,6 +28,7 @@ import it.polito.ezgas.service.UserService;
 import it.polito.ezgas.service.impl.UserServiceimpl;
 
 @RunWith(SpringRunner.class)
+@DataJpaTest
 public class UserServiceImplTest {
 	
 	@Autowired
