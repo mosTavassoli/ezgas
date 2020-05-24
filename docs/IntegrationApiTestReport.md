@@ -78,6 +78,7 @@ GasStationServiceimpl  ---> GasStationRepository
 GasStationServiceimpl  ---> GasStationConverter
 GasStationServiceimpl  ---> GasStation
 GasStationServiceimpl  ---> GasStationDto
+GasStationServiceimpl  ---> UserService
 
 GasStationService      ---> GasStationServiceimpl 
 
