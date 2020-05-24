@@ -26,8 +26,12 @@ public class GasStationRepositoryTest {
 	private GasStationRepository gasStationRepository;
 	private final int NUMBER_OF_GAS_STATIONS=15;
 	private final int NUMBER_OF_CAR_SHARING=2;
+	private final int NUMBER_OF_GAS_PROXIMITY = 5;
 	private final double MAX_PRICE=5.00;
 	private final double MAX_DEPENDABILITY=5.00;
+	private final double MAX_LAT = Constants.MAX_LAT - 1.0;
+	private final double MAX_LON = Constants.MAX_LON - 1.0;
+	
 
 	@Before
 	public void init() {
@@ -42,8 +46,8 @@ public class GasStationRepositoryTest {
 					random.nextBoolean(),
 					random.nextBoolean(),
 					Integer.toString(random.nextInt(NUMBER_OF_CAR_SHARING)), 
-					random.nextDouble()*Constants.MAX_LAT*2-Constants.MAX_LAT, 
-					random.nextDouble()*Constants.MAX_LON*2-Constants.MAX_LON, 
+					random.nextDouble()*MAX_LAT*2-MAX_LAT, 
+					random.nextDouble()*MAX_LON*2-MAX_LON, 
 					random.nextDouble()*MAX_PRICE,
 					random.nextDouble()*MAX_PRICE,
 					random.nextDouble()*MAX_PRICE,
@@ -57,7 +61,17 @@ public class GasStationRepositoryTest {
 	
 	@Test
 	public void testFindByProximity() {
+		double lat = MAX_LAT + Constants.KM1_LAT*2;
+		double lon = MAX_LON + Constants.KM1_LON*2;
+		double deltaLat = Constants.KM1_LAT / NUMBER_OF_GAS_PROXIMITY;
+		double deltaLon = Constants.KM1_LON / NUMBER_OF_GAS_PROXIMITY;
 		
+		for(int i = 0; i < NUMBER_OF_GAS_PROXIMITY; i++)
+			gasStationRepository.save(new GasStation(
+					"gasStationByProximity" + i, "gasStationByProximityAddress" + i, false, false, false, false, false, 
+					null, lat + deltaLat * i, lon + deltaLon * i, -1.0, -1.0, -1.0, -1.0, -1.0, null, null, 0.0));
+		
+		assertEquals(NUMBER_OF_GAS_PROXIMITY, gasStationRepository.findByProximity(lat, lon).size());
 	}
 	
 	@Test
