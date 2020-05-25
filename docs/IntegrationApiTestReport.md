@@ -21,7 +21,7 @@ Version: 1
 - [Scenarios](#scenarios)
   - [Scenario UC1.1](#scenario-uc11)
   - [Scenario UC1.2](#scenario-uc12)
-  - [Scenario UC1.2](#scenario-uc12-1)
+  - [Scenario UC7](#scenario-uc7)
 - [Coverage of Scenarios and FR](#coverage-of-scenarios-and-fr)
 - [Coverage of Non Functional Requirements](#coverage-of-non-functional-requirements)
     - [](#)
@@ -170,19 +170,23 @@ GasStationController   ---> GasStationService
 |  5     |  System finds out that type of account is admin|
 |  6     |  System successfully creates the account inside the database|
 
-## Scenario UC1.2
+## Scenario UC7
 
 | Scenario |  name |
 | ------------- |:-------------:| 
-|  Precondition     | Account U exists inside the system and account B does not exist|
-|  Post condition     |  Account U and account B exist inside the system|
+|  Precondition     | Gas station G exists |
+|                   |User U is registered in the system|
+|                   |G already has an attached price list P|
+|  Post condition     |  Price list P2 is created |
+||P2.time_tag is set to the current timestamp of the system|
+||P is overwritten by P2|
+||U is attached to P2 (needed later to update trust level of U)|
 | Step#        | Description  |
-|  1     |  Admin tries to create a new account B and populates its fields using the same email ofaccount U |
-|  2     |  System searches for email to see if it exists inside the system |
-|  3     |  System finds the email inside the system |
-|  4     |  System checks to see the type of account (user or admin)|
-|  5     |  System finds out that type of account is admin|
-|  6     |  System successfully creates the account inside the database|
+|  1     |  The user U selects a gas station G for which he/she wants to insert a price report |
+|2       |The system prompts the user with the list of possible fuels provided by the gas station with their prices (if available)|
+|3       |The user inerts the prices for the fuels|
+|4       |system overwrites the previous price list attached to G by the new one|
+
 
 
 # Coverage of Scenarios and FR
