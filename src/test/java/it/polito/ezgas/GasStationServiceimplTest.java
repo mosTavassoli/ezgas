@@ -52,8 +52,8 @@ public class GasStationServiceimplTest {
     static class UserServiceImplTestContextConfiguration {
   
         @Bean
-        public UserService userService() {
-            return new UserServiceimpl();
+        public UserService userService(UserRepository userRepository) {
+            return new UserServiceimpl(userRepository);
         }
     }
 	
