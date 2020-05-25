@@ -26,6 +26,7 @@ Version: 1
   - [Scenario UC8.2](#scenario-uc82)
   - [Scenario UC8.3](#scenario-uc83)
   - [Scenario UC8.4](#scenario-uc84)
+  - [Scenario UC10](#scenario-uc10)
 - [Coverage of Scenarios and FR](#coverage-of-scenarios-and-fr)
 - [Coverage of Non Functional Requirements](#coverage-of-non-functional-requirements)
     - [](#)
@@ -242,7 +243,17 @@ GasStationController   ---> GasStationService
 |4       |The system shows also, for each gas station, the trust level of the prices, computed as in UC 9|
 
 
+## Scenario UC10
 
+| Scenario |  name |
+| ------------- |:-------------:| 
+|  Precondition     | User U exists  and has valid account |
+|     | Gas Station G exists and has price list inserted by U2 |
+|  Post condition     | U2.trust_level is modified |
+| Step#        | Description  |
+|  1     |  The user U selects a gas station and the attached price list|
+|  2     |     the user indicates that the price is wrong |
+|  3     |the system identifies the user U2 that provided the corresponding price report and decreases his/her trust level|
 
 # Coverage of Scenarios and FR
 
