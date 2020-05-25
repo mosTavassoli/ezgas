@@ -68,13 +68,14 @@ public class GasStationServiceimplTest {
         }
     }
 	
-	private final int NUMBER_OF_GAS_STATIONS=15;
+	private final int NUMBER_OF_GAS_STATIONS=15; //from 1 to maxint
 	private final int NUMBER_OF_USERS=15;
 	private final int NUMBER_OF_CAR_SHARING=2;
 	private final double MAX_PRICE=5.00;
 	private final double MAX_DEPENDABILITY=5.00;
 	
 	private final String INVALID_GAS_TYPE="invalidGas";
+	private final String VALID_CARSHARING="0";
 	
 	private int validGasStationId;
 	private int validUserId;
@@ -262,4 +263,19 @@ public class GasStationServiceimplTest {
 	public void testGetGasStationsByGasolineTypeInvalid() throws InvalidGasTypeException {
 		gasStationService.getGasStationsByGasolineType(this.INVALID_GAS_TYPE);
 	}	
+	
+	@Test
+	public void testGetGasStationByCarSharingValid() {
+		List<GasStationDto> gasStationDtoList;
+		
+		gasStationDtoList = gasStationService.getGasStationByCarSharing(this.VALID_CARSHARING);
+		for(GasStationDto gasStationDto : gasStationDtoList) {
+			assertEquals(this.VALID_CARSHARING,gasStationDto.getCarSharing());
+		}
+	}
+	
+	@Test
+	public void testGetGasStationByCarSharingNull() {
+		assertNull(null,gasStationService.getGasStationByCarSharing(Constants.NULL));
+	}
 }
