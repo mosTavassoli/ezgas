@@ -10,7 +10,19 @@ Version: 1
 
 - [Dependency graph](#dependency-graph)
 
-- [Integration approach](#integration)
+- [Integration and API Test Documentation](#integration-and-api-test-documentation)
+- [Contents](#contents)
+- [Dependency graph](#dependency-graph)
+- [Integration approach](#integration-approach)
+- [Tests](#tests)
+  - [Step 1](#step-1)
+  - [Step 2](#step-2)
+  - [Step n API Tests](#step-n-api-tests)
+- [Scenarios](#scenarios)
+  - [Scenario UC1.1](#scenario-uc11)
+- [Coverage of Scenarios and FR](#coverage-of-scenarios-and-fr)
+- [Coverage of Non Functional Requirements](#coverage-of-non-functional-requirements)
+    - [](#)
 
 - [Tests](#tests)
 
@@ -129,16 +141,19 @@ GasStationController   ---> GasStationService
 <If needed, define here additional scenarios for the application. Scenarios should be named
  referring the UC they detail>
 
-## Scenario UCx.y
+## Scenario UC1.1
 
 | Scenario |  name |
 | ------------- |:-------------:| 
-|  Precondition     |  |
-|  Post condition     |   |
+|  Precondition     | Account U exists inside the system and account B does not exist|
+|  Post condition     |  Account U exists inside the system and account B does not exist|
 | Step#        | Description  |
-|  1     |  ... |  
-|  2     |  ... |
-
+|  1     |  A user tries to create a new account B and populates its fields using the same email of account U |  
+|  2     |  System searches for email to see if it exists inside the system |
+|  3     |  System finds the email inside the system |
+|  4     |  System checks to see the type of account (user or admin)|
+|  5     |  System finds out that type of account is user|
+|  6     |  Failure message is prompted to user stating that an account already exists for this email |
 
 
 # Coverage of Scenarios and FR
