@@ -147,7 +147,30 @@ We adopted a bottom up approach divided in the following steps:
 ## Step 2
 | Classes  | JUnit test cases |
 |--|--|
-|||
+| GasStationDto.computeReportDependability() | GasStationDtoTest.computeReportDependability() |
+|| GasStationDtoTest.computeReportDependability() |
+|| testComputeReportDependabilityLessThan7Days() |
+|| testComputeReportDependabilityWithNullUser() |
+|| testComputeReportDependabilityWithNullReportTimestamp() |
+|| testComputeReportDependabilityWithNullUserReputation() |
+| GasStationDto.checkPrice() | GasStationDtoTest.testNegativeDieselPrice()|
+|| GasStationDtoTest.testNegativeGasPrice()|
+|| GasStationDtoTest.testNegativeMethanePrice()|
+|| GasStationDtoTest.testNegativeSuperPrice()|
+|| GasStationDtoTest.testNegativeSuperPlusPrice()|
+|| GasStationDtoTest.testMinusOneDieselPrice()|
+|| GasStationDtoTest.testMinusOneGasPrice()|
+|| GasStationDtoTest.testMinusOneMethanePrice()|
+|| GasStationDtoTest.testMinusOneSuperPrice()|
+|| GasStationDtoTest.testMinusOneSuperPlusPrice()|
+|| GasStationDtoTest.testNonNegativeDieselPrice() |
+|| GasStationDtoTest.testNonNegativeGasPrice() |
+|| GasStationDtoTest.testNonNegativeMethanePrice() |
+|| GasStationDtoTest.testNonNegativeSuperPrice() |
+|| GasStationDtoTest.testNonNegativeSuperPlusPrice() |
+| UserConverter.toDto(User user) | UserConverterTest.testToDto() |
+| UserConverter.toEntity(UserDto userDto) | UserConverterTest.testToEntity() |
+| UserConverter.toDto(List\<User> userList) | UserConverterTest.testToDtoList() |
 
 
 ## Step n API Tests
