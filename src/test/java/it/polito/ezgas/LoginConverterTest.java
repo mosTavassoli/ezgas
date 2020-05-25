@@ -21,7 +21,7 @@ public class LoginConverterTest {
 	
 	@Test
 	public void testLoginConverter() {
-		LoginConverter object = new LoginConverter();
+		new LoginConverter();
 	}
 	
 	
