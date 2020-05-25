@@ -23,10 +23,10 @@ public class UserConverterTest {
 	private Boolean admin = false;
 	
 
-	 @Test
-	    public void testUserConverter(){
-	    	UserConverter object = new UserConverter();
-	    }
+	@Test
+    public void testUserConverter(){
+    	new UserConverter();
+    }
 	
 	@Test
 	public void testToDto() {
@@ -72,20 +72,7 @@ public class UserConverterTest {
 		List<User> listEntity = Arrays.asList(user1,user2);
 		List<UserDto> listDto = UserConverter.toDto(listEntity);
 		
-		assertEquals(user1.getUserId(),listDto.get(0).getUserId());
-		assertEquals(user1.getUserName(),listDto.get(0).getUserName());
-		assertEquals(user1.getPassword(),listDto.get(0).getPassword());
-		assertEquals(user1.getEmail(),listDto.get(0).getEmail());
-		assertEquals(user1.getReputation(),listDto.get(0).getReputation());
-		assertEquals(user1.getAdmin(),listDto.get(0).getAdmin());
-		
-		assertEquals(user2.getUserId(),listDto.get(1).getUserId());
-		assertEquals(user2.getUserName(),listDto.get(1).getUserName());
-		assertEquals(user2.getPassword(),listDto.get(1).getPassword());
-		assertEquals(user2.getEmail(),listDto.get(1).getEmail());
-		assertEquals(user2.getReputation(),listDto.get(1).getReputation());
-		assertEquals(user2.getAdmin(),listDto.get(1).getAdmin());
-		
+		assertEquals(listEntity.size(),listDto.size());
 		
 	}
 	
