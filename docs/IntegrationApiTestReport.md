@@ -22,6 +22,7 @@ Version: 1
   - [Scenario UC1.1](#scenario-uc11)
   - [Scenario UC1.2](#scenario-uc12)
   - [Scenario UC7](#scenario-uc7)
+  - [Scenario UC8.1](#scenario-uc81)
 - [Coverage of Scenarios and FR](#coverage-of-scenarios-and-fr)
 - [Coverage of Non Functional Requirements](#coverage-of-non-functional-requirements)
     - [](#)
@@ -186,6 +187,18 @@ GasStationController   ---> GasStationService
 |2       |The system prompts the user with the list of possible fuels provided by the gas station with their prices (if available)|
 |3       |The user inerts the prices for the fuels|
 |4       |system overwrites the previous price list attached to G by the new one|
+
+## Scenario UC8.1
+
+| Scenario |  name |
+| ------------- |:-------------:| 
+|  Precondition     | - |
+|  Post condition     |  - |
+| Step#        | Description  |
+|  1     |  The anonymous user AU selects a geo point GP and a radius r (default radius is 5km) and restricts to a certain fuel type|
+|2       | the system prompts all gas stations within r from GP, with their prices for certain available fuel type|
+|3       | If a price for a fuel is missing "NA" is reported|
+|4       |The system shows also, for each gas station, the trust level of the prices, computed as in UC 9|
 
 
 
