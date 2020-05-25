@@ -23,7 +23,8 @@ import it.polito.ezgas.service.UserService;
 @Service
 public class UserServiceimpl implements UserService {
 	
-	private UserRepository userRepository;
+	@Autowired
+	UserRepository userRepository;
 	
 	@Autowired
 	public UserServiceimpl(UserRepository userRepository) {
