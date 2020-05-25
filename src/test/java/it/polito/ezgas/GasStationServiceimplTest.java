@@ -23,6 +23,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import exception.GPSDataException;
 import exception.InvalidGasStationException;
+import exception.InvalidGasTypeException;
 import exception.PriceException;
 import it.polito.ezgas.dto.GasStationDto;
 import it.polito.ezgas.entity.GasStation;
@@ -52,8 +53,8 @@ public class GasStationServiceimplTest {
     static class UserServiceImplTestContextConfiguration {
   
         @Bean
-        public UserService userService() {
-            return new UserServiceimpl();
+        public UserService userService(UserRepository userRepository) {
+            return new UserServiceimpl(userRepository);
         }
     }
 	
@@ -67,11 +68,14 @@ public class GasStationServiceimplTest {
         }
     }
 	
-	private final int NUMBER_OF_GAS_STATIONS=15;
+	private final int NUMBER_OF_GAS_STATIONS=15; //from 1 to maxint
 	private final int NUMBER_OF_USERS=15;
 	private final int NUMBER_OF_CAR_SHARING=2;
 	private final double MAX_PRICE=5.00;
 	private final double MAX_DEPENDABILITY=5.00;
+	
+	private final String INVALID_GAS_TYPE="invalidGas";
+	private final String VALID_CARSHARING="0";
 	
 	private int validGasStationId;
 	private int validUserId;
@@ -187,16 +191,6 @@ public class GasStationServiceimplTest {
 		assertNull(gasStationService.deleteGasStation(9999));
 	}
 	
-//	@Test
-//	public void testDeleteGasStationDeleteFails() throws InvalidGasStationException {
-//		GasStationRepository gasStationRepository = ((GasStationServiceimpl)gasStationService).gasStationRepository;
-//		
-//		((GasStationServiceimpl)gasStationService).gasStationRepository = Mockito.mock(GasStationRepository.class);
-//		Mockito.when(((GasStationServiceimpl)gasStationService).gasStationRepository.exists(gasStationList.get(0).getGasStationId())).thenReturn(true);
-//		assertNull(gasStationService.deleteGasStation(gasStationList.get(0).getGasStationId()));
-//		((GasStationServiceimpl)gasStationService).gasStationRepository = gasStationRepository;
-//	}
-	
 	@Test
 	public void testDeleteGasStationDeleteFails() throws InvalidGasStationException {
 		GasStationRepository gasStationRepositoryMock = mock(GasStationRepository.class);
@@ -205,5 +199,83 @@ public class GasStationServiceimplTest {
 		when(gasStationRepositoryMock.exists(gasStationList.get(0).getGasStationId())).thenReturn(true);
 		gasStationService = new GasStationServiceimpl(gasStationRepositoryMock);
 		assertNull(gasStationService.deleteGasStation(gasStationList.get(0).getGasStationId()));
+	}
+	
+	@Test
+	public void testGetGasStationsByGasolineTypeDiesel() throws InvalidGasTypeException {
+		List<GasStationDto> gasStationDtoList;
+		
+		gasStationDtoList = gasStationService.getGasStationsByGasolineType(Constants.DIESEL);
+		for(GasStationDto gasStationDto : gasStationDtoList) {
+			assertEquals(true,gasStationDto.getHasDiesel());
+		}
+	}
+	
+	@Test
+	public void testGetGasStationsByGasolineTypeGas() throws InvalidGasTypeException {
+		List<GasStationDto> gasStationDtoList;
+		
+		gasStationDtoList = gasStationService.getGasStationsByGasolineType(Constants.GAS);
+		for(GasStationDto gasStationDto : gasStationDtoList) {
+			assertEquals(true,gasStationDto.getHasGas());
+		}
+	}
+	
+	@Test
+	public void testGetGasStationsByGasolineTypeSuper() throws InvalidGasTypeException {
+		List<GasStationDto> gasStationDtoList;
+		
+		gasStationDtoList = gasStationService.getGasStationsByGasolineType(Constants.SUPER);
+		for(GasStationDto gasStationDto : gasStationDtoList) {
+			assertEquals(true,gasStationDto.getHasSuper());
+		}
+	}
+	
+	@Test
+	public void testGetGasStationsByGasolineTypeSuperPlus() throws InvalidGasTypeException {
+		List<GasStationDto> gasStationDtoList;
+		
+		gasStationDtoList = gasStationService.getGasStationsByGasolineType(Constants.SUPER_PLUS);
+		for(GasStationDto gasStationDto : gasStationDtoList) {
+			assertEquals(true,gasStationDto.getHasSuperPlus());
+		}
+	}
+	
+	@Test
+	public void testGetGasStationsByGasolineTypeMethane() throws InvalidGasTypeException {
+		List<GasStationDto> gasStationDtoList;
+		
+		gasStationDtoList = gasStationService.getGasStationsByGasolineType(Constants.METHANE);
+		for(GasStationDto gasStationDto : gasStationDtoList) {
+			assertEquals(true,gasStationDto.getHasMethane());
+		}
+	}
+	
+	@Test
+	public void testGetGasStationsByGasolineTypeNull() throws InvalidGasTypeException {
+		List<GasStationDto> gasStationDtoList;
+		
+		gasStationDtoList = gasStationService.getGasStationsByGasolineType(Constants.NULL);
+		assertNull(gasStationDtoList);
+	}
+	
+	@Test(expected = InvalidGasTypeException.class)
+	public void testGetGasStationsByGasolineTypeInvalid() throws InvalidGasTypeException {
+		gasStationService.getGasStationsByGasolineType(this.INVALID_GAS_TYPE);
+	}	
+	
+	@Test
+	public void testGetGasStationByCarSharingValid() {
+		List<GasStationDto> gasStationDtoList;
+		
+		gasStationDtoList = gasStationService.getGasStationByCarSharing(this.VALID_CARSHARING);
+		for(GasStationDto gasStationDto : gasStationDtoList) {
+			assertEquals(this.VALID_CARSHARING,gasStationDto.getCarSharing());
+		}
+	}
+	
+	@Test
+	public void testGetGasStationByCarSharingNull() {
+		assertNull(null,gasStationService.getGasStationByCarSharing(Constants.NULL));
 	}
 }
