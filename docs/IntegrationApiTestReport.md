@@ -168,6 +168,12 @@ We adopted a bottom up approach divided in the following steps:
 || GasStationDtoTest.testNonNegativeMethanePrice() |
 || GasStationDtoTest.testNonNegativeSuperPrice() |
 || GasStationDtoTest.testNonNegativeSuperPlusPrice() |
+| GasStationDto.checkCoordinates(double lat, double lon) | GasStationDtoTest.testLatitudeLargerThanUpperBound()|
+|| GasStationDtoTest.testLatitudeSmallerThanLowerBound()|
+|| GasStationDtoTest.testLongitudeLargerThanUpperBound()|
+|| GasStationDtoTest.testLongitudeSmallerThanLowerBound()|
+|| GasStationDtoTest.testLatitudeAndLongitudeOutOfBounds()|
+|| GasStationDtoTest.testLatitudeAndLongitudeInsideBounds()|
 | UserConverter.toDto(User user) | UserConverterTest.testToDto() |
 | UserConverter.toEntity(UserDto userDto) | UserConverterTest.testToEntity() |
 | UserConverter.toDto(List\<User> userList) | UserConverterTest.testToDtoList() |
