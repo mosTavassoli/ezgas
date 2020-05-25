@@ -2,6 +2,7 @@ package it.polito.ezgas.service.impl;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,8 +23,12 @@ import it.polito.ezgas.service.UserService;
 @Service
 public class UserServiceimpl implements UserService {
 	
+	private UserRepository userRepository;
+	
 	@Autowired
-	UserRepository userRepository;
+	public UserServiceimpl(UserRepository userRepository) {
+		this.userRepository=userRepository;
+	}
 	
 	@Override
 	public UserDto getUserById(Integer userId) throws InvalidUserException {
