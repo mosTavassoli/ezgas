@@ -20,6 +20,7 @@ Version: 1
   - [Step n API Tests](#step-n-api-tests)
 - [Scenarios](#scenarios)
   - [Scenario UC1.1](#scenario-uc11)
+  - [Scenario UC1.2](#scenario-uc12)
 - [Coverage of Scenarios and FR](#coverage-of-scenarios-and-fr)
 - [Coverage of Non Functional Requirements](#coverage-of-non-functional-requirements)
     - [](#)
@@ -154,6 +155,20 @@ GasStationController   ---> GasStationService
 |  4     |  System checks to see the type of account (user or admin)|
 |  5     |  System finds out that type of account is user|
 |  6     |  Failure message is prompted to user stating that an account already exists for this email |
+## Scenario UC1.2
+
+| Scenario |  name |
+| ------------- |:-------------:| 
+|  Precondition     | Account U exists inside the system and account B does not exist|
+|  Post condition     |  Account U and account B exist inside the system|
+| Step#        | Description  |
+|  1     |  Admin tries to create a new account B and populates its fields using the same email ofaccount U |
+|  2     |  System searches for email to see if it exists inside the system |
+|  3     |  System finds the email inside the system |
+|  4     |  System checks to see the type of account (user or admin)|
+|  5     |  System finds out that type of account is admin|
+|  6     |  System successfully creates the account inside the database|
+
 
 
 # Coverage of Scenarios and FR
