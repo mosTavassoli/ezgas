@@ -174,6 +174,8 @@ We adopted a bottom up approach divided in the following steps:
 || GasStationDtoTest.testLongitudeSmallerThanLowerBound()|
 || GasStationDtoTest.testLatitudeAndLongitudeOutOfBounds()|
 || GasStationDtoTest.testLatitudeAndLongitudeInsideBounds()|
+| GasStationDto.toString() | GasStationDtoTest.testToStringWithUninitializedAttributes()|
+|| GasStationDtoTest.testToStringWithInitializedAttributes()|
 | UserConverter.toDto(User user) | UserConverterTest.testToDto() |
 | UserConverter.toEntity(UserDto userDto) | UserConverterTest.testToEntity() |
 | UserConverter.toDto(List\<User> userList) | UserConverterTest.testToDtoList() |
