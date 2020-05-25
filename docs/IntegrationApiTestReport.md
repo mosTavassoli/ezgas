@@ -111,8 +111,27 @@ GasStationController   ---> GasStationService
     (ex: step1: class A, step 2: class A+B, step 3: class A+B+C, etc)> 
     <The last integration step corresponds to API testing at level of Service package>
     <Tests at level of Controller package will be done later>
+We adopted a bottom up approach divided in the following steps:
 
+|Step#             |Classes                 |
+|:-----:           |:-----                 |
+|1                 |User                    |
+|                  |UserDto                 |
+|                  |IdPw                    |
+|                  |LoginDto                |
+|2                 |User+GasStation         |
+|                  |UserDto+GasStationDto   |
+|                  |User+UserDto+UserConverter|
+|                  |User+LoginDto+LoginConverter|
+|                  |User+UserRepository   |
+|3                 |UserDto+IdPw+LoginDto+UserConverter+LoginConverter+UserRepository+User+UserServiceimpl|
+|                  |UserDto+GasStationDto+User+GasStation+GasStationConverter                    |
+|                  |User+GasStation+GasStationRepository        |
+|4                 |UserDto+IdPw+LoginDto+UserConverter+LoginConverter+UserRepository+User+UserServiceimpl+GasStationConverter+GasStationRepository+GasStation+GasStationDto+GasStationServiceimpl|
+|                  |                    |
 
+    
+    
 
 #  Tests
 
