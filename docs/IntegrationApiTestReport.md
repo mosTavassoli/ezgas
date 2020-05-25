@@ -25,6 +25,7 @@ Version: 1
   - [Scenario UC8.1](#scenario-uc81)
   - [Scenario UC8.2](#scenario-uc82)
   - [Scenario UC8.3](#scenario-uc83)
+  - [Scenario UC8.4](#scenario-uc84)
 - [Coverage of Scenarios and FR](#coverage-of-scenarios-and-fr)
 - [Coverage of Non Functional Requirements](#coverage-of-non-functional-requirements)
     - [](#)
@@ -226,6 +227,21 @@ GasStationController   ---> GasStationService
 |2       | the system prompts all gas stations within r from GP, with their prices for certain available fuel type, sorted by price, in ascending order|
 |3       | If a price for a fuel is missing "NA" is reported|
 |4       |The system shows also, for each gas station, the trust level of the prices, computed as in UC 9|
+
+
+## Scenario UC8.4
+
+| Scenario |  name |
+| ------------- |:-------------:| 
+|  Precondition     | - |
+|  Post condition     |  - |
+| Step#        | Description  |
+|  1     |  The anonymous user AU selects a geo point GP and a radius r (default radius is 5km) and sorts by distance for a fuel type|
+|2       | the system prompts all gas stations within r from GP, with their prices for certain available fuel type, sorted by distance, in ascending order|
+|3       | If a price for a fuel is missing "NA" is reported|
+|4       |The system shows also, for each gas station, the trust level of the prices, computed as in UC 9|
+
+
 
 
 # Coverage of Scenarios and FR
