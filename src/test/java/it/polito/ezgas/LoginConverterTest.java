@@ -9,32 +9,36 @@ import it.polito.ezgas.dto.LoginDto;
 import it.polito.ezgas.entity.User;
 
 public class LoginConverterTest {
-
-	private Integer userId;
+	
+	
+	private Integer userId=1;
 	private String userName = "user1";
 	private String token="";
 	private String email = "user1@user.com";
 	private Integer reputation = 1;
 	private Boolean admin = false;
 	private String password ="user1";
-	private String correctString;
+	
+	@Test
+	public void testLoginConverter() {
+		LoginConverter object = new LoginConverter();
+	}
 	
 	
 	@Test
 	public void testToDto() {
+		
 		User user = new User (userName,password,email,reputation);
-		userId = user.getUserId();
-		admin = user.getAdmin();
- 		
+		user.setUserId(userId);
+		user.setAdmin(admin);
+		
 		LoginDto loginDto = LoginConverter.toDto(user);
-		correctString = "\n{\n"
-				+ "userId = " + this.userId + ",\n"
-				+ "userName = " + this.userName + ",\n"
-				+ "token = " + this.token + ",\n"
-				+ "email = " + this.email + ",\n"
-				+ "reputation = "+ this.reputation + ",\n"
-				+ "}\n";
-		assertEquals(correctString, loginDto.toString());
-				
+		
+		assertEquals(this.userId,loginDto.getUserId());
+		assertEquals(this.userName,loginDto.getUserName());
+		assertEquals(this.token,loginDto.getToken());
+		assertEquals(this.email,loginDto.getEmail());
+		assertEquals(this.reputation,loginDto.getReputation());
+					
 	}
 }
