@@ -1,7 +1,9 @@
 package it.polito.ezgas;
 
+import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -70,7 +72,7 @@ public class GasStationServiceimplTest {
 	
 	private final int NUMBER_OF_GAS_STATIONS=15; //from 1 to maxint
 	private final int NUMBER_OF_USERS=15;
-	private final int NUMBER_OF_CAR_SHARING=2;
+	private final int NUMBER_OF_CAR_SHARING=2; //from 1 to maxint
 	private final int INVALID_USER_ID=-33;
 	private final int INVALID_GAS_STATION_ID=-24;
 	private final double MAX_PRICE=5.00;
@@ -349,6 +351,52 @@ public class GasStationServiceimplTest {
 		assertEquals(5,gasStationDtoList.size());
 	}
 	
+	@Test
+	public void testGetGasStationsWithoutCoordinatesNullGasolineType() throws InvalidGasTypeException {
+		List<GasStationDto> gasStationDtoListActual, gasStationDtoListExpected;
+		
+		gasStationDtoListExpected = gasStationService.getGasStationByCarSharing("0");
+		gasStationDtoListActual = gasStationService.getGasStationsWithoutCoordinates("null", "0");
+		
+		assertEquals(gasStationDtoListExpected.toString(),gasStationDtoListActual.toString());
+	}
+	
+	@Test
+	public void testGetGasStationsWithoutCoordinatesNullGasolineTypeNullCarSharing() throws InvalidGasTypeException {
+		List<GasStationDto> gasStationDtoListActual;
+	
+		gasStationDtoListActual = gasStationService.getGasStationsWithoutCoordinates("null", "null");
+		
+		assertNull(gasStationDtoListActual);
+	}
+	
+	@Test
+	public void testGetGasStationsWithoutCoordinatesNullCarSharing() throws InvalidGasTypeException {
+		List<GasStationDto> gasStationDtoListActual, gasStationDtoListExpected;
+		
+		gasStationDtoListExpected = gasStationService.getGasStationsByGasolineType("Diesel");
+		gasStationDtoListActual = gasStationService.getGasStationsWithoutCoordinates("Diesel", "null");
+		
+		assertEquals(gasStationDtoListExpected.toString(),gasStationDtoListActual.toString());
+	}
+	
+	@Test
+	public void testGetGasStationsWithoutCoordinatesValid() throws InvalidGasTypeException {
+		List<GasStationDto> gasStationDtoList;
+		
+		gasStationDtoList = gasStationService.getGasStationsWithoutCoordinates("Diesel", "0");
+		for(GasStationDto gasStationDto : gasStationDtoList) {
+			assertTrue(gasStationDto.getHasDiesel());
+			assertEquals("0",gasStationDto.getCarSharing());
+		}
+		
+	}
+	
+	@Test(expected = InvalidGasTypeException.class)
+	public void testGetGasStationsWithoutCoordinatesInvalidGasType() throws InvalidGasTypeException {
+		gasStationService.getGasStationsWithoutCoordinates("invalid", "0");
+	}
+	
 	public static double distanceInKilometersBetween(double lat1, double lon1, double lat2, double lon2) {
 		double deltaLatitude, deltaLongitude, partial;
 		final double EARTH_RADIUS_KILOMETERS = 6371;
@@ -362,5 +410,7 @@ public class GasStationServiceimplTest {
 	    
 	    return EARTH_RADIUS_KILOMETERS * 2 * Math.atan2(Math.sqrt(partial), Math.sqrt(1-partial));
 	}
+	
+	
 	
 }
