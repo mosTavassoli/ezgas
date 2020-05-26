@@ -114,10 +114,10 @@ public class GasStationServiceimplTest {
 		
 		//setup for proximity tests
 		gasStationList.add(gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, "sharing", 45.101767, 7.646787, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "stamp", 7.77))); //0m
-		gasStationList.add(gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, "sharing", 45.103047, 7.644117, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "stamp", 7.77))); //250m
-		gasStationList.add(gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, "sharing", 45.104367, 7.641588, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "stamp", 7.77))); //500m
-		gasStationList.add(gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, "sharing", 45.106264, 7.639662, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "stamp", 7.77))); //750m
-		gasStationList.add(gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, "sharing", 45.107773, 7.637318, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "stamp", 7.77))); //999m
+		gasStationList.add(gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, "sharing1", 45.103047, 7.644117, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "stamp", 7.77))); //250m
+		gasStationList.add(gasStationRepository.save(new GasStation("name", "address", false, true, true, true, true, "sharing", 45.104367, 7.641588, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "stamp", 7.77))); //500m
+		gasStationList.add(gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, "sharing1", 45.106264, 7.639662, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "stamp", 7.77))); //750m
+		gasStationList.add(gasStationRepository.save(new GasStation("name", "address", false, true, true, true, true, "sharing1", 45.107773, 7.637318, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "stamp", 7.77))); //999m
 		gasStationList.add(gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, "sharing", 45.107781, 7.637224, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "stamp", 7.77))); //1010m
 		gasStationList.add(gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, "sharing", 45.108089, 7.636838, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "stamp", 7.77))); //1050m
 		
@@ -395,6 +395,34 @@ public class GasStationServiceimplTest {
 	@Test(expected = InvalidGasTypeException.class)
 	public void testGetGasStationsWithoutCoordinatesInvalidGasType() throws InvalidGasTypeException {
 		gasStationService.getGasStationsWithoutCoordinates("invalid", "0");
+	}
+	
+	@Test(expected = InvalidGasTypeException.class)
+	public void testGetGasStationsWithCoordinatesInvalidGasType() throws InvalidGasTypeException, GPSDataException {
+		gasStationService.getGasStationsWithCoordinates(0, 0, "invalid", "0");
+	}
+	
+	@Test(expected = GPSDataException.class)
+	public void testGetGasStationsWithCoordinatesInvalidLatitudeAndLongitude() throws InvalidGasTypeException, GPSDataException {
+		gasStationService.getGasStationsWithCoordinates(1000, 1000, "Diesel", "0");
+	}
+	
+	@Test
+	public void testGetGasStationsWithCoordinatesNullGasStationsWithoutCoordinates() throws InvalidGasTypeException, GPSDataException {
+		assertEquals(gasStationService.getGasStationsByProximity(0, 0),
+				gasStationService.getGasStationsWithCoordinates(0, 0, "null", "null"));
+	}
+	
+	@Test
+	public void testGetGasStationsWithCoordinatesValid() throws InvalidGasTypeException, GPSDataException {
+		List<GasStationDto> gasStationDtoList = gasStationService.getGasStationsWithCoordinates(45.101767, 7.646787, "Diesel", "sharing");
+		
+		for(GasStationDto gasStationDto : gasStationDtoList) {
+			assertTrue(distanceInKilometersBetween(45.101767, 7.646787, gasStationDto.getLat(), gasStationDto.getLon())<=1);
+			assertTrue(gasStationDto.getHasDiesel());
+			assertEquals("sharing",gasStationDto.getCarSharing());
+		}
+		
 	}
 	
 	public static double distanceInKilometersBetween(double lat1, double lon1, double lat2, double lon2) {
