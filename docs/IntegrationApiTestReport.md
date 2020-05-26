@@ -112,8 +112,27 @@ GasStationController   ---> GasStationService
     (ex: step1: class A, step 2: class A+B, step 3: class A+B+C, etc)> 
     <The last integration step corresponds to API testing at level of Service package>
     <Tests at level of Controller package will be done later>
+We adopted a bottom up approach divided in the following steps:
 
+|Step#             |Classes                 |
+|:-----:           |:-----                 |
+|1                 |User                    |
+|                  |UserDto                 |
+|                  |IdPw                    |
+|                  |LoginDto                |
+|2                 |User+GasStation         |
+|                  |UserDto+GasStationDto   |
+|                  |User+UserDto+UserConverter|
+|                  |User+LoginDto+LoginConverter|
+|                  |User+UserRepository   |
+|3                 |UserDto+IdPw+LoginDto+UserConverter+LoginConverter+UserRepository+User+UserServiceimpl|
+|                  |UserDto+GasStationDto+User+GasStation+GasStationConverter                    |
+|                  |User+GasStation+GasStationRepository        |
+|4                 |UserDto+IdPw+LoginDto+UserConverter+LoginConverter+UserRepository+User+UserServiceimpl+GasStationConverter+GasStationRepository+GasStation+GasStationDto+GasStationServiceimpl|
+|                  |                    |
 
+    
+    
 
 #  Tests
 
@@ -129,8 +148,78 @@ GasStationController   ---> GasStationService
 ## Step 2
 | Classes  | JUnit test cases |
 |--|--|
-|||
+| GasStationDto.computeReportDependability() | GasStationDtoTest.computeReportDependability() |
+|| GasStationDtoTest.computeReportDependability() |
+|| testComputeReportDependabilityLessThan7Days() |
+|| testComputeReportDependabilityWithNullUser() |
+|| testComputeReportDependabilityWithNullReportTimestamp() |
+|| testComputeReportDependabilityWithNullUserReputation() |
+| GasStationDto.checkPrice() | GasStationDtoTest.testNegativeDieselPrice()|
+|| GasStationDtoTest.testNegativeGasPrice()|
+|| GasStationDtoTest.testNegativeMethanePrice()|
+|| GasStationDtoTest.testNegativeSuperPrice()|
+|| GasStationDtoTest.testNegativeSuperPlusPrice()|
+|| GasStationDtoTest.testMinusOneDieselPrice()|
+|| GasStationDtoTest.testMinusOneGasPrice()|
+|| GasStationDtoTest.testMinusOneMethanePrice()|
+|| GasStationDtoTest.testMinusOneSuperPrice()|
+|| GasStationDtoTest.testMinusOneSuperPlusPrice()|
+|| GasStationDtoTest.testNonNegativeDieselPrice() |
+|| GasStationDtoTest.testNonNegativeGasPrice() |
+|| GasStationDtoTest.testNonNegativeMethanePrice() |
+|| GasStationDtoTest.testNonNegativeSuperPrice() |
+|| GasStationDtoTest.testNonNegativeSuperPlusPrice() |
+| GasStationDto.checkCoordinates(double lat, double lon) | GasStationDtoTest.testLatitudeLargerThanUpperBound()|
+|| GasStationDtoTest.testLatitudeSmallerThanLowerBound()|
+|| GasStationDtoTest.testLongitudeLargerThanUpperBound()|
+|| GasStationDtoTest.testLongitudeSmallerThanLowerBound()|
+|| GasStationDtoTest.testLatitudeAndLongitudeOutOfBounds()|
+|| GasStationDtoTest.testLatitudeAndLongitudeInsideBounds()|
+| GasStationDto.toString() | GasStationDtoTest.testToStringWithUninitializedAttributes()|
+|| GasStationDtoTest.testToStringWithInitializedAttributes()|
+| UserConverter.toDto(User user) | UserConverterTest.testToDto() |
+| UserConverter.toEntity(UserDto userDto) | UserConverterTest.testToEntity() |
+| UserConverter.toDto(List\<User> userList) | UserConverterTest.testToDtoList() |
+| LoginConverter.findByUserId(Integer userId) | LoginConverterTest.testLoginConverter() |
+| UserRepository.toDto(User user) | UserRepositoryTest.testFindByEmail() |
+|| UserRepositoryTest.testFindByUserId() |
 
+## Step 3
+| Classes  | JUnit test cases |
+|--|--|
+|UserServiceimpl.getUserById(Integer userId)|UserServiceimplTest.testGetUserByIdNegative()|
+||UserServiceimplTest.testGetUserByIdDoesNotExist()|
+||UserServiceimplTest.testGetUserByIdPositiveAndExists()|
+|UserServiceimpl.saveUser(UserDto userDto)|UserServiceimplTest.testSaveUserValid()|
+||UserServiceimplTest.testSaveUserForUpdate()|
+||UserServiceimplTest.testSaveUserForInvalidUpdate()|
+||UserServiceimplTest.testSaveUserFails()|
+|UserServiceimpl.getAllUsers()|UserServiceimplTest.testGetAllUsersNotEmpty()|
+||UserServiceimplTest.testGetAllUsersEmpty()|
+|UserServiceimpl.deleteUser()|UserServiceimplTest.testDeleteUserThrowInvalidUserException()|
+||UserServiceimplTest.testDeleteUserSuccessful()|
+||UserServiceimplTest.testDeleteUserNotExists()|
+||UserServiceimplTest.testDeleteUserFails()|
+|UserServiceimpl.login(IdPw credentials)|UserServiceimplTest.testLoginThrowInvalidLoginDataExceptionForWrongPw()|
+||UserServiceimplTest.testLoginThrowInvalidLoginDataExceptionForWrongEmail()|
+||UserServiceimplTest.testLoginSuccessuful()|
+|UserServiceimpl.increaseUserReputation(Integer userId)|UserServiceimplTest.testIncreaseUserReputationThrowsInvalidUserException()|
+||UserServiceimplTest.testIncreaseUserReputation()|
+|UserServiceimpl.decreaseUserReputation(Integer userId)|UserServiceimplTest.testDecreaseUserReputationThrowsInvalidUserException()|
+||UserServiceimplTest.testDecreaseUserReputation()|
+|GasStationConverter.toDto(GasStation entity)|GasStationConverterTest.testToDto()|
+||GasStationConverterTest.testToDtoWithUser()|
+|GasStationConverter.toDto(List\<GasStation> entityList)|GasStationConverterTest.testToDtoList()|
+|GasStationConverter.toEntity(GasStationDto dto)|GasStationConverterTest.testToEntity()|
+||GasStationConverterTest.testToEntityWitUser()|
+|GasStationRepository.findByProximity(double lat, double lon)|GasStationRepositoryTest.testFindByProximity()|
+|GasStationRepository.findByCarSharingOrderByGasStationName(String carSharing)|GasStationRepositoryTest.testFindByCarSharingOrderByGasStationName()|
+|GasStationRepository.findByHasMethaneOrderByMethanePriceAsc(boolean hasMethane)|GasStationRepositoryTest.testFindByHasMethaneOrderByMethanePriceAscTrue()|
+||GasStationRepositoryTest.testFindByHasMethaneOrderByMethanePriceAscFalse()|
+||GasStationRepositoryTest.testFindByHasMethaneOrderByMethanePriceAscTotal()|
+|GasStationRepository.findByHasGasOrderByGasPriceAsc(boolean hasGas)|GasStationRepositoryTest.testFindByHasDieselOrderByDieselPriceAscTrue()|
+||GasStationRepositoryTest.testFindByHasDieselOrderByDieselPriceAscFalse()|
+||GasStationRepositoryTest.testFindByHasDieselOrderByDieselPriceAscTotal()|
 
 ## Step n API Tests
 
@@ -138,7 +227,8 @@ GasStationController   ---> GasStationService
 
 | Classes  | JUnit test cases |
 |--|--|
-|||
+
+
 
 
 
