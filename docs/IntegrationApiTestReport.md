@@ -432,9 +432,14 @@ Report also for each of the scenarios the (one or more) API JUnit tests that cov
 |||UserServiceimplTest.testGetAllUsersEmpty()|
 |||UserConverterTest.testToDtoList()|
 |||UserConverterTest.testToDto()|
-|Scenario UC3  | FR1.2                          |             |
-|              | FR1.3                          |             |   
-|              | FR1.4                          |             |             
+|Scenario UC3  | FR1.2                          |UserServiceimplTest.testDeleteUserThrowInvalidUserException()|   
+|||UserServiceimplTest.testDeleteUserSuccessful()|
+|||UserServiceimplTest.testDeleteUserNotExists()|
+|||UserServiceimplTest.testDeleteUserFails()|
+||FR1.3|UserServiceimplTest.testGetAllUsersNotEmpty()|
+|||UserServiceimplTest.testGetAllUsersEmpty()|
+|||UserConverterTest.testToDtoList()|
+|||UserConverterTest.testToDto()|
       
 
 
