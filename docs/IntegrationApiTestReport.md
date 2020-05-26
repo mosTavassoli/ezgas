@@ -211,6 +211,15 @@ We adopted a bottom up approach divided in the following steps:
 |GasStationConverter.toDto(List\<GasStation> entityList)|GasStationConverterTest.testToDtoList()|
 |GasStationConverter.toEntity(GasStationDto dto)|GasStationConverterTest.testToEntity()|
 ||GasStationConverterTest.testToEntityWitUser()|
+|GasStationRepository.findByProximity(double lat, double lon)|GasStationRepositoryTest.testFindByProximity()|
+|GasStationRepository.findByCarSharingOrderByGasStationName(String carSharing)|GasStationRepositoryTest.testFindByCarSharingOrderByGasStationName()|
+|GasStationRepository.findByHasMethaneOrderByMethanePriceAsc(boolean hasMethane)|GasStationRepositoryTest.testFindByHasMethaneOrderByMethanePriceAscTrue()|
+||GasStationRepositoryTest.testFindByHasMethaneOrderByMethanePriceAscFalse()|
+||GasStationRepositoryTest.testFindByHasMethaneOrderByMethanePriceAscTotal()|
+|GasStationRepository.findByHasGasOrderByGasPriceAsc(boolean hasGas)|GasStationRepositoryTest.testFindByHasDieselOrderByDieselPriceAscTrue()|
+||GasStationRepositoryTest.testFindByHasDieselOrderByDieselPriceAscFalse()|
+||GasStationRepositoryTest.testFindByHasDieselOrderByDieselPriceAscTotal()|
+
 ## Step n API Tests
 
    <The last integration step  should correspond to API testing, or tests applied to all classes implementing the APIs defined in the Service package>
