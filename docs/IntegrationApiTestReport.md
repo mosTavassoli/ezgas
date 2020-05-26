@@ -251,6 +251,22 @@ GasStationServiceimplTest.deleteGasStation(Integer gasStationId)|
 ||GasStationServiceimplTest.testDeleteGasStationIdNegative()|
 ||GasStationServiceimplTest.testDeleteGasStationIdDoesNotExist()|
 ||GasStationServiceimplTest.testDeleteGasStationDeleteFails()|
+GasStationServiceimplTest.getGasStationsByGasolineType(String gasolinetype)|
+||GasStationServiceimplTest.testGetGasStationsByGasolineTypeDiesel()|
+||GasStationServiceimplTest.testGetGasStationsByGasolineTypeGas()|
+||GasStationServiceimplTest.testGetGasStationsByGasolineTypeSuper()|
+||GasStationServiceimplTest.testGetGasStationsByGasolineTypeSuperPlus()|
+||GasStationServiceimplTest.testGetGasStationsByGasolineTypeMethane()|
+||GasStationServiceimplTest.testGetGasStationsByGasolineTypeNull()|
+||GasStationServiceimplTest.testGetGasStationsByGasolineTypeInvalid()|
+GasStationServiceimplTest.getGasStationsByProximity(double lat, double lon)|
+||GasStationServiceimplTest.testGetGasStationsByProximityEmptyList()|
+||GasStationServiceimplTest.testGetGasStationsByProximityNonEmptyList()|
+GasStationServiceimplTest.getGasStationsWithCoordinates(double lat, double lon, String gasolinetype, String carsharing)|
+||GasStationServiceimplTest.testGetGasStationsWithCoordinatesInvalidGasType()|
+||GasStationServiceimplTest.testGetGasStationsWithCoordinatesInvalidLatitudeAndLongitude()|
+||GasStationServiceimplTest.testGetGasStationsWithCoordinatesNullGasStationsWithoutCoordinates()|
+||GasStationServiceimplTest.testGetGasStationsWithCoordinatesValid()|
 
 
 ## Step n API Tests
