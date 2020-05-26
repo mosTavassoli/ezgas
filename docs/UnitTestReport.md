@@ -613,18 +613,18 @@ The JUnit test cases will be exhaustive.
 | IdPw.setPw | IdPw.testUserPw |
 | LoginDto.LoginDto             | LoginDtoTest.testConstructor |
 |                       | LoginDtoTest.testNullObject  |
-| LoginDto.getUserId | LoginDtoTest.testSetGet |
-| LoginDto.setUserId | LoginDtoTest.testSetGet |
-| LoginDto.getUserName | LoginDtoTest.testSetGet |
-| LoginDto.setUserName | LoginDtoTest.testSetGet |
-| LoginDto.getToken | LoginDtoTest.testSetGet |
-| LoginDto.setToken | LoginDtoTest.testSetGet |
-| LoginDto.getEmail | LoginDtoTest.testSetGet |
-| LoginDto.setEmail | LoginDtoTest.testSetGet |
-| LoginDto.getReputation | LoginDtoTest.testSetGet |
-| LoginDto.setReputation | LoginDtoTest.testSetGet |
-| LoginDto.getAdmin | LoginDtoTest.testSetGet |
-| LoginDto.setAdmin | LoginDtoTest.testSetGet |
+| LoginDto.getUserId | LoginDtoTest.testUserId |
+| LoginDto.setUserId | LoginDtoTest.testUserId |
+| LoginDto.getUserName | LoginDtoTest.testUserName |
+| LoginDto.setUserName | LoginDtoTest.testUserName |
+| LoginDto.getToken | LoginDtoTest.testToken |
+| LoginDto.setToken | LoginDtoTest.testToken |
+| LoginDto.getEmail | LoginDtoTest.testEmail |
+| LoginDto.setEmail | LoginDtoTest.testEmail |
+| LoginDto.getReputation | LoginDtoTest.testReputation |
+| LoginDto.setReputation | LoginDtoTest.testReputation |
+| LoginDto.getAdmin | LoginDtoTest.testAdmin |
+| LoginDto.setAdmin | LoginDtoTest.testAdmin |
 
 
 ### Code coverage report
