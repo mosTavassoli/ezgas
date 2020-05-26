@@ -143,7 +143,7 @@ public class GasStationConverterTest {
 	}
 	
     @Test
-   	public void testToEntityWitUser() {
+   	public void testToEntityWithUser() {
    		GasStationDto gasStationDto = new GasStationDto(123,gasStationName,gasStationAddress,hasDiesel,hasSuper, 
    				hasSuperPlus, hasGas, hasMethane, carSharing, lat, lon ,
    				dieselPrice,superPrice,superPlusPrice,gasPrice,methanePrice,reportUser,
