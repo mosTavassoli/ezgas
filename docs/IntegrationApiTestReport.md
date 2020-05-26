@@ -195,7 +195,17 @@ We adopted a bottom up approach divided in the following steps:
 ||UserServiceimplTest.testSaveUserFails()|
 |UserServiceimpl.getAllUsers()|UserServiceimplTest.testGetAllUsersNotEmpty()|
 ||UserServiceimplTest.testGetAllUsersEmpty()|
-
+|UserServiceimpl.deleteUser()|UserServiceimplTest.testDeleteUserThrowInvalidUserException()|
+||UserServiceimplTest.testDeleteUserSuccessful()|
+||UserServiceimplTest.testDeleteUserNotExists()|
+||UserServiceimplTest.testDeleteUserFails()|
+|UserServiceimpl.login(IdPw credentials)|UserServiceimplTest.testLoginThrowInvalidLoginDataExceptionForWrongPw()|
+||UserServiceimplTest.testLoginThrowInvalidLoginDataExceptionForWrongEmail()|
+||UserServiceimplTest.testLoginSuccessuful()|
+|UserServiceimpl.increaseUserReputation(Integer userId)|UserServiceimplTest.testIncreaseUserReputationThrowsInvalidUserException()|
+||UserServiceimplTest.testIncreaseUserReputation()|
+|UserServiceimpl.decreaseUserReputation(Integer userId)|UserServiceimplTest.testDecreaseUserReputationThrowsInvalidUserException()|
+||UserServiceimplTest.testDecreaseUserReputation()|
 
 ## Step n API Tests
 
