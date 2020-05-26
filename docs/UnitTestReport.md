@@ -635,7 +635,7 @@ We covered 100% of the statements and branches of the unit testable methods.
 These are the methods inside the Dto and Entity classes.<br/>
 There are a few methods inside GasStation and GasStationDto that depend on other classes, such as User or PriceReport, so they were not unit tested.<br/>
 The Entity class PriceReport was not tested as we, as recommended by a teaching assistant on Slack, haven't yet used it for this project and are waiting for confirmation to remove it entirely.<br/>
-![Code coverage report](./images/ezgasCoverage.png)<br/>
+![Code coverage report](./images/ezgasUnitCoverage.png)<br/>
 
 ### Loop coverage analysis
 

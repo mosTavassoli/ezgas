@@ -33,14 +33,7 @@ Version: 1
   - [Scenario UC10](#scenario-uc10)
 - [Coverage of Scenarios and FR](#coverage-of-scenarios-and-fr)
 - [Coverage of Non Functional Requirements](#coverage-of-non-functional-requirements)
-    - [](#)
-
-- [Tests](#tests)
-
-- [Scenarios](#scenarios)
-
-- [Coverage of scenarios and FR](#scenario-coverage)
-- [Coverage of non-functional requirements](#nfr-coverage)
+- [Code coverage report](#code-coverage-report)
 
 
 
@@ -602,3 +595,10 @@ Report also for each of the scenarios the (one or more) API JUnit tests that cov
 ### 
 
 **At this point in the testing process, none of the non functional requirements can be properly assessed with an automated testing framework. All of them require a test at the level of the GUI.**
+
+# Code coverage report
+
+    <Add here the screenshot report of the statement and branch coverage obtained using
+    the Eclemma tool. >
+We achieved 100% instructions and branches coverage if we do not count the classes left to test in the next phase (Controllers and, possibly, the Boot Class).
+![Code coverage report](./images/ezgasIntegrationCoverage.png)<br/>
