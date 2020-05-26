@@ -222,6 +222,15 @@ We adopted a bottom up approach divided in the following steps:
 |GasStationRepository.findByHasGasOrderByGasPriceAsc(boolean hasGas)|GasStationRepositoryTest.testFindByHasDieselOrderByDieselPriceAscTrue()|
 ||GasStationRepositoryTest.testFindByHasDieselOrderByDieselPriceAscFalse()|
 ||GasStationRepositoryTest.testFindByHasDieselOrderByDieselPriceAscTotal()|
+|GasStationRepository.findByHasSuperOrderBySuperPriceAsc(boolean hasSuper)|GasStationRepositoryTest.testFindByHasSuperOrderBySuperPriceAscTrue()|
+||GasStationRepositoryTest.testFindByHasSuperOrderBySuperPriceAscFalse()|
+||GasStationRepositoryTest.testFindByHasSuperOrderBySuperPriceAscTotal()|
+|GasStationRepository.findByHasSuperPlusOrderBySuperPlusPriceAsc(boolean hasSuperPlus)|GasStationRepositoryTest.testFindByHasSuperPlusOrderBySuperPlusPriceAscTrue()|
+||GasStationRepositoryTest.testFindByHasSuperPlusOrderBySuperPlusPriceAscFalse()|
+||GasStationRepositoryTest.testFindByHasSuperPlusOrderBySuperPlusPriceAscTotal()|
+|GasStationRepository.findByHasDieselOrderByDieselPriceAsc(boolean hasDiesel)|GasStationRepositoryTest.testFindByHasDieselOrderByDieselPriceAscTrue()|
+||GasStationRepositoryTest.testFindByHasDieselOrderByDieselPriceAscFalse()|
+||GasStationRepositoryTest.testFindByHasDieselOrderByDieselPriceAscTotal()|
 
 ## Step n API Tests
 
