@@ -34,8 +34,7 @@ import java.sql.Timestamp;
 @Service
 public class GasStationServiceimpl implements GasStationService {
 	
-	@Autowired
-	GasStationRepository gasStationRepository;
+	private GasStationRepository gasStationRepository;
 	@Autowired
 	UserService userService;
 	
