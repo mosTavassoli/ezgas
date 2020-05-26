@@ -385,11 +385,103 @@ Report also for each of the scenarios the (one or more) API JUnit tests that cov
 |Scenario UC1.2| FR1.1                          |             | 
 |          UC2 | FR1.1                          |             | 
 |          UC3 | FR1.2                          |             |   
-|              | FR1.3                          |             |          
-|Scenario UC7  | FR5.1                          |             |             
-|              |                                |             |             
-| ...         |                                 |             |             
-| ...         |                                 |             |             
+|              | FR1.3                          |             |                  
+| UC4 | FR3.1 | GasStationServiceimplTest.testSaveGasStationInvalidNegativePrice   |             
+||| GasStationServiceimplTest.testSaveGasStationInvalidCoordinates   |             
+|||  GasStationServiceimplTest.testSaveGasStationValid |
+| UC5 | FR3.1 | GasStationServiceimplTest.testSaveGasStationInvalidNegativePrice   |             
+||| GasStationServiceimplTest.testSaveGasStationInvalidCoordinates |             
+||| GasStationServiceimplTest.testSaveGasStationValid |                
+| UC6 | FR3.2 | GasStationServiceimplTest.testDeleteGasStationValid |             
+||| GasStationServiceimplTest.testDeleteGasStationIdNegative |     
+||| GasStationServiceimplTest.testDeleteGasStationIdDoesNotExist |  
+||| GasStationServiceimplTest.testDeleteGasStationDeleteFails |  
+| UC7 | FR5.1 | GasStationServiceimplTest.testSetReportInvalidPrice |  
+||| GasStationServiceimplTest.testSetReportInvalidUser |  
+||| GasStationServiceimplTest.testSetReportInvalidGasStation |  
+| UC8 | FR4.1 | GasStationServiceimplTest.testGetGasStationsByProximityInvalidCoordinates |  
+||| GasStationServiceimplTest.testGetGasStationsByProximityEmptyList |  
+||| GasStationServiceimplTest.testGetGasStationsByProximityNonEmptyList |  
+||| GasStationServiceimplTest.testGetGasStationsWithCoordinatesInvalidGasType |  
+||| GasStationServiceimplTest.testGetGasStationsWithCoordinatesInvalidLatitudeAndLongitude |  
+||| GasStationServiceimplTest.testGetGasStationsWithCoordinatesNullGasStationsWithoutCoordinates |  
+||| GasStationServiceimplTest.testGetGasStationsWithCoordinatesValid |  
+|| FR4.2 | GasStationServiceimplTest.testGetGasStationsByProximityInvalidCoordinates |  
+||| GasStationServiceimplTest.testGetGasStationsByProximityEmptyList |  
+||| GasStationServiceimplTest.testGetGasStationsByProximityNonEmptyList |  
+||| GasStationServiceimplTest.testGetGasStationsWithCoordinatesInvalidGasType |  
+||| GasStationServiceimplTest.testGetGasStationsWithCoordinatesInvalidLatitudeAndLongitude |  
+||| GasStationServiceimplTest.testGetGasStationsWithCoordinatesNullGasStationsWithoutCoordinates |  
+||| GasStationServiceimplTest.testGetGasStationsWithCoordinatesValid | 
+| UC8.1 | FR4.5 | GasStationServiceimplTest.testGetGasStationsWithoutCoordinatesNullGasolineType |  
+||| GasStationServiceimplTest.testGetGasStationsWithoutCoordinatesNullGasolineTypeNullCarSharing |  
+||| GasStationServiceimplTest.testGetGasStationsWithoutCoordinatesNullCarSharing |  
+||| GasStationServiceimplTest.testGetGasStationsWithoutCoordinatesValid |  
+||| GasStationServiceimplTest.testGetGasStationsWithoutCoordinatesInvalidGasType |  
+||| GasStationServiceimplTest.testGetGasStationsWithCoordinatesInvalidGasType |  
+||| GasStationServiceimplTest.testGetGasStationsWithCoordinatesInvalidLatitudeAndLongitude |  
+||| GasStationServiceimplTest.testGetGasStationsWithCoordinatesNullGasStationsWithoutCoordinates |  
+||| GasStationServiceimplTest.testGetGasStationsWithCoordinatesValid |  
+||| GasStationServiceimplTest.testGetGasStationsByGasolineTypeDiesel |  
+||| GasStationServiceimplTest.testGetGasStationsByGasolineTypeGas |  
+||| GasStationServiceimplTest.testGetGasStationsByGasolineTypeSuper |  
+||| GasStationServiceimplTest.testGetGasStationsByGasolineTypeSuperPlus |  
+||| GasStationServiceimplTest.testGetGasStationsByGasolineTypeMethane |  
+||| GasStationServiceimplTest.testGetGasStationsByGasolineTypeNull |  
+| UC8.2 | FR4.5 | GasStationServiceimplTest.testGetGasStationsWithoutCoordinatesNullGasolineType |  
+||| GasStationServiceimplTest.testGetGasStationsWithoutCoordinatesNullGasolineTypeNullCarSharing |  
+||| GasStationServiceimplTest.testGetGasStationsWithoutCoordinatesNullCarSharing |  
+||| GasStationServiceimplTest.testGetGasStationsWithoutCoordinatesValid |  
+||| GasStationServiceimplTest.testGetGasStationsWithoutCoordinatesInvalidGasType |  
+||| GasStationServiceimplTest.testGetGasStationsWithCoordinatesInvalidGasType |  
+||| GasStationServiceimplTest.testGetGasStationsWithCoordinatesInvalidLatitudeAndLongitude |  
+||| GasStationServiceimplTest.testGetGasStationsWithCoordinatesNullGasStationsWithoutCoordinates |  
+||| GasStationServiceimplTest.testGetGasStationsWithCoordinatesValid |  
+||| GasStationServiceimplTest.testGetGasStationByCarSharingValid |  
+||| GasStationServiceimplTest.testGetGasStationByCarSharingNull |  
+| UC8.3 | FR4.5 | GasStationServiceimplTest.testGetGasStationsWithoutCoordinatesNullGasolineType |  
+||| GasStationServiceimplTest.testGetGasStationsWithoutCoordinatesNullGasolineTypeNullCarSharing |  
+||| GasStationServiceimplTest.testGetGasStationsWithoutCoordinatesNullCarSharing |  
+||| GasStationServiceimplTest.testGetGasStationsWithoutCoordinatesValid |  
+||| GasStationServiceimplTest.testGetGasStationsWithoutCoordinatesInvalidGasType |  
+||| GasStationServiceimplTest.testGetGasStationsWithCoordinatesInvalidGasType |  
+||| GasStationServiceimplTest.testGetGasStationsWithCoordinatesInvalidLatitudeAndLongitude |  
+||| GasStationServiceimplTest.testGetGasStationsWithCoordinatesNullGasStationsWithoutCoordinates |  
+||| GasStationServiceimplTest.testGetGasStationsWithCoordinatesValid |  
+||| GasStationServiceimplTest.testGetGasStationsByGasolineTypeDiesel |  
+||| GasStationServiceimplTest.testGetGasStationsByGasolineTypeGas |  
+||| GasStationServiceimplTest.testGetGasStationsByGasolineTypeSuper |  
+||| GasStationServiceimplTest.testGetGasStationsByGasolineTypeSuperPlus |  
+||| GasStationServiceimplTest.testGetGasStationsByGasolineTypeMethane |  
+||| GasStationServiceimplTest.testGetGasStationsByGasolineTypeNull |  
+| UC8.4 | FR4.5 | GasStationServiceimplTest.testGetGasStationsWithoutCoordinatesNullGasolineType |  
+||| GasStationServiceimplTest.testGetGasStationsWithoutCoordinatesNullGasolineTypeNullCarSharing |  
+||| GasStationServiceimplTest.testGetGasStationsWithoutCoordinatesNullCarSharing |  
+||| GasStationServiceimplTest.testGetGasStationsWithoutCoordinatesValid |  
+||| GasStationServiceimplTest.testGetGasStationsWithoutCoordinatesInvalidGasType |  
+||| GasStationServiceimplTest.testGetGasStationsWithCoordinatesInvalidGasType |  
+||| GasStationServiceimplTest.testGetGasStationsWithCoordinatesInvalidLatitudeAndLongitude |  
+||| GasStationServiceimplTest.testGetGasStationsWithCoordinatesNullGasStationsWithoutCoordinates |  
+||| GasStationServiceimplTest.testGetGasStationsWithCoordinatesValid |  
+||| GasStationServiceimplTest.testGetGasStationsByGasolineTypeDiesel |  
+||| GasStationServiceimplTest.testGetGasStationsByGasolineTypeGas |  
+||| GasStationServiceimplTest.testGetGasStationsByGasolineTypeSuper |  
+||| GasStationServiceimplTest.testGetGasStationsByGasolineTypeSuperPlus |  
+||| GasStationServiceimplTest.testGetGasStationsByGasolineTypeMethane |  
+||| GasStationServiceimplTest.testGetGasStationsByGasolineTypeNull |  
+| UC9 | FR5.2 | GasStationServiceimplTest.testGetGasStationByIdPositiveAndExists |  
+||| GasStationServiceimplTest.testGetAllGasStationsNotEmpty |  
+| UC10 | FR5.3 | UserServiceimpl.testIncreaseUserReputationThrowsInvalidUserException |  
+||| UserServiceimpl.testIncreaseUserReputation |  
+||| UserServiceimpl.testDecreaseUserReputationThrowsInvalidUserException |          
+||| UserServiceimpl.testDecreaseUserReputation |  
+||| GasStationServiceimplTest.testGetGasStationByIdPositiveAndExists |  
+| UC10.1 | FR5.3 | UserServiceimpl.testIncreaseUserReputationThrowsInvalidUserException |  
+||| UserServiceimpl.testIncreaseUserReputation |  
+||| GasStationServiceimplTest.testGetGasStationByIdPositiveAndExists |  
+| UC10.2 | FR5.3 | UserServiceimpl.testDecreaseUserReputationThrowsInvalidUserException |          
+||| UserServiceimpl.testDecreaseUserReputation |  
+||| GasStationServiceimplTest.testGetGasStationByIdPositiveAndExists |  
 
 
 
