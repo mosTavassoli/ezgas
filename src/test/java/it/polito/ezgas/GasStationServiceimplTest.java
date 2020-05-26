@@ -1,9 +1,8 @@
 package it.polito.ezgas;
 
-import static org.hamcrest.core.Is.is;
+import static it.polito.ezgas.GasStationRepositoryTest.distanceInKilometersBetween;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -37,6 +36,7 @@ import it.polito.ezgas.service.UserService;
 import it.polito.ezgas.service.impl.GasStationServiceimpl;
 import it.polito.ezgas.service.impl.UserServiceimpl;
 import it.polito.ezgas.utils.Constants;
+
 
 @RunWith( SpringRunner.class )
 @DataJpaTest
@@ -424,21 +424,6 @@ public class GasStationServiceimplTest {
 		}
 		
 	}
-	
-	public static double distanceInKilometersBetween(double lat1, double lon1, double lat2, double lon2) {
-		double deltaLatitude, deltaLongitude, partial;
-		final double EARTH_RADIUS_KILOMETERS = 6371;
-	    
-		deltaLatitude = Math.toRadians(lat2-lat1);
-	    deltaLongitude = Math.toRadians(lon2-lon1);
-	    
-	    partial = Math.sin(deltaLatitude/2) * Math.sin(deltaLatitude/2) +
-	               Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) *
-	               Math.sin(deltaLongitude/2) * Math.sin(deltaLongitude/2);
-	    
-	    return EARTH_RADIUS_KILOMETERS * 2 * Math.atan2(Math.sqrt(partial), Math.sqrt(1-partial));
-	}
-	
 	
 	
 }
