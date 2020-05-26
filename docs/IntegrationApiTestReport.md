@@ -380,16 +380,47 @@ Report also for each of the scenarios the (one or more) API JUnit tests that cov
 
 | Scenario ID | Functional Requirements covered | JUnit  Test(s) | 
 | ----------- | ------------------------------- | ----------- | 
-|          UC1| FR1.1                          |             | 
-|Scenario UC1.1| FR1.1                          |             |             
-|Scenario UC1.2| FR1.1                          |             | 
-|          UC2 | FR1.1                          |             | 
+|Scenario UC1.1| FR1.1                          | UserServiceimplTest.testSaveUserValid()            |      
+||| UserServiceimplTest.testSaveUserForUpdate()|  
+||| UserServiceimplTest.testSaveUserForInvalidUpdate()|
+|||UserServiceimplTest.testSaveUserFails() |  
+|||UserConverterTest.testToEntity() |
+|||UserRepositoryTest.testFindByEmail()|
+|||UserConverterTest.testToDto()|
+|||UserServiceimplTest.testGetAllUsersNotEmpty()|
+|||UserServiceimplTest.testGetAllUsersEmpty()|
+|||UserConverterTest.testToDtoList()|
+|||UserConverterTest.testToDto()|
+|Scenario UC1.2| FR1.1                          |UserServiceimplTest.testSaveUserValid() | 
+||| UserServiceimplTest.testSaveUserForUpdate()|  
+||| UserServiceimplTest.testSaveUserForInvalidUpdate()|
+|||UserServiceimplTest.testSaveUserFails() |  
+|||UserConverterTest.testToEntity() |
+|||UserRepositoryTest.testFindByEmail()|
+|||UserConverterTest.testToDto()|
+|||UserServiceimplTest.testGetAllUsersNotEmpty()|
+|||UserServiceimplTest.testGetAllUsersEmpty()|
+|||UserConverterTest.testToDtoList()|
+|||UserConverterTest.testToDto()|
+|          UC2 | FR1.1                          |UserServiceimplTest.testSaveUserValid()| 
+||| UserServiceimplTest.testSaveUserForUpdate()|  
+||| UserServiceimplTest.testSaveUserForInvalidUpdate()|
+|||UserServiceimplTest.testSaveUserFails() |  
+|||UserConverterTest.testToEntity() |
+|||UserRepositoryTest.testFindByEmail()|
+|||UserConverterTest.testToDto()|
+|||UserServiceimplTest.testGetAllUsersNotEmpty()|
+|||UserServiceimplTest.testGetAllUsersEmpty()|
+|||UserConverterTest.testToDtoList()|
+|||UserConverterTest.testToDto()|
+|Scenario UC2  | FR1.3                          |             |
+|              | FR1.1                          |             |
+|              | FR1.4                          |             |
 |          UC3 | FR1.2                          |             |   
-|              | FR1.3                          |             |          
-|Scenario UC7  | FR5.1                          |             |             
-|              |                                |             |             
-| ...         |                                 |             |             
-| ...         |                                 |             |             
+|Scenario UC3  | FR1.2                          |             |
+|              | FR1.3                          |             |   
+|              | FR1.4                          |             |             
+      
 
 
 
