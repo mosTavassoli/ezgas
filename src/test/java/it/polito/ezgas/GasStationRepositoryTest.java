@@ -1,5 +1,6 @@
 package it.polito.ezgas;
 
+import static it.polito.ezgas.GasStationRepositoryTest.distanceInKilometersBetween;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import it.polito.ezgas.dto.GasStationDto;
 import it.polito.ezgas.entity.GasStation;
 import it.polito.ezgas.repository.GasStationRepository;
 import it.polito.ezgas.utils.Constants;
@@ -29,8 +31,6 @@ public class GasStationRepositoryTest {
 	private final int NUMBER_OF_GAS_PROXIMITY = 5;
 	private final double MAX_PRICE=5.00;
 	private final double MAX_DEPENDABILITY=5.00;
-	private final double MAX_LAT = Constants.MAX_LAT - 1.0;
-	private final double MAX_LON = Constants.MAX_LON - 1.0;
 	
 
 	@Before
@@ -46,8 +46,8 @@ public class GasStationRepositoryTest {
 					random.nextBoolean(),
 					random.nextBoolean(),
 					Integer.toString(random.nextInt(NUMBER_OF_CAR_SHARING)), 
-					random.nextDouble()*MAX_LAT*2-MAX_LAT, 
-					random.nextDouble()*MAX_LON*2-MAX_LON, 
+					random.nextDouble()*Constants.MAX_LAT-Constants.MAX_LAT, // ignoring the other half of the possible values to test empty list when looking for gas stations by proximity
+					random.nextDouble()*Constants.MAX_LON*2-Constants.MAX_LON, 
 					random.nextDouble()*MAX_PRICE,
 					random.nextDouble()*MAX_PRICE,
 					random.nextDouble()*MAX_PRICE,
@@ -61,17 +61,23 @@ public class GasStationRepositoryTest {
 	
 	@Test
 	public void testFindByProximity() {
-		double lat = MAX_LAT + Constants.KM1_LAT*2;
-		double lon = MAX_LON + Constants.KM1_LON*2;
-		double deltaLat = Constants.KM1_LAT / NUMBER_OF_GAS_PROXIMITY;
-		double deltaLon = Constants.KM1_LON / NUMBER_OF_GAS_PROXIMITY;
+		//setup for proximity tests
+		gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, "sharing", 45.101767, 7.646787, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "stamp", 7.77)); //0m
+		gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, "sharing1", 45.103047, 7.644117, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "stamp", 7.77)); //250m
+		gasStationRepository.save(new GasStation("name", "address", false, true, true, true, true, "sharing", 45.104367, 7.641588, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "stamp", 7.77)); //500m
+		gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, "sharing1", 45.106264, 7.639662, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "stamp", 7.77)); //750m
+		gasStationRepository.save(new GasStation("name", "address", false, true, true, true, true, "sharing1", 45.107773, 7.637318, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "stamp", 7.77)); //999m
+		gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, "sharing", 45.107781, 7.637224, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "stamp", 7.77)); //1010m
+		gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, "sharing", 45.108089, 7.636838, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "stamp", 7.77)); //1050m
 		
-		for(int i = 0; i < NUMBER_OF_GAS_PROXIMITY; i++)
-			gasStationRepository.save(new GasStation(
-					"gasStationByProximity" + i, "gasStationByProximityAddress" + i, false, false, false, false, false, 
-					null, lat + deltaLat * i, lon + deltaLon * i, -1.0, -1.0, -1.0, -1.0, -1.0, null, null, 0.0));
+		List<GasStation> gasStationList;
 		
-		assertEquals(NUMBER_OF_GAS_PROXIMITY, gasStationRepository.findByProximity(lat, lon).size());
+		gasStationList = gasStationRepository.findByProximity(45.101767, 7.646787);
+		for(GasStation gasStation : gasStationList) {
+			assertTrue(distanceInKilometersBetween(45.101767, 7.646787, gasStation.getLat(),gasStation.getLon())<=1);
+		}
+		
+		assertEquals(5,gasStationList.size());
 	}
 	
 	@Test
@@ -295,6 +301,18 @@ public class GasStationRepositoryTest {
 		assertEquals(NUMBER_OF_GAS_STATIONS,gasStationListTrue.size()+gasStationListFalse.size());
 	}
 	
-	
+	public static double distanceInKilometersBetween(double lat1, double lon1, double lat2, double lon2) {
+		double deltaLatitude, deltaLongitude, partial;
+		final double EARTH_RADIUS_KILOMETERS = 6371;
+	    
+		deltaLatitude = Math.toRadians(lat2-lat1);
+	    deltaLongitude = Math.toRadians(lon2-lon1);
+	    
+	    partial = Math.sin(deltaLatitude/2) * Math.sin(deltaLatitude/2) +
+	               Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) *
+	               Math.sin(deltaLongitude/2) * Math.sin(deltaLongitude/2);
+	    
+	    return EARTH_RADIUS_KILOMETERS * 2 * Math.atan2(Math.sqrt(partial), Math.sqrt(1-partial));
+	}
 	
 }
