@@ -17,11 +17,13 @@ Version: 1
 - [Tests](#tests)
   - [Step 1](#step-1)
   - [Step 2](#step-2)
+  - [Step 3](#step-3)
   - [Step n API Tests](#step-n-api-tests)
 - [Scenarios](#scenarios)
   - [Scenario UC1.1](#scenario-uc11)
   - [Scenario UC1.2](#scenario-uc12)
-  - [Scenario UC2.1](#scenario-uc21)
+  - [Scenario UC2](#scenario-uc2)
+  - [Scenario UC3](#scenario-uc3)
   - [Scenario UC7](#scenario-uc7)
   - [Scenario UC8.1](#scenario-uc81)
   - [Scenario UC8.2](#scenario-uc82)
@@ -266,16 +268,25 @@ We adopted a bottom up approach divided in the following steps:
 |  5     |  System finds out that type of account is admin|
 |  6     |  System successfully creates the account inside the database|
 
-## Scenario UC2.1
+## Scenario UC2
 
 | Scenario |  name |
 | ------------- |:-------------:| 
 |  Precondition     | Admin account B exists|
 |  Post condition     |  -|
 | Step#        | Description  |
-|  1     |  Admin gets a list of all user accounts including his account |
+|  1     |  Admin gets a list of all accounts |
 |  2     |  Admin modifies one or more fields of any account |
 
+## Scenario UC3
+
+| Scenario |  name |
+| ------------- |:-------------:| 
+|  Precondition     | Account U exists|
+|  Post condition     |  Account U deleted from the system|
+| Step#        | Description  |
+|  1     |  Admin gets a list of all accounts|
+|  2     |  Admin selects an account to delete |
 
 
 ## Scenario UC7
