@@ -18,6 +18,7 @@ Version: 1
   - [Step 1](#step-1)
   - [Step 2](#step-2)
   - [Step 3](#step-3)
+  - [Step 4](#step-4)
   - [Step n API Tests](#step-n-api-tests)
 - [Scenarios](#scenarios)
   - [Scenario UC1.1](#scenario-uc11)
@@ -426,12 +427,66 @@ Report also for each of the scenarios the (one or more) API JUnit tests that cov
 
 | Scenario ID | Functional Requirements covered | JUnit  Test(s) | 
 | ----------- | ------------------------------- | ----------- | 
-|          UC1| FR1.1                          |             | 
-|Scenario UC1.1| FR1.1                          |             |             
-|Scenario UC1.2| FR1.1                          |             | 
-|          UC2 | FR1.1                          |             | 
-|          UC3 | FR1.2                          |             |   
-|              | FR1.3                          |             |                  
+|Scenario UC1.1| FR1.1                          | UserServiceimplTest.testSaveUserValid()            |      
+||| UserServiceimplTest.testSaveUserForUpdate()|  
+||| UserServiceimplTest.testSaveUserForInvalidUpdate()|
+|||UserServiceimplTest.testSaveUserFails() |  
+|||UserConverterTest.testToEntity() |
+|||UserRepositoryTest.testFindByEmail()|
+|||UserConverterTest.testToDto()|
+|| FR1.3      |UserServiceimplTest.testGetAllUsersNotEmpty()|
+|||UserServiceimplTest.testGetAllUsersEmpty()|
+|||UserConverterTest.testToDtoList()|
+|||UserConverterTest.testToDto()|
+|Scenario UC1.2| FR1.1|UserServiceimplTest.testSaveUserValid() | 
+||| UserServiceimplTest.testSaveUserForUpdate()|  
+||| UserServiceimplTest.testSaveUserForInvalidUpdate()|
+|||UserServiceimplTest.testSaveUserFails() |  
+|||UserConverterTest.testToEntity() |
+|||UserRepositoryTest.testFindByEmail()|
+|||UserConverterTest.testToDto()|
+||FR1.3|UserServiceimplTest.testGetAllUsersNotEmpty()|
+|||UserServiceimplTest.testGetAllUsersEmpty()|
+|||UserConverterTest.testToDtoList()|
+|||UserConverterTest.testToDto() |
+|          UC2 | FR1.1                          |UserServiceimplTest.testSaveUserValid()|
+||| UserServiceimplTest.testSaveUserForUpdate()|  
+||| UserServiceimplTest.testSaveUserForInvalidUpdate()|
+|||UserServiceimplTest.testSaveUserFails() |  
+|||UserConverterTest.testToEntity() |
+|||UserRepositoryTest.testFindByEmail()|
+|||UserConverterTest.testToDto()|
+||FR1.3|UserServiceimplTest.testGetAllUsersNotEmpty()|
+|||UserServiceimplTest.testGetAllUsersEmpty()|
+|||UserConverterTest.testToDtoList()|
+|||UserConverterTest.testToDto()|
+|Scenario UC2  | FR1.1                          |UserServiceimplTest.testSaveUserValid()|
+||| UserServiceimplTest.testSaveUserForUpdate()|  
+||| UserServiceimplTest.testSaveUserForInvalidUpdate()|
+|||UserServiceimplTest.testSaveUserFails() |  
+|||UserConverterTest.testToEntity() |
+|||UserRepositoryTest.testFindByEmail()|
+|||UserConverterTest.testToDto()|
+||FR1.3|UserServiceimplTest.testGetAllUsersNotEmpty()|
+|||UserServiceimplTest.testGetAllUsersEmpty()|
+|||UserConverterTest.testToDtoList()|
+|||UserConverterTest.testToDto()|
+|          UC3 | FR1.2                          |UserServiceimplTest.testDeleteUserThrowInvalidUserException()|   
+|||UserServiceimplTest.testDeleteUserSuccessful()|
+|||UserServiceimplTest.testDeleteUserNotExists()|
+|||UserServiceimplTest.testDeleteUserFails()|
+||FR1.3|UserServiceimplTest.testGetAllUsersNotEmpty()|
+|||UserServiceimplTest.testGetAllUsersEmpty()|
+|||UserConverterTest.testToDtoList()|
+|||UserConverterTest.testToDto()|
+|Scenario UC3  | FR1.2                          |UserServiceimplTest.testDeleteUserThrowInvalidUserException()|   
+|||UserServiceimplTest.testDeleteUserSuccessful()|
+|||UserServiceimplTest.testDeleteUserNotExists()|
+|||UserServiceimplTest.testDeleteUserFails()|
+||FR1.3|UserServiceimplTest.testGetAllUsersNotEmpty()|
+|||UserServiceimplTest.testGetAllUsersEmpty()|
+|||UserConverterTest.testToDtoList()|
+|||UserConverterTest.testToDto()|             
 | UC4 | FR3.1 | GasStationServiceimplTest.testSaveGasStationInvalidNegativePrice   |             
 ||| GasStationServiceimplTest.testSaveGasStationInvalidCoordinates   |             
 |||  GasStationServiceimplTest.testSaveGasStationValid |
