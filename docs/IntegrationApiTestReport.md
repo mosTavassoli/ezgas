@@ -402,7 +402,7 @@ Report also for each of the scenarios the (one or more) API JUnit tests that cov
 |||UserServiceimplTest.testGetAllUsersEmpty()|
 |||UserConverterTest.testToDtoList()|
 |||UserConverterTest.testToDto() |
-|          UC2 | FR1.1                          |UserServiceimplTest.testSaveUserValid()| 
+|          UC2 | FR1.1                          |UserServiceimplTest.testSaveUserValid()|
 ||| UserServiceimplTest.testSaveUserForUpdate()|  
 ||| UserServiceimplTest.testSaveUserForInvalidUpdate()|
 |||UserServiceimplTest.testSaveUserFails() |  
