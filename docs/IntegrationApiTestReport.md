@@ -502,8 +502,4 @@ Report also for each of the scenarios the (one or more) API JUnit tests that cov
 
 ### 
 
-| Non Functional Requirement | Test name |
-| -------------------------- | --------- |
-|                            |           |
-
-
+**At this point in the testing process, none of the non functional requirements can be properly assessed with an automated testing framework. All of them require a test at the level of the GUI.**
