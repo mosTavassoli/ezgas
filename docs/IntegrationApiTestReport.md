@@ -227,6 +227,7 @@ We adopted a bottom up approach divided in the following steps:
 
 ## Step 4 API Tests GasStationService  
 <The last integration step  should correspond to API testing, or tests applied to all classes implementing the APIs defined in the Service package>
+
 | Classes  | JUnit test cases |
 |--|--|
 |GasStationServiceimpl.getGasStationById(Integer gasStationId)|GasStationServiceimplTest.testGetGasStationByIdNegative()|
@@ -337,7 +338,7 @@ We adopted a bottom up approach divided in the following steps:
 |  1     |  The user U selects a gas station G for which he/she wants to insert a price report |
 |2       |The system prompts the user with the list of possible fuels provided by the gas station with their prices (if available)|
 |3       |The user inerts the prices for the fuels|
-|4       |system overwrites the previous price list attached to G by the new one|
+|4       |System overwrites the previous price list attached to G by the new one|
 
 ## Scenario UC8.1
 
@@ -347,7 +348,7 @@ We adopted a bottom up approach divided in the following steps:
 |  Post condition     |  - |
 | Step#        | Description  |
 |  1     |  The anonymous user AU selects a geo point GP and a radius r (default radius is 5km) and restricts to a certain fuel type|
-|2       | the system prompts all gas stations within r from GP, with their prices for certain available fuel type|
+|2       | The system prompts all gas stations within r from GP, with their prices for certain available fuel type|
 |3       | If a price for a fuel is missing "NA" is reported|
 |4       |The system shows also, for each gas station, the trust level of the prices, computed as in UC 9|
 
@@ -359,7 +360,7 @@ We adopted a bottom up approach divided in the following steps:
 |  Post condition     |  - |
 | Step#        | Description  |
 |  1     |  The anonymous user AU selects a geo point GP and a radius r (default radius is 5km) and restricts to car sharing|
-|2       | the system prompts only gas stations having a deal with a certain car sharing company, and that are located within r from GP, with their prices for all available fuels|
+|2       | The system prompts only gas stations having a deal with a certain car sharing company, and that are located within r from GP, with their prices for all available fuels|
 |3       | If a price for a fuel is missing "NA" is reported|
 |4       |The system shows also, for each gas station, the trust level of the prices, computed as in UC 9|
 
@@ -372,7 +373,7 @@ We adopted a bottom up approach divided in the following steps:
 |  Post condition     |  - |
 | Step#        | Description  |
 |  1     |  The anonymous user AU selects a geo point GP and a radius r (default radius is 5km) and sorts by price for a fuel type|
-|2       | the system prompts all gas stations within r from GP, with their prices for certain available fuel type, sorted by price, in ascending order|
+|2       | The system prompts all gas stations within r from GP, with their prices for certain available fuel type, sorted by price, in ascending order|
 |3       | If a price for a fuel is missing "NA" is reported|
 |4       |The system shows also, for each gas station, the trust level of the prices, computed as in UC 9|
 
@@ -385,22 +386,10 @@ We adopted a bottom up approach divided in the following steps:
 |  Post condition     |  - |
 | Step#        | Description  |
 |  1     |  The anonymous user AU selects a geo point GP and a radius r (default radius is 5km) and sorts by distance for a fuel type|
-|2       | the system prompts all gas stations within r from GP, with their prices for certain available fuel type, sorted by distance, in ascending order|
+|2       | The system prompts all gas stations within r from GP, with their prices for certain available fuel type, sorted by distance, in ascending order|
 |3       | If a price for a fuel is missing "NA" is reported|
 |4       |The system shows also, for each gas station, the trust level of the prices, computed as in UC 9|
 
-
-## Scenario UC10
-
-| Scenario |  name |
-| ------------- |:-------------:| 
-|  Precondition     | User U exists  and has valid account |
-|     | Gas Station G exists and has price list inserted by U2 |
-|  Post condition     | U2.trust_level is modified |
-| Step#        | Description  |
-|  1     |  The user U selects a gas station and the attached price list|
-|  2     |     the user indicates that the price is wrong |
-|  3     |the system identifies the user U2 that provided the corresponding price report and decreases his/her trust level|
 
 # Coverage of Scenarios and FR
 
@@ -557,12 +546,7 @@ Report also for each of the scenarios the (one or more) API JUnit tests that cov
 ||| GasStationServiceimplTest.testGetGasStationsByGasolineTypeMethane() |  
 ||| GasStationServiceimplTest.testGetGasStationsByGasolineTypeNull() |  
 | UC9 | FR5.2 | GasStationServiceimplTest.testGetGasStationByIdPositiveAndExists() |  
-||| GasStationServiceimplTest.testGetAllGasStationsNotEmpty() |  
-| UC10 | FR5.3 | UserServiceimpl.testIncreaseUserReputationThrowsInvalidUserException() |  
-||| UserServiceimpl.testIncreaseUserReputation() |  
-||| UserServiceimpl.testDecreaseUserReputationThrowsInvalidUserException() |          
-||| UserServiceimpl.testDecreaseUserReputation() |  
-||| GasStationServiceimplTest.testGetGasStationByIdPositiveAndExists() |  
+||| GasStationServiceimplTest.testGetAllGasStationsNotEmpty() |    
 | UC10.1 | FR5.3 | UserServiceimpl.testIncreaseUserReputationThrowsInvalidUserException() |  
 ||| UserServiceimpl.testIncreaseUserReputation() |  
 ||| GasStationServiceimplTest.testGetGasStationByIdPositiveAndExists() |  
