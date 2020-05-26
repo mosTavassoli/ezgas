@@ -183,6 +183,19 @@ We adopted a bottom up approach divided in the following steps:
 | UserRepository.toDto(User user) | UserRepositoryTest.testFindByEmail() |
 || UserRepositoryTest.testFindByUserId() |
 
+## Step 3
+| Classes  | JUnit test cases |
+|--|--|
+|UserServiceimpl.getUserById(Integer userId)|UserServiceimplTest.testGetUserByIdNegative()|
+||UserServiceimplTest.testGetUserByIdDoesNotExist()|
+||UserServiceimplTest.testGetUserByIdPositiveAndExists()|
+|UserServiceimpl.saveUser(UserDto userDto)|UserServiceimplTest.testSaveUserValid()|
+||UserServiceimplTest.testSaveUserForUpdate()|
+||UserServiceimplTest.testSaveUserForInvalidUpdate()|
+||UserServiceimplTest.testSaveUserFails()|
+|UserServiceimpl.getAllUsers()|UserServiceimplTest.testGetAllUsersNotEmpty()|
+||UserServiceimplTest.testGetAllUsersEmpty()|
+
 
 ## Step n API Tests
 
@@ -190,7 +203,8 @@ We adopted a bottom up approach divided in the following steps:
 
 | Classes  | JUnit test cases |
 |--|--|
-|||
+
+
 
 
 
