@@ -231,6 +231,8 @@ We adopted a bottom up approach divided in the following steps:
 |GasStationRepository.findByHasDieselOrderByDieselPriceAsc(boolean hasDiesel)|GasStationRepositoryTest.testFindByHasDieselOrderByDieselPriceAscTrue()|
 ||GasStationRepositoryTest.testFindByHasDieselOrderByDieselPriceAscFalse()|
 ||GasStationRepositoryTest.testFindByHasDieselOrderByDieselPriceAscTotal()|
+|GasStationRepository.save(GasStation gasStation)|GasStationRepositoryTest.testSaveNewGasStation()|
+||GasStationRepositoryTest.testUpdateOldGasStation()|
 
 ## Step n API Tests
 
