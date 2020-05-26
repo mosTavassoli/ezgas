@@ -179,8 +179,9 @@ We adopted a bottom up approach divided in the following steps:
 | UserConverter.toDto(User user) | UserConverterTest.testToDto() |
 | UserConverter.toEntity(UserDto userDto) | UserConverterTest.testToEntity() |
 | UserConverter.toDto(List\<User> userList) | UserConverterTest.testToDtoList() |
-|||
-| LoginConverter.toDto(User user) | LoginConverterTest.testLoginConverter() |
+| LoginConverter.findByUserId(Integer userId) | LoginConverterTest.testLoginConverter() |
+| UserRepository.toDto(User user) | UserRepositoryTest.testFindByEmail() |
+|| UserRepositoryTest.testFindByUserId() |
 
 
 ## Step n API Tests
