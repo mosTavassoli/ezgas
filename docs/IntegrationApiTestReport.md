@@ -21,6 +21,7 @@ Version: 1
 - [Scenarios](#scenarios)
   - [Scenario UC1.1](#scenario-uc11)
   - [Scenario UC1.2](#scenario-uc12)
+  - [Scenario UC2.1](#scenario-uc21)
   - [Scenario UC7](#scenario-uc7)
   - [Scenario UC8.1](#scenario-uc81)
   - [Scenario UC8.2](#scenario-uc82)
@@ -175,6 +176,18 @@ GasStationController   ---> GasStationService
 |  5     |  System finds out that type of account is admin|
 |  6     |  System successfully creates the account inside the database|
 
+## Scenario UC2.1
+
+| Scenario |  name |
+| ------------- |:-------------:| 
+|  Precondition     | Admin account B exists|
+|  Post condition     |  -|
+| Step#        | Description  |
+|  1     |  Admin gets a list of all user accounts including his account |
+|  2     |  Admin modifies one or more fields of any account |
+
+
+
 ## Scenario UC7
 
 | Scenario |  name |
@@ -266,10 +279,14 @@ Report also for each of the scenarios the (one or more) API JUnit tests that cov
 
 | Scenario ID | Functional Requirements covered | JUnit  Test(s) | 
 | ----------- | ------------------------------- | ----------- | 
-|  ..         | FRx                             |             |             
-|  ..         | FRy                             |             |             
-| ...         |                                 |             |             
-| ...         |                                 |             |             
+|          UC1| FR1.1                          |             | 
+|Scenario UC1.1| FR1.1                          |             |             
+|Scenario UC1.2| FR1.1                          |             | 
+|          UC2 | FR1.1                          |             | 
+|          UC3 | FR1.2                          |             |   
+|              | FR1.3                          |             |          
+|Scenario UC7  | FR5.1                          |             |             
+|              |                                |             |             
 | ...         |                                 |             |             
 | ...         |                                 |             |             
 
