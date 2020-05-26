@@ -244,30 +244,37 @@ We adopted a bottom up approach divided in the following steps:
 |GasStationServiceimpl.saveGasStation(GasStationDto gasStationDto)|GasStationServiceimplTest.testSaveGasStationInvalidNegativePrice()|
 ||GasStationServiceimplTest.testSaveGasStationInvalidCoordinates()|
 ||GasStationServiceimplTest.testSaveGasStationValid()|
-GasStationServiceimplTest.List\<GasStationDto> getAllGasStations()|
-||GasStationServiceimplTest.testGetAllGasStationsEmpty()|
+|GasStationServiceimplTest.List\<GasStationDto> getAllGasStations()|GasStationServiceimplTest.testGetAllGasStationsEmpty()|
 ||GasStationServiceimplTest.testGetAllGasStationsNotEmpty()|
-GasStationServiceimplTest.deleteGasStation(Integer gasStationId)|
-||GasStationServiceimplTest.testDeleteGasStationValid()|
+|GasStationServiceimplTest.deleteGasStation(Integer gasStationId)|GasStationServiceimplTest.testDeleteGasStationValid()|
 ||GasStationServiceimplTest.testDeleteGasStationIdNegative()|
 ||GasStationServiceimplTest.testDeleteGasStationIdDoesNotExist()|
 ||GasStationServiceimplTest.testDeleteGasStationDeleteFails()|
-GasStationServiceimplTest.getGasStationsByGasolineType(String gasolinetype)|
-||GasStationServiceimplTest.testGetGasStationsByGasolineTypeDiesel()|
+|GasStationServiceimplTest.getGasStationsByGasolineType(String gasolinetype)|GasStationServiceimplTest.testGetGasStationsByGasolineTypeDiesel()|
 ||GasStationServiceimplTest.testGetGasStationsByGasolineTypeGas()|
 ||GasStationServiceimplTest.testGetGasStationsByGasolineTypeSuper()|
 ||GasStationServiceimplTest.testGetGasStationsByGasolineTypeSuperPlus()|
 ||GasStationServiceimplTest.testGetGasStationsByGasolineTypeMethane()|
 ||GasStationServiceimplTest.testGetGasStationsByGasolineTypeNull()|
 ||GasStationServiceimplTest.testGetGasStationsByGasolineTypeInvalid()|
-GasStationServiceimplTest.getGasStationsByProximity(double lat, double lon)|
-||GasStationServiceimplTest.testGetGasStationsByProximityEmptyList()|
+|GasStationServiceimplTest.getGasStationsByProximity(double lat, double lon)|GasStationServiceimplTest.testGetGasStationsByProximityEmptyList()|
 ||GasStationServiceimplTest.testGetGasStationsByProximityNonEmptyList()|
-GasStationServiceimplTest.getGasStationsWithCoordinates(double lat, double lon, String gasolinetype, String carsharing)|
-||GasStationServiceimplTest.testGetGasStationsWithCoordinatesInvalidGasType()|
+|GasStationServiceimplTest.getGasStationsWithCoordinates(double lat, double lon, String gasolinetype, String carsharing)|GasStationServiceimplTest.testGetGasStationsWithCoordinatesInvalidGasType()|
 ||GasStationServiceimplTest.testGetGasStationsWithCoordinatesInvalidLatitudeAndLongitude()|
 ||GasStationServiceimplTest.testGetGasStationsWithCoordinatesNullGasStationsWithoutCoordinates()|
 ||GasStationServiceimplTest.testGetGasStationsWithCoordinatesValid()|
+|GasStationServiceimplTest.getGasStationsWithoutCoordinates(String gasolinetype, String carsharing)|GasStationServiceimplTest.testGetGasStationsWithoutCoordinatesNullGasolineType()|
+||GasStationServiceimplTest.testGetGasStationsWithoutCoordinatesNullGasolineTypeNullCarSharing()|
+||GasStationServiceimplTest.testGetGasStationsWithoutCoordinatesNullCarSharing()|
+||GasStationServiceimplTest.testGetGasStationsWithoutCoordinatesValid()|
+||GasStationServiceimplTest.testGetGasStationsWithoutCoordinatesInvalidGasType()|
+|GasStationServiceimplTest.setReport(Integer gasStationId, double dieselPrice, double superPrice, double superPlusPrice,double gasPrice, double methanePrice, Integer userId)|GasStationServiceimplTest.testSetReportValid()|
+||GasStationServiceimplTest.testSetReportInvalidPrice()|
+||GasStationServiceimplTest.testGetGasStationsWithoutCoordinatesNullCarSharing()|
+||GasStationServiceimplTest.testSetReportInvalidUser()|
+||GasStationServiceimplTest.testSetReportInvalidGasStation()|
+|GasStationServiceimpl.getGasStationByCarSharing(String carSharing)|GasStationServiceimplTest.testGetGasStationByCarSharingValid()|
+||GasStationServiceimplTest.testGetGasStationByCarSharingNull()|
 
 
 ## Step n API Tests
