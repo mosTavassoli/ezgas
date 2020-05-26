@@ -179,7 +179,7 @@ public class UserServiceimplTest {
 	}
 	
 	@Test
-	public void testLoginSuccessuful() throws InvalidLoginDataException {
+	public void testLoginSuccessful() throws InvalidLoginDataException {
 		IdPw credentials = new IdPw(user.getEmail(), user.getPassword()); 
 		assertNotNull(userService.login(credentials));
 	}
