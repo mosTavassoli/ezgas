@@ -55,15 +55,4 @@ public class LoginDto {
     	this.admin = admin;
     }
     
-    
-    @Override 
-    public String toString() {
-    	return "\n{\n"
-				+ "userId = " + this.userId + ",\n"
-				+ "userName = " + this.userName + ",\n"
-				+ "token = " + this.token + ",\n"
-				+ "email = " + this.email + ",\n"
-				+ "reputation = " + this.reputation + ",\n"
-				+ "}\n";
-    }
 }
