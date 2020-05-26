@@ -234,6 +234,25 @@ We adopted a bottom up approach divided in the following steps:
 |GasStationRepository.save(GasStation gasStation)|GasStationRepositoryTest.testSaveNewGasStation()|
 ||GasStationRepositoryTest.testUpdateOldGasStation()|
 
+## Step 4
+| Classes  | JUnit test cases |
+|--|--|
+|GasStationServiceimpl.getGasStationById(Integer gasStationId)|GasStationServiceimplTest.testGetGasStationByIdNegative()|
+||GasStationServiceimplTest.testGetGasStationByIdDoesNotExist()|
+||GasStationServiceimplTest.testGetGasStationByIdPositiveAndExists()|
+|GasStationServiceimpl.saveGasStation(GasStationDto gasStationDto)|GasStationServiceimplTest.testSaveGasStationInvalidNegativePrice()|
+||GasStationServiceimplTest.testSaveGasStationInvalidCoordinates()|
+||GasStationServiceimplTest.testSaveGasStationValid()|
+GasStationServiceimplTest.List\<GasStationDto> getAllGasStations()|
+||GasStationServiceimplTest.testGetAllGasStationsEmpty()|
+||GasStationServiceimplTest.testGetAllGasStationsNotEmpty()|
+GasStationServiceimplTest.deleteGasStation(Integer gasStationId)|
+||GasStationServiceimplTest.testDeleteGasStationValid()|
+||GasStationServiceimplTest.testDeleteGasStationIdNegative()|
+||GasStationServiceimplTest.testDeleteGasStationIdDoesNotExist()|
+||GasStationServiceimplTest.testDeleteGasStationDeleteFails()|
+
+
 ## Step n API Tests
 
    <The last integration step  should correspond to API testing, or tests applied to all classes implementing the APIs defined in the Service package>
