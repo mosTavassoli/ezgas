@@ -231,6 +231,27 @@ We adopted a bottom up approach divided in the following steps:
 |GasStationRepository.findByHasDieselOrderByDieselPriceAsc(boolean hasDiesel)|GasStationRepositoryTest.testFindByHasDieselOrderByDieselPriceAscTrue()|
 ||GasStationRepositoryTest.testFindByHasDieselOrderByDieselPriceAscFalse()|
 ||GasStationRepositoryTest.testFindByHasDieselOrderByDieselPriceAscTotal()|
+|GasStationRepository.save(GasStation gasStation)|GasStationRepositoryTest.testSaveNewGasStation()|
+||GasStationRepositoryTest.testUpdateOldGasStation()|
+
+## Step 4
+| Classes  | JUnit test cases |
+|--|--|
+|GasStationServiceimpl.getGasStationById(Integer gasStationId)|GasStationServiceimplTest.testGetGasStationByIdNegative()|
+||GasStationServiceimplTest.testGetGasStationByIdDoesNotExist()|
+||GasStationServiceimplTest.testGetGasStationByIdPositiveAndExists()|
+|GasStationServiceimpl.saveGasStation(GasStationDto gasStationDto)|GasStationServiceimplTest.testSaveGasStationInvalidNegativePrice()|
+||GasStationServiceimplTest.testSaveGasStationInvalidCoordinates()|
+||GasStationServiceimplTest.testSaveGasStationValid()|
+GasStationServiceimplTest.List\<GasStationDto> getAllGasStations()|
+||GasStationServiceimplTest.testGetAllGasStationsEmpty()|
+||GasStationServiceimplTest.testGetAllGasStationsNotEmpty()|
+GasStationServiceimplTest.deleteGasStation(Integer gasStationId)|
+||GasStationServiceimplTest.testDeleteGasStationValid()|
+||GasStationServiceimplTest.testDeleteGasStationIdNegative()|
+||GasStationServiceimplTest.testDeleteGasStationIdDoesNotExist()|
+||GasStationServiceimplTest.testDeleteGasStationDeleteFails()|
+
 
 ## Step n API Tests
 
