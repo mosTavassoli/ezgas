@@ -135,9 +135,7 @@ We adopted a bottom up approach divided in the following steps:
      JUnit test cases applied to them>
 
 ## Step 1
-| Classes  | JUnit test cases |
-|--|--|
-|||
+**Step 1 is extensively documented [here](./UnitTestReport.md#white-box-unit-tests).**
 
 
 ## Step 2
