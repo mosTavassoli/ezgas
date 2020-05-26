@@ -206,7 +206,11 @@ We adopted a bottom up approach divided in the following steps:
 ||UserServiceimplTest.testIncreaseUserReputation()|
 |UserServiceimpl.decreaseUserReputation(Integer userId)|UserServiceimplTest.testDecreaseUserReputationThrowsInvalidUserException()|
 ||UserServiceimplTest.testDecreaseUserReputation()|
-
+|GasStationConverter.toDto(GasStation entity)|GasStationConverterTest.testToDto()|
+||GasStationConverterTest.testToDtoWithUser()|
+|GasStationConverter.toDto(List\<GasStation> entityList)|GasStationConverterTest.testToDtoList()|
+|GasStationConverter.toEntity(GasStationDto dto)|GasStationConverterTest.testToEntity()|
+||GasStationConverterTest.testToEntityWitUser()|
 ## Step n API Tests
 
    <The last integration step  should correspond to API testing, or tests applied to all classes implementing the APIs defined in the Service package>
