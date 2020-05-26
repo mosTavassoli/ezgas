@@ -222,6 +222,36 @@ We adopted a bottom up approach divided in the following steps:
 |GasStationRepository.findByHasGasOrderByGasPriceAsc(boolean hasGas)|GasStationRepositoryTest.testFindByHasDieselOrderByDieselPriceAscTrue()|
 ||GasStationRepositoryTest.testFindByHasDieselOrderByDieselPriceAscFalse()|
 ||GasStationRepositoryTest.testFindByHasDieselOrderByDieselPriceAscTotal()|
+|GasStationRepository.findByHasSuperOrderBySuperPriceAsc(boolean hasSuper)|GasStationRepositoryTest.testFindByHasSuperOrderBySuperPriceAscTrue()|
+||GasStationRepositoryTest.testFindByHasSuperOrderBySuperPriceAscFalse()|
+||GasStationRepositoryTest.testFindByHasSuperOrderBySuperPriceAscTotal()|
+|GasStationRepository.findByHasSuperPlusOrderBySuperPlusPriceAsc(boolean hasSuperPlus)|GasStationRepositoryTest.testFindByHasSuperPlusOrderBySuperPlusPriceAscTrue()|
+||GasStationRepositoryTest.testFindByHasSuperPlusOrderBySuperPlusPriceAscFalse()|
+||GasStationRepositoryTest.testFindByHasSuperPlusOrderBySuperPlusPriceAscTotal()|
+|GasStationRepository.findByHasDieselOrderByDieselPriceAsc(boolean hasDiesel)|GasStationRepositoryTest.testFindByHasDieselOrderByDieselPriceAscTrue()|
+||GasStationRepositoryTest.testFindByHasDieselOrderByDieselPriceAscFalse()|
+||GasStationRepositoryTest.testFindByHasDieselOrderByDieselPriceAscTotal()|
+|GasStationRepository.save(GasStation gasStation)|GasStationRepositoryTest.testSaveNewGasStation()|
+||GasStationRepositoryTest.testUpdateOldGasStation()|
+
+## Step 4
+| Classes  | JUnit test cases |
+|--|--|
+|GasStationServiceimpl.getGasStationById(Integer gasStationId)|GasStationServiceimplTest.testGetGasStationByIdNegative()|
+||GasStationServiceimplTest.testGetGasStationByIdDoesNotExist()|
+||GasStationServiceimplTest.testGetGasStationByIdPositiveAndExists()|
+|GasStationServiceimpl.saveGasStation(GasStationDto gasStationDto)|GasStationServiceimplTest.testSaveGasStationInvalidNegativePrice()|
+||GasStationServiceimplTest.testSaveGasStationInvalidCoordinates()|
+||GasStationServiceimplTest.testSaveGasStationValid()|
+GasStationServiceimplTest.List\<GasStationDto> getAllGasStations()|
+||GasStationServiceimplTest.testGetAllGasStationsEmpty()|
+||GasStationServiceimplTest.testGetAllGasStationsNotEmpty()|
+GasStationServiceimplTest.deleteGasStation(Integer gasStationId)|
+||GasStationServiceimplTest.testDeleteGasStationValid()|
+||GasStationServiceimplTest.testDeleteGasStationIdNegative()|
+||GasStationServiceimplTest.testDeleteGasStationIdDoesNotExist()|
+||GasStationServiceimplTest.testDeleteGasStationDeleteFails()|
+
 
 ## Step n API Tests
 
@@ -493,8 +523,4 @@ Report also for each of the scenarios the (one or more) API JUnit tests that cov
 
 ### 
 
-| Non Functional Requirement | Test name |
-| -------------------------- | --------- |
-|                            |           |
-
-
+**At this point in the testing process, none of the non functional requirements can be properly assessed with an automated testing framework. All of them require a test at the level of the GUI.**
