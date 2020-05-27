@@ -30,24 +30,39 @@ public class LoginDtoTest {
 		assertEquals("user12@user.com", logIn.getEmail());
 		assertEquals((Integer)5, logIn.getReputation());
 	}
-
+ 
 	@Test
-	public void testSetGet() {
+	public void testUserId() {
 		logIn.setUserId(12);
 		assertEquals((Integer)12, logIn.getUserId());
-		
+	}
+	
+	@Test
+	public void testUserName() {
 		logIn.setUserName("user12");
 		assertEquals("user12", logIn.getUserName());
-		
+	}
+	
+	@Test
+	public void testToken() {
 		logIn.setToken("tok12");
 		assertEquals("tok12", logIn.getToken());
-		
+	}
+	
+	@Test
+	public void testEmail() {
 		logIn.setEmail("user12@user.com");
 		assertEquals("user12@user.com", logIn.getEmail());
-		
+	}
+	
+	@Test
+	public void testReputation() {
 		logIn.setReputation(5);
 		assertEquals((Integer)5, logIn.getReputation());
-		
+	}
+	
+	@Test
+	public void testAdmin() {
 		logIn.setAdmin(true);
 		assertEquals(true, logIn.getAdmin());
 	}

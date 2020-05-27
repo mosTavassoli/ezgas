@@ -34,13 +34,17 @@ import java.sql.Timestamp;
 @Service
 public class GasStationServiceimpl implements GasStationService {
 	
-	@Autowired
-	GasStationRepository gasStationRepository;
+	private GasStationRepository gasStationRepository;
 	@Autowired
 	UserService userService;
 	
 	Logger logger = Logger.getLogger(GasStationServiceimpl.class.getName());
 
+	@Autowired
+	public GasStationServiceimpl(GasStationRepository gasStationRepository) {
+		this.gasStationRepository=gasStationRepository;
+	}
+	
 	@Override
 	public GasStationDto getGasStationById(Integer gasStationId) throws InvalidGasStationException {
 		logger.log(Level.INFO, "getGasStationById - gasStationId = " + gasStationId);

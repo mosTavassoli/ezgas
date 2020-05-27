@@ -613,18 +613,18 @@ The JUnit test cases will be exhaustive.
 | IdPw.setPw | IdPw.testUserPw |
 | LoginDto.LoginDto             | LoginDtoTest.testConstructor |
 |                       | LoginDtoTest.testNullObject  |
-| LoginDto.getUserId | LoginDtoTest.testSetGet |
-| LoginDto.setUserId | LoginDtoTest.testSetGet |
-| LoginDto.getUserName | LoginDtoTest.testSetGet |
-| LoginDto.setUserName | LoginDtoTest.testSetGet |
-| LoginDto.getToken | LoginDtoTest.testSetGet |
-| LoginDto.setToken | LoginDtoTest.testSetGet |
-| LoginDto.getEmail | LoginDtoTest.testSetGet |
-| LoginDto.setEmail | LoginDtoTest.testSetGet |
-| LoginDto.getReputation | LoginDtoTest.testSetGet |
-| LoginDto.setReputation | LoginDtoTest.testSetGet |
-| LoginDto.getAdmin | LoginDtoTest.testSetGet |
-| LoginDto.setAdmin | LoginDtoTest.testSetGet |
+| LoginDto.getUserId | LoginDtoTest.testUserId |
+| LoginDto.setUserId | LoginDtoTest.testUserId |
+| LoginDto.getUserName | LoginDtoTest.testUserName |
+| LoginDto.setUserName | LoginDtoTest.testUserName |
+| LoginDto.getToken | LoginDtoTest.testToken |
+| LoginDto.setToken | LoginDtoTest.testToken |
+| LoginDto.getEmail | LoginDtoTest.testEmail |
+| LoginDto.setEmail | LoginDtoTest.testEmail |
+| LoginDto.getReputation | LoginDtoTest.testReputation |
+| LoginDto.setReputation | LoginDtoTest.testReputation |
+| LoginDto.getAdmin | LoginDtoTest.testAdmin |
+| LoginDto.setAdmin | LoginDtoTest.testAdmin |
 
 
 ### Code coverage report
@@ -635,7 +635,7 @@ We covered 100% of the statements and branches of the unit testable methods.
 These are the methods inside the Dto and Entity classes.<br/>
 There are a few methods inside GasStation and GasStationDto that depend on other classes, such as User or PriceReport, so they were not unit tested.<br/>
 The Entity class PriceReport was not tested as we, as recommended by a teaching assistant on Slack, haven't yet used it for this project and are waiting for confirmation to remove it entirely.<br/>
-![Code coverage report](./images/ezgasCoverage.png)<br/>
+![Code coverage report](./images/ezgasUnitCoverage.png)<br/>
 
 ### Loop coverage analysis
 

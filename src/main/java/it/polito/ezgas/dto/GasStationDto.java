@@ -33,7 +33,6 @@ public class GasStationDto {
     String reportTimestamp;
     double reportDependability;
 
-    List<PriceReportDto> priceReportDtos = new ArrayList<>();;
  
 	
 	
@@ -209,16 +208,6 @@ public class GasStationDto {
 
 	public void setGasPrice(double gasPrice) {
 		this.gasPrice = gasPrice;
-	}
-
-
-	public List<PriceReportDto> getPriceReportDtos() {
-		return priceReportDtos;
-	}
-
-
-	public void setPriceReportDtos(List<PriceReportDto> priceReportDtos) {
-		this.priceReportDtos = priceReportDtos;
 	}
 
 
