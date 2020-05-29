@@ -21,6 +21,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import it.polito.ezgas.dto.IdPw;
 import it.polito.ezgas.dto.LoginDto;
+import it.polito.ezgas.dto.UserDto;
 import it.polito.ezgas.repository.GasStationRepository;
 import it.polito.ezgas.utils.Constants;
 
@@ -83,6 +84,19 @@ public class TestController {
 		HttpResponse response = HttpClientBuilder.create().build().execute(request);
 		
 		assertEquals(200,response.getStatusLine().getStatusCode());
+	}
+	
+	
+	@Test
+	public void testGetAllUsers() throws ClientProtocolException, IOException {
+		HttpUriRequest request = new HttpGet(USER_END_POINT +"/getAllUsers/");
+		HttpResponse response = HttpClientBuilder.create().build().execute(request);
+		
+		String jsonFromRespone = EntityUtils.toString(response.getEntity());
+		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		UserDto[] usserarray = mapper.readValue(jsonFromRespone, UserDto[].class);
+		
+		assertEquals(1,usserarray.length);
 	}
 	
 	@Test
