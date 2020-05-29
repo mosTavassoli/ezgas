@@ -7,6 +7,7 @@ import java.io.IOException;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
@@ -32,9 +33,8 @@ public class TestController {
 	private final static String DECREASE_REPUTATION = "/decreaseUserReputation";
 	private final static String GET_ALL_USERS = "/getAllUsers";
 	private final static String GET_USER_BY_ID = "/getUser";
-	
-	private final static String LOGIN = "/login";
-	
+	private final static String DELETE_USER = "/deleteUser";
+	private final static String LOGIN = "/login";	
 	private final static String GASSTATION_END_POINT = "http://localhost:8080/gasstation";
 	
 	/**
@@ -83,8 +83,10 @@ public class TestController {
 	
 	@Test
 	public void testDeleteUser() throws ClientProtocolException, IOException {
-		HttpUriRequest request = new HttpGet(BASE+"deleteUser/"+USER_ID+"/");
-		HttpResponse response = HttpClientBuilder.create().build().execute(request);
+		int userId = 35;
+		final String USER_ID = "/" + userId;
+		HttpDelete httpDelete = new HttpDelete(USER_END_POINT + DELETE_USER + USER_ID);
+		HttpResponse response = HttpClientBuilder.create().build().execute(httpDelete);
 		
 		assertEquals(200,response.getStatusLine().getStatusCode());
 	}
@@ -92,7 +94,9 @@ public class TestController {
 	
 	@Test
 	public void testGetUserById() throws ClientProtocolException, IOException {
-		HttpUriRequest request = new HttpGet(USER_END_POINT + GET_USER_BY_ID + "/" +  USER_ID + "/");
+		int userId = 1;
+		final String USER_ID = "/" + userId;
+		HttpUriRequest request = new HttpGet(USER_END_POINT + GET_USER_BY_ID +  USER_ID );
 		HttpResponse response = HttpClientBuilder.create().build().execute(request);
 		
 		assertEquals(200,response.getStatusLine().getStatusCode());
