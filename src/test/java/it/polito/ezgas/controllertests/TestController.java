@@ -31,6 +31,8 @@ public class TestController {
 	private final static String INCREASE_REPUTATION = "/increaseUserReputation";
 	private final static String DECREASE_REPUTATION = "/decreaseUserReputation";
 	private final static String GET_ALL_USERS = "/getAllUsers";
+	private final static String GET_USER_BY_ID = "/getUser";
+	
 	private final static String LOGIN = "/login";
 	
 	private final static String GASSTATION_END_POINT = "http://localhost:8080/gasstation";
@@ -87,6 +89,14 @@ public class TestController {
 		assertEquals(200,response.getStatusLine().getStatusCode());
 	}
 	
+	
+	@Test
+	public void testGetUserById() throws ClientProtocolException, IOException {
+		HttpUriRequest request = new HttpGet(USER_END_POINT + GET_USER_BY_ID + "/" +  USER_ID + "/");
+		HttpResponse response = HttpClientBuilder.create().build().execute(request);
+		
+		assertEquals(200,response.getStatusLine().getStatusCode());
+	}
 	
 	@Test
 	public void testGetAllUsers() throws ClientProtocolException, IOException {
