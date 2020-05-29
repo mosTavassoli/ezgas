@@ -30,6 +30,7 @@ public class TestController {
 	private final static String USER_END_POINT = "http://localhost:8080/user";
 	private final static String INCREASE_REPUTATION = "/increaseUserReputation";
 	private final static String DECREASE_REPUTATION = "/decreaseUserReputation";
+	private final static String GET_ALL_USERS = "/getAllUsers";
 	private final static String LOGIN = "/login";
 	
 	private final static String GASSTATION_END_POINT = "http://localhost:8080/gasstation";
@@ -89,14 +90,14 @@ public class TestController {
 	
 	@Test
 	public void testGetAllUsers() throws ClientProtocolException, IOException {
-		HttpUriRequest request = new HttpGet(USER_END_POINT +"/getAllUsers/");
+		HttpUriRequest request = new HttpGet(USER_END_POINT + GET_ALL_USERS);
 		HttpResponse response = HttpClientBuilder.create().build().execute(request);
 		
 		String jsonFromRespone = EntityUtils.toString(response.getEntity());
 		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-		UserDto[] usserarray = mapper.readValue(jsonFromRespone, UserDto[].class);
+		UserDto[] userArray = mapper.readValue(jsonFromRespone, UserDto[].class);
 		
-		assertEquals(1,usserarray.length);
+		assertEquals(1,userArray.length);
 	}
 	
 	@Test
