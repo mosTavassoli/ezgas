@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.util.Date;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -23,7 +25,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import it.polito.ezgas.dto.GasStationDto;
 import it.polito.ezgas.dto.IdPw;
 import it.polito.ezgas.dto.LoginDto;
-import it.polito.ezgas.dto.UserDto;
 import it.polito.ezgas.repository.GasStationRepository;
 import it.polito.ezgas.utils.Constants;
 
@@ -46,7 +47,7 @@ public class TestController {
 	private static final boolean HAS_SUPERPLUS = true;
 	private static final boolean HAS_GAS = true;
 	private static final boolean HAS_METHANE = false;
-	private static final String REPORT_TIMESTAMP = "1";
+	private static final String REPORT_TIMESTAMP = new Timestamp(new Date().getTime()).toString();
 	private static final double REPORT_DEPENDABILITY = 5.0;
 	/**
 	 * TODO How to put some users and gasStations in db to test? 
@@ -56,7 +57,7 @@ public class TestController {
 	
 	private final String GASOLINE_TYPE=Constants.DIESEL;
 	private final String CAR_SHARING="carsharing";
-	private final int GAS_STATION_ID=3;
+	private final int GAS_STATION_ID=22;
 	private final int USER_ID=1;
 	private final double PRICE=1.23;
 	private final double LAT=45.101767;
