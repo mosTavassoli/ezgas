@@ -567,7 +567,9 @@ The JUnit test cases will be exhaustive.
 | GasStationDto.getGasStationId | GasStationDtoTest.testGasStationId |
 | GasStationDto.getGasStationName       | GasStationDtoTest.testGasStationName |
 | GasStationDto.getGasStationAddress    | GasStationDtoTest.testGasStationAddress |
-| GasStationDto.getReportDependability  | GasStationDtoTest.testReportDependability |
+| GasStationDto.getReportDependability  | GasStationDtoTest.testComputeReportDependabilityMoreThan7Days |
+|                                       | GasStationDtoTest.testComputeReportDependabilityLessThan7Days |
+|                                       | GasStationDtoTest.testComputeReportDependabilityWithNullReportTimestamp |
 | GasStationDto.getReportUser           | GasStationDtoTest.testReportUser |
 | GasStationDto.getReportTimestamp      | GasStationDtoTest.testReportTimestamp |
 | GasStationDto.getHasDiesel            | GasStationDtoTest.testHasDiesel |
