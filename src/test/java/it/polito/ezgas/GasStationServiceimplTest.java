@@ -108,18 +108,18 @@ public class GasStationServiceimplTest {
 					random.nextDouble()*MAX_PRICE,
 					random.nextDouble()*MAX_PRICE,
 					i,
-					"reporttimestamp"+i,
+					"2020-05-11 20:13:02.076",
 					random.nextDouble()*MAX_DEPENDABILITY)));
 		}
 		
 		//setup for proximity tests
-		gasStationList.add(gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, "sharing", 45.101767, 7.646787, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "stamp", 7.77))); //0km
-		gasStationList.add(gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, "sharing1", 45.107317, 7.636762, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "stamp", 7.77))); //1km
-		gasStationList.add(gasStationRepository.save(new GasStation("name", "address", false, true, true, true, true, "sharing", 45.113210, 7.627207, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "stamp", 7.77))); //2km
-		gasStationList.add(gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, "sharing1", 45.119454, 7.618003, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "stamp", 7.77))); //3km
-		gasStationList.add(gasStationRepository.save(new GasStation("name", "address", false, true, true, true, true, "sharing1", 45.126049, 7.609262, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "stamp", 7.77))); //4km
-		gasStationList.add(gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, "sharing", 45.131268, 7.598965, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "stamp", 7.77))); //4.99km
-		gasStationList.add(gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, "sharing", 45.131359, 7.598632, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "stamp", 7.77))); //5.01km
+		gasStationList.add(gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, "sharing", 45.101767, 7.646787, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "2020-05-11 20:13:02.076", 7.77))); //0km
+		gasStationList.add(gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, "sharing1", 45.107317, 7.636762, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "2020-05-11 20:13:02.076", 7.77))); //1km
+		gasStationList.add(gasStationRepository.save(new GasStation("name", "address", false, true, true, true, true, "sharing", 45.113210, 7.627207, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "2020-05-11 20:13:02.076", 7.77))); //2km
+		gasStationList.add(gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, "sharing1", 45.119454, 7.618003, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "2020-05-11 20:13:02.076", 7.77))); //3km
+		gasStationList.add(gasStationRepository.save(new GasStation("name", "address", false, true, true, true, true, "sharing1", 45.126049, 7.609262, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "2020-05-11 20:13:02.076", 7.77))); //4km
+		gasStationList.add(gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, "sharing", 45.131268, 7.598965, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "2020-05-11 20:13:02.076", 7.77))); //4.99km
+		gasStationList.add(gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, "sharing", 45.131359, 7.598632, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "2020-05-11 20:13:02.076", 7.77))); //5.01km
 		
 		if(gasStationList.get(0)!=null) {
 			this.validGasStationId = gasStationList.get(0).getGasStationId();
@@ -166,10 +166,24 @@ public class GasStationServiceimplTest {
 	
 	@Test
 	public void testSaveGasStationValid() throws PriceException,GPSDataException {
-		GasStationDto gasStationDtoSent = new GasStationDto(99999, "gasStationName", "gasStationAddress", true, false, true, true, false, "carSharing", 12.3, 23.43, 1.23, 2.34, 3.45, 4.56, 5.67, 1234, "reportTimestamp", 5.43);
+		GasStationDto gasStationDtoSent = new GasStationDto(99999, "gasStationName", "gasStationAddress", true, false, true, true, false, "carSharing", 12.3, 23.43, 1.23, 2.34, 3.45, 4.56, 5.67, 1234, "2020-05-11 20:13:02.076", 5.43);
 		GasStationDto gasStationDtoReceived = gasStationService.saveGasStation(gasStationDtoSent);
 		assertTrue(new ReflectionEquals(gasStationDtoSent,"gasStationId","reportDependability").matches(gasStationDtoReceived));
-		assertEquals(0.0,gasStationDtoReceived.getReportDependability(),0.0);
+		assertEquals(50.0,gasStationDtoReceived.getReportDependability(),0.0);
+	}
+	
+	@Test
+	public void testSaveGasStationValidAlreadyExists() throws PriceException,GPSDataException {
+		GasStationDto gasStationDtoSent = new GasStationDto(this.validGasStationId, "gasStationName", "gasStationAddress", true, false, true, true, false, "carSharing", 12.3, 23.43, 1.23, 2.34, 3.45, 4.56, 5.67, 1234, "2020-05-11 20:13:02.076", 5.43);
+		GasStationDto gasStationDtoReceived = gasStationService.saveGasStation(gasStationDtoSent);
+		assertTrue(new ReflectionEquals(gasStationDtoSent,"gasStationId","reportDependability").matches(gasStationDtoReceived));
+	}
+	
+	@Test
+	public void testSaveGasStationValidNotAlreadyExists() throws PriceException,GPSDataException {
+		GasStationDto gasStationDtoSent = new GasStationDto(null, "gasStationName", "gasStationAddress", true, false, true, true, false, "carSharing", 12.3, 23.43, 1.23, 2.34, 3.45, 4.56, 5.67, 1234, "2020-05-11 20:13:02.076", 5.43);
+		GasStationDto gasStationDtoReceived = gasStationService.saveGasStation(gasStationDtoSent);
+		assertTrue(new ReflectionEquals(gasStationDtoSent,"gasStationId","reportDependability").matches(gasStationDtoReceived));
 	}
 	
 	@Test

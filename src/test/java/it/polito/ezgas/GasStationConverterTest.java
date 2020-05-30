@@ -1,8 +1,11 @@
 package it.polito.ezgas;
 import static org.junit.Assert.assertEquals;
 
+import java.sql.Timestamp;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -31,7 +34,7 @@ public class GasStationConverterTest {
     private double gasPrice=32.33;
     private double methanePrice=65.78;
     private Integer reportUser=735;
-    private String reportTimestamp="1000-01-01 01:01:01";
+    private String reportTimestamp="2020-05-11 20:13:02.076";
     private double reportDependability=0;
 	
     private String correctString;
@@ -70,7 +73,7 @@ public class GasStationConverterTest {
 				+ "reportUser = " + this.reportUser + ",\n"
 				+ "userDto = " + null + ",\n"
 				+ "reportTimestamp = " + this.reportTimestamp + ",\n"
-				+ "reportDependability = " + this.reportDependability + ",\n"
+				+ "reportDependability = " + computeReportDependability() + ",\n"
 				+ "}\n";
 		assertEquals(correctString,gasStationDto.toString());
 	}
@@ -187,7 +190,7 @@ public class GasStationConverterTest {
 
 		GasStation gasStation2 = new GasStation("station", "5th street", true, false, 
 				false, true, false, "CarCar", 35, 45.787, 0.54, -110, 12, 356.768, 
-				0.007, 4321, "12/12/2012", 4.36);
+				0.007, 4321, "2020-05-11 20:13:02.076", 4.36);
 		 gasStationId2 = gasStation2.getGasStationId();
 		List<GasStation> listEntity = Arrays.asList(gasStation1, gasStation2);
 		List<GasStationDto> listDto = GasStationConverter.toDto(listEntity);
@@ -211,7 +214,7 @@ public class GasStationConverterTest {
 				+ "reportUser = " + this.reportUser + ",\n"
 				+ "userDto = " + null + ",\n"
 				+ "reportTimestamp = " + this.reportTimestamp + ",\n"
-				+ "reportDependability = " + this.reportDependability + ",\n"
+				+ "reportDependability = " + computeReportDependability() + ",\n"
 				+ "}\n";
 		
 		String correctString2="\n{\n"
@@ -233,11 +236,27 @@ public class GasStationConverterTest {
 				+ "methanePrice = 0.007,\n"
 				+ "reportUser = 4321,\n"
 				+ "userDto = null,\n"
-				+ "reportTimestamp = 12/12/2012,\n"
-				+ "reportDependability = 0.0,\n"
+				+ "reportTimestamp = 2020-05-11 20:13:02.076,\n"
+				+ "reportDependability = 45.0,\n"
 				+ "}\n";
 		assertEquals(correctString1 +correctString2 , listDto.get(0).toString() + listDto.get(1).toString());
 		
 	}
+    
+	public double computeReportDependability() {
+		double obsolescence;
+		Integer userReputation = (int) this.reportDependability;
+		Date today = new Date();
+		Date reportDate = new Date(Timestamp.valueOf(this.reportTimestamp).getTime());
+		
+		long diffInMillies = today.getTime() - reportDate.getTime();
+		long diffInDays = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+		if(diffInDays > 7)
+			obsolescence = 0;
+		else obsolescence = 1 - (double) diffInDays / 7;
+		
+		return 50 * (userReputation + 5) / 10 + 50 * obsolescence;
+	}
+
 	
 }
