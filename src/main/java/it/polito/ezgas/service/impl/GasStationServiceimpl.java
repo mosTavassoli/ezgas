@@ -66,6 +66,11 @@ public class GasStationServiceimpl implements GasStationService {
 		if(!GasStationDto.checkCoordinates(gasStationDto.getLat(), gasStationDto.getLon()))
 			throw new GPSDataException("GPSDataException: " + gasStationDto.toString());
 		
+		if(gasStationDto.getGasStationId() != null && gasStationRepository.exists(gasStationDto.getGasStationId())) {
+			GasStation existingGasStation = gasStationRepository.findOne(gasStationDto.getGasStationId());
+			gasStationDto.setReportDependability(existingGasStation.getReportDependability());
+		}
+		
 		GasStation gasStation = gasStationRepository.save(GasStationConverter.toEntity(gasStationDto));
 		logger.log(Level.INFO, "saveGasStation - gasStationId = " + gasStation.getGasStationId());
 		
@@ -211,7 +216,7 @@ public class GasStationServiceimpl implements GasStationService {
 		gasStationDto.setReportUser(userId);
 		gasStationDto.setUserDto(userService.getUserById(userId));
 		gasStationDto.setReportTimestamp(new Timestamp(new Date().getTime()).toString());
-		gasStationDto.setReportDependability(gasStationDto.computeReportDependability());
+		gasStationDto.setReportDependability((double)userService.getUserById(userId).getReputation());
 		
 		if(!gasStationDto.checkPrices())
 			throw new PriceException("PriceException: " + gasStationDto.toString());              

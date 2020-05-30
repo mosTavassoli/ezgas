@@ -346,11 +346,11 @@ public class GasStationDto {
 	
 	
 	public double computeReportDependability() {
-		if(this.userDto == null || this.reportTimestamp == null)
+		if(this.reportTimestamp == null)
 			return 0;
 		
 		double obsolescence;
-		Integer userReputation = this.userDto.getReputation() == null ? 0: this.userDto.getReputation();
+		Integer userReputation = (int) this.reportDependability;
 		Date today = new Date();
 		Date reportDate = new Date(Timestamp.valueOf(this.reportTimestamp).getTime());
 		
