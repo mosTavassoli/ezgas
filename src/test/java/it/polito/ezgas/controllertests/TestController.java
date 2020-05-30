@@ -83,6 +83,7 @@ public class TestController {
 		HttpPost request = new HttpPost(GASSTATION_END_POINT+"saveGasStation/");
 		ObjectMapper mapper = new ObjectMapper();
 		GasStationDto gasStation = new GasStationDto(GAS_STATION_ID, GAS_STATION_NAME, GAS_STATION_ADDRESS, HAS_DIESEL, HAS_SUPER, HAS_SUPERPLUS, HAS_GAS, HAS_METHANE, CAR_SHARING, LAT, LON, PRICE, PRICE, PRICE, PRICE, PRICE, USER_ID, REPORT_TIMESTAMP, REPORT_DEPENDABILITY);
+		request.addHeader("content-type", "application/json");
 		request.setEntity(new StringEntity(mapper.writeValueAsString(gasStation)));
 		
 		HttpResponse response = HttpClientBuilder.create().build().execute(request);
@@ -188,6 +189,7 @@ public class TestController {
 		
 		HttpPost request = new HttpPost(USER_END_POINT + LOGIN);
 		ObjectMapper mapper = new ObjectMapper();
+		request.addHeader("content-type", "application/json");
 		request.setEntity(new StringEntity(mapper.writeValueAsString(credentials)));
 		
 		HttpResponse response = HttpClientBuilder.create().build().execute(request);
@@ -195,7 +197,7 @@ public class TestController {
 		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		
 		LoginDto loginDto = mapper.readValue(jsonFromResponse, LoginDto.class);
-		
+		//assertEquals(200, response.getStatusLine().getStatusCode());
 		assertNotNull(loginDto);
 	}
 
