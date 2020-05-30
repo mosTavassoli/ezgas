@@ -7,12 +7,14 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Date;
 
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
@@ -37,6 +39,7 @@ public class TestController {
 	private final static String GET_ALL_USERS = "/getAllUsers";
 	private final static String GET_USER_BY_ID = "/getUser";
 	private final static String DELETE_USER = "/deleteUser";
+	private final static String SAVE_USER = "/saveUser";
 	private final static String LOGIN = "/login";
 	
 	private final static String GASSTATION_END_POINT = "http://localhost:8080/gasstation/";
@@ -117,15 +120,28 @@ public class TestController {
 	public void testGetAllUsers() throws ClientProtocolException, IOException {
 		HttpUriRequest request = new HttpGet(USER_END_POINT + GET_ALL_USERS);
 		HttpResponse response = HttpClientBuilder.create().build().execute(request);
-		
-		//String jsonFromRespone = EntityUtils.toString(response.getEntity());
-		//ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-		//UserDto[] userArray = mapper.readValue(jsonFromRespone, UserDto[].class);
-		
 		assertEquals(200, response.getStatusLine().getStatusCode());
-		//Doesn't work if the database isn't cleared before running the test
-		//assertEquals(1,userArray.length);
+		
 	}
+	
+	
+	@Test
+	public void testSaveUser() throws ClientProtocolException, IOException {
+		HttpPost request = new HttpPost( USER_END_POINT + SAVE_USER);
+		String JSON_STRING="{\""
+				+ "userName\":\"NewUser\""
+				+ ",\"password\":\"NewPass\""
+				+ ",\"email\":\"NewUser@email.com\""
+				+ ",\"reputation\":5 "
+				+ ",\"admin\": false }";
+		
+	    HttpEntity stringEntity = new StringEntity(JSON_STRING, ContentType.APPLICATION_JSON);
+		request.setEntity(stringEntity);
+		HttpResponse response = HttpClientBuilder.create().build().execute(request);
+		assertEquals(200 , response.getStatusLine().getStatusCode());
+
+	}
+	
 	
 	@Test
 	public void testGetGasStationsByGasolineType() throws ClientProtocolException, IOException {
