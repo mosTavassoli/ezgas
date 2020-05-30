@@ -141,12 +141,9 @@ We adopted a bottom up approach divided in the following steps:
 ## Step 2
 | Classes  | JUnit test cases |
 |--|--|
-| GasStationDto.computeReportDependability() | GasStationDtoTest.computeReportDependability() |
-|| GasStationDtoTest.computeReportDependability() |
+| GasStationDto.computeReportDependability() | GasStationDtoTest.testComputeReportDependabilityMoreThan7Days() |
 || testComputeReportDependabilityLessThan7Days() |
-|| testComputeReportDependabilityWithNullUser() |
 || testComputeReportDependabilityWithNullReportTimestamp() |
-|| testComputeReportDependabilityWithNullUserReputation() |
 | GasStationDto.checkPrice() | GasStationDtoTest.testNegativeDieselPrice()|
 || GasStationDtoTest.testNegativeGasPrice()|
 || GasStationDtoTest.testNegativeMethanePrice()|
@@ -236,6 +233,8 @@ We adopted a bottom up approach divided in the following steps:
 |GasStationServiceimpl.saveGasStation(GasStationDto gasStationDto)|GasStationServiceimplTest.testSaveGasStationInvalidNegativePrice()|
 ||GasStationServiceimplTest.testSaveGasStationInvalidCoordinates()|
 ||GasStationServiceimplTest.testSaveGasStationValid()|
+||GasStationServiceimplTest.testSaveGasStationValidAlreadyExists()|
+||GasStationServiceimplTest.testSaveGasStationValidNotAlreadyExists()|
 |GasStationServiceimplTest.List\<GasStationDto> getAllGasStations()|GasStationServiceimplTest.testGetAllGasStationsEmpty()|
 ||GasStationServiceimplTest.testGetAllGasStationsNotEmpty()|
 |GasStationServiceimplTest.deleteGasStation(Integer gasStationId)|GasStationServiceimplTest.testDeleteGasStationValid()|
@@ -465,6 +464,8 @@ Report also for each of the scenarios the (one or more) API JUnit tests that cov
 | UC4 | FR3.1 | GasStationServiceimplTest.testSaveGasStationInvalidNegativePrice()   |             
 ||| GasStationServiceimplTest.testSaveGasStationInvalidCoordinates()   |             
 |||  GasStationServiceimplTest.testSaveGasStationValid() |
+|||  GasStationServiceimplTest.testSaveGasStationValidAlreadyExists() |
+|||  GasStationServiceimplTest.testSaveGasStationValidNotAlreadyExists() |
 | UC5 | FR3.1 | GasStationServiceimplTest.testSaveGasStationInvalidNegativePrice()   |             
 ||| GasStationServiceimplTest.testSaveGasStationInvalidCoordinates() |             
 ||| GasStationServiceimplTest.testSaveGasStationValid() |                
