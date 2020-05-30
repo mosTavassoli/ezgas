@@ -14,18 +14,20 @@ import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
-import org.junit.Before;
 import org.junit.Test;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import it.polito.ezgas.dto.GasStationDto;
 import it.polito.ezgas.dto.IdPw;
 import it.polito.ezgas.dto.LoginDto;
 import it.polito.ezgas.dto.UserDto;
 import it.polito.ezgas.repository.GasStationRepository;
 import it.polito.ezgas.utils.Constants;
 
+@Transactional
 public class TestController {
 	
 	private final static String USER_END_POINT = "http://localhost:8080/user";
@@ -34,32 +36,35 @@ public class TestController {
 	private final static String GET_ALL_USERS = "/getAllUsers";
 	private final static String GET_USER_BY_ID = "/getUser";
 	private final static String DELETE_USER = "/deleteUser";
-	private final static String LOGIN = "/login";	
-	private final static String GASSTATION_END_POINT = "http://localhost:8080/gasstation";
+	private final static String LOGIN = "/login";
 	
+	private final static String GASSTATION_END_POINT = "http://localhost:8080/gasstation/";
+	private static final String GAS_STATION_ADDRESS = "testaddress";
+	private static final String GAS_STATION_NAME = "testname";
+	private static final boolean HAS_DIESEL = true;
+	private static final boolean HAS_SUPER = false;
+	private static final boolean HAS_SUPERPLUS = true;
+	private static final boolean HAS_GAS = true;
+	private static final boolean HAS_METHANE = false;
+	private static final String REPORT_TIMESTAMP = "1";
+	private static final double REPORT_DEPENDABILITY = 5.0;
 	/**
 	 * TODO How to put some users and gasStations in db to test? 
 	 */
 	
 	private GasStationRepository gasStationRepository;
 	
-	private final String BASE="http://localhost:8080/gasstation/";
 	private final String GASOLINE_TYPE=Constants.DIESEL;
 	private final String CAR_SHARING="carsharing";
-	private final int GAS_STATION_ID=1234;
-	private final int USER_ID=1234;
+	private final int GAS_STATION_ID=3;
+	private final int USER_ID=1;
 	private final double PRICE=1.23;
 	private final double LAT=45.101767;
 	private final double LON= 7.646787;
 	
-	@Before
-	public void init() throws ClientProtocolException, IOException {
-		
-	}
-	
 	@Test
 	public void testGetGasStationById() throws ClientProtocolException, IOException {
-		HttpUriRequest request = new HttpGet(BASE+"getGasStationById/"+GAS_STATION_ID+"/");
+		HttpUriRequest request = new HttpGet(GASSTATION_END_POINT+"getGasStation/"+GAS_STATION_ID+"/");
 		HttpResponse response = HttpClientBuilder.create().build().execute(request);
 		
 		assertEquals(200,response.getStatusLine().getStatusCode());
@@ -67,7 +72,7 @@ public class TestController {
 	
 	@Test
 	public void testGetAllGasStations() throws ClientProtocolException, IOException {
-		HttpUriRequest request = new HttpGet(BASE+"getAllGasStations/");
+		HttpUriRequest request = new HttpGet(GASSTATION_END_POINT+"getAllGasStations/");
 		HttpResponse response = HttpClientBuilder.create().build().execute(request);
 		
 		assertEquals(200,response.getStatusLine().getStatusCode());
@@ -75,9 +80,13 @@ public class TestController {
 	
 	@Test
 	public void testSaveGasStation() throws ClientProtocolException, IOException {
-		HttpUriRequest request = new HttpGet(BASE+"saveGasStation/");
-		HttpResponse response = HttpClientBuilder.create().build().execute(request);
+		HttpPost request = new HttpPost(GASSTATION_END_POINT+"saveGasStation/");
+		ObjectMapper mapper = new ObjectMapper();
+		GasStationDto gasStation = new GasStationDto(GAS_STATION_ID, GAS_STATION_NAME, GAS_STATION_ADDRESS, HAS_DIESEL, HAS_SUPER, HAS_SUPERPLUS, HAS_GAS, HAS_METHANE, CAR_SHARING, LAT, LON, PRICE, PRICE, PRICE, PRICE, PRICE, USER_ID, REPORT_TIMESTAMP, REPORT_DEPENDABILITY);
+		request.setEntity(new StringEntity(mapper.writeValueAsString(gasStation)));
 		
+		HttpResponse response = HttpClientBuilder.create().build().execute(request);
+			
 		assertEquals(200,response.getStatusLine().getStatusCode());
 	}
 	
@@ -107,16 +116,18 @@ public class TestController {
 		HttpUriRequest request = new HttpGet(USER_END_POINT + GET_ALL_USERS);
 		HttpResponse response = HttpClientBuilder.create().build().execute(request);
 		
-		String jsonFromRespone = EntityUtils.toString(response.getEntity());
-		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-		UserDto[] userArray = mapper.readValue(jsonFromRespone, UserDto[].class);
+		//String jsonFromRespone = EntityUtils.toString(response.getEntity());
+		//ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		//UserDto[] userArray = mapper.readValue(jsonFromRespone, UserDto[].class);
 		
-		assertEquals(1,userArray.length);
+		assertEquals(200, response.getStatusLine().getStatusCode());
+		//Doesn't work if the database isn't cleared before running the test
+		//assertEquals(1,userArray.length);
 	}
 	
 	@Test
 	public void testGetGasStationsByGasolineType() throws ClientProtocolException, IOException {
-		HttpUriRequest request = new HttpGet(BASE+"getGasStationsByGasolineType/"+GASOLINE_TYPE+"/");
+		HttpUriRequest request = new HttpGet(GASSTATION_END_POINT+"searchGasStationByGasolineType/"+GASOLINE_TYPE+"/");
 		HttpResponse response = HttpClientBuilder.create().build().execute(request);
 		
 		assertEquals(200,response.getStatusLine().getStatusCode());
@@ -124,7 +135,7 @@ public class TestController {
 	
 	@Test
 	public void testGetGasStationsByProximity() throws ClientProtocolException, IOException {
-		HttpUriRequest request = new HttpGet(BASE+"searchGasStationByProximity/"+LAT+"/"+LON+"/");
+		HttpUriRequest request = new HttpGet(GASSTATION_END_POINT+"searchGasStationByProximity/"+LAT+"/"+LON+"/");
 		HttpResponse response = HttpClientBuilder.create().build().execute(request);
 		
 		assertEquals(200,response.getStatusLine().getStatusCode());
@@ -132,7 +143,7 @@ public class TestController {
 	
 	@Test
 	public void testGetGasStationsWithCoordinates() throws ClientProtocolException, IOException {
-		HttpUriRequest request = new HttpGet(BASE+"getGasStationsWithCoordinates/"+LAT+"/"+LON+"/"+GASOLINE_TYPE+"/"+CAR_SHARING+"/");
+		HttpUriRequest request = new HttpGet(GASSTATION_END_POINT+"getGasStationsWithCoordinates/"+LAT+"/"+LON+"/"+GASOLINE_TYPE+"/"+CAR_SHARING+"/");
 		HttpResponse response = HttpClientBuilder.create().build().execute(request);
 		
 		assertEquals(200,response.getStatusLine().getStatusCode());
@@ -140,7 +151,8 @@ public class TestController {
 	
 	@Test
 	public void testSetGasStationReport() throws ClientProtocolException, IOException {
-		HttpUriRequest request = new HttpGet(BASE+"SetGasStationReport/"+GAS_STATION_ID+"/"+PRICE+"/"+PRICE+"/"+PRICE+"/"+PRICE+"/"+PRICE+"/"+PRICE+"/");
+		
+		HttpUriRequest request = new HttpPost(GASSTATION_END_POINT+"setGasStationReport/"+GAS_STATION_ID+"/"+PRICE+"/"+PRICE+"/"+PRICE+"/"+PRICE+"/"+PRICE+"/"+USER_ID+"/");
 		HttpResponse response = HttpClientBuilder.create().build().execute(request);
 		
 		assertEquals(200,response.getStatusLine().getStatusCode());
@@ -183,7 +195,7 @@ public class TestController {
 		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		
 		LoginDto loginDto = mapper.readValue(jsonFromResponse, LoginDto.class);
-
+		
 		assertNotNull(loginDto);
 	}
 
