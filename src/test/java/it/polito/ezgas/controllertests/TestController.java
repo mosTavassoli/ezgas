@@ -184,8 +184,7 @@ public class TestController {
 		HttpUriRequest request = new HttpPost(USER_END_POINT + INCREASE_REPUTATION + USER_ID);
 		HttpResponse response = HttpClientBuilder.create().build().execute(request);
 		
-		String jsonFromResponse = EntityUtils.toString(response.getEntity());
-		assertEquals(5, Integer.parseInt(jsonFromResponse));
+		assertEquals(200,response.getStatusLine().getStatusCode());
 	}
 	
 	@Test
@@ -196,8 +195,7 @@ public class TestController {
 		HttpUriRequest request = new HttpPost(USER_END_POINT + DECREASE_REPUTATION + USER_ID);
 		HttpResponse response = HttpClientBuilder.create().build().execute(request);
 		
-		String jsonFromResponse = EntityUtils.toString(response.getEntity());
-		assertEquals(4, Integer.parseInt(jsonFromResponse));
+		assertEquals(200,response.getStatusLine().getStatusCode());
 	}
 	
 	@Test
@@ -210,12 +208,8 @@ public class TestController {
 		request.setEntity(new StringEntity(mapper.writeValueAsString(credentials)));
 		
 		HttpResponse response = HttpClientBuilder.create().build().execute(request);
-		String jsonFromResponse = EntityUtils.toString(response.getEntity());
-		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-		
-		LoginDto loginDto = mapper.readValue(jsonFromResponse, LoginDto.class);
-		//assertEquals(200, response.getStatusLine().getStatusCode());
-		assertNotNull(loginDto);
+
+		assertEquals(200,response.getStatusLine().getStatusCode());
 	}
 
 }
