@@ -23,9 +23,11 @@ This part of the document reports about testing at the GUI level. Tests are end 
 | 1           | FRx                             |             |             
 | 2           | FRy                             |             |             
 | ...         |                                 |             |         
-| ...         |                                 |             |             
-| ...         |                                 |             |             
-| ...         |                                 |             |             
+| UC3.1       | FR1.2                           | testScenarioUC3.1  |        
+|             | FR1.3                           | testScenarioUC3.1  |             
+| UC7         | FR5.1                           | testScenarioUC7    |             
+| UC8.3       | FR4.5                           | testScenarioUC8.3  |             
+| UC10.2      | FR5.3                           | testScenarioUC10.2 |             
 
 
 # REST  API  Testing
@@ -43,6 +45,6 @@ Tests should cover each function of classes in the Controller package
 |  ...           | FRx                             |             |     
 |  ...           | FRy                             |             |             
 | ...         |                                 |             |             
-| ...         |                                 |             |             
-| ...         |                                 |             |             
-| ...         |                                 |             |             
+| UserController.login | FR1                             | TestController.testLogin                  |             
+| UserController.increaseUserReputation  | FR5.3                           | TestController.testIncreaseUserReputation |             
+| UserController.decreaseUserReputation  | FR5.3                           | TestController.testDecreaseUserReputation |             
