@@ -29,10 +29,19 @@ public class BootEZGasApplication {
 		Connection conn = DriverManager.getConnection("jdbc:h2:./data/memo", "sa", "password");
 		conn.close();
 		
+		//Add admin
 		User user = userRepository.findByEmail("admin@ezgas.com");
 		if(user==null) {
 			user= new User("admin", "admin", "admin@ezgas.com", 5);
 			user.setAdmin(true);
+		}
+		userRepository.save(user);
+		
+		//Add test user
+		user = userRepository.findByEmail("user@ezgas.com");
+		if(user==null) {
+			user= new User("user", "user", "user@ezgas.com", 5);
+			user.setAdmin(false);
 		}
 		userRepository.save(user);
 		
