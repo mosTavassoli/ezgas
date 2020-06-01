@@ -291,15 +291,13 @@ We adopted a bottom up approach divided in the following steps:
 
 | Scenario |  name |
 | ------------- |:-------------:| 
-|  Precondition     | Account U exists inside the system and account B does not exist|
-|  Post condition     |  Account U and account B exist inside the system|
+|  Precondition     | Admin account A exists inside the system and user account U does not exist|
+|  Post condition     |  Account A and account U exist inside the system|
 | Step#        | Description  |
-|  1     |  Admin tries to create a new account B and populates its fields using the same email of account U |
+|  1     |  Admin tries to create a new user account U and populates its fields |
 |  2     |  System searches for email to see if it exists inside the system |
-|  3     |  System finds the email inside the system |
-|  4     |  System checks to see the type of account (user or admin)|
-|  5     |  System finds out that type of account is admin|
-|  6     |  System successfully creates the account inside the database|
+|  3     |  System doesn't find the email inside the system |
+|  4     |  System successfully creates account U inside the database|
 
 ## Scenario UC2.1
 
