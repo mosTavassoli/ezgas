@@ -22,11 +22,17 @@ This part of the document reports about testing at the GUI level. Tests are end 
 | ----------- | ------------------------------- | ----------- | 
 | 1           | FRx                             |             |             
 | 2           | FRy                             |             |             
-| ...         |                                 |             |         
+| ...         |                                 |             |      
+| UC1         | FR1.1                           | testScenarioUC1
+| UC2         | FR1.1                           | testScenarioUC2
 | UC3.1       | FR1.2                           | testScenarioUC3.1  |        
 |             | FR1.3                           | testScenarioUC3.1  |             
+| UC4         | FR3.1                           | testScenarioUC4
 | UC7         | FR5.1                           | testScenarioUC7    |             
+| UC8         | FR4.1                           | testScenarioUC8
+|             | FR4.2                           | testScenarioUC8
 | UC8.3       | FR4.5                           | testScenarioUC8.3  |             
+| UC8.4       | FR4.5                           | testScenarioUC8.4
 | UC10.2      | FR5.3                           | testScenarioUC10.2 |             
 
 
