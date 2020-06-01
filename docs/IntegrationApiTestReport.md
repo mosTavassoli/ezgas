@@ -17,8 +17,8 @@ Version: 1
 - [Tests](#tests)
   - [Step 1](#step-1)
   - [Step 2](#step-2)
-  - [Step 3 API Tests UserService](#Step-3-API-Tests-UserService)
-  - [Step 4 API Tests GasStationService](#Step-4-API-Tests-GasStationService)
+  - [Step 3 API Tests UserService](#step-3-api-tests-userservice)
+  - [Step 4 API Tests GasStationService](#step-4-api-tests-gasstationservice)
 - [Scenarios](#scenarios)
   - [Scenario UC1.1](#scenario-uc11)
   - [Scenario UC1.2](#scenario-uc12)
@@ -29,9 +29,9 @@ Version: 1
   - [Scenario UC8.2](#scenario-uc82)
   - [Scenario UC8.3](#scenario-uc83)
   - [Scenario UC8.4](#scenario-uc84)
-  - [Scenario UC10](#scenario-uc10)
 - [Coverage of Scenarios and FR](#coverage-of-scenarios-and-fr)
 - [Coverage of Non Functional Requirements](#coverage-of-non-functional-requirements)
+    - [](#)
 - [Code coverage report](#code-coverage-report)
 
 
@@ -401,6 +401,13 @@ Report also for each of the scenarios the (one or more) API JUnit tests that cov
 
 | Scenario ID | Functional Requirements covered | JUnit  Test(s) | 
 | ----------- | ------------------------------- | ----------- | 
+|UC1| FR1.1                          | UserServiceimplTest.testSaveUserValid()            |      
+||| UserServiceimplTest.testSaveUserForUpdate()|  
+||| UserServiceimplTest.testSaveUserForInvalidUpdate()|
+|||UserServiceimplTest.testSaveUserFails() |  
+|||UserConverterTest.testToEntity() |
+|||UserRepositoryTest.testFindByEmail()|
+|||UserConverterTest.testToDto()|
 |Scenario UC1.1| FR1.1                          | UserServiceimplTest.testSaveUserValid()            |      
 ||| UserServiceimplTest.testSaveUserForUpdate()|  
 ||| UserServiceimplTest.testSaveUserForInvalidUpdate()|
