@@ -33,7 +33,7 @@ public interface GasStationRepository extends JpaRepository<GasStation,Integer>{
 			"        SIN( RADIANS( LAT ) ) * " + 
 			"        SIN( RADIANS( ?1 ) ) " + 
 			"    ) " + 
-			") <= 5")
+			") <= 1")
 	public List<GasStation> findByProximity(double lat, double lon);
 	
 	public List<GasStation> findByCarSharingOrderByGasStationName(String carSharing);

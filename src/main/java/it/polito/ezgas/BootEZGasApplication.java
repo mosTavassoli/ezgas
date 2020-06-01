@@ -44,6 +44,7 @@ public class BootEZGasApplication {
 			userRepository.save(user);
 		}
 		
+		/**
 		//Add test user
 		user = userRepository.findByEmail("user@ezgas.com");
 		if(user==null) {
@@ -58,9 +59,10 @@ public class BootEZGasApplication {
 		if(gasStationList.size()==0) {
 			gasStation= new GasStation("gasStationName", "gasStationAddress", true, true, true, true, true, 
 					"carSharing", -8.788462, -124.5079580, 0.0, 0.0, 0.0, 0.0, 0.0, 1, 
-					new Timestamp(new Date().getTime()).toString(), 0.0);
+					(new Timestamp(new Date().getTime())).toString(), 0.0);
 			gasStationRepository.save(gasStation);
 		}
+		**/
 		/*
 		 
 		list all the users stored in the database and, if there is no an admin user create it
