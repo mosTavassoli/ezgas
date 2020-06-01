@@ -437,7 +437,7 @@ Report also for each of the scenarios the (one or more) API JUnit tests that cov
 |||UserConverterTest.testToEntity() |
 |||UserRepositoryTest.testFindByEmail()|
 |||UserConverterTest.testToDto()|
-||FR1.3|UserServiceimplTest.testGetAllUsersNotEmpty()|
+||FR1.3 (delete)|UserServiceimplTest.testGetAllUsersNotEmpty()|
 |||UserServiceimplTest.testGetAllUsersEmpty()|
 |||UserConverterTest.testToDtoList()|
 |||UserConverterTest.testToDto()|
@@ -456,7 +456,7 @@ Report also for each of the scenarios the (one or more) API JUnit tests that cov
 |||UserServiceimplTest.testDeleteUserSuccessful()|
 |||UserServiceimplTest.testDeleteUserNotExists()|
 |||UserServiceimplTest.testDeleteUserFails()|
-||FR1.3|UserServiceimplTest.testGetAllUsersNotEmpty()|
+||FR1.3 (delete)|UserServiceimplTest.testGetAllUsersNotEmpty()|
 |||UserServiceimplTest.testGetAllUsersEmpty()|
 |||UserConverterTest.testToDtoList()|
 |||UserConverterTest.testToDto()|
