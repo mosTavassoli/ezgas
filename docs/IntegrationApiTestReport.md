@@ -22,9 +22,9 @@ Version: 1
 - [Scenarios](#scenarios)
   - [Scenario UC1.1](#scenario-uc11)
   - [Scenario UC1.2](#scenario-uc12)
-  - [Scenario UC2](#scenario-uc2)
-  - [Scenario UC3](#scenario-uc3)
-  - [Scenario UC7](#scenario-uc7)
+  - [Scenario UC2.1](#scenario-uc21)
+  - [Scenario UC3.1](#scenario-uc31)
+  - [Scenario UC7.1](#scenario-uc71)
   - [Scenario UC8.1](#scenario-uc81)
   - [Scenario UC8.2](#scenario-uc82)
   - [Scenario UC8.3](#scenario-uc83)
@@ -301,7 +301,7 @@ We adopted a bottom up approach divided in the following steps:
 |  5     |  System finds out that type of account is admin|
 |  6     |  System successfully creates the account inside the database|
 
-## Scenario UC2
+## Scenario UC2.1
 
 | Scenario |  name |
 | ------------- |:-------------:| 
@@ -311,7 +311,7 @@ We adopted a bottom up approach divided in the following steps:
 |  1     |  Admin gets a list of all accounts |
 |  2     |  Admin modifies one or more fields of any account |
 
-## Scenario UC3
+## Scenario UC3.1
 
 | Scenario |  name |
 | ------------- |:-------------:| 
@@ -322,7 +322,7 @@ We adopted a bottom up approach divided in the following steps:
 |  2     |  Admin selects an account to delete |
 
 
-## Scenario UC7
+## Scenario UC7.1
 
 | Scenario |  name |
 | ------------- |:-------------:| 
@@ -401,14 +401,14 @@ Report also for each of the scenarios the (one or more) API JUnit tests that cov
 
 | Scenario ID | Functional Requirements covered | JUnit  Test(s) | 
 | ----------- | ------------------------------- | ----------- | 
-|UC1| FR1.1                          | UserServiceimplTest.testSaveUserValid()            |      
+| UC1| FR1.1                          | UserServiceimplTest.testSaveUserValid()            |      
 ||| UserServiceimplTest.testSaveUserForUpdate()|  
 ||| UserServiceimplTest.testSaveUserForInvalidUpdate()|
 |||UserServiceimplTest.testSaveUserFails() |  
 |||UserConverterTest.testToEntity() |
 |||UserRepositoryTest.testFindByEmail()|
 |||UserConverterTest.testToDto()|
-|Scenario UC1.1| FR1.1                          | UserServiceimplTest.testSaveUserValid()            |      
+| UC1.1| FR1.1                          | UserServiceimplTest.testSaveUserValid()            |      
 ||| UserServiceimplTest.testSaveUserForUpdate()|  
 ||| UserServiceimplTest.testSaveUserForInvalidUpdate()|
 |||UserServiceimplTest.testSaveUserFails() |  
@@ -419,7 +419,7 @@ Report also for each of the scenarios the (one or more) API JUnit tests that cov
 |||UserServiceimplTest.testGetAllUsersEmpty()|
 |||UserConverterTest.testToDtoList()|
 |||UserConverterTest.testToDto()|
-|Scenario UC1.2| FR1.1|UserServiceimplTest.testSaveUserValid() | 
+| UC1.2| FR1.1|UserServiceimplTest.testSaveUserValid() | 
 ||| UserServiceimplTest.testSaveUserForUpdate()|  
 ||| UserServiceimplTest.testSaveUserForInvalidUpdate()|
 |||UserServiceimplTest.testSaveUserFails() |  
@@ -441,7 +441,7 @@ Report also for each of the scenarios the (one or more) API JUnit tests that cov
 |||UserServiceimplTest.testGetAllUsersEmpty()|
 |||UserConverterTest.testToDtoList()|
 |||UserConverterTest.testToDto()|
-|Scenario UC2  | FR1.1                          |UserServiceimplTest.testSaveUserValid()|
+| UC2.1  | FR1.1                          |UserServiceimplTest.testSaveUserValid()|
 ||| UserServiceimplTest.testSaveUserForUpdate()|  
 ||| UserServiceimplTest.testSaveUserForInvalidUpdate()|
 |||UserServiceimplTest.testSaveUserFails() |  
@@ -460,7 +460,7 @@ Report also for each of the scenarios the (one or more) API JUnit tests that cov
 |||UserServiceimplTest.testGetAllUsersEmpty()|
 |||UserConverterTest.testToDtoList()|
 |||UserConverterTest.testToDto()|
-|Scenario UC3  | FR1.2                          |UserServiceimplTest.testDeleteUserThrowInvalidUserException()|   
+| UC3.1  | FR1.2                          |UserServiceimplTest.testDeleteUserThrowInvalidUserException()|   
 |||UserServiceimplTest.testDeleteUserSuccessful()|
 |||UserServiceimplTest.testDeleteUserNotExists()|
 |||UserServiceimplTest.testDeleteUserFails()|
