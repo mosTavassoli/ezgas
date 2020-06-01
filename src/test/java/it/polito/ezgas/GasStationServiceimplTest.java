@@ -7,7 +7,9 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -80,6 +82,7 @@ public class GasStationServiceimplTest {
 	
 	private final String INVALID_GAS_TYPE="invalidGas";
 	private final String VALID_CARSHARING="0";
+	private final String TIMESTAMP=(new Timestamp(new Date().getTime())).toString();
 	
 	private int validGasStationId;
 	private int validUserId;
@@ -108,18 +111,18 @@ public class GasStationServiceimplTest {
 					random.nextDouble()*MAX_PRICE,
 					random.nextDouble()*MAX_PRICE,
 					i,
-					"2020-05-11 20:13:02.076",
+					TIMESTAMP,
 					random.nextDouble()*MAX_DEPENDABILITY)));
 		}
 		
 		//setup for proximity tests
-		gasStationList.add(gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, "sharing", 45.101767, 7.646787, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "2020-05-11 20:13:02.076", 7.77))); //0km
-		gasStationList.add(gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, "sharing1", 45.107317, 7.636762, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "2020-05-11 20:13:02.076", 7.77))); //1km
-		gasStationList.add(gasStationRepository.save(new GasStation("name", "address", false, true, true, true, true, "sharing", 45.113210, 7.627207, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "2020-05-11 20:13:02.076", 7.77))); //2km
-		gasStationList.add(gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, "sharing1", 45.119454, 7.618003, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "2020-05-11 20:13:02.076", 7.77))); //3km
-		gasStationList.add(gasStationRepository.save(new GasStation("name", "address", false, true, true, true, true, "sharing1", 45.126049, 7.609262, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "2020-05-11 20:13:02.076", 7.77))); //4km
-		gasStationList.add(gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, "sharing", 45.131268, 7.598965, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "2020-05-11 20:13:02.076", 7.77))); //4.99km
-		gasStationList.add(gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, "sharing", 45.131359, 7.598632, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "2020-05-11 20:13:02.076", 7.77))); //5.01km
+		gasStationList.add(gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, "sharing", 45.101767, 7.646787, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, TIMESTAMP, 7.77))); //0m
+		gasStationList.add(gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, "sharing1", 45.103047, 7.644117, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, TIMESTAMP, 7.77))); //250m
+		gasStationList.add(gasStationRepository.save(new GasStation("name", "address", false, true, true, true, true, "sharing", 45.104367, 7.641588, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, TIMESTAMP, 7.77))); //500m
+		gasStationList.add(gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, "sharing1", 45.106264, 7.639662, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, TIMESTAMP, 7.77))); //750m
+		gasStationList.add(gasStationRepository.save(new GasStation("name", "address", false, true, true, true, true, "sharing1", 45.107773, 7.637318, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, TIMESTAMP, 7.77))); //999m
+		gasStationList.add(gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, "sharing", 45.107781, 7.637224, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, TIMESTAMP, 7.77))); //1010m
+		gasStationList.add(gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, "sharing", 45.108089, 7.636838, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, TIMESTAMP, 7.77))); //1050m
 		
 		if(gasStationList.get(0)!=null) {
 			this.validGasStationId = gasStationList.get(0).getGasStationId();
@@ -359,10 +362,10 @@ public class GasStationServiceimplTest {
 		
 		gasStationDtoList = gasStationService.getGasStationsByProximity(45.101767, 7.646787);
 		for(GasStationDto gasStationDto : gasStationDtoList) {
-			assertTrue(distanceInKilometersBetween(45.101767, 7.646787, gasStationDto.getLat(),gasStationDto.getLon())<=5);
+			assertTrue(distanceInKilometersBetween(45.101767, 7.646787, gasStationDto.getLat(),gasStationDto.getLon())<=1);
 		}
 		
-		assertEquals(6,gasStationDtoList.size());
+		assertEquals(5,gasStationDtoList.size());
 	}
 	
 	@Test

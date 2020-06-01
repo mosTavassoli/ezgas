@@ -62,22 +62,22 @@ public class GasStationRepositoryTest {
 	@Test
 	public void testFindByProximity() {
 		//setup for proximity tests
-		gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, "sharing", 45.101767, 7.646787, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "stamp", 7.77)); //0km
-		gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, "sharing1", 45.107317, 7.636762, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "stamp", 7.77)); //1km
-		gasStationRepository.save(new GasStation("name", "address", false, true, true, true, true, "sharing", 45.113210, 7.627207, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "stamp", 7.77)); //2km
-		gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, "sharing1", 45.119454, 7.618003, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "stamp", 7.77)); //3km
-		gasStationRepository.save(new GasStation("name", "address", false, true, true, true, true, "sharing1", 45.126049, 7.609262, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "stamp", 7.77)); //4km
-		gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, "sharing", 45.131268, 7.598965, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "stamp", 7.77)); //4.99km
-		gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, "sharing", 45.131359, 7.598632, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "stamp", 7.77)); //5.01km
+		gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, "sharing", 45.101767, 7.646787, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "stamp", 7.77)); //0m
+		gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, "sharing1", 45.103047, 7.644117, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "stamp", 7.77)); //250m
+		gasStationRepository.save(new GasStation("name", "address", false, true, true, true, true, "sharing", 45.104367, 7.641588, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "stamp", 7.77)); //500m
+		gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, "sharing1", 45.106264, 7.639662, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "stamp", 7.77)); //750m
+		gasStationRepository.save(new GasStation("name", "address", false, true, true, true, true, "sharing1", 45.107773, 7.637318, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "stamp", 7.77)); //999m
+		gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, "sharing", 45.107781, 7.637224, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "stamp", 7.77)); //1010m
+		gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, "sharing", 45.108089, 7.636838, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "stamp", 7.77)); //1050m
 		
 		List<GasStation> gasStationList;
 		
 		gasStationList = gasStationRepository.findByProximity(45.101767, 7.646787);
 		for(GasStation gasStation : gasStationList) {
-			assertTrue(distanceInKilometersBetween(45.101767, 7.646787, gasStation.getLat(),gasStation.getLon())<=5);
+			assertTrue(distanceInKilometersBetween(45.101767, 7.646787, gasStation.getLat(),gasStation.getLon())<=1);
 		}
 		
-		assertEquals(6,gasStationList.size());
+		assertEquals(5,gasStationList.size());
 	}
 	
 	@Test
@@ -166,7 +166,7 @@ public class GasStationRepositoryTest {
 	public void testFindByHasMethaneOrderByMethanePriceAscTotal() {
 		List<GasStation> gasStationListTrue = gasStationRepository.findByHasMethaneOrderByMethanePriceAsc(true);
 		List<GasStation> gasStationListFalse = gasStationRepository.findByHasMethaneOrderByMethanePriceAsc(false);
-		assertEquals(NUMBER_OF_GAS_STATIONS,gasStationListTrue.size()+gasStationListFalse.size());
+		assertEquals(gasStationRepository.findAll().size(),gasStationListTrue.size()+gasStationListFalse.size());
 	}
 	
 	@Test
@@ -199,7 +199,7 @@ public class GasStationRepositoryTest {
 	public void testFindByHasDieselOrderByDieselPriceAscTotal() {
 		List<GasStation> gasStationListTrue = gasStationRepository.findByHasDieselOrderByDieselPriceAsc(true);
 		List<GasStation> gasStationListFalse = gasStationRepository.findByHasDieselOrderByDieselPriceAsc(false);
-		assertEquals(NUMBER_OF_GAS_STATIONS,gasStationListTrue.size()+gasStationListFalse.size());
+		assertEquals(gasStationRepository.findAll().size(),gasStationListTrue.size()+gasStationListFalse.size());
 	}
 	
 	@Test
@@ -232,7 +232,7 @@ public class GasStationRepositoryTest {
 	public void testFindByHasSuperOrderBySuperPriceAscTotal() {
 		List<GasStation> gasStationListTrue = gasStationRepository.findByHasSuperOrderBySuperPriceAsc(true);
 		List<GasStation> gasStationListFalse = gasStationRepository.findByHasSuperOrderBySuperPriceAsc(false);
-		assertEquals(NUMBER_OF_GAS_STATIONS,gasStationListTrue.size()+gasStationListFalse.size());
+		assertEquals(gasStationRepository.findAll().size(),gasStationListTrue.size()+gasStationListFalse.size());
 	}
 	
 	@Test
@@ -265,7 +265,7 @@ public class GasStationRepositoryTest {
 	public void testFindByHasSuperPlusOrderBySuperPlusPriceAscTotal() {
 		List<GasStation> gasStationListTrue = gasStationRepository.findByHasSuperPlusOrderBySuperPlusPriceAsc(true);
 		List<GasStation> gasStationListFalse = gasStationRepository.findByHasSuperPlusOrderBySuperPlusPriceAsc(false);
-		assertEquals(NUMBER_OF_GAS_STATIONS,gasStationListTrue.size()+gasStationListFalse.size());
+		assertEquals(gasStationRepository.findAll().size(),gasStationListTrue.size()+gasStationListFalse.size());
 	}
 	
 	@Test
@@ -298,7 +298,7 @@ public class GasStationRepositoryTest {
 	public void testFindByHasGasOrderByGasPriceAscTotal() {
 		List<GasStation> gasStationListTrue = gasStationRepository.findByHasGasOrderByGasPriceAsc(true);
 		List<GasStation> gasStationListFalse = gasStationRepository.findByHasGasOrderByGasPriceAsc(false);
-		assertEquals(NUMBER_OF_GAS_STATIONS,gasStationListTrue.size()+gasStationListFalse.size());
+		assertEquals(gasStationRepository.findAll().size(),gasStationListTrue.size()+gasStationListFalse.size());
 	}
 	
 	public static double distanceInKilometersBetween(double lat1, double lon1, double lat2, double lon2) {
