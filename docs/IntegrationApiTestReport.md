@@ -426,20 +426,12 @@ Report also for each of the scenarios the (one or more) API JUnit tests that cov
 |||UserConverterTest.testToEntity() |
 |||UserRepositoryTest.testFindByEmail()|
 |||UserConverterTest.testToDto()|
-||FR1.3|UserServiceimplTest.testGetAllUsersNotEmpty()|
-|||UserServiceimplTest.testGetAllUsersEmpty()|
-|||UserConverterTest.testToDtoList()|
-|||UserConverterTest.testToDto() |
 |          UC2 | FR1.1                          |UserServiceimplTest.testSaveUserValid()|
 ||| UserServiceimplTest.testSaveUserForUpdate()|  
 ||| UserServiceimplTest.testSaveUserForInvalidUpdate()|
 |||UserServiceimplTest.testSaveUserFails() |  
 |||UserConverterTest.testToEntity() |
 |||UserRepositoryTest.testFindByEmail()|
-|||UserConverterTest.testToDto()|
-||FR1.3 (delete)|UserServiceimplTest.testGetAllUsersNotEmpty()|
-|||UserServiceimplTest.testGetAllUsersEmpty()|
-|||UserConverterTest.testToDtoList()|
 |||UserConverterTest.testToDto()|
 | UC2.1  | FR1.1                          |UserServiceimplTest.testSaveUserValid()|
 ||| UserServiceimplTest.testSaveUserForUpdate()|  
@@ -456,10 +448,6 @@ Report also for each of the scenarios the (one or more) API JUnit tests that cov
 |||UserServiceimplTest.testDeleteUserSuccessful()|
 |||UserServiceimplTest.testDeleteUserNotExists()|
 |||UserServiceimplTest.testDeleteUserFails()|
-||FR1.3 (delete)|UserServiceimplTest.testGetAllUsersNotEmpty()|
-|||UserServiceimplTest.testGetAllUsersEmpty()|
-|||UserConverterTest.testToDtoList()|
-|||UserConverterTest.testToDto()|
 | UC3.1  | FR1.2                          |UserServiceimplTest.testDeleteUserThrowInvalidUserException()|   
 |||UserServiceimplTest.testDeleteUserSuccessful()|
 |||UserServiceimplTest.testDeleteUserNotExists()|
