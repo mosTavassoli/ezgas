@@ -71,10 +71,15 @@ public class GasStationRepositoryTest {
 		gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, "sharing", 45.108089, 7.636838, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "stamp", 7.77)); //1050m
 		
 		List<GasStation> gasStationList;
+		double previousDistance=0, currentDistance;
+		final double LAT=45.101767,LON=7.646787;
 		
-		gasStationList = gasStationRepository.findByProximity(45.101767, 7.646787);
+		gasStationList = gasStationRepository.findByProximity(LAT,LON);
 		for(GasStation gasStation : gasStationList) {
-			assertTrue(distanceInKilometersBetween(45.101767, 7.646787, gasStation.getLat(),gasStation.getLon())<=1);
+			currentDistance = distanceInKilometersBetween(LAT, LON, gasStation.getLat(),gasStation.getLon());
+			assertTrue(currentDistance>=previousDistance);
+			assertTrue(currentDistance<=1);
+			previousDistance=currentDistance;
 		}
 		
 		assertEquals(5,gasStationList.size());
