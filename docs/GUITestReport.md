@@ -50,7 +50,10 @@ Tests should cover each function of classes in the Controller package
 | ----------- | ------------------------------- | ----------- | 
 |  ...           | FRx                             |             |     
 |  ...           | FRy                             |             |             
-| ...         |                                 |             |             
+|  UserController.deleteUser          |    FR1.2                             |   TestController.testDeleteUser          | 
+|  UserController.getUserById         |    FR1.4                             |   TestController.testGetUserById         |  
+|  UserController.getAllUsers          |          FR1.3                        |      TestController.testGetAllUsers       |  
+|  UserController.saveUser          |             FR1.1                    |      TestController.testSaveUser       |              
 | UserController.login | FR1                             | TestController.testLogin                  |             
 | UserController.increaseUserReputation  | FR5.3                           | TestController.testIncreaseUserReputation |             
 | UserController.decreaseUserReputation  | FR5.3                           | TestController.testDecreaseUserReputation |             
