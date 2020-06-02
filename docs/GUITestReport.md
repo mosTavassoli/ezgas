@@ -53,17 +53,20 @@ Tests should cover each function of classes in the Controller package
 
 | class.method name                                  | Functional Requirements covered | REST  API Test(s)                                |
 |----------------------------------------------------|---------------------------------|--------------------------------------------------|
-| GasStationController.getGasStationById             |                                 | TestController.testGetGasStationById             |
-| GasStationController.getAllGasStations             |                                 | TestController.testGetAllGasStations             |
-| GasStationController.saveGasStation                |                                 | TestController.testSaveGasStation                |
+| GasStationController.getGasStationById             |          FR5.3                  | TestController.testGetGasStationById             |
+| GasStationController.getAllGasStations             |         FR5.2                        | TestController.testGetAllGasStations             |
+| GasStationController.saveGasStation                |         FR3.1                        | TestController.testSaveGasStation                |
 | UserController.deleteUser                          | FR1.2                           | TestController.testDeleteUser                    |
 | UserController.getUserById                         | FR1.4                           | TestController.testGetUserById                   |
 | UserController.getAllUsers                         | FR1.3                           | TestController.testGetAllUsers                   |
 | UserController.saveUser                            | FR1.1                           | TestController.testSaveUser                      |
-| GasStationController.getGasStationsByGasolineType  |                                 | TestController.testGetGasStationsByGasolineType  |
-| GasStationController.getGasStationsByProximity     |                                 | TestController.testGetGasStationsByProximity     |
-| GasStationController.getGasStationsWithCoordinates |                                 | TestController.testGetGasStationsWithCoordinates |
-| GasStationController.setGasStationReport           |                                 | TestController.testSetGasStationReport           |
+| GasStationController.getGasStationsByGasolineType  |       FR4.5                           | TestController.testGetGasStationsByGasolineType  |
+| GasStationController.getGasStationsByProximity     |       FR4.1                          | TestController.testGetGasStationsByProximity     |
+| GasStationController.getGasStationsByProximity     |         FR4.2                        | TestController.testGetGasStationsByProximity     |
+| GasStationController.getGasStationsWithCoordinates |  FR4.1                               | TestController.testGetGasStationsWithCoordinates |
+| GasStationController.getGasStationsWithCoordinates |  FR4.2                               | TestController.testGetGasStationsWithCoordinates |
+| GasStationController.getGasStationsWithCoordinates |  FR4.5                               | TestController.testGetGasStationsWithCoordinates |
+| GasStationController.setGasStationReport           |    FR5.1                             | TestController.testSetGasStationReport           |
 | UserController.login                               | FR1                             | TestController.testLogin                         |
 | UserController.increaseUserReputation              | FR5.3                           | TestController.testIncreaseUserReputation        |
 | UserController.decreaseUserReputation              | FR5.3                           | TestController.testDecreaseUserReputation        |
