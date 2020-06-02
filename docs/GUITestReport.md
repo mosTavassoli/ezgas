@@ -1,10 +1,10 @@
 # GUI  Testing Documentation 
 
-Authors:
+Authors: Mehdi Khrichfa, Alessandro Ricciuto, Toni Saliba, Mostafa Tavassoli
 
-Date:
+Date: 02/06/2020
 
-Version:
+Version: 1
 
 # GUI testing
 
