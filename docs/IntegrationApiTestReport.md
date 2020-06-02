@@ -465,6 +465,9 @@ Report also for each of the scenarios the (one or more) API JUnit tests that cov
 | UC7 | FR5.1 | GasStationServiceimplTest.testSetReportInvalidPrice() |  
 ||| GasStationServiceimplTest.testSetReportInvalidUser() |  
 ||| GasStationServiceimplTest.testSetReportInvalidGasStation() |  
+| UC7.1 | FR5.1 | GasStationServiceimplTest.testSetReportInvalidPrice() |  
+||| GasStationServiceimplTest.testSetReportInvalidUser() |  
+||| GasStationServiceimplTest.testSetReportInvalidGasStation() |  
 | UC8 | FR4.1 | GasStationServiceimplTest.testGetGasStationsByProximityInvalidCoordinates() |  
 ||| GasStationServiceimplTest.testGetGasStationsByProximityEmptyList() |  
 ||| GasStationServiceimplTest.testGetGasStationsByProximityNonEmptyList() |  
