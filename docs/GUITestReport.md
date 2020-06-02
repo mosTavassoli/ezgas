@@ -21,11 +21,11 @@ This part of the document reports about testing at the GUI level. Tests are end 
 | Scenario ID | Functional Requirements covered | GUI Test(s)        |
 |-------------|---------------------------------|--------------------|
 | UC1         | FR1.1                           | testScenarioUC1    |
-| UC1.1       | FR1.1<br>FR1.3                  | testScenarioUC1.1  |
-| UC1.2       | FR1.1<br>FR1.3                  | testScenarioUC1.2  |
-| UC2         | FR1.1<br>FR1.3                  | testScenarioUC2    |
+| UC1.1       | FR1.1                           | testScenarioUC1.1  |
+| UC1.2       | FR1.1                           | testScenarioUC1.2  |
+| UC2         | FR1.1                           | testScenarioUC2    |
 | UC2.1       | FR1.1<br>FR1.3                  | testScenarioUC2.1  |
-| UC3         | FR1.2<br>FR1.3                  | testScenarioUC3    |
+| UC3         | FR1.2                           | testScenarioUC3    |
 | UC3.1       | FR1.2<br>FR1.3                  | testScenarioUC3.1  |
 | UC4         | FR3.1                           | testScenarioUC4    |
 | UC5         | FR3.1                           | testScenarioUC5.1  |
