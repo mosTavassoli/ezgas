@@ -31,6 +31,7 @@ This part of the document reports about testing at the GUI level. Tests are end 
 | UC5         | FR3.1                           | testScenarioUC5.1  |
 | UC6         | FR3.2                           | testScenarioUC6    |
 | UC7         | FR5.1                           | testScenarioUC7    |
+| UC7.1       | FR5.1                           | testScenarioUC7.1  |
 | UC8         | FR4.1<br>FR4.2                  | testScenarioUC8    |
 | UC8.1       | FR4.5                           | testScenarioUC8.1  |
 | UC8.2       | FR4.5                           | testScenarioUC8.2  |
