@@ -51,14 +51,25 @@ Tests should cover each function of classes in the Controller package
 
 <Report in this table the test cases defined to cover all methods in Controller classes >
 
-| class.method name | Functional Requirements covered |REST  API Test(s) | 
-| ----------- | ------------------------------- | ----------- | 
-|  ...           | FRx                             |             |     
-|  ...           | FRy                             |             |             
-|  UserController.deleteUser          |    FR1.2                             |   TestController.testDeleteUser          | 
-|  UserController.getUserById         |    FR1.4                             |   TestController.testGetUserById         |  
-|  UserController.getAllUsers          |          FR1.3                        |      TestController.testGetAllUsers       |  
-|  UserController.saveUser          |             FR1.1                    |      TestController.testSaveUser       |              
-| UserController.login | FR1                             | TestController.testLogin                  |             
-| UserController.increaseUserReputation  | FR5.3                           | TestController.testIncreaseUserReputation |             
-| UserController.decreaseUserReputation  | FR5.3                           | TestController.testDecreaseUserReputation |             
+| class.method name                                  | Functional Requirements covered | REST  API Test(s)                                |
+|----------------------------------------------------|---------------------------------|--------------------------------------------------|
+| GasStationController.getGasStationById             |                                 | TestController.testGetGasStationById             |
+| GasStationController.getAllGasStations             |                                 | TestController.testGetAllGasStations             |
+| GasStationController.saveGasStation                |                                 | TestController.testSaveGasStation                |
+| UserController.deleteUser                          | FR1.2                           | TestController.testDeleteUser                    |
+| UserController.getUserById                         | FR1.4                           | TestController.testGetUserById                   |
+| UserController.getAllUsers                         | FR1.3                           | TestController.testGetAllUsers                   |
+| UserController.saveUser                            | FR1.1                           | TestController.testSaveUser                      |
+| GasStationController.getGasStationsByGasolineType  |                                 | TestController.testGetGasStationsByGasolineType  |
+| GasStationController.getGasStationsByProximity     |                                 | TestController.testGetGasStationsByProximity     |
+| GasStationController.getGasStationsWithCoordinates |                                 | TestController.testGetGasStationsWithCoordinates |
+| GasStationController.setGasStationReport           |                                 | TestController.testSetGasStationReport           |
+| UserController.login                               | FR1                             | TestController.testLogin                         |
+| UserController.increaseUserReputation              | FR5.3                           | TestController.testIncreaseUserReputation        |
+| UserController.decreaseUserReputation              | FR5.3                           | TestController.testDecreaseUserReputation        |
+| HomeController.admin                               |                                 | TestController.testAdmin                         |
+| HomeController.index                               |                                 | TestController.testIndex                         |
+| HomeController.map                                 |                                 | TestController.testMap                           |
+| HomeController.login                               |                                 | TestController.testHomeControllerLogin           |
+| HomeController.update                              |                                 | TestController.testUpdate                        |
+| HomeController.signup                              |                                 | TestController.testSignup                        |
