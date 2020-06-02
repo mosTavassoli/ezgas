@@ -20,6 +20,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.junit.Test;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -60,8 +61,8 @@ public class TestController {
 	
 	private final String GASOLINE_TYPE=Constants.DIESEL;
 	private final String CAR_SHARING="carsharing";
-	private final int GAS_STATION_ID=22;
-	private final int USER_ID=1;
+	private final int GAS_STATION_ID=137;
+	private final int USER_ID=78;
 	private final double PRICE=1.23;
 	private final double LAT=45.101767;
 	private final double LON= 7.646787;
@@ -209,6 +210,52 @@ public class TestController {
 		
 		HttpResponse response = HttpClientBuilder.create().build().execute(request);
 
+		assertEquals(200,response.getStatusLine().getStatusCode());
+	}
+	
+	//Home controller tests
+	@Test
+	public void testAdmin() throws ClientProtocolException, IOException {
+		HttpUriRequest request = new HttpGet("http://localhost:8080/admin");
+		HttpResponse response = HttpClientBuilder.create().build().execute(request);
+		
+		assertEquals(200,response.getStatusLine().getStatusCode());
+	}
+	
+	@Test
+	public void testIndex() throws ClientProtocolException, IOException {
+		HttpUriRequest request = new HttpGet("http://localhost:8080/");
+		HttpResponse response = HttpClientBuilder.create().build().execute(request);
+		
+		assertEquals(200,response.getStatusLine().getStatusCode());
+	}
+	
+	@Test
+	public void testMap() throws ClientProtocolException, IOException {
+		HttpUriRequest request = new HttpGet("http://localhost:8080/map");
+		HttpResponse response = HttpClientBuilder.create().build().execute(request);
+		
+		assertEquals(200,response.getStatusLine().getStatusCode());
+	}
+	@Test
+	public void testHomeControllerLogin() throws ClientProtocolException, IOException {
+		HttpUriRequest request = new HttpGet("http://localhost:8080/login");
+		HttpResponse response = HttpClientBuilder.create().build().execute(request);
+		
+		assertEquals(200,response.getStatusLine().getStatusCode());
+	}
+	@Test
+	public void testUpdate() throws ClientProtocolException, IOException {
+		HttpUriRequest request = new HttpGet("http://localhost:8080/update");
+		HttpResponse response = HttpClientBuilder.create().build().execute(request);
+		
+		assertEquals(200,response.getStatusLine().getStatusCode());
+	}
+	@Test
+	public void testSignup() throws ClientProtocolException, IOException {
+		HttpUriRequest request = new HttpGet("http://localhost:8080/signup");
+		HttpResponse response = HttpClientBuilder.create().build().execute(request);
+		
 		assertEquals(200,response.getStatusLine().getStatusCode());
 	}
 
