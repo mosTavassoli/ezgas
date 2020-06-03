@@ -17,21 +17,21 @@ Version: 1
 - [Tests](#tests)
   - [Step 1](#step-1)
   - [Step 2](#step-2)
-  - [Step 3 API Tests UserService](#Step-3-API-Tests-UserService)
-  - [Step 4 API Tests GasStationService](#Step-4-API-Tests-GasStationService)
+  - [Step 3 API Tests UserService](#step-3-api-tests-userservice)
+  - [Step 4 API Tests GasStationService](#step-4-api-tests-gasstationservice)
 - [Scenarios](#scenarios)
   - [Scenario UC1.1](#scenario-uc11)
   - [Scenario UC1.2](#scenario-uc12)
-  - [Scenario UC2](#scenario-uc2)
-  - [Scenario UC3](#scenario-uc3)
-  - [Scenario UC7](#scenario-uc7)
+  - [Scenario UC2.1](#scenario-uc21)
+  - [Scenario UC3.1](#scenario-uc31)
+  - [Scenario UC7.1](#scenario-uc71)
   - [Scenario UC8.1](#scenario-uc81)
   - [Scenario UC8.2](#scenario-uc82)
   - [Scenario UC8.3](#scenario-uc83)
   - [Scenario UC8.4](#scenario-uc84)
-  - [Scenario UC10](#scenario-uc10)
 - [Coverage of Scenarios and FR](#coverage-of-scenarios-and-fr)
 - [Coverage of Non Functional Requirements](#coverage-of-non-functional-requirements)
+    - [](#)
 - [Code coverage report](#code-coverage-report)
 
 
@@ -141,12 +141,9 @@ We adopted a bottom up approach divided in the following steps:
 ## Step 2
 | Classes  | JUnit test cases |
 |--|--|
-| GasStationDto.computeReportDependability() | GasStationDtoTest.computeReportDependability() |
-|| GasStationDtoTest.computeReportDependability() |
+| GasStationDto.computeReportDependability() | GasStationDtoTest.testComputeReportDependabilityMoreThan7Days() |
 || testComputeReportDependabilityLessThan7Days() |
-|| testComputeReportDependabilityWithNullUser() |
 || testComputeReportDependabilityWithNullReportTimestamp() |
-|| testComputeReportDependabilityWithNullUserReputation() |
 | GasStationDto.checkPrice() | GasStationDtoTest.testNegativeDieselPrice()|
 || GasStationDtoTest.testNegativeGasPrice()|
 || GasStationDtoTest.testNegativeMethanePrice()|
@@ -236,6 +233,8 @@ We adopted a bottom up approach divided in the following steps:
 |GasStationServiceimpl.saveGasStation(GasStationDto gasStationDto)|GasStationServiceimplTest.testSaveGasStationInvalidNegativePrice()|
 ||GasStationServiceimplTest.testSaveGasStationInvalidCoordinates()|
 ||GasStationServiceimplTest.testSaveGasStationValid()|
+||GasStationServiceimplTest.testSaveGasStationValidAlreadyExists()|
+||GasStationServiceimplTest.testSaveGasStationValidNotAlreadyExists()|
 |GasStationServiceimplTest.List\<GasStationDto> getAllGasStations()|GasStationServiceimplTest.testGetAllGasStationsEmpty()|
 ||GasStationServiceimplTest.testGetAllGasStationsNotEmpty()|
 |GasStationServiceimplTest.deleteGasStation(Integer gasStationId)|GasStationServiceimplTest.testDeleteGasStationValid()|
@@ -292,17 +291,15 @@ We adopted a bottom up approach divided in the following steps:
 
 | Scenario |  name |
 | ------------- |:-------------:| 
-|  Precondition     | Account U exists inside the system and account B does not exist|
-|  Post condition     |  Account U and account B exist inside the system|
+|  Precondition     | Admin account A exists inside the system and user account U does not exist|
+|  Post condition     |  Account A and account U exist inside the system|
 | Step#        | Description  |
-|  1     |  Admin tries to create a new account B and populates its fields using the same email of account U |
+|  1     |  Admin tries to create a new user account U and populates its fields |
 |  2     |  System searches for email to see if it exists inside the system |
-|  3     |  System finds the email inside the system |
-|  4     |  System checks to see the type of account (user or admin)|
-|  5     |  System finds out that type of account is admin|
-|  6     |  System successfully creates the account inside the database|
+|  3     |  System doesn't find the email inside the system |
+|  4     |  System successfully creates account U inside the database|
 
-## Scenario UC2
+## Scenario UC2.1
 
 | Scenario |  name |
 | ------------- |:-------------:| 
@@ -312,7 +309,7 @@ We adopted a bottom up approach divided in the following steps:
 |  1     |  Admin gets a list of all accounts |
 |  2     |  Admin modifies one or more fields of any account |
 
-## Scenario UC3
+## Scenario UC3.1
 
 | Scenario |  name |
 | ------------- |:-------------:| 
@@ -323,7 +320,7 @@ We adopted a bottom up approach divided in the following steps:
 |  2     |  Admin selects an account to delete |
 
 
-## Scenario UC7
+## Scenario UC7.1
 
 | Scenario |  name |
 | ------------- |:-------------:| 
@@ -402,28 +399,27 @@ Report also for each of the scenarios the (one or more) API JUnit tests that cov
 
 | Scenario ID | Functional Requirements covered | JUnit  Test(s) | 
 | ----------- | ------------------------------- | ----------- | 
-|Scenario UC1.1| FR1.1                          | UserServiceimplTest.testSaveUserValid()            |      
+| UC1| FR1.1                          | UserServiceimplTest.testSaveUserValid()            |      
 ||| UserServiceimplTest.testSaveUserForUpdate()|  
 ||| UserServiceimplTest.testSaveUserForInvalidUpdate()|
 |||UserServiceimplTest.testSaveUserFails() |  
 |||UserConverterTest.testToEntity() |
 |||UserRepositoryTest.testFindByEmail()|
 |||UserConverterTest.testToDto()|
-|| FR1.3      |UserServiceimplTest.testGetAllUsersNotEmpty()|
-|||UserServiceimplTest.testGetAllUsersEmpty()|
-|||UserConverterTest.testToDtoList()|
-|||UserConverterTest.testToDto()|
-|Scenario UC1.2| FR1.1|UserServiceimplTest.testSaveUserValid() | 
+| UC1.1| FR1.1                          | UserServiceimplTest.testSaveUserValid()            |      
 ||| UserServiceimplTest.testSaveUserForUpdate()|  
 ||| UserServiceimplTest.testSaveUserForInvalidUpdate()|
 |||UserServiceimplTest.testSaveUserFails() |  
 |||UserConverterTest.testToEntity() |
 |||UserRepositoryTest.testFindByEmail()|
 |||UserConverterTest.testToDto()|
-||FR1.3|UserServiceimplTest.testGetAllUsersNotEmpty()|
-|||UserServiceimplTest.testGetAllUsersEmpty()|
-|||UserConverterTest.testToDtoList()|
-|||UserConverterTest.testToDto() |
+| UC1.2| FR1.1|UserServiceimplTest.testSaveUserValid() | 
+||| UserServiceimplTest.testSaveUserForUpdate()|  
+||| UserServiceimplTest.testSaveUserForInvalidUpdate()|
+|||UserServiceimplTest.testSaveUserFails() |  
+|||UserConverterTest.testToEntity() |
+|||UserRepositoryTest.testFindByEmail()|
+|||UserConverterTest.testToDto()|
 |          UC2 | FR1.1                          |UserServiceimplTest.testSaveUserValid()|
 ||| UserServiceimplTest.testSaveUserForUpdate()|  
 ||| UserServiceimplTest.testSaveUserForInvalidUpdate()|
@@ -431,11 +427,7 @@ Report also for each of the scenarios the (one or more) API JUnit tests that cov
 |||UserConverterTest.testToEntity() |
 |||UserRepositoryTest.testFindByEmail()|
 |||UserConverterTest.testToDto()|
-||FR1.3|UserServiceimplTest.testGetAllUsersNotEmpty()|
-|||UserServiceimplTest.testGetAllUsersEmpty()|
-|||UserConverterTest.testToDtoList()|
-|||UserConverterTest.testToDto()|
-|Scenario UC2  | FR1.1                          |UserServiceimplTest.testSaveUserValid()|
+| UC2.1  | FR1.1                          |UserServiceimplTest.testSaveUserValid()|
 ||| UserServiceimplTest.testSaveUserForUpdate()|  
 ||| UserServiceimplTest.testSaveUserForInvalidUpdate()|
 |||UserServiceimplTest.testSaveUserFails() |  
@@ -450,11 +442,7 @@ Report also for each of the scenarios the (one or more) API JUnit tests that cov
 |||UserServiceimplTest.testDeleteUserSuccessful()|
 |||UserServiceimplTest.testDeleteUserNotExists()|
 |||UserServiceimplTest.testDeleteUserFails()|
-||FR1.3|UserServiceimplTest.testGetAllUsersNotEmpty()|
-|||UserServiceimplTest.testGetAllUsersEmpty()|
-|||UserConverterTest.testToDtoList()|
-|||UserConverterTest.testToDto()|
-|Scenario UC3  | FR1.2                          |UserServiceimplTest.testDeleteUserThrowInvalidUserException()|   
+| UC3.1  | FR1.2                          |UserServiceimplTest.testDeleteUserThrowInvalidUserException()|   
 |||UserServiceimplTest.testDeleteUserSuccessful()|
 |||UserServiceimplTest.testDeleteUserNotExists()|
 |||UserServiceimplTest.testDeleteUserFails()|
@@ -465,6 +453,8 @@ Report also for each of the scenarios the (one or more) API JUnit tests that cov
 | UC4 | FR3.1 | GasStationServiceimplTest.testSaveGasStationInvalidNegativePrice()   |             
 ||| GasStationServiceimplTest.testSaveGasStationInvalidCoordinates()   |             
 |||  GasStationServiceimplTest.testSaveGasStationValid() |
+|||  GasStationServiceimplTest.testSaveGasStationValidAlreadyExists() |
+|||  GasStationServiceimplTest.testSaveGasStationValidNotAlreadyExists() |
 | UC5 | FR3.1 | GasStationServiceimplTest.testSaveGasStationInvalidNegativePrice()   |             
 ||| GasStationServiceimplTest.testSaveGasStationInvalidCoordinates() |             
 ||| GasStationServiceimplTest.testSaveGasStationValid() |                
@@ -473,6 +463,9 @@ Report also for each of the scenarios the (one or more) API JUnit tests that cov
 ||| GasStationServiceimplTest.testDeleteGasStationIdDoesNotExist() |  
 ||| GasStationServiceimplTest.testDeleteGasStationDeleteFails() |  
 | UC7 | FR5.1 | GasStationServiceimplTest.testSetReportInvalidPrice() |  
+||| GasStationServiceimplTest.testSetReportInvalidUser() |  
+||| GasStationServiceimplTest.testSetReportInvalidGasStation() |  
+| UC7.1 | FR5.1 | GasStationServiceimplTest.testSetReportInvalidPrice() |  
 ||| GasStationServiceimplTest.testSetReportInvalidUser() |  
 ||| GasStationServiceimplTest.testSetReportInvalidGasStation() |  
 | UC8 | FR4.1 | GasStationServiceimplTest.testGetGasStationsByProximityInvalidCoordinates() |  

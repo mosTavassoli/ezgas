@@ -694,6 +694,13 @@ return
 GasStationServiceimpl -> GasStationDto: 4 : checkCoordinates()
 activate GasStationDto
 return
+activate GasStationServiceimpl
+GasStationServiceimpl -> GasStationRepository:3 : exists()
+activate GasStationRepository
+GasStationRepository -> Database
+activate Database
+return
+return
 GasStationServiceimpl -> GasStationConverter:5 : toEntity()
 activate GasStationConverter
 GasStationConverter -> UserConverter:6 : toEntity()
