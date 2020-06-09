@@ -1,8 +1,14 @@
 package it.polito.ezgas.service.impl;
 
+import static java.util.stream.Collectors.toList;
+
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,19 +20,11 @@ import exception.InvalidUserException;
 import exception.PriceException;
 import it.polito.ezgas.converter.GasStationConverter;
 import it.polito.ezgas.dto.GasStationDto;
-import it.polito.ezgas.dto.UserDto;
 import it.polito.ezgas.entity.GasStation;
 import it.polito.ezgas.repository.GasStationRepository;
 import it.polito.ezgas.service.GasStationService;
 import it.polito.ezgas.service.UserService;
 import it.polito.ezgas.utils.Constants;
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import static java.util.stream.Collectors.toList;
-
-import java.sql.Timestamp;
 
 /**
  * Created by softeng on 27/4/2020.
@@ -215,7 +213,9 @@ public class GasStationServiceimpl implements GasStationService {
 		gasStationDto.setMethanePrice(methanePrice);
 		gasStationDto.setReportUser(userId);
 		gasStationDto.setUserDto(userService.getUserById(userId));
-		gasStationDto.setReportTimestamp(new Timestamp(new Date().getTime()).toString());
+		
+		SimpleDateFormat toFormat = new SimpleDateFormat("MM-dd-yyyy");
+		gasStationDto.setReportTimestamp(toFormat.format(new Date()));
 		gasStationDto.setReportDependability((double)userService.getUserById(userId).getReputation());
 		
 		if(!gasStationDto.checkPrices())

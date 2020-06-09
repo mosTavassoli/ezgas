@@ -6,6 +6,9 @@ import it.polito.ezgas.dto.GasStationDto;
 import it.polito.ezgas.entity.GasStation;
 import static java.util.stream.Collectors.toList;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+
 public class GasStationConverter {
 	
 	
@@ -30,7 +33,7 @@ public class GasStationConverter {
 		dto.setMethanePrice(entity.getMethanePrice());
 		dto.setReportUser(entity.getReportUser());
 		dto.setUserDto(entity.getUser() != null ? UserConverter.toDto(entity.getUser()): null);
-		dto.setReportTimestamp(entity.getReportTimestamp());
+		dto.setReportTimestamp(entity.getReportTimestamp());	
 		dto.setReportDependability(entity.getReportDependability());
 		dto.setReportDependability(dto.computeReportDependability());
 		
