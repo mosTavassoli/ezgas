@@ -226,7 +226,6 @@ public class GasStationDto {
 
 	public void setReportTimestamp(String reportTimestamp) {
 		this.reportTimestamp = reportTimestamp;
-		System.out.println("Is it set?: "+this.reportTimestamp);
 	}
 
 
@@ -368,7 +367,6 @@ public class GasStationDto {
 		}
 		long diffInMillies = today.getTime() - reportDate.getTime();
 		long diffInDays = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
-		System.out.println("\nDate then(String): "+this.reportTimestamp+"\nDate then(Date): "+reportDate.toString()+"\nDate today: "+today.toString()+"\nDays: "+diffInDays);
 		if(diffInDays > 7)
 			obsolescence = 0;
 		else obsolescence = 1 - (double) diffInDays / 7;

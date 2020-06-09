@@ -53,13 +53,13 @@ public class BootEZGasApplication {
 			userRepository.save(user);
 		}
 		
-		//Add test gas station
+		//Add test gas station FORMAT DATE IF YOU NEED TO USE IT
 		List<GasStation> gasStationList = gasStationRepository.findByProximity(-8.788462, -124.507958);
 		GasStation gasStation;
 		if(gasStationList.size()==0) {
 			gasStation= new GasStation("gasStationName", "gasStationAddress", true, true, true, true, true, 
 					"carSharing", -8.788462, -124.5079580, 0.0, 0.0, 0.0, 0.0, 0.0, 1, 
-					(new Timestamp(new Date().getTime())).toString(), 0.0);
+					(ERRORERRORERROR(new Date().getTime())).toString(), 0.0);
 			gasStationRepository.save(gasStation);
 		}
 		**/

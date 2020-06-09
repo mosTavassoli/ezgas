@@ -192,7 +192,7 @@ public class GasStationConverterTest {
 
 		GasStation gasStation2 = new GasStation("station", "5th street", true, false, 
 				false, true, false, "CarCar", 35, 45.787, 0.54, -110, 12, 356.768, 
-				0.007, 4321, "2020-05-11 20:13:02.076", 4.36);
+				0.007, 4321, "05-11-2020", 4.36);
 		 gasStationId2 = gasStation2.getGasStationId();
 		List<GasStation> listEntity = Arrays.asList(gasStation1, gasStation2);
 		List<GasStationDto> listDto = GasStationConverter.toDto(listEntity);
@@ -238,7 +238,7 @@ public class GasStationConverterTest {
 				+ "methanePrice = 0.007,\n"
 				+ "reportUser = 4321,\n"
 				+ "userDto = null,\n"
-				+ "reportTimestamp = 2020-05-11 20:13:02.076,\n"
+				+ "reportTimestamp = 05-11-2020,\n"
 				+ "reportDependability = 45.0,\n"
 				+ "}\n";
 		assertEquals(correctString1 +correctString2 , listDto.get(0).toString() + listDto.get(1).toString());

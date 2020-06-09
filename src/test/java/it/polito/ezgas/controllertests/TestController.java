@@ -51,7 +51,7 @@ public class TestController {
 	private static final boolean HAS_SUPERPLUS = true;
 	private static final boolean HAS_GAS = true;
 	private static final boolean HAS_METHANE = false;
-	private static final String REPORT_TIMESTAMP = new Timestamp(new Date().getTime()).toString();
+	private static final String REPORT_TIMESTAMP = "05-22-2020";
 	private static final double REPORT_DEPENDABILITY = 5.0;
 	/**
 	 * TODO How to put some users and gasStations in db to test? 
