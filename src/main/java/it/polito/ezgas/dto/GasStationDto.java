@@ -1,10 +1,8 @@
 package it.polito.ezgas.dto;
 
-import java.lang.reflect.Field;
-import java.sql.Timestamp;
-import java.util.ArrayList;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import it.polito.ezgas.utils.Constants;
@@ -301,7 +299,15 @@ public class GasStationDto {
 
 
 	public void setCarSharing(String carSharing) {
-		this.carSharing = carSharing;
+		if(carSharing==null) {
+			this.carSharing = carSharing;
+		}
+		else if(carSharing.equals("null")) {
+			this.carSharing=null;
+		}
+		else {
+			this.carSharing = carSharing;
+		}
 	}
 	
 	
@@ -352,8 +358,13 @@ public class GasStationDto {
 		double obsolescence;
 		Integer userReputation = (int) this.reportDependability;
 		Date today = new Date();
-		Date reportDate = new Date(Timestamp.valueOf(this.reportTimestamp).getTime());
-		
+		SimpleDateFormat toFormat = new SimpleDateFormat("MM-dd-yyyy");
+		Date reportDate;
+		try {
+			reportDate = toFormat.parse(this.reportTimestamp);
+		}catch(ParseException e) {
+			reportDate = new Date();
+		}
 		long diffInMillies = today.getTime() - reportDate.getTime();
 		long diffInDays = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
 		if(diffInDays > 7)

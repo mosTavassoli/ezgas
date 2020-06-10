@@ -7,9 +7,7 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -82,7 +80,7 @@ public class GasStationServiceimplTest {
 	
 	private final String INVALID_GAS_TYPE="invalidGas";
 	private final String VALID_CARSHARING="0";
-	private final String TIMESTAMP=(new Timestamp(new Date().getTime())).toString();
+	private final String TIMESTAMP="05-22-2020";
 	
 	private int validGasStationId;
 	private int validUserId;
@@ -169,7 +167,7 @@ public class GasStationServiceimplTest {
 	
 	@Test
 	public void testSaveGasStationValid() throws PriceException,GPSDataException {
-		GasStationDto gasStationDtoSent = new GasStationDto(99999, "gasStationName", "gasStationAddress", true, false, true, true, false, "carSharing", 12.3, 23.43, 1.23, 2.34, 3.45, 4.56, 5.67, 1234, "2020-05-11 20:13:02.076", 5.43);
+		GasStationDto gasStationDtoSent = new GasStationDto(99999, "gasStationName", "gasStationAddress", true, false, true, true, false, "carSharing", 12.3, 23.43, 1.23, 2.34, 3.45, 4.56, 5.67, 1234, "05-11-2020", 5.43);
 		GasStationDto gasStationDtoReceived = gasStationService.saveGasStation(gasStationDtoSent);
 		assertTrue(new ReflectionEquals(gasStationDtoSent,"gasStationId","reportDependability").matches(gasStationDtoReceived));
 		assertEquals(50.0,gasStationDtoReceived.getReportDependability(),0.0);
@@ -177,14 +175,14 @@ public class GasStationServiceimplTest {
 	
 	@Test
 	public void testSaveGasStationValidAlreadyExists() throws PriceException,GPSDataException {
-		GasStationDto gasStationDtoSent = new GasStationDto(this.validGasStationId, "gasStationName", "gasStationAddress", true, false, true, true, false, "carSharing", 12.3, 23.43, 1.23, 2.34, 3.45, 4.56, 5.67, 1234, "2020-05-11 20:13:02.076", 5.43);
+		GasStationDto gasStationDtoSent = new GasStationDto(this.validGasStationId, "gasStationName", "gasStationAddress", true, false, true, true, false, "carSharing", 12.3, 23.43, 1.23, 2.34, 3.45, 4.56, 5.67, 1234, "05-11-2020", 5.43);
 		GasStationDto gasStationDtoReceived = gasStationService.saveGasStation(gasStationDtoSent);
 		assertTrue(new ReflectionEquals(gasStationDtoSent,"gasStationId","reportDependability").matches(gasStationDtoReceived));
 	}
 	
 	@Test
 	public void testSaveGasStationValidNotAlreadyExists() throws PriceException,GPSDataException {
-		GasStationDto gasStationDtoSent = new GasStationDto(null, "gasStationName", "gasStationAddress", true, false, true, true, false, "carSharing", 12.3, 23.43, 1.23, 2.34, 3.45, 4.56, 5.67, 1234, "2020-05-11 20:13:02.076", 5.43);
+		GasStationDto gasStationDtoSent = new GasStationDto(null, "gasStationName", "gasStationAddress", true, false, true, true, false, "carSharing", 12.3, 23.43, 1.23, 2.34, 3.45, 4.56, 5.67, 1234, "05-11-2020", 5.43);
 		GasStationDto gasStationDtoReceived = gasStationService.saveGasStation(gasStationDtoSent);
 		assertTrue(new ReflectionEquals(gasStationDtoSent,"gasStationId","reportDependability").matches(gasStationDtoReceived));
 	}

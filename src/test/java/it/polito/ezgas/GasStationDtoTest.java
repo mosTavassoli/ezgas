@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -39,8 +41,8 @@ public class GasStationDtoTest {
     private double gasPrice=32.33;
     private double methanePrice=65.78;
     private Integer reportUser=735;
-    private String reportTimestamp="2020-05-11 20:13:02.076";
-    private double reportDependability=139.695;
+    private String reportTimestamp="2020-05-11";
+    private double reportDependability=3;
     
 	UserDto userDto = new UserDto(15, "Username15", "pass15", "test15@email.com", 3, false);
 	
@@ -414,13 +416,16 @@ public class GasStationDtoTest {
 	
 	@Test
 	public void testComputeReportDependabilityMoreThan7Days() {
-		String reportTimestamp = new Timestamp(new Date(System.currentTimeMillis()-8*24*60*60*1000).getTime()).toString();
-		this.gasStationDto.setReportTimestamp(reportTimestamp);
+		Date reportDate = new Date(System.currentTimeMillis()-8*24*60*60*1000);
+		SimpleDateFormat toFormat = new SimpleDateFormat("MM-dd-yyyy");
+		this.gasStationDto.setReportTimestamp(toFormat.format(reportDate));
+		this.gasStationDto.setReportDependability(this.reportDependability);
+
 		
 		double obsolescence;
 		Integer userReputation = (int)this.gasStationDto.getReportDependability();
 		Date today = new Date();
-		Date reportDate = new Date(Timestamp.valueOf(reportTimestamp).getTime());
+		
 		
 		long diffInMillies = today.getTime() - reportDate.getTime();
 		long diffInDays = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
@@ -435,19 +440,23 @@ public class GasStationDtoTest {
 	
 	@Test
 	public void testComputeReportDependabilityLessThan7Days() {
-		String reportTimestamp = new Timestamp(new Date(System.currentTimeMillis()-24*60*60*1000).getTime()).toString();
-		this.gasStationDto.setReportTimestamp(reportTimestamp);
+		Date reportDate = new Date(System.currentTimeMillis()-24*60*60*1000);
+		SimpleDateFormat toFormat = new SimpleDateFormat("MM-dd-yyyy");
+		this.gasStationDto.setReportTimestamp(toFormat.format(reportDate));
+		this.gasStationDto.setReportDependability(this.reportDependability);
 		
 		double obsolescence;
 		Integer userReputation = (int)this.gasStationDto.getReportDependability();
 		Date today = new Date();
-		Date reportDate = new Date(Timestamp.valueOf(reportTimestamp).getTime());
 		
 		long diffInMillies = today.getTime() - reportDate.getTime();
 		long diffInDays = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
 		if(diffInDays > 7)
 			obsolescence = 0;
 		else obsolescence = 1 - (double) diffInDays / 7;
+		
+		this.gasStationDto.setReportDependability(this.reportDependability);
+
 		
 		double reportDependability = 50 * (userReputation + 5) / 10 + 50 * obsolescence;
 		

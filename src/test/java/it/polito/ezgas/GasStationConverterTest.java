@@ -2,6 +2,8 @@ package it.polito.ezgas;
 import static org.junit.Assert.assertEquals;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -34,7 +36,7 @@ public class GasStationConverterTest {
     private double gasPrice=32.33;
     private double methanePrice=65.78;
     private Integer reportUser=735;
-    private String reportTimestamp="2020-05-11 20:13:02.076";
+    private String reportTimestamp="05-11-2020";
     private double reportDependability=0;
 	
     private String correctString;
@@ -190,7 +192,7 @@ public class GasStationConverterTest {
 
 		GasStation gasStation2 = new GasStation("station", "5th street", true, false, 
 				false, true, false, "CarCar", 35, 45.787, 0.54, -110, 12, 356.768, 
-				0.007, 4321, "2020-05-11 20:13:02.076", 4.36);
+				0.007, 4321, "05-11-2020", 4.36);
 		 gasStationId2 = gasStation2.getGasStationId();
 		List<GasStation> listEntity = Arrays.asList(gasStation1, gasStation2);
 		List<GasStationDto> listDto = GasStationConverter.toDto(listEntity);
@@ -236,7 +238,7 @@ public class GasStationConverterTest {
 				+ "methanePrice = 0.007,\n"
 				+ "reportUser = 4321,\n"
 				+ "userDto = null,\n"
-				+ "reportTimestamp = 2020-05-11 20:13:02.076,\n"
+				+ "reportTimestamp = 05-11-2020,\n"
 				+ "reportDependability = 45.0,\n"
 				+ "}\n";
 		assertEquals(correctString1 +correctString2 , listDto.get(0).toString() + listDto.get(1).toString());
@@ -244,11 +246,19 @@ public class GasStationConverterTest {
 	}
     
 	public double computeReportDependability() {
+		if(this.reportTimestamp == null)
+			return 0;
+		
 		double obsolescence;
 		Integer userReputation = (int) this.reportDependability;
 		Date today = new Date();
-		Date reportDate = new Date(Timestamp.valueOf(this.reportTimestamp).getTime());
-		
+		SimpleDateFormat toFormat = new SimpleDateFormat("MM-dd-yyyy");
+		Date reportDate;
+		try {
+			reportDate = toFormat.parse(this.reportTimestamp);
+		}catch(ParseException e) {
+			reportDate = new Date();
+		}
 		long diffInMillies = today.getTime() - reportDate.getTime();
 		long diffInDays = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
 		if(diffInDays > 7)
