@@ -2,7 +2,7 @@ package it.polito.ezgas.service.impl;
 
 import static java.util.stream.Collectors.toList;
 
-import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,6 +20,7 @@ import exception.InvalidUserException;
 import exception.PriceException;
 import it.polito.ezgas.converter.GasStationConverter;
 import it.polito.ezgas.dto.GasStationDto;
+import it.polito.ezgas.dto.UserDto;
 import it.polito.ezgas.entity.GasStation;
 import it.polito.ezgas.repository.GasStationRepository;
 import it.polito.ezgas.service.GasStationService;
@@ -204,26 +205,41 @@ public class GasStationServiceimpl implements GasStationService {
 				+ ", methanePrice = " + methanePrice
 				+ ", userId = " + userId);
 		
+		UserDto newReportUser = userService.getUserById(userId);
 		GasStationDto gasStationDto = getGasStationById(gasStationId);
-		
-		gasStationDto.setDieselPrice(dieselPrice);
-		gasStationDto.setSuperPrice(superPrice);
-		gasStationDto.setSuperPlusPrice(superPlusPrice);
-		gasStationDto.setGasPrice(gasPrice);
-		gasStationDto.setMethanePrice(methanePrice);
-		gasStationDto.setReportUser(userId);
-		gasStationDto.setUserDto(userService.getUserById(userId));
-		
 		SimpleDateFormat toFormat = new SimpleDateFormat("MM-dd-yyyy");
-		gasStationDto.setReportTimestamp(toFormat.format(new Date()));
-		gasStationDto.setReportDependability((double)userService.getUserById(userId).getReputation());
+		long dateDifferenceInDays=0;
 		
-		if(!gasStationDto.checkPrices())
-			throw new PriceException("PriceException: " + gasStationDto.toString());              
+		if(!gasStationDto.getNotAvailable()) {
+			try {
+				dateDifferenceInDays = ((new Date()).getTime() - toFormat.parse(gasStationDto.getReportTimestamp()).getTime()) / (1000 * 60 * 60 * 24);
+			} catch(ParseException e) {
+				dateDifferenceInDays = 0;
+			}
+		}
 		
-		gasStationRepository.save(GasStationConverter.toEntity(gasStationDto));
+		if(gasStationDto.getNotAvailable() || newReportUser.getReputation() >= gasStationDto.getReportDependability()
+				|| dateDifferenceInDays > 4) {
+			gasStationDto.setDieselPrice(dieselPrice);
+			gasStationDto.setSuperPrice(superPrice);
+			gasStationDto.setSuperPlusPrice(superPlusPrice);
+			gasStationDto.setGasPrice(gasPrice);
+			gasStationDto.setMethanePrice(methanePrice);
+			gasStationDto.setReportUser(userId);
+			gasStationDto.setUserDto(newReportUser);
+			
+			gasStationDto.setReportTimestamp(toFormat.format(new Date()));
+			gasStationDto.setReportDependability((double)userService.getUserById(userId).getReputation());
+			
+			if(!gasStationDto.checkPrices())
+				throw new PriceException("PriceException: " + gasStationDto.toString());              
+			
+			gasStationDto.setNotAvailable(false);
+			gasStationRepository.save(GasStationConverter.toEntity(gasStationDto));
+	
+		}
 	}
-
+	
 	@Override
 	public List<GasStationDto> getGasStationByCarSharing(String carSharing) {
 		/**

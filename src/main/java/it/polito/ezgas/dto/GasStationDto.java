@@ -30,6 +30,7 @@ public class GasStationDto {
     UserDto userDto;
     String reportTimestamp;
     double reportDependability;
+    boolean notAvailable;
 
  
 	
@@ -399,6 +400,15 @@ public class GasStationDto {
 				+ "reportTimestamp = " + this.reportTimestamp + ",\n"
 				+ "reportDependability = " + this.reportDependability + ",\n"
 				+ "}\n";
+	}
+
+
+	public void setNotAvailable(boolean notAvailable) {
+		this.notAvailable = notAvailable;
+	}
+	
+	public boolean getNotAvailable() {
+		return this.notAvailable;
 	}
 	
 
