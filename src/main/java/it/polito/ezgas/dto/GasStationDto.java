@@ -40,7 +40,6 @@ public class GasStationDto {
     UserDto userDto;
     String reportTimestamp;
     double reportDependability;
-    boolean notAvailable;
 
  
 	
@@ -302,32 +301,24 @@ public class GasStationDto {
 	
 	
 	public boolean checkPrices() {
-		if(this.hasDiesel && this.dieselPrice < 0) {
-			if(this.dieselPrice != -1)
+		if(this.hasDiesel && this.dieselPrice != null && this.dieselPrice < 0) {
 				return false;
-			this.dieselPrice=Constants.DEFAULT_PRICE;
 		}
-		if(this.hasGas && this.gasPrice < 0) {
-			if(this.gasPrice != -1)
+		if(this.hasGas && this.gasPrice!= null && this.gasPrice < 0) {
 				return false;
-			this.gasPrice=Constants.DEFAULT_PRICE;
 		}
-		if(this.hasMethane && this.methanePrice < 0) {
-			if(this.methanePrice != -1)
+		if(this.hasMethane && this.methanePrice!= null&& this.methanePrice < 0) {
 				return false;
-			this.methanePrice=Constants.DEFAULT_PRICE;
 		}
-		if(this.hasSuper && this.superPrice < 0) {
-			if(this.superPrice != -1)
+		if(this.hasSuper && this.superPrice!= null && this.superPrice < 0) {
 				return false;
-			this.superPrice=Constants.DEFAULT_PRICE;
 		}
-		if(this.hasSuperPlus && this.superPlusPrice < 0) {
-			if(this.superPlusPrice != -1)
+		if(this.hasSuperPlus && this.superPlusPrice!= null && this.superPlusPrice < 0) {
 				return false;
-			this.superPlusPrice=Constants.DEFAULT_PRICE;
 		}
-		
+		if(this.hasPremiumDiesel && this.premiumDieselPrice!= null && this.superPlusPrice < 0) {
+				return false;
+		}
 		return true;
 	}
 	
@@ -389,15 +380,6 @@ public class GasStationDto {
 				+ "reportTimestamp = " + this.reportTimestamp + ",\n"
 				+ "reportDependability = " + this.reportDependability + ",\n"
 				+ "}\n";
-	}
-
-
-	public void setNotAvailable(boolean notAvailable) {
-		this.notAvailable = notAvailable;
-	}
-	
-	public boolean getNotAvailable() {
-		return this.notAvailable;
 	}
 	
 
