@@ -228,13 +228,16 @@ public class GasStationServiceimpl implements GasStationService {
 			}
 		}
 		
-		if(gasStationDto.getReportTimestamp() == null || gasStationDto.getReportTimestamp().isEmpty() || newReportUser.getReputation() >= gasStationDto.getReportDependability()
+		if(gasStationDto.getReportTimestamp() == null || gasStationDto.getReportTimestamp().isEmpty() ||
+				newReportUser.getReputation() >= gasStationRepository.findOne(gasStationId).getReportDependability()
 				|| dateDifferenceInDays > 4) {
 			gasStationDto.setDieselPrice(dieselPrice);
 			gasStationDto.setSuperPrice(superPrice);
 			gasStationDto.setSuperPlusPrice(superPlusPrice);
 			gasStationDto.setGasPrice(gasPrice);
 			gasStationDto.setMethanePrice(methanePrice);
+			gasStationDto.setPremiumDieselPrice(premiumDieselPrice);
+
 			gasStationDto.setReportUser(userId);
 			gasStationDto.setUserDto(newReportUser);
 			

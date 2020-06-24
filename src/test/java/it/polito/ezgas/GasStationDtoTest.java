@@ -123,36 +123,36 @@ public class GasStationDtoTest {
 	@Test
 	public void testMinusOneDieselPrice() {
 		gasStationDto.setHasDiesel(true);
-		gasStationDto.setDieselPrice(-1);
-		assertEquals(true,gasStationDto.checkPrices());
+		gasStationDto.setDieselPrice(-1.0);
+		assertEquals(false,gasStationDto.checkPrices());
 	}
 	
 	@Test
 	public void testMinusOneGasPrice() {
 		gasStationDto.setHasGas(true);
-		gasStationDto.setGasPrice(-1);
-		assertEquals(true,gasStationDto.checkPrices());
+		gasStationDto.setGasPrice(-1.0);
+		assertEquals(false,gasStationDto.checkPrices());
 	}
 	
 	@Test
 	public void testMinusOneMethanePrice() {
 		gasStationDto.setHasMethane(true);
-		gasStationDto.setMethanePrice(-1);
-		assertEquals(true,gasStationDto.checkPrices());
+		gasStationDto.setMethanePrice(-1.0);
+		assertEquals(false,gasStationDto.checkPrices());
 	}
 	
 	@Test
 	public void testMinusOneSuperPrice() {
 		gasStationDto.setHasSuper(true);
-		gasStationDto.setSuperPrice(-1);
-		assertEquals(true,gasStationDto.checkPrices());
+		gasStationDto.setSuperPrice(-1.0);
+		assertEquals(false,gasStationDto.checkPrices());
 	}
 	
 	@Test
 	public void testMinusOneSuperPlusPrice() {
 		gasStationDto.setHasSuperPlus(true);
-		gasStationDto.setSuperPlusPrice(-1);
-		assertEquals(true,gasStationDto.checkPrices());
+		gasStationDto.setSuperPlusPrice(-1.0);
+		assertEquals(false,gasStationDto.checkPrices());
 	}
 	
 	@Test
@@ -231,14 +231,16 @@ public class GasStationDtoTest {
 				+ "hasSuperPlus = false,\n"
 				+ "hasGas = false,\n"
 				+ "hasMethane = false,\n"
+				+ "hasPremiumDiesel = false,\n"
 				+ "carSharing = null,\n"
 				+ "lat = 0.0,\n"
 				+ "lon = 0.0,\n"
-				+ "dieselPrice = 0.0,\n"
-				+ "superPrice = 0.0,\n"
-				+ "superPlusPrice = 0.0,\n"
-				+ "gasPrice = 0.0,\n"
-				+ "methanePrice = 0.0,\n"
+				+ "dieselPrice = null,\n"
+				+ "superPrice = null,\n"
+				+ "superPlusPrice = null,\n"
+				+ "gasPrice = null,\n"
+				+ "methanePrice = null,\n"
+				+ "premiumDieselPrice = null,\n"
 				+ "reportUser = null,\n"
 				+ "userDto = null,\n"
 				+ "reportTimestamp = null,\n"
@@ -249,8 +251,8 @@ public class GasStationDtoTest {
 	@Test
 	public void testToStringWithInitializedAttributes() {
 		gasStationDto = new GasStationDto(123, "station", "5th street", true, false, 
-				false, true, false, "CarCar", 35, 45.787, 0.54, -110, 12, 356.768, 
-				0.007, 4321, "12/12/2012", 4.36);
+				false, true, false, true, "CarCar", 35.0, 45.787, 0.54, -110.0, 12.0, 356.768, 
+				0.007, 1.1, 4321, "12/12/2012", 4.36);
 		assertEquals("\n{\n"
 				+ "gasStationId = 123,\n"
 				+ "gasStationName = station,\n"
@@ -260,6 +262,7 @@ public class GasStationDtoTest {
 				+ "hasSuperPlus = false,\n"
 				+ "hasGas = true,\n"
 				+ "hasMethane = false,\n"
+				+ "hasPremiumDiesel = true,\n"
 				+ "carSharing = CarCar,\n"
 				+ "lat = 35.0,\n"
 				+ "lon = 45.787,\n"
@@ -268,6 +271,7 @@ public class GasStationDtoTest {
 				+ "superPlusPrice = 12.0,\n"
 				+ "gasPrice = 356.768,\n"
 				+ "methanePrice = 0.007,\n"
+				+ "premiumDieselPrice = 1.1,\n"
 				+ "reportUser = 4321,\n"
 				+ "userDto = null,\n"
 				+ "reportTimestamp = 12/12/2012,\n"
