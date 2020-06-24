@@ -308,6 +308,34 @@ package "it.polito.ezgas.converter" {
 }
 
 package "it.polito.ezgas.dto" {
+   class "PriceReportDto"{
+      -dieselPrice
+      -gasPrice
+      -gasStationId
+      -methanePrice
+      -premiumDieselPrice
+      -superPlusPrice
+      superPrice
+      -userId
+      +PriceReportDto()
+      +PriceReportDto(Integer, Double, Double, Double, Double, Double, Double, Integer)
+      getDieselPrice()
+      +getGasPrice()
+      +getGasStationId()
+      +getMethanePrice()
+      +getPremiumDieselPrice()
+      +getSuperPlusPrice()
+      +getSuperPrice()
+      +getUserId()
+      +setDieselPrice(Double)
+      +setGasPrice(Double)
+      +setGasStationId(Integer)
+      +setMethanePrice(Double)
+      +setPremiumDieselPrice(Double)
+      +setSuperPlusPrice(Double)
+      +setSuperPrice(Double)
+      +setUserId(Integer)
+   }
    class "UserDto"{
       -userId
       -userName
@@ -436,6 +464,7 @@ package "it.polito.ezgas.repository" {
 "GasStationServiceimpl" "1"-----"1" "GasStationConverter"
 "GasStationConverter" "1"-----"1" "GasStationDto"
 "UserServiceimpl" "1"-----"1" "LoginConverter"
+"GasStationController" "1"-----"1" "PriceReportDto"
 
 @enduml
 ```
