@@ -1,11 +1,9 @@
 package it.polito.ezgas.controllertests;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
-import java.sql.Timestamp;
-import java.util.Date;
+import java.util.List;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -20,16 +18,14 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.junit.Test;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import it.polito.ezgas.dto.GasStationDto;
 import it.polito.ezgas.dto.IdPw;
-import it.polito.ezgas.dto.LoginDto;
 import it.polito.ezgas.dto.PriceReportDto;
-import it.polito.ezgas.repository.GasStationRepository;
 import it.polito.ezgas.utils.Constants;
 
 @Transactional
@@ -55,11 +51,6 @@ public class TestController {
 	private static final boolean HAS_PREMIUM_PRICE = true;
 	private static final String REPORT_TIMESTAMP = "05-22-2020";
 	private static final double REPORT_DEPENDABILITY = 5.0;
-	/**
-	 * TODO How to put some users and gasStations in db to test? 
-	 */
-	
-	private GasStationRepository gasStationRepository;
 	
 	private final String GASOLINE_TYPE=Constants.DIESEL;
 	private final String CAR_SHARING="carsharing";
@@ -172,12 +163,19 @@ public class TestController {
 	}
 	
 	@Test
-	public void testSetGasStationReport() throws ClientProtocolException, IOException {
-		
-		HttpPost request = new HttpPost(GASSTATION_END_POINT+"setGasStationReport/");
-		
+	public void testSetGasStationReport() throws ClientProtocolException, IOException {		
 		ObjectMapper mapper = new ObjectMapper();
-		PriceReportDto priceReportDto = new PriceReportDto(GAS_STATION_ID, PRICE, PRICE, PRICE, PRICE, PRICE, PRICE, USER_ID);
+		mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
+		mapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
+		
+		HttpUriRequest getRequest = new HttpGet(GASSTATION_END_POINT+"getAllGasStations/");
+		HttpResponse getResponse = HttpClientBuilder.create().build().execute(getRequest);
+		List<GasStationDto> gasStationDtoList = mapper.readValue(EntityUtils.toString(getResponse.getEntity()), new TypeReference<List<GasStationDto>>(){});
+		Integer gasStationId = gasStationDtoList.stream().mapToInt(GasStationDto::getGasStationId).max().getAsInt();
+		
+		HttpPost request = new HttpPost(GASSTATION_END_POINT+"setGasStationReport/");	
+		
+		PriceReportDto priceReportDto = new PriceReportDto(gasStationId, PRICE, PRICE, PRICE, PRICE, PRICE, PRICE, USER_ID);
 		request.addHeader("content-type", "application/json");
 		request.setEntity(new StringEntity(mapper.writeValueAsString(priceReportDto)));
 		
