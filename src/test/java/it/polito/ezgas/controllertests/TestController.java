@@ -28,6 +28,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import it.polito.ezgas.dto.GasStationDto;
 import it.polito.ezgas.dto.IdPw;
 import it.polito.ezgas.dto.LoginDto;
+import it.polito.ezgas.dto.PriceReportDto;
 import it.polito.ezgas.repository.GasStationRepository;
 import it.polito.ezgas.utils.Constants;
 
@@ -51,6 +52,7 @@ public class TestController {
 	private static final boolean HAS_SUPERPLUS = true;
 	private static final boolean HAS_GAS = true;
 	private static final boolean HAS_METHANE = false;
+	private static final boolean HAS_PREMIUM_PRICE = true;
 	private static final String REPORT_TIMESTAMP = "05-22-2020";
 	private static final double REPORT_DEPENDABILITY = 5.0;
 	/**
@@ -66,6 +68,7 @@ public class TestController {
 	private final double PRICE=1.23;
 	private final double LAT=45.101767;
 	private final double LON= 7.646787;
+	private final int RADIUS= 1;
 	
 	@Test
 	public void testGetGasStationById() throws ClientProtocolException, IOException {
@@ -87,7 +90,7 @@ public class TestController {
 	public void testSaveGasStation() throws ClientProtocolException, IOException {
 		HttpPost request = new HttpPost(GASSTATION_END_POINT+"saveGasStation/");
 		ObjectMapper mapper = new ObjectMapper();
-		GasStationDto gasStation = new GasStationDto(GAS_STATION_ID, GAS_STATION_NAME, GAS_STATION_ADDRESS, HAS_DIESEL, HAS_SUPER, HAS_SUPERPLUS, HAS_GAS, HAS_METHANE, CAR_SHARING, LAT, LON, PRICE, PRICE, PRICE, PRICE, PRICE, USER_ID, REPORT_TIMESTAMP, REPORT_DEPENDABILITY);
+		GasStationDto gasStation = new GasStationDto(GAS_STATION_ID, GAS_STATION_NAME, GAS_STATION_ADDRESS, HAS_DIESEL, HAS_SUPER, HAS_SUPERPLUS, HAS_GAS, HAS_METHANE, HAS_PREMIUM_PRICE, CAR_SHARING, LAT, LON, PRICE, PRICE, PRICE, PRICE, PRICE, PRICE, USER_ID, REPORT_TIMESTAMP, REPORT_DEPENDABILITY);
 		request.addHeader("content-type", "application/json");
 		request.setEntity(new StringEntity(mapper.writeValueAsString(gasStation)));
 		
@@ -154,7 +157,7 @@ public class TestController {
 	
 	@Test
 	public void testGetGasStationsByProximity() throws ClientProtocolException, IOException {
-		HttpUriRequest request = new HttpGet(GASSTATION_END_POINT+"searchGasStationByProximity/"+LAT+"/"+LON+"/");
+		HttpUriRequest request = new HttpGet(GASSTATION_END_POINT+"searchGasStationByProximity/"+LAT+"/"+LON+"/"+RADIUS+"/");
 		HttpResponse response = HttpClientBuilder.create().build().execute(request);
 		
 		assertEquals(200,response.getStatusLine().getStatusCode());
@@ -162,7 +165,7 @@ public class TestController {
 	
 	@Test
 	public void testGetGasStationsWithCoordinates() throws ClientProtocolException, IOException {
-		HttpUriRequest request = new HttpGet(GASSTATION_END_POINT+"getGasStationsWithCoordinates/"+LAT+"/"+LON+"/"+GASOLINE_TYPE+"/"+CAR_SHARING+"/");
+		HttpUriRequest request = new HttpGet(GASSTATION_END_POINT+"getGasStationsWithCoordinates/"+LAT+"/"+LON+"/"+RADIUS+"/"+GASOLINE_TYPE+"/"+CAR_SHARING+"/");
 		HttpResponse response = HttpClientBuilder.create().build().execute(request);
 		
 		assertEquals(200,response.getStatusLine().getStatusCode());
@@ -171,9 +174,14 @@ public class TestController {
 	@Test
 	public void testSetGasStationReport() throws ClientProtocolException, IOException {
 		
-		HttpUriRequest request = new HttpPost(GASSTATION_END_POINT+"setGasStationReport/"+GAS_STATION_ID+"/"+PRICE+"/"+PRICE+"/"+PRICE+"/"+PRICE+"/"+PRICE+"/"+USER_ID+"/");
-		HttpResponse response = HttpClientBuilder.create().build().execute(request);
+		HttpPost request = new HttpPost(GASSTATION_END_POINT+"setGasStationReport/");
 		
+		ObjectMapper mapper = new ObjectMapper();
+		PriceReportDto priceReportDto = new PriceReportDto(GAS_STATION_ID, PRICE, PRICE, PRICE, PRICE, PRICE, PRICE, USER_ID);
+		request.addHeader("content-type", "application/json");
+		request.setEntity(new StringEntity(mapper.writeValueAsString(priceReportDto)));
+		
+		HttpResponse response = HttpClientBuilder.create().build().execute(request);
 		assertEquals(200,response.getStatusLine().getStatusCode());
 	}
 	
