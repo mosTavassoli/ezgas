@@ -74,9 +74,9 @@ public class GasStationRepositoryTest {
 		
 		List<GasStation> gasStationList;
 		double previousDistance=0, currentDistance;
-		final double LAT=45.101767,LON=7.646787;
+		final double LAT=45.101767,LON=7.646787, RADIUS=1;
 		
-		gasStationList = gasStationRepository.findByProximity(LAT,LON,1);
+		gasStationList = gasStationRepository.findByProximity(LAT,LON,RADIUS);
 		for(GasStation gasStation : gasStationList) {
 			currentDistance = distanceInKilometersBetween(LAT, LON, gasStation.getLat(),gasStation.getLon());
 			assertTrue(currentDistance>=previousDistance);

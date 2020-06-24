@@ -140,12 +140,12 @@ public class GasStationServiceimpl implements GasStationService {
 		if(!GasStationDto.checkCoordinates(lat, lon))
 			throw new GPSDataException("GPSDataException: lat = " + lat + ", lon = " + lon );
 		
-		return GasStationConverter.toDto(gasStationRepository.findByProximity(lat, lon, (double) 1));
+		return GasStationConverter.toDto(gasStationRepository.findByProximity(lat, lon, Constants.DEFAULT_RADIUS));
 	}
 	
 	public List<GasStationDto> getGasStationsByProximity(double lat, double lon, int radius) throws GPSDataException {
 		if(radius<=0) {
-			getGasStationsByProximity(lat,lon);
+			return getGasStationsByProximity(lat,lon);
 		}
 		
 		if(!GasStationDto.checkCoordinates(lat, lon))

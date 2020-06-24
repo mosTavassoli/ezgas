@@ -31,6 +31,7 @@ public interface Constants {
     static final String DIESEL = "Diesel";
     
     //GasStation
+    static final double DEFAULT_RADIUS = 1.0;
     static final double MIN_LAT = -90;
     static final double MAX_LAT = 90;
     static final double MIN_LON = -180;
