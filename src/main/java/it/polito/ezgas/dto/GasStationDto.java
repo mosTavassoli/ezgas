@@ -7,11 +7,6 @@ import java.util.concurrent.TimeUnit;
 
 import it.polito.ezgas.utils.Constants;
 
-import javax.persistence.Column;
-import javax.persistence.ManyToOne;
-
-import it.polito.ezgas.entity.User;
-
 public class GasStationDto {
 
 	
@@ -288,15 +283,10 @@ public class GasStationDto {
 	}
 
 	public void setCarSharing(String carSharing) {
-		if(carSharing==null) {
-			this.carSharing = carSharing;
-		}
-		else if(carSharing.equals("null")) {
-			this.carSharing=null;
-		}
-		else {
-			this.carSharing = carSharing;
-		}
+		if(carSharing != null)
+			if(carSharing.equals("null"))
+				carSharing=null;
+		this.carSharing = carSharing;
 	}
 	
 	
@@ -316,7 +306,7 @@ public class GasStationDto {
 		if(this.hasSuperPlus && this.superPlusPrice!= null && this.superPlusPrice < 0) {
 				return false;
 		}
-		if(this.hasPremiumDiesel && this.premiumDieselPrice!= null && this.superPlusPrice < 0) {
+		if(this.hasPremiumDiesel && this.premiumDieselPrice!= null && this.premiumDieselPrice < 0) {
 				return false;
 		}
 		return true;

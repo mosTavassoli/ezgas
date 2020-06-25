@@ -138,6 +138,12 @@ public class GasStationTest {
 	}
 	
 	@Test
+	public void testHasPremiumDiesel() {
+		this.gasStation.setHasPremiumDiesel(this.hasPremiumDiesel);
+		assertEquals(this.hasPremiumDiesel, this.gasStation.getHasPremiumDiesel());
+	}
+	
+	@Test
 	public void testCarSharing() {
 		this.gasStation.setCarSharing(this.carSharing);
 		assertEquals(this.carSharing, this.gasStation.getCarSharing());
@@ -184,6 +190,13 @@ public class GasStationTest {
 		this.gasStation.setMethanePrice(this.methanePrice);
 		assertEquals(this.methanePrice, this.gasStation.getMethanePrice(),this.acceptablePriceDelta);
 	}
+	
+	@Test
+	public void testPremiumDieselPrice() {
+		this.gasStation.setPremiumDieselPrice(this.premiumDieselPrice);
+		assertEquals(this.premiumDieselPrice, this.gasStation.getPremiumDieselPrice(),this.acceptablePriceDelta);
+	}
+	
 	
 	@Test
 	public void testReportUser() {

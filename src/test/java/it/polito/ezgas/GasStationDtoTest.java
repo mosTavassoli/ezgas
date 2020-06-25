@@ -26,6 +26,7 @@ public class GasStationDtoTest {
     private boolean hasSuperPlus=true;
     private boolean hasGas=true;
     private boolean hasMethane=true;
+    private boolean hasPremiumDiesel=true;
     
     private Boolean hasSuperBoolean=true;
     private Boolean hasGasBoolean=true;
@@ -40,6 +41,7 @@ public class GasStationDtoTest {
     private double superPlusPrice=99.1;
     private double gasPrice=32.33;
     private double methanePrice=65.78;
+    private double premiumDieselPrice=25.88;
     private Integer reportUser=735;
     private String reportTimestamp="2020-05-11";
     private double reportDependability=3;
@@ -86,6 +88,13 @@ public class GasStationDtoTest {
 	}
 	
 	@Test
+	public void testGasStationDoesNotHavePremiumDiesel() {
+		gasStationDto.setHasPremiumDiesel(false);
+		assertEquals(true,gasStationDto.checkPrices());
+	}
+	
+	
+	@Test
 	public void testNegativeDieselPrice() {
 		gasStationDto.setHasDiesel(true);
 		gasStationDto.setDieselPrice(-2.5);
@@ -121,37 +130,9 @@ public class GasStationDtoTest {
 	}
 	
 	@Test
-	public void testMinusOneDieselPrice() {
-		gasStationDto.setHasDiesel(true);
-		gasStationDto.setDieselPrice(-1.0);
-		assertEquals(false,gasStationDto.checkPrices());
-	}
-	
-	@Test
-	public void testMinusOneGasPrice() {
-		gasStationDto.setHasGas(true);
-		gasStationDto.setGasPrice(-1.0);
-		assertEquals(false,gasStationDto.checkPrices());
-	}
-	
-	@Test
-	public void testMinusOneMethanePrice() {
-		gasStationDto.setHasMethane(true);
-		gasStationDto.setMethanePrice(-1.0);
-		assertEquals(false,gasStationDto.checkPrices());
-	}
-	
-	@Test
-	public void testMinusOneSuperPrice() {
-		gasStationDto.setHasSuper(true);
-		gasStationDto.setSuperPrice(-1.0);
-		assertEquals(false,gasStationDto.checkPrices());
-	}
-	
-	@Test
-	public void testMinusOneSuperPlusPrice() {
-		gasStationDto.setHasSuperPlus(true);
-		gasStationDto.setSuperPlusPrice(-1.0);
+	public void testNegativePremiumDieselPrice() {
+		gasStationDto.setHasPremiumDiesel(true);
+		gasStationDto.setPremiumDieselPrice(-2.5);
 		assertEquals(false,gasStationDto.checkPrices());
 	}
 	
@@ -187,6 +168,55 @@ public class GasStationDtoTest {
 	public void testNonNegativeSuperPlusPrice() {
 		gasStationDto.setHasSuperPlus(true);
 		gasStationDto.setSuperPlusPrice(1.56);
+		assertEquals(true,gasStationDto.checkPrices());
+	}
+	
+	@Test
+	public void testNonNegativePremiumDieselPrice() {
+		gasStationDto.setHasPremiumDiesel(true);
+		gasStationDto.setPremiumDieselPrice(1.56);
+		assertEquals(true,gasStationDto.checkPrices());
+	}
+	
+	@Test
+	public void testNullDieselPrice() {
+		gasStationDto.setHasDiesel(true);
+		gasStationDto.setDieselPrice(null);
+		assertEquals(true,gasStationDto.checkPrices());
+	}
+	
+	@Test
+	public void testNullGasPrice() {
+		gasStationDto.setHasGas(true);
+		gasStationDto.setGasPrice(null);
+		assertEquals(true,gasStationDto.checkPrices());
+	}
+	
+	@Test
+	public void testNullMethanePrice() {
+		gasStationDto.setHasMethane(true);
+		gasStationDto.setMethanePrice(null);
+		assertEquals(true,gasStationDto.checkPrices());
+	}
+	
+	@Test
+	public void testNullSuperPrice() {
+		gasStationDto.setHasSuper(true);
+		gasStationDto.setSuperPrice(null);
+		assertEquals(true,gasStationDto.checkPrices());
+	}
+	
+	@Test
+	public void testNullSuperPlusPrice() {
+		gasStationDto.setHasSuperPlus(true);
+		gasStationDto.setSuperPlusPrice(null);
+		assertEquals(true,gasStationDto.checkPrices());
+	}
+	
+	@Test
+	public void testNullPremiumDieselPrice() {
+		gasStationDto.setHasPremiumDiesel(true);
+		gasStationDto.setPremiumDieselPrice(null);
 		assertEquals(true,gasStationDto.checkPrices());
 	}
 	
@@ -347,9 +377,27 @@ public class GasStationDtoTest {
 	}
 	
 	@Test
+	public void testHasPremiumDiesel() {
+		this.gasStationDto.setHasPremiumDiesel(this.hasPremiumDiesel);
+		assertEquals(this.hasPremiumDiesel, this.gasStationDto.getHasPremiumDiesel());
+	}
+	
+	@Test
 	public void testCarSharing() {
 		this.gasStationDto.setCarSharing(this.carSharing);
 		assertEquals(this.carSharing, this.gasStationDto.getCarSharing());
+	}
+	
+	@Test
+	public void testNullCarSharing() {
+		this.gasStationDto.setCarSharing(null);
+		assertEquals(null, this.gasStationDto.getCarSharing());
+	}
+	
+	@Test
+	public void testNullStringCarSharing() {
+		this.gasStationDto.setCarSharing("null");
+		assertEquals(null, this.gasStationDto.getCarSharing());
 	}
 	
 	@Test
@@ -395,6 +443,12 @@ public class GasStationDtoTest {
 	}
 	
 	@Test
+	public void testPremiumDieselPrice() {
+		this.gasStationDto.setPremiumDieselPrice(this.premiumDieselPrice);
+		assertEquals(this.premiumDieselPrice, this.gasStationDto.getPremiumDieselPrice(),this.acceptablePriceDelta);
+	}
+	
+	@Test
 	public void testReportUser() {
 		this.gasStationDto.setReportUser(this.reportUser);
 		assertEquals(this.reportUser, this.gasStationDto.getReportUser());
@@ -425,17 +479,8 @@ public class GasStationDtoTest {
 		this.gasStationDto.setReportTimestamp(toFormat.format(reportDate));
 		this.gasStationDto.setReportDependability(this.reportDependability);
 
-		
-		double obsolescence;
 		Integer userReputation = (int)this.gasStationDto.getReportDependability();
-		Date today = new Date();
-		
-		
-		long diffInMillies = today.getTime() - reportDate.getTime();
-		long diffInDays = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
-		if(diffInDays > 7)
-			obsolescence = 0;
-		else obsolescence = 1 - (double) diffInDays / 7;
+		double obsolescence = 0;
 		
 		double reportDependability = 50 * (userReputation + 5) / 10 + 50 * obsolescence;
 		
@@ -449,15 +494,12 @@ public class GasStationDtoTest {
 		this.gasStationDto.setReportTimestamp(toFormat.format(reportDate));
 		this.gasStationDto.setReportDependability(this.reportDependability);
 		
-		double obsolescence;
 		Integer userReputation = (int)this.gasStationDto.getReportDependability();
 		Date today = new Date();
 		
 		long diffInMillies = today.getTime() - reportDate.getTime();
 		long diffInDays = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
-		if(diffInDays > 7)
-			obsolescence = 0;
-		else obsolescence = 1 - (double) diffInDays / 7;
+		double obsolescence = 1 - (double) diffInDays / 7;
 		
 		this.gasStationDto.setReportDependability(this.reportDependability);
 
@@ -472,6 +514,15 @@ public class GasStationDtoTest {
 		this.gasStationDto.setReportTimestamp(null);
 		
 		assertEquals(0, this.gasStationDto.computeReportDependability(), acceptableReportDependabilityDelta);
+	}
+	
+	@Test
+	public void testComputeReportDependabilityWithInvalidReportTimestamp() {
+		this.gasStationDto.setReportTimestamp("123");
+		
+		double reportDependability = 50 * ((int)this.gasStationDto.getReportDependability() + 5) / 10 + 50 * 1;
+		
+		assertEquals(reportDependability, this.gasStationDto.computeReportDependability(), acceptableReportDependabilityDelta);
 	}
 
 }

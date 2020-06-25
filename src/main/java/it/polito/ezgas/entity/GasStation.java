@@ -63,8 +63,6 @@ public class GasStation implements Serializable {
     private String reportTimestamp;
     @Column
     private double reportDependability;
-    @Column
-    private boolean notAvailable;
 
 
     @ManyToOne(optional = true)
@@ -313,14 +311,6 @@ public class GasStation implements Serializable {
 
 	public void setCarSharing(String carSharing) {
 		this.carSharing = carSharing;
-	}
-
-	public void setNotAvailable(boolean notAvailable) {
-		this.notAvailable = notAvailable;
-	}
-	
-	public boolean getNotAvailable() {
-		return this.notAvailable;
 	}
 	
 }

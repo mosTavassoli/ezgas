@@ -509,6 +509,7 @@ The JUnit test cases will be exhaustive.
 | GasStation.getHasSuperPlus | GasStationTest.testHasSuperPlus |
 | GasStation.getHasGas | GasStationTest.testHasGas |
 | GasStation.getHasMethane | GasStationTest.testHasMethane |
+| GasStation.getHasPremiumDiesel | GasStationTest.testHasPremiumDiesel |
 | GasStation.getLat | GasStationTest.testLat |
 | GasStation.getLon | GasStationTest.testLon |
 | GasStation.getDieselPrice | GasStationTest.testDieselPrice |
@@ -516,6 +517,7 @@ The JUnit test cases will be exhaustive.
 | GasStation.getSuperPlusPrice | GasStationTest.testSuperPlusPrice |
 | GasStation.getGasPrice | GasStationTest.testGasPrice |
 | GasStation.getMethanePrice | GasStationTest.testMethanePrice |
+| GasStation.getPremiumDieselPrice | GasStationTest.testPremiumDieselPrice |
 | GasStation.getCarSharing | GasStationTest.testCarSharing |
 | GasStation.setGasStationName | GasStationTest.testGasStationName |
 | GasStation.setGasStationAddress | GasStationTest.testGasStationAddress |
@@ -527,6 +529,7 @@ The JUnit test cases will be exhaustive.
 | GasStation.setHasSuperPlus | GasStationTest.testHasSuperPlus |
 | GasStation.setHasGas | GasStationTest.testHasGas |
 | GasStation.setHasMethane | GasStationTest.testHasMethane |
+| GasStation.setHasPremiumDiesel | GasStationTest.testHasPremiumDiesel |
 | GasStation.setLat | GasStationTest.testLat |
 | GasStation.setLon | GasStationTest.testLon |
 | GasStation.setDieselPrice | GasStationTest.testDieselPrice |
@@ -534,27 +537,32 @@ The JUnit test cases will be exhaustive.
 | GasStation.setSuperPlusPrice | GasStationTest.testSuperPlusPrice |
 | GasStation.setGasPrice | GasStationTest.testGasPrice |
 | GasStation.setMethanePrice | GasStationTest.testMethanePrice |
+| GasStation.setPremiumDieselPrice | GasStationTest.testPremiumDieselPrice |
 | GasStation.setCarSharing | GasStationTest.testCarSharing |
 | GasStationDto.checkPrices | GasStationDtoTest.testGasStationDoesNotHaveDiesel |
 |                           | GasStationDtoTest.testGasStationDoesNotHaveGas |
 |                           | GasStationDtoTest.testGasStationDoesNotHaveMethane |
 |                           | GasStationDtoTest.testGasStationDoesNotHaveSuper |
 |                           | GasStationDtoTest.testGasStationDoesNotHaveSuperPlus |
+|                           | GasStationDtoTest.testGasStationDoesNotHavePremiumDiesel |
 |                           | GasStationDtoTest.testNegativeDieselPrice |
 |                           | GasStationDtoTest.testNegativeGasPrice |
 |                           | GasStationDtoTest.testNegativeMethanePrice |
 |                           | GasStationDtoTest.testNegativeSuperPrice |
 |                           | GasStationDtoTest.testNegativeSuperPlusPrice |
-|                           | GasStationDtoTest.testMinusOneDieselPrice |
-|                           | GasStationDtoTest.testMinusOneGasPrice |
-|                           | GasStationDtoTest.testMinusOneMethanePrice |
-|                           | GasStationDtoTest.testMinusOneSuperPrice |
-|                           | GasStationDtoTest.testMinusOneSuperPlusPrice |
+|                           | GasStationDtoTest.testNegativePremiumDieselPrice |
 |                           | GasStationDtoTest.testNonNegativeDieselPrice |
 |                           | GasStationDtoTest.testNonNegativeGasPrice |
 |                           | GasStationDtoTest.testNonNegativeMethanePrice |
 |                           | GasStationDtoTest.testNonNegativeSuperPrice |
 |                           | GasStationDtoTest.testNonNegativeSuperPlusPrice |
+|                           | GasStationDtoTest.testNonNegativePremiumDieselPrice |
+|                           | GasStationDtoTest.testNullDieselPrice |
+|                           | GasStationDtoTest.testNullGasPrice |
+|                           | GasStationDtoTest.testNullMethanePrice |
+|                           | GasStationDtoTest.testNullSuperPrice |
+|                           | GasStationDtoTest.testNullSuperPlusPrice |
+|                           | GasStationDtoTest.testNullPremiumDieselPrice |
 | GasStationDto.checkCoordinates | GasStationDtoTest.testLatitudeLargerThanUpperBound |
 |                                | GasStationDtoTest.testLatitudeSmallerThanLowerBound |
 |                                | GasStationDtoTest.testLongitudeLargerThanUpperBound |
@@ -567,9 +575,7 @@ The JUnit test cases will be exhaustive.
 | GasStationDto.getGasStationId | GasStationDtoTest.testGasStationId |
 | GasStationDto.getGasStationName       | GasStationDtoTest.testGasStationName |
 | GasStationDto.getGasStationAddress    | GasStationDtoTest.testGasStationAddress |
-| GasStationDto.getReportDependability  | GasStationDtoTest.testComputeReportDependabilityMoreThan7Days |
-|                                       | GasStationDtoTest.testComputeReportDependabilityLessThan7Days |
-|                                       | GasStationDtoTest.testComputeReportDependabilityWithNullReportTimestamp |
+| GasStationDto.getReportDependability  | GasStationDtoTest.testReportDependability |
 | GasStationDto.getReportUser           | GasStationDtoTest.testReportUser |
 | GasStationDto.getReportTimestamp      | GasStationDtoTest.testReportTimestamp |
 | GasStationDto.getHasDiesel            | GasStationDtoTest.testHasDiesel |
@@ -577,6 +583,7 @@ The JUnit test cases will be exhaustive.
 | GasStationDto.getHasSuperPlus         | GasStationDtoTest.testHasSuperPlus |
 | GasStationDto.getHasGas               | GasStationDtoTest.testHasGas |
 | GasStationDto.getHasMethane           | GasStationDtoTest.testHasMethane |
+| GasStationDto.getHasPremiumDiesel     | GasStationDtoTest.testHasPremiumDiesel |
 | GasStationDto.getLat                  | GasStationDtoTest.testLat |
 | GasStationDto.getLon                  | GasStationDtoTest.testLon |
 | GasStationDto.getDieselPrice          | GasStationDtoTest.testDieselPrice |
@@ -584,6 +591,7 @@ The JUnit test cases will be exhaustive.
 | GasStationDto.getSuperPlusPrice       | GasStationDtoTest.testSuperPlusPrice |
 | GasStationDto.getGasPrice             | GasStationDtoTest.testGasPrice |
 | GasStationDto.getMethanePrice         | GasStationDtoTest.testMethanePrice |
+| GasStationDto.getPremiumDieselPrice   | GasStationDtoTest.testPremiumDieselPrice |
 | GasStationDto.getCarSharing           | GasStationDtoTest.testCarSharing |
 | GasStationDto.setGasStationId         | GasStationDtoTest.testGasStationId |
 | GasStationDto.setGasStationName       | GasStationDtoTest.testGasStationName |
@@ -593,12 +601,13 @@ The JUnit test cases will be exhaustive.
 | GasStationDto.setReportTimestamp      | GasStationDtoTest.testReportTimestamp |
 | GasStationDto.setHasDiesel            | GasStationDtoTest.testHasDiesel |
 | GasStationDto.setHasSuper             | GasStationDtoTest.testHasSuper |
-| GasStationDto.setHasSuper             | GasStationDtoTest.testHasSuperBoolean |
+|                                       | GasStationDtoTest.testHasSuperBoolean |
 | GasStationDto.setHasSuperPlus         | GasStationDtoTest.testHasSuperPlus |
-| GasStationDto.setHasSuperPlus         | GasStationDtoTest.testHasSuperPlusBoolean |
+|                                       | GasStationDtoTest.testHasSuperPlusBoolean |
 | GasStationDto.setHasGas               | GasStationDtoTest.testHasGas |
-| GasStationDto.setHasGas               | GasStationDtoTest.testHasGasBoolean |
+|                                       | GasStationDtoTest.testHasGasBoolean |
 | GasStationDto.setHasMethane           | GasStationDtoTest.testHasMethane |
+| GasStationDto.setHasPremiumDiesel     | GasStationDtoTest.testHasPremiumDiesel |
 | GasStationDto.setLat                  | GasStationDtoTest.testLat |
 | GasStationDto.setLon                  | GasStationDtoTest.testLon |
 | GasStationDto.setDieselPrice          | GasStationDtoTest.testDieselPrice |
@@ -606,7 +615,10 @@ The JUnit test cases will be exhaustive.
 | GasStationDto.setSuperPlusPrice       | GasStationDtoTest.testSuperPlusPrice |
 | GasStationDto.setGasPrice             | GasStationDtoTest.testGasPrice |
 | GasStationDto.setMethanePrice         | GasStationDtoTest.testMethanePrice |
+| GasStationDto.setPremiumDieselPrice   | GasStationDtoTest.testPremiumDieselPrice |
 | GasStationDto.setCarSharing           | GasStationDtoTest.testCarSharing |
+|                                       | GasStationDtoTest.testNullCarSharing |
+|                                       | GasStationDtoTest.testNullStringCarSharing |
 | IdPw.IdPw             | IdPwTest.testConstructor |
 |                       | IdPwTest.testNullObject  |
 | IdPw.getUser | IdPw.testUserId |
@@ -626,7 +638,43 @@ The JUnit test cases will be exhaustive.
 | LoginDto.getReputation | LoginDtoTest.testReputation |
 | LoginDto.setReputation | LoginDtoTest.testReputation |
 | LoginDto.getAdmin | LoginDtoTest.testAdmin |
-| LoginDto.setAdmin | LoginDtoTest.testAdmin |
+| PriceReportDto.PriceReportDto         | PriceReportDtoTest.testPriceReportDtoConstructor |
+| PriceReportDto.getGasStationId | PriceReportDtoTest.testGasStationIdMinInt |
+|                                | PriceReportDtoTest.testGasStationIdMinIntPlusOne |
+|                                | PriceReportDtoTest.testGasStationIdMinusOne |
+|                                | PriceReportDtoTest.testGasStationIdZero |
+|                                | PriceReportDtoTest.testGasStationIdMaxInt |
+|                                | PriceReportDtoTest.testGasStationIdMaxIntMinusOne |
+| PriceReportDto.setGasStationId | PriceReportDtoTest.testGasStationIdMinInt |
+|                                | PriceReportDtoTest.testGasStationIdMinIntPlusOne |
+|                                | PriceReportDtoTest.testGasStationIdMinusOne |
+|                                | PriceReportDtoTest.testGasStationIdZero |
+|                                | PriceReportDtoTest.testGasStationIdMaxInt |
+|                                | PriceReportDtoTest.testGasStationIdMaxIntMinusOne |
+| PriceReportDto.getDieselPrice | PriceReportDtoTest.testDieselPrice |
+| PriceReportDto.setDieselPrice | PriceReportDtoTest.testDieselPrice |
+| PriceReportDto.getSuperPrice | PriceReportDtoTest.testUserName |
+| PriceReportDto.setSuperPrice | PriceReportDtoTest.testToken |
+| PriceReportDto.getSuperPlusPrice | PriceReportDtoTest.testToken |
+| PriceReportDto.setSuperPlusPrice | PriceReportDtoTest.testEmail |
+| PriceReportDto.getGasPrice | PriceReportDtoTest.testEmail |
+| PriceReportDto.setGasPrice | PriceReportDtoTest.testReputation |
+| PriceReportDto.getMethanePrice | PriceReportDtoTest.testReputation |
+| PriceReportDto.setMethanePrice | PriceReportDtoTest.testAdmin |
+| PriceReportDto.getPremiumDieselPrice | PriceReportDtoTest.testReputation |
+| PriceReportDto.setPremiumDieselPrice | PriceReportDtoTest.testAdmin |
+| PriceReportDto.getUserId       | PriceReportDtoTest.testUserIdMinInt |
+|                                | PriceReportDtoTest.testUserIdMinIntPlusOne |
+|                                | PriceReportDtoTest.testUserIdMinusOne |
+|                                | PriceReportDtoTest.testUserIdZero |
+|                                | PriceReportDtoTest.testUserIdMaxInt |
+|                                | PriceReportDtoTest.testUserIdMaxIntMinusOne |
+| PriceReportDto.setUserId       | PriceReportDtoTest.testUserIdMinInt |
+|                                | PriceReportDtoTest.testUserIdMinIntPlusOne |
+|                                | PriceReportDtoTest.testUserIdMinusOne |
+|                                | PriceReportDtoTest.testUserIdZero |
+|                                | PriceReportDtoTest.testUserIdMaxInt |
+|                                | PriceReportDtoTest.testUserIdMaxIntMinusOne |
 
 
 ### Code coverage report

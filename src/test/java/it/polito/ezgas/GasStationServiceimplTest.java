@@ -1,13 +1,17 @@
 package it.polito.ezgas;
 
 import static it.polito.ezgas.GasStationRepositoryTest.distanceInKilometersBetween;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -347,6 +351,88 @@ public class GasStationServiceimplTest {
 		gasStationService.setReport(this.INVALID_GAS_STATION_ID, 1.23, 2.34, 3.45, 4.56, 5.67, 6.78, this.validUserId);
 	}
 	
+	@Test
+	public void testSetReportInvalidTimestamp() throws InvalidGasStationException, PriceException, InvalidUserException {
+		GasStation savedGasStation = gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, true, "sharing", 45.101767, 7.646787, 1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 123321, "123", 7.77));
+		gasStationService.setReport(savedGasStation.getGasStationId(), 1.23, 2.34, 3.45, 4.56, 5.67, 6.78, this.validUserId);
+		GasStation gasStation = gasStationRepository.getOne(savedGasStation.getGasStationId());
+		assertEquals((int)savedGasStation.getGasStationId(),(int)gasStation.getGasStationId());
+		assertEquals(1.23,gasStation.getDieselPrice(),0.001);
+		assertEquals(2.34,gasStation.getSuperPrice(),0.001);
+		assertEquals(3.45,gasStation.getSuperPlusPrice(),0.001);
+		assertEquals(4.56,gasStation.getGasPrice(),0.001);
+		assertEquals(5.67,gasStation.getMethanePrice(),0.001);
+		assertEquals(6.78,gasStation.getPremiumDieselPrice(),0.001);
+		assertEquals(this.validUserId,(int)gasStation.getReportUser());
+	}
+	
+	@Test
+	public void testSetReportNullTimestamp() throws InvalidGasStationException, PriceException, InvalidUserException {
+		GasStation savedGasStation = gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, true, "sharing", 45.101767, 7.646787, 1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 123321, null, 7.77));
+		gasStationService.setReport(savedGasStation.getGasStationId(), 1.23, 2.34, 3.45, 4.56, 5.67, 6.78, this.validUserId);
+		GasStation gasStation = gasStationRepository.getOne(savedGasStation.getGasStationId());
+		assertEquals((int)savedGasStation.getGasStationId(),(int)gasStation.getGasStationId());
+		assertEquals(1.23,gasStation.getDieselPrice(),0.001);
+		assertEquals(2.34,gasStation.getSuperPrice(),0.001);
+		assertEquals(3.45,gasStation.getSuperPlusPrice(),0.001);
+		assertEquals(4.56,gasStation.getGasPrice(),0.001);
+		assertEquals(5.67,gasStation.getMethanePrice(),0.001);
+		assertEquals(6.78,gasStation.getPremiumDieselPrice(),0.001);
+		assertEquals(this.validUserId,(int)gasStation.getReportUser());
+	}
+	
+	@Test
+	public void testSetReportEmptyTimestamp() throws InvalidGasStationException, PriceException, InvalidUserException {
+		GasStation savedGasStation = gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, true, "sharing", 45.101767, 7.646787, 1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 123321, "", 7.77));
+		gasStationService.setReport(savedGasStation.getGasStationId(), 1.23, 2.34, 3.45, 4.56, 5.67, 6.78, this.validUserId);
+		GasStation gasStation = gasStationRepository.getOne(savedGasStation.getGasStationId());
+		assertEquals((int)savedGasStation.getGasStationId(),(int)gasStation.getGasStationId());
+		assertEquals(1.23,gasStation.getDieselPrice(),0.001);
+		assertEquals(2.34,gasStation.getSuperPrice(),0.001);
+		assertEquals(3.45,gasStation.getSuperPlusPrice(),0.001);
+		assertEquals(4.56,gasStation.getGasPrice(),0.001);
+		assertEquals(5.67,gasStation.getMethanePrice(),0.001);
+		assertEquals(6.78,gasStation.getPremiumDieselPrice(),0.001);
+		assertEquals(this.validUserId,(int)gasStation.getReportUser());
+	}
+	
+	@Test
+	public void testSetReportLowerUserReputation() throws InvalidGasStationException, PriceException, InvalidUserException {
+		User user = userRepository.save(new User("user", "password", "user@example.com", -5));
+		GasStation gasStationBefore = gasStationRepository.getOne(this.validGasStationId);
+		gasStationService.setReport(this.validGasStationId, 1.23, 2.34, 3.45, 4.56, 5.67, 6.78, user.getUserId());
+		GasStation gasStationAfter = gasStationRepository.getOne(this.validGasStationId);
+		assertEquals(this.validGasStationId,(int)gasStationAfter.getGasStationId());
+		assertEquals(gasStationBefore.getDieselPrice(),gasStationAfter.getDieselPrice(),0.001);
+		assertEquals(gasStationBefore.getSuperPrice(), gasStationAfter.getSuperPrice(),0.001);
+		assertEquals(gasStationBefore.getSuperPlusPrice(), gasStationAfter.getSuperPlusPrice(),0.001);
+		assertEquals(gasStationBefore.getGasPrice(),gasStationAfter.getGasPrice(),0.001);
+		assertEquals(gasStationBefore.getMethanePrice(),gasStationAfter.getMethanePrice(),0.001);
+		assertEquals(gasStationBefore.getPremiumDieselPrice(),gasStationAfter.getPremiumDieselPrice(),0.001);
+		assertEquals((int)gasStationBefore.getReportUser(),(int)gasStationAfter.getReportUser());
+	}
+	
+	@Test
+	public void testSetReportLessThan4Days() throws InvalidGasStationException, PriceException, InvalidUserException {
+		Date reportDate = new Date(System.currentTimeMillis()-3*24*60*60*1000);
+		SimpleDateFormat toFormat = new SimpleDateFormat("MM-dd-yyyy");
+		User user = userRepository.save(new User("user", "password", "user@example.com", -5));
+		GasStation gasStationBefore = gasStationRepository.getOne(this.validGasStationId);
+		gasStationBefore.setReportTimestamp(toFormat.format(reportDate));
+		gasStationBefore = gasStationRepository.save(gasStationBefore);
+		gasStationService.setReport(gasStationBefore.getGasStationId(), 1.23, 2.34, 3.45, 4.56, 5.67, 6.78, user.getUserId());
+		GasStation gasStationAfter = gasStationRepository.getOne(gasStationBefore.getGasStationId());
+		
+		assertEquals((int)gasStationBefore.getGasStationId(),(int)gasStationAfter.getGasStationId());
+		assertEquals(gasStationBefore.getDieselPrice(),gasStationAfter.getDieselPrice(),0.001);
+		assertEquals(gasStationBefore.getSuperPrice(), gasStationAfter.getSuperPrice(),0.001);
+		assertEquals(gasStationBefore.getSuperPlusPrice(), gasStationAfter.getSuperPlusPrice(),0.001);
+		assertEquals(gasStationBefore.getGasPrice(),gasStationAfter.getGasPrice(),0.001);
+		assertEquals(gasStationBefore.getMethanePrice(),gasStationAfter.getMethanePrice(),0.001);
+		assertEquals(gasStationBefore.getPremiumDieselPrice(),gasStationAfter.getPremiumDieselPrice(),0.001);
+		assertEquals((int)gasStationBefore.getReportUser(),(int)gasStationAfter.getReportUser());
+	}
+	
 	@Test(expected = GPSDataException.class)
 	public void testGetGasStationsByProximityInvalidCoordinates() throws GPSDataException{
 		gasStationService.getGasStationsByProximity(100, 0);
@@ -364,10 +450,42 @@ public class GasStationServiceimplTest {
 		
 		gasStationDtoList = gasStationService.getGasStationsByProximity(45.101767, 7.646787);
 		for(GasStationDto gasStationDto : gasStationDtoList) {
-			assertTrue(distanceInKilometersBetween(45.101767, 7.646787, gasStationDto.getLat(),gasStationDto.getLon())<=1);
+			assertTrue(distanceInKilometersBetween(45.101767, 7.646787, gasStationDto.getLat(),gasStationDto.getLon())<=Constants.DEFAULT_RADIUS);
 		}
 		
 		assertEquals(5,gasStationDtoList.size());
+	}
+	
+	@Test
+	public void testGetGasStationsByProximityWithValidRadius() throws GPSDataException{
+		List<GasStationDto> gasStationDtoList;
+		int radius = 3;
+		
+		gasStationDtoList = gasStationService.getGasStationsByProximity(45.101767, 7.646787, radius);
+		for(GasStationDto gasStationDto : gasStationDtoList) {
+			assertTrue(distanceInKilometersBetween(45.101767, 7.646787, gasStationDto.getLat(),gasStationDto.getLon())<=radius);
+		}
+		
+		assertEquals(7,gasStationDtoList.size());
+	}
+	
+	@Test
+	public void testGetGasStationsByProximityWithInvalidRadius() throws GPSDataException{
+		List<GasStationDto> gasStationDtoList;
+		int radius = -1;
+		
+		gasStationDtoList = gasStationService.getGasStationsByProximity(45.101767, 7.646787, radius);
+		for(GasStationDto gasStationDto : gasStationDtoList) {
+			assertTrue(distanceInKilometersBetween(45.101767, 7.646787, gasStationDto.getLat(),gasStationDto.getLon())<=Constants.DEFAULT_RADIUS);
+		}
+		
+		assertEquals(5,gasStationDtoList.size());
+	}
+	
+	@Test(expected = GPSDataException.class)
+	public void testGetGasStationsByProximityInvalidCoordinatesAndValidRadius() throws GPSDataException{
+		int radius = 5;
+		gasStationService.getGasStationsByProximity(100, 0, radius);
 	}
 	
 	@Test

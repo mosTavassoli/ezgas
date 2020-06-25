@@ -4,7 +4,13 @@ Authors: Mehdi Khrichfa, Alessandro Ricciuto, Toni Saliba, Mostafa Tavassoli
 
 Date:10/04/2020
 
-Version:1
+Version:2
+
+### List of changes
+| Version | Changes |
+|--|---|
+|2 | Transformed NFR10 and NFR11 in FR7, FR7.1, FR7.2 and FR7.3| 
+
 
 # Contents
 
@@ -41,7 +47,7 @@ EZGas proposes to change this, thanks to a crowdsourcing model, where both drive
 | Administrator | Manages user data and can perform all the tasks of a data analyst. | 
 | Data Analyst | Manages the data related to gas stations and prices, verifies the validity of user reports and can perform all the tasks of a user. |
 | User |Uses the web application in order to find the cheapest fuel prices in his proximity and update the prices when they differ from the actual ones.|
-| Google Maps |Service used by the application to locate and display gas stations close to the users. |
+| Google Maps |Service used by the application to locate and display gas stations close to the users. The service is also used to find the gas stations to save in the database. |
 
 # Context Diagram and interfaces
 
@@ -89,7 +95,7 @@ George is gas station manager in London. He was really worried for his job becau
 ## Functional Requirements
 
 | ID        | Description  |
-| ------------- |:-------------:| 
+| ------------- |-------------| 
 |  FR1     | Record fuel prices for a gas station|  
 |  FR2     | Check prices of fuel in various gas stations |
 |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FR2.1|Load prices|
@@ -108,6 +114,10 @@ George is gas station manager in London. He was really worried for his job becau
 | FR6 | Manage personal account|
 |  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FR6.1 | Edit account information |
 |  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FR6.2 | Delete personal account |
+|  FR7 | Sort gas stations |
+|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FR7.1 | Sort gas stations by distance |
+|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FR7.2 | Sort gas stations by price |
+|  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FR7.3 | Sort gas stations by cost efficiency |
 
 ## Non Functional Requirements
 | ID        | Type (efficiency, reliability, .. see iso 9126)           | Description  | Refers to |
@@ -121,8 +131,6 @@ George is gas station manager in London. He was really worried for his job becau
 |  NFR7     | Localization | Distances are to be displayed in meters or miles depending on the region of the user |FR1,FR2,FR4|
 |  NFR8     | Localization | Prices are to be displayed in the local currency |FR1,FR2,FR4|
 |  NFR9     | Localization | Dates (and their format) and times should depend on the region of the user |FR1,FR2,FR3.3,FR4,FR5|
-|  NFR10    | Efficiency | The user should be able to sort gas stations by distance and price |FR2|
-|  NFR11    | Efficiency | Given the fuel consumption of the motor vehicle to be filled and the amount of fuel desired (or the amount of money the user is going to spend to fill the motor vehicle), the web application should be able to sort gas stations by most cost-effective considering fuel cost at the gas station, fuel consumption of the motor vehicle and distance between the user and the gas station |FR2|
 
 # Use case diagram and use cases
 
@@ -130,39 +138,44 @@ George is gas station manager in London. He was really worried for his job becau
 ```plantuml
 left to right direction
 actor User as u
+actor "Data Analyst" as da
 actor Administrator as admin
 actor "Google Maps" as gm
-actor "Data Analyst" as da
 rectangle System{
-u --> (FR1 Record fuel prices for a given gas station)
-u --> (FR2 Check prices of fuel in various gas stations)
-u --> (FR4 Report inaccurate fuel prices)
-u --> (FR6 Manage personal account)
-admin --> (FR5 Manage users and data)
-da --> (FR5.2 Hide suspicious prices)
-da --> (FR5.3 Review user reports)
-(FR2.2 Load map) --> gm
+u ---> (FR1 Record fuel prices for a given gas station)
+u ---> (FR2 Check prices of fuel in various gas stations)
+u ---> (FR4 Report inaccurate fuel prices)
+u ---> (FR6 Manage personal account)
+u ---> (FR7 Sort gas stations)
+admin ---> (FR5 Manage users and data)
+admin -|> da
+da ---> (FR5.2 Hide suspicious prices)
+da ---> (FR5.3 Review user reports)
+da -|> u
+(FR2.2 Load map) ---> gm
 
-(FR1 Record fuel prices for a given gas station) ..> (FR3 Authorize and authenticate):<<include>>
-(FR2 Check prices of fuel in various gas stations) ..> (FR2.1 Load prices):<<include>>
-(FR2 Check prices of fuel in various gas stations) ..> (FR2.2 Load map):<<include>>
-(FR2 Check prices of fuel in various gas stations) ..> (FR2.3 Display prices on the map):<<include>>
-(FR2 Check prices of fuel in various gas stations) ..> (FR2.4 Display route to a gas station):<<include>>
-(FR2 Check prices of fuel in various gas stations) ..> (FR3 Authorize and authenticate):<<include>>
+(FR1 Record fuel prices for a given gas station) ...> (FR3 Authorize and authenticate):<<include>>
+(FR2 Check prices of fuel in various gas stations) ...> (FR2.1 Load prices):<<include>>
+(FR2 Check prices of fuel in various gas stations) ...> (FR2.2 Load map):<<include>>
+(FR2 Check prices of fuel in various gas stations) ...> (FR2.3 Display prices on the map):<<include>>
+(FR2 Check prices of fuel in various gas stations) ...> (FR2.4 Display route to a gas station):<<include>>
+(FR2 Check prices of fuel in various gas stations) ...> (FR3 Authorize and authenticate):<<include>>
 
-(FR3 Authorize and authenticate) ..> (FR3.1 Log in):<<include>>
-(FR3 Authorize and authenticate) ..> (FR3.2 Log out):<<include>>
-(FR3 Authorize and authenticate) ..> (FR3.3 Create new a account):<<include>>
-(FR4 Report inaccurate fuel prices) ..> (FR1 Record fuel prices for a given gas station):<<include>>
-(FR4 Report inaccurate fuel prices) ..> (FR3 Authorize and authenticate):<<include>>
-(FR5 Manage users and data) ..> (FR3 Authorize and authenticate):<<include>>
-(FR5 Manage users and data) ..> (FR5.1 Ban fraudulent users):<<include>>
-(FR5 Manage users and data) ..> (FR5.2 Hide suspicious prices):<<include>>
-(FR5 Manage users and data) ..> (FR5.3 Review user reports):<<include>>
-(FR6 Manage personal account) ..> (FR3 Authorize and authenticate):<<include>>
-(FR6 Manage personal account) ..> (FR6.1 Edit account information):<<include>>
-(FR6 Manage personal account) ..> (FR6.2 Delete personal account):<<include>>
-
+(FR3 Authorize and authenticate) ...> (FR3.1 Log in):<<include>>
+(FR3 Authorize and authenticate) ...> (FR3.2 Log out):<<include>>
+(FR3 Authorize and authenticate) ...> (FR3.3 Create new a account):<<include>>
+(FR4 Report inaccurate fuel prices) ...> (FR1 Record fuel prices for a given gas station):<<include>>
+(FR4 Report inaccurate fuel prices) ...> (FR3 Authorize and authenticate):<<include>>
+(FR5 Manage users and data) ...> (FR3 Authorize and authenticate):<<include>>
+(FR5 Manage users and data) ...> (FR5.1 Ban fraudulent users):<<include>>
+(FR5 Manage users and data) ...> (FR5.2 Hide suspicious prices):<<include>>
+(FR5 Manage users and data) ...> (FR5.3 Review user reports):<<include>>
+(FR6 Manage personal account) ...> (FR3 Authorize and authenticate):<<include>>
+(FR6 Manage personal account) ...> (FR6.1 Edit account information):<<include>>
+(FR6 Manage personal account) ...> (FR6.2 Delete personal account):<<include>>
+(FR7 Sort gas stations) ...> (FR7.1 Sort gas stations by distance):<<include>>
+(FR7 Sort gas stations) ...> (FR7.2 Sort gas stations by price):<<include>>
+(FR7 Sort gas stations) ...> (FR7.3 Sort gas stations by cost efficiency):<<include>>
 ```
 ## Use cases and relevant scenarios
 ### Use case 1, UC1 - FR1  Record fuel prices for a given gas station
@@ -385,6 +398,45 @@ da --> (FR5.3 Review user reports)
 |  2     | User taps the delete account button on the bottom of the page |
 |  3     | User confirms the deletion |
 [Go to UI prototype](./UI_prototype.md#Scenario-6.1-and-Scenario-6.2)
+
+### Use case 7, UC7 - FR7 Sort gas stations
+| Actors Involved        | User |
+| ------------- |:-------------:| 
+|  Precondition     | User registered, logged in and gas stations list is displayed on their screen |  
+|  Postcondition     | Gas stations list sorted based on distance, price or cost efficiency |
+|  Nominal Scenario     | User can sort the gas station list based on 3 criteria: distance from their location, price of the fuel or cost efficiency. When sorting by cost efficiency, given the fuel consumption of the motor vehicle to be filled and the amount of fuel desired (or the amount of money the user is going to spend to fill the motor vehicle), the web application should sort the gas stations list while taking into consideration fuel cost at the gas station, fuel consumption of the motor vehicle and distance between the user and the gas station |
+|  Variants     | |
+
+##### Scenario 7.1
+| Scenario ID: SC7.1        | Corresponds to UC7 |
+| ------------- |:-------------| 
+| Description | User wants to sort the list of gas stations based on distance|
+| Precondition |  Account A exists, user U logged in and list of gas stations L displayed|
+| Postcondition |  List L gas stations sorted based on distance from the user|
+| Step#        |  Step description   |
+|  1     | User taps the sort icon in the top right of the list|  
+|  2     | User taps the "distance" option |
+
+##### Scenario 7.2
+| Scenario ID: SC7.2        | Corresponds to UC7 |
+| ------------- |:-------------| 
+| Description | User wants to sort the list of gas stations based on price|
+| Precondition |  Account A exists, user U logged in and list of gas stations L displayed|
+| Postcondition |  List L gas stations sorted based on price of the fuel|
+| Step#        |  Step description   |
+|  1     | User taps the sort icon in the top right of the list|  
+|  2     | User taps the "price" option |
+
+##### Scenario 7.3
+| Scenario ID: SC7.3        | Corresponds to UC7 |
+| ------------- |:-------------| 
+| Description | User wants to sort the list of gas stations based on cost efficiency|
+| Precondition |  Account A exists, user U logged in and list of gas stations L displayed|
+| Postcondition |  List L gas stations sorted based on cost efficiency|
+| Step#        |  Step description   |
+|  1     | User taps the sort icon in the top right of the list|  
+|  2     | User taps the "cost efficient" option |
+
 
 # Glossary
 
