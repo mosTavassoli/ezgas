@@ -148,10 +148,10 @@ u ---> (FR4 Report inaccurate fuel prices)
 u ---> (FR6 Manage personal account)
 u ---> (FR7 Sort gas stations)
 admin ---> (FR5 Manage users and data)
-admin ---|> da
+admin -|> da
 da ---> (FR5.2 Hide suspicious prices)
 da ---> (FR5.3 Review user reports)
-da ---|> u
+da -|> u
 (FR2.2 Load map) ---> gm
 
 (FR1 Record fuel prices for a given gas station) ...> (FR3 Authorize and authenticate):<<include>>
