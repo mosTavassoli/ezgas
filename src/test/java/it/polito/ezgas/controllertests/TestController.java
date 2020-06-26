@@ -54,8 +54,12 @@ public class TestController {
 	
 	private final String GASOLINE_TYPE=Constants.DIESEL;
 	private final String CAR_SHARING="carsharing";
-	private final int GAS_STATION_ID=684;
-	private final int USER_ID=1;
+	
+	//This id should be set to a real gas station id present in the database
+	private final int GAS_STATION_ID=202;
+	//This is should be set to a real user id present in the database
+	private final int USER_ID=46;
+	
 	private final double PRICE=1.23;
 	private final double LAT=45.101767;
 	private final double LON= 7.646787;
@@ -185,8 +189,7 @@ public class TestController {
 	
 	@Test
 	public void testIncreaseUserReputation() throws ClientProtocolException, IOException {
-		int userId = 1;
-		final String USER_ID = "/" + userId;
+		final String USER_ID = "/" + this.USER_ID;
 		
 		HttpUriRequest request = new HttpPost(USER_END_POINT + INCREASE_REPUTATION + USER_ID);
 		HttpResponse response = HttpClientBuilder.create().build().execute(request);
@@ -196,8 +199,7 @@ public class TestController {
 	
 	@Test
 	public void testDecreaseUserReputation() throws ClientProtocolException, IOException {
-		int userId = 1;
-		final String USER_ID = "/" + userId;
+		final String USER_ID = "/" + this.USER_ID;
 		
 		HttpUriRequest request = new HttpPost(USER_END_POINT + DECREASE_REPUTATION + USER_ID);
 		HttpResponse response = HttpClientBuilder.create().build().execute(request);
