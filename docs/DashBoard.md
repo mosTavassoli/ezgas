@@ -22,14 +22,14 @@ Report effort figures from the timesheet or timesheetCR document, compute size f
 
 | Measure | Value|
 |---|---|
-| size S_CR4 = only lines added for CR4 = total size with CR4 - S ||
-| actual effort (from timesheetCR) AE_CR4 ||
-| productivity P_CR4 = S_CR4/ EA_CR4 ||
-| estimated effort (from estimationCR) EE_CR4 ||
-|estimation accuracy CR4 = EE_CR4/AE_CR4  ||
+| size S_CR4 = only lines added for CR4 = total size with CR4 - S |10|
+| actual effort (from timesheetCR) AE_CR4 |4|
+| productivity P_CR4 = S_CR4/ EA_CR4 |2.5|
+| estimated effort (from estimationCR) EE_CR4 |8|
+|estimation accuracy CR4 = EE_CR4/AE_CR4  |2|
 |||
-| size S_CR7 =only lines added for CR7 = total size with CR7 - S ||
-| actual effort (from timesheetCR) AE_CR7 ||
-| productivity P_CR7 = S_CR7/ AE_CR7 ||
-| estimated effort (from estimationCR) EE_CR7 ||
-|estimation accuracy CR7 = EE_CR7/AE_CR7  ||
+| size S_CR7 =only lines added for CR7 = total size with CR7 - S |4|
+| actual effort (from timesheetCR) AE_CR7 |1|
+| productivity P_CR7 = S_CR7/ AE_CR7 |4|
+| estimated effort (from estimationCR) EE_CR7 |8|
+|estimation accuracy CR7 = EE_CR7/AE_CR7  |8|
