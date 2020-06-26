@@ -1,391 +1,587 @@
-# Requirements Document - EZ Gas 
+# Integration and API Test Documentation
 
-Authors: Riccardo Coppola, Luca Ardito, Maurizio Morisio 
+Authors: Mehdi Khrichfa, Alessandro Ricciuto, Toni Saliba, Mostafa Tavassoli
 
-Date: 5 june 2020
+Date: 23/05/2020
 
-Version: 2.0  
-List of changes
-
-| | |
-|--|---|
-|Issue12 | Added unit of measure for geo coordinates as NFR6| 
-|Issue33 or CR4 | Modified UC7  |
-
-
+Version: 1
 
 # Contents
 
-- [Abstract](#abstract)
-- [Stakeholders](#stakeholders)
-- [Context Diagram and interfaces](#context-diagram-and-interfaces)
-	+ [Context Diagram](#context-diagram)
-	+ [Interfaces](#interfaces) 
-	
-- [Stories and personas](#stories-and-personas)
-- [Functional and non functional requirements](#functional-and-non-functional-requirements)
-	+ [Functional Requirements](#functional-requirements)
-	+ [Non functional requirements](#non-functional-requirements)
-- [Use case diagram and use cases](#use-case-diagram-and-use-cases)
-	+ [Use case diagram](#use-case-diagram)
-	+ [Use cases](#use-cases)
-    	+ [Relevant scenarios](#relevant-scenarios)
-- [Glossary](#glossary)
-- [System design](#system-design)
-- [Deployment diagram](#deployment-diagram)
+- [Dependency graph](#dependency-graph)
+
+- [Integration and API Test Documentation](#integration-and-api-test-documentation)
+- [Contents](#contents)
+- [Dependency graph](#dependency-graph)
+- [Integration approach](#integration-approach)
+- [Tests](#tests)
+  - [Step 1](#step-1)
+  - [Step 2](#step-2)
+  - [Step 3 API Tests UserService](#step-3-api-tests-userservice)
+  - [Step 4 API Tests GasStationService](#step-4-api-tests-gasstationservice)
+- [Scenarios](#scenarios)
+  - [Scenario UC1.1](#scenario-uc11)
+  - [Scenario UC1.2](#scenario-uc12)
+  - [Scenario UC2.1](#scenario-uc21)
+  - [Scenario UC3.1](#scenario-uc31)
+  - [Scenario UC7.1](#scenario-uc71)
+  - [Scenario UC7.2](#scenario-uc72)
+  - [Scenario UC8.1](#scenario-uc81)
+  - [Scenario UC8.2](#scenario-uc82)
+  - [Scenario UC8.3](#scenario-uc83)
+  - [Scenario UC8.4](#scenario-uc84)
+- [Coverage of Scenarios and FR](#coverage-of-scenarios-and-fr)
+- [Coverage of Non Functional Requirements](#coverage-of-non-functional-requirements)
+- [Code coverage report](#code-coverage-report)
 
 
-# Abstract
-Each gas station in Italy is free to define the price of fuels (regular gasoline, premium gasoline, diesel, methane). Drivers are interested in finding as easily as possible the gas station in a specific area of the city, possibly with the cheapest price.
 
-EZGas is a crowdsourcing service that allows users to
-- collect prices of fuels in different gas stations
-- locate gas stations in an area, along with the prices they practice.
+# Dependency graph 
 
-EZGas is supported by a web application (accessible both via smartphone or PC)
-# Stakeholders
-
-| Stakeholder name  | Description | 
-| ----------------- |:-----------|
-|      Administrator             |   Manages the application, can insert or delete gas stations and users, can ban users       | 
-| User | Uses the application to find information about prices of fuel, and contributes by signaling prices|
-| Anonymous User | Uses the application to find information about prices of fuel|
-| Owner | Funds the development and operation of the application, having in mind a two sided model. The application is meant to be used freely, with the goal of attracting the largest possible web traffic. The pay off is given by ads hosted on the web application using Ad Words and the Google Display Network|
-| Open street maps | Provides maps and map services|
-
-# Context Diagram and interfaces
-
-## Context Diagram
-
+     <report the here the dependency graph of the classes in it/polito/Ezgas, using plantuml>
 ```plantuml
 top to bottom direction
-actor Administrator as a
-actor User as u
-actor AnonymousUser as au
-actor :Open Street Maps: as OSM
-u -up-|> au
-a -up-|> u
-au -> (EZGas)
-OSM -> (EZGas)
+class User
+class UserDto
+class UserRepository
+class UserConverter
+class UserServiceimpl
+class UserService
+class UserController
+
+class IdPw
+
+class LoginDto
+class LoginConverter
+
+class GasStation
+class GasStationDto
+class GasStationRepository
+class GasStationServiceimpl
+class GasStationService
+
+UserRepository         ---> User
+   
+UserConverter          ---> User
+UserConverter          ---> UserDto
+   
+UserServiceimpl        ---> UserConverter
+UserServiceimpl        ---> UserRepository
+UserServiceimpl        ---> IdPw
+UserServiceimpl        ---> User
+UserServiceimpl        ---> UserDto
+UserServiceimpl        ---> LoginDto
+UserServiceimpl        ---> LoginConverter
+
+UserService            ---> UserServiceimpl
+
+UserController         ---> UserService
+
+LoginConverter         ---> LoginDto
+LoginConverter         ---> User
+
+GasStation             ---> User
+
+GasStationDto          ---> UserDto
+
+GasStationRepository   ---> GasStation
+
+GasStationConverter    ---> GasStation
+GasStationConverter    ---> GasStationDto
+
+GasStationServiceimpl  ---> GasStationRepository
+GasStationServiceimpl  ---> GasStationConverter
+GasStationServiceimpl  ---> GasStation
+GasStationServiceimpl  ---> GasStationDto
+GasStationServiceimpl  ---> UserService
+
+GasStationService      ---> GasStationServiceimpl 
+
+GasStationController   ---> GasStationService
+
 ```
+     
+# Integration approach
+
+    <Write here the integration sequence you adopted, in general terms (top down, bottom up, mixed) and as sequence
+    (ex: step1: class A, step 2: class A+B, step 3: class A+B+C, etc)> 
+    <The last integration step corresponds to API testing at level of Service package>
+    <Tests at level of Controller package will be done later>
+We adopted a bottom up approach divided in the following steps:
+
+|Step#             |Classes                 |
+|:-----:           |:-----                 |
+|1                 |User                    |
+|                  |UserDto                 |
+|                  |IdPw                    |
+|                  |LoginDto                |
+|2                 |User+GasStation         |
+|                  |UserDto+GasStationDto   |
+|                  |User+UserDto+UserConverter|
+|                  |User+LoginDto+LoginConverter|
+|                  |User+UserRepository   |
+|3                 |UserDto+IdPw+LoginDto+UserConverter+LoginConverter+UserRepository+User+UserServiceimpl|
+|                  |UserDto+GasStationDto+User+GasStation+GasStationConverter                    |
+|                  |User+GasStation+GasStationRepository        |
+|4                 |UserDto+IdPw+LoginDto+UserConverter+LoginConverter+UserRepository+User+UserServiceimpl+GasStationConverter+GasStationRepository+GasStation+GasStationDto+GasStationServiceimpl|
+|                  |                    |
+
+    
+    
+
+#  Tests
+
+   <define below a table for each integration step. For each integration step report the group of classes under test, and the names of
+     JUnit test cases applied to them>
+
+## Step 1
+**Step 1 is extensively documented [here](./UnitTestReport.md#white-box-unit-tests).**
 
 
-## Interfaces
+## Step 2
+| Classes  | JUnit test cases |
+|--|--|
+| GasStationDto.computeReportDependability() | GasStationDtoTest.testComputeReportDependabilityMoreThan7Days() |
+|| testComputeReportDependabilityLessThan7Days() |
+|| testComputeReportDependabilityWithNullReportTimestamp() |
+| GasStationDto.checkPrice() | GasStationDtoTest.testNegativeDieselPrice()|
+|| GasStationDtoTest.testNegativeGasPrice()|
+|| GasStationDtoTest.testNegativeMethanePrice()|
+|| GasStationDtoTest.testNegativeSuperPrice()|
+|| GasStationDtoTest.testNegativeSuperPlusPrice()|
+|| GasStationDtoTest.testMinusOneDieselPrice()|
+|| GasStationDtoTest.testMinusOneGasPrice()|
+|| GasStationDtoTest.testMinusOneMethanePrice()|
+|| GasStationDtoTest.testMinusOneSuperPrice()|
+|| GasStationDtoTest.testMinusOneSuperPlusPrice()|
+|| GasStationDtoTest.testNonNegativeDieselPrice() |
+|| GasStationDtoTest.testNonNegativeGasPrice() |
+|| GasStationDtoTest.testNonNegativeMethanePrice() |
+|| GasStationDtoTest.testNonNegativeSuperPrice() |
+|| GasStationDtoTest.testNonNegativeSuperPlusPrice() |
+| GasStationDto.checkCoordinates(double lat, double lon) | GasStationDtoTest.testLatitudeLargerThanUpperBound()|
+|| GasStationDtoTest.testLatitudeSmallerThanLowerBound()|
+|| GasStationDtoTest.testLongitudeLargerThanUpperBound()|
+|| GasStationDtoTest.testLongitudeSmallerThanLowerBound()|
+|| GasStationDtoTest.testLatitudeAndLongitudeOutOfBounds()|
+|| GasStationDtoTest.testLatitudeAndLongitudeInsideBounds()|
+| GasStationDto.toString() | GasStationDtoTest.testToStringWithUninitializedAttributes()|
+|| GasStationDtoTest.testToStringWithInitializedAttributes()|
+| UserConverter.toDto(User user) | UserConverterTest.testToDto() |
+| UserConverter.toEntity(UserDto userDto) | UserConverterTest.testToEntity() |
+| UserConverter.toDto(List\<User> userList) | UserConverterTest.testToDtoList() |
+| LoginConverter.findByUserId(Integer userId) | LoginConverterTest.testLoginConverter() |
+| UserRepository.toDto(User user) | UserRepositoryTest.testFindByEmail() |
+|| UserRepositoryTest.testFindByUserId() |
+
+## Step 3 API Tests UserService
+| Classes  | JUnit test cases |
+|--|--|
+|UserServiceimpl.getUserById(Integer userId)|UserServiceimplTest.testGetUserByIdNegative()|
+||UserServiceimplTest.testGetUserByIdDoesNotExist()|
+||UserServiceimplTest.testGetUserByIdPositiveAndExists()|
+|UserServiceimpl.saveUser(UserDto userDto)|UserServiceimplTest.testSaveUserValid()|
+||UserServiceimplTest.testSaveUserForUpdate()|
+||UserServiceimplTest.testSaveUserForInvalidUpdate()|
+||UserServiceimplTest.testSaveUserFails()|
+|UserServiceimpl.getAllUsers()|UserServiceimplTest.testGetAllUsersNotEmpty()|
+||UserServiceimplTest.testGetAllUsersEmpty()|
+|UserServiceimpl.deleteUser()|UserServiceimplTest.testDeleteUserThrowInvalidUserException()|
+||UserServiceimplTest.testDeleteUserSuccessful()|
+||UserServiceimplTest.testDeleteUserNotExists()|
+||UserServiceimplTest.testDeleteUserFails()|
+|UserServiceimpl.login(IdPw credentials)|UserServiceimplTest.testLoginThrowInvalidLoginDataExceptionForWrongPw()|
+||UserServiceimplTest.testLoginThrowInvalidLoginDataExceptionForWrongEmail()|
+||UserServiceimplTest.testLoginSuccessful()|
+|UserServiceimpl.increaseUserReputation(Integer userId)|UserServiceimplTest.testIncreaseUserReputationThrowsInvalidUserException()|
+||UserServiceimplTest.testIncreaseUserReputation()|
+|UserServiceimpl.decreaseUserReputation(Integer userId)|UserServiceimplTest.testDecreaseUserReputationThrowsInvalidUserException()|
+||UserServiceimplTest.testDecreaseUserReputation()|
+|GasStationConverter.toDto(GasStation entity)|GasStationConverterTest.testToDto()|
+||GasStationConverterTest.testToDtoWithUser()|
+|GasStationConverter.toDto(List\<GasStation> entityList)|GasStationConverterTest.testToDtoList()|
+|GasStationConverter.toEntity(GasStationDto dto)|GasStationConverterTest.testToEntity()|
+||GasStationConverterTest.testToEntityWitUser()|
+|GasStationRepository.findByProximity(double lat, double lon)|GasStationRepositoryTest.testFindByProximity()|
+|GasStationRepository.findByCarSharingOrderByGasStationName(String carSharing)|GasStationRepositoryTest.testFindByCarSharingOrderByGasStationName()|
+|GasStationRepository.findByHasMethaneOrderByMethanePriceAsc(boolean hasMethane)|GasStationRepositoryTest.testFindByHasMethaneOrderByMethanePriceAscTrue()|
+||GasStationRepositoryTest.testFindByHasMethaneOrderByMethanePriceAscFalse()|
+||GasStationRepositoryTest.testFindByHasMethaneOrderByMethanePriceAscTotal()|
+|GasStationRepository.findByHasGasOrderByGasPriceAsc(boolean hasGas)|GasStationRepositoryTest.testFindByHasDieselOrderByDieselPriceAscTrue()|
+||GasStationRepositoryTest.testFindByHasDieselOrderByDieselPriceAscFalse()|
+||GasStationRepositoryTest.testFindByHasDieselOrderByDieselPriceAscTotal()|
+|GasStationRepository.findByHasSuperOrderBySuperPriceAsc(boolean hasSuper)|GasStationRepositoryTest.testFindByHasSuperOrderBySuperPriceAscTrue()|
+||GasStationRepositoryTest.testFindByHasSuperOrderBySuperPriceAscFalse()|
+||GasStationRepositoryTest.testFindByHasSuperOrderBySuperPriceAscTotal()|
+|GasStationRepository.findByHasSuperPlusOrderBySuperPlusPriceAsc(boolean hasSuperPlus)|GasStationRepositoryTest.testFindByHasSuperPlusOrderBySuperPlusPriceAscTrue()|
+||GasStationRepositoryTest.testFindByHasSuperPlusOrderBySuperPlusPriceAscFalse()|
+||GasStationRepositoryTest.testFindByHasSuperPlusOrderBySuperPlusPriceAscTotal()|
+|GasStationRepository.findByHasDieselOrderByDieselPriceAsc(boolean hasDiesel)|GasStationRepositoryTest.testFindByHasDieselOrderByDieselPriceAscTrue()|
+||GasStationRepositoryTest.testFindByHasDieselOrderByDieselPriceAscFalse()|
+||GasStationRepositoryTest.testFindByHasDieselOrderByDieselPriceAscTotal()|
+|GasStationRepository.save(GasStation gasStation)|GasStationRepositoryTest.testSaveNewGasStation()|
+||GasStationRepositoryTest.testUpdateOldGasStation()|
+
+## Step 4 API Tests GasStationService  
+<The last integration step  should correspond to API testing, or tests applied to all classes implementing the APIs defined in the Service package>
+
+| Classes  | JUnit test cases |
+|--|--|
+|GasStationServiceimpl.getGasStationById(Integer gasStationId)|GasStationServiceimplTest.testGetGasStationByIdNegative()|
+||GasStationServiceimplTest.testGetGasStationByIdDoesNotExist()|
+||GasStationServiceimplTest.testGetGasStationByIdPositiveAndExists()|
+|GasStationServiceimpl.saveGasStation(GasStationDto gasStationDto)|GasStationServiceimplTest.testSaveGasStationInvalidNegativePrice()|
+||GasStationServiceimplTest.testSaveGasStationInvalidCoordinates()|
+||GasStationServiceimplTest.testSaveGasStationValid()|
+||GasStationServiceimplTest.testSaveGasStationValidAlreadyExists()|
+||GasStationServiceimplTest.testSaveGasStationValidNotAlreadyExists()|
+|GasStationServiceimplTest.List\<GasStationDto> getAllGasStations()|GasStationServiceimplTest.testGetAllGasStationsEmpty()|
+||GasStationServiceimplTest.testGetAllGasStationsNotEmpty()|
+|GasStationServiceimplTest.deleteGasStation(Integer gasStationId)|GasStationServiceimplTest.testDeleteGasStationValid()|
+||GasStationServiceimplTest.testDeleteGasStationIdNegative()|
+||GasStationServiceimplTest.testDeleteGasStationIdDoesNotExist()|
+||GasStationServiceimplTest.testDeleteGasStationDeleteFails()|
+|GasStationServiceimplTest.getGasStationsByGasolineType(String gasolinetype)|GasStationServiceimplTest.testGetGasStationsByGasolineTypeDiesel()|
+||GasStationServiceimplTest.testGetGasStationsByGasolineTypeGas()|
+||GasStationServiceimplTest.testGetGasStationsByGasolineTypeSuper()|
+||GasStationServiceimplTest.testGetGasStationsByGasolineTypeSuperPlus()|
+||GasStationServiceimplTest.testGetGasStationsByGasolineTypeMethane()|
+||GasStationServiceimplTest.testGetGasStationsByGasolineTypeNull()|
+||GasStationServiceimplTest.testGetGasStationsByGasolineTypeInvalid()|
+|GasStationServiceimplTest.getGasStationsByProximity(double lat, double lon)|GasStationServiceimplTest.testGetGasStationsByProximityEmptyList()|
+||GasStationServiceimplTest.testGetGasStationsByProximityNonEmptyList()|
+|GasStationServiceimplTest.getGasStationsWithCoordinates(double lat, double lon, String gasolinetype, String carsharing)|GasStationServiceimplTest.testGetGasStationsWithCoordinatesInvalidGasType()|
+||GasStationServiceimplTest.testGetGasStationsWithCoordinatesInvalidLatitudeAndLongitude()|
+||GasStationServiceimplTest.testGetGasStationsWithCoordinatesNullGasStationsWithoutCoordinates()|
+||GasStationServiceimplTest.testGetGasStationsWithCoordinatesValid()|
+|GasStationServiceimplTest.getGasStationsWithoutCoordinates(String gasolinetype, String carsharing)|GasStationServiceimplTest.testGetGasStationsWithoutCoordinatesNullGasolineType()|
+||GasStationServiceimplTest.testGetGasStationsWithoutCoordinatesNullGasolineTypeNullCarSharing()|
+||GasStationServiceimplTest.testGetGasStationsWithoutCoordinatesNullCarSharing()|
+||GasStationServiceimplTest.testGetGasStationsWithoutCoordinatesValid()|
+||GasStationServiceimplTest.testGetGasStationsWithoutCoordinatesInvalidGasType()|
+|GasStationServiceimplTest.setReport(Integer gasStationId, double dieselPrice, double superPrice, double superPlusPrice,double gasPrice, double methanePrice, Integer userId)|GasStationServiceimplTest.testSetReportValid()|
+||GasStationServiceimplTest.testSetReportInvalidPrice()|
+||GasStationServiceimplTest.testGetGasStationsWithoutCoordinatesNullCarSharing()|
+||GasStationServiceimplTest.testSetReportInvalidUser()|
+||GasStationServiceimplTest.testSetReportInvalidGasStation()|
+|GasStationServiceimpl.getGasStationByCarSharing(String carSharing)|GasStationServiceimplTest.testGetGasStationByCarSharingValid()|
+||GasStationServiceimplTest.testGetGasStationByCarSharingNull()|
 
 
-| Actor | Logical Interface | Physical Interface  |
-| ------------- |:-------------|:-----|
-| Administrator | Web GUI | Screen keyboard on PC  |
-| User, Anonymous User | Web GUI | Screen keyboard mouse on PC, touchscreen on smartphone|
-|Open street maps| REST API v 0.6 as described in https://wiki.openstreetmap.org/wiki/API_v0.6| Internet link|
-
-# Stories and personas
-
-The following personas and stories are meant to cover different profiles of the User actor
-
-Rebecca is 35, works as a sales person and for this reason she has to visit different customers every day. For work she drives the company car and gets the full reimbursement of petrol expenses. Rebecca has an inclination for punctuality and precision, and hates being late at her meetings. For this reason, when she needs to put gas in his car, her main interest is to find gas stations that are as close as possible to her position.
-
-David is 45, works at the counter of a shop and has two children. He has to cover several kilometers each day to bring his children to school and take them back, and to go to the gym in the afternoon. Sometimes he has to cut on expenses, and hence his main interest is to find the cheapest gas stations where he can refuel his LPG city car.
-
-Elena is 20, and is a student at the Polytechnic of Turin. She typically goes to the university or to hang out with her friends by bike, but sometimes - especially at night and in Winter - she can not help but rent a car sharing vehicle. In these cases, if possible, she takes the opportunity of refueling the vehicle in order to have bonus credit with the car sharing applications.
-
-Emma is 35 and she has always had a lifelong passion for sport cars. She owns two personalized vintage cars that she personally takes care of, and with whom she goes for a ride every weekend. To keep her cars in good condition, she tries to use only high-performance petrol, and is annoyed that many gas stations often don't offer it.
+# Scenarios
 
 
-# Functional and non functional requirements
+<If needed, define here additional scenarios for the application. Scenarios should be named
+ referring the UC they detail>
 
-## Functional Requirements
+## Scenario UC1.1
 
-
-| ID        | Description  |
-| ------------- |:-------------| 
-|  FR1     |  Manage users|
-| FR1.1    | Define a new user, or modify an existing user |
-| FR1.2     | Delete a user |
-|FR1.3     |    List all users   |
-|FR1.4    |    Search a user   |
-|  FR2     |  Manage rights. Authorize access to functions to specific actors according to access rights|
-| FR3   | Manage gas stations |
-| FR3.1    | Define a new gas station, or modify an existing gas station |
-| FR3.2     | Delete a gas station |
-|FR3.3     |    List all gas stations  |
-| FR4    |  Search gas stations |
-|FR4.1 | Retrieve gas stations within radius r of a given geo point |
-|FR4.2 | Retrieve gas stations within radius r of a given address |
-|FR4.3 | Show given set of gas stations, and their fuel prices on a given map |
-|FR4.4 | Sort given set of gas stations according to fuel type price |
-|FR4.5 | Filter out given set of gas stations according to fuel type and or car sharing option |
-|FR5 | Manage fuel prices and trust |
-|FR5.1 | Create a price list, attach it to user and gas station |
-| FR5.2 | Update trust level of a price list for a gas station  |
-| FR5.3 | Evaluate  price list for a gas station |
-
-
-### Access right, actor vs function
-
-| Function | Admin | User | Anonymous User |
-| ------------- |:-------------|--|--|
-| FR1.1| yes | only user X for user X| no|
-| FR1.2| yes | only user X for user X| no |
-| FR1.3| yes | no | no|
-| FR2 | yes | no | no|
-| FR3 | yes  | no|no|
-|FR4  | yes  | yes | yes| 
-|FR5.1 | yes | yes| no|
-|FR5.2 |no  |no |no|
-|FR5.3 |yes |yes|no|
-
-## Non Functional Requirements
-| ID        | Type        | Description  | Refers to |
-| ------------- |:-------------:| :-----| -----:|
-|  NFR1     | Usability | Application should be used with no specific training for the users | All FR |
-|  NFR2     | Performance | All functions should complete in < 0.5 sec  | All FR |
-|  NFR3     | Portability | The application should be accessed by Chrome (version 81 and more recent), and Safari (version 13 and more recent) (this covers around 80% of installed browsers); and from the operating systems where these browsers are available (Android, IoS, Windows, MacOS, Unix). As for devices, the application should be usable on smartphones (portrait) and PCs (landscape). | All FR |
-|  NFR4     |                     Privacy                     | The data of one user should not be disclosed to other users. The identity of the user who signaled or assessed a price report should not be visible to other users. | All FR |
-|  NFR5     | Localisation | Decimal numbers use . (dot) as decimal separator |All FR|
-| NFR6      | Localisation | Unit of measure for geo coordinates is degrees, longitude range [-180 + 180[   latitude [-90 +90[ <br> Unit of measure for distance is km  | All FR, notably FR4|
-
-
-
-
-
-
-# Use case diagram and use cases
-
-
-## Use case diagram
-
-```plantuml
-top to bottom direction
-actor Administrator as a
-actor User as u
-actor AnonymousUser as au
-actor :Open Street Maps: as OSM
-u -up-|> au
-a -up-|> u
-au --> (Obtain price of fuel)
-(Obtain price of fuel) .> (Update trust level of price list) :include
-OSM <-- (Obtain price of fuel)
-u --> (Report  fuel price)
-OSM <-- (Report  fuel price)
-u --> (Evaluate price)
-u --> (Manage user account)
-a --> (Manage gas station)
-```
-
-
-```plantuml
-(Manage user account) .> (Create user account) :include
-(Manage user account) .> (Modify user account) :include
-(Manage user account) .> (Delete user account) :include
-(Manage gas station ) .> (Create gas station) :include
-(Manage gas station) .> (Modify gas station) :include
-(Manage gas station) .> (Delete gas station) :include
-```
-### Use case 1, UC1 - Create User Account
-
-| Actors Involved        | User|
-| ------------- |:-------------:|
-|  Precondition     |           Account U does not exist                                                |
-|  Post condition     |                Account U added in the system                 |
-|  |                      U.trust_level = 0                       |
-|  Nominal Scenario     |  New user creates a new account U and populates its fields.  |
-|  Variants     | A user can create only one account, this is checked through the email (one email, one account at most). Administrator can create many |
-
-### Use case 2, UC2 - Modify user account
-
-| Actors Involved        |   User|
-| ------------- |:-------------:|
-|  Precondition     |                       Account U exists                       |
-|  Post condition     |             -                                                 |
-|  Nominal Scenario     | User U modifies one or more fields of account U |
-|  Variants     | User U can modify only his / her account. Administrator can modify any account |
-
-### Use case 3, UC3 - Delete user account
-
-| Actors Involved        |  User |
-| ------------- |:-------------:|
-|  Precondition     |                       Account U exists                       |
-|  Post condition     |              Account U deleted from the system               |
-|  Nominal Scenario   |  User  selects an user account U to delete |
-|  Variants     | User U can delete only his / her account. Administrator can delete any account |
-
-
-### Use case 4, UC4 - Create Gas Station 
-
-| Actors Involved        | Administrator |
-| ------------- |:-------------:|
-|  Precondition     |           Gas Station  G does not exist                                 |
-|  Post condition     |                   Gas Station G is created                   |
-|  Nominal Scenario     | The administrator of the system creates a new gas station G in the system; the administrator enters all fields of a gas station ; the application assigns a unique ID to the gas station |
-
-
-
-
-### Use case 5, UC5 - Modify Gas Station information
-
-| Actors Involved        | Administrator |
-| ------------- |:-------------:|
-|  Precondition     | Gas Station G exists |
-|  Post condition     | - |
-|  Nominal Scenario     | The administrator of the system selects a gas station G to modify; the administrator is prompted with the gas station properties and modifies them |
-|  Variants     | - |
-
-
-
-### Use case 6, UC6 - Delete Gas Station
-
-| Actors Involved  |                        Administrator                         |
-| ---------------- | :----------------------------------------------------------: |
-| Precondition     |                     Gas Station G exists                     |
-| Post condition   |           Gas Station G is deleted from the system           |
-| Nominal Scenario | The administrator of the system selects a gas station G to delete; the administrator confirms the deletion decision once prompted by the system |
-| Variants         |                              -                               |
-
-### Use case 7, UC7 - Report fuel price for a gas station
-
-| Actors Involved  |                             User                             |
-| ---------------- | :----------------------------------------------------------: |
-| Precondition     |                     Gas station G exists                     |
-|                  |              User U is registered in the system              |
-|                  |              G has no attached price list                  |
-| Post condition   |                  Price list P is created                   |
-|                  |   P.time_tag is set to the current timestamp of the system   |
-|                  |                     P is attached to G                  |
-|                  |                     U is attached to P (needed later to update trust level of U)                 |
-| Nominal Scenario | The user U selects a gas station G for which he/she wants to insert a price report; no price list is attached to G; the system prompts the user with the list of possible fuels provided by the gas station;      the user inserts the prices for the fuels; the price list is attached to G |
-| Variants         |         a price list is already  attached to G, previously inserted by U2, <br>  U.trust_level >= U2.trust_level, the previous price list is overwritten                  |
-| |   a price list is already  attached to G, previously inserted by U2, <br> U.trust_level < U2.trust_level, the previous price list is overwritten only if (today - P.time_tag ) > 4 days      |
-
-
-
-### Use case 8, UC8 - Obtain price of fuel for gas stations in a certain geographic area
-
-| Actors Involved  |                     Anonymous User                             |
-| ---------------- | :----------------------------------------------------------: |
-| Precondition     |              -              |
-| Post condition   |                              -                               |
-| Nominal Scenario | The anonymous user AU selects a geo point GP and a radius r (default radius is 5km); the system prompts all gas stations within r from GP, with their prices for all available fuels. If a price for a fuel is missing "NA" is reported. The system shows also, for each gas station, the trust level of the prices, computed as in UC 9 |
-| Variants         | restrict to a certain fuel type. The system shows only prices for a certain fuel type|
-| Variants         | restrict to car sharing. The system shows only gas stations having a deal with a certain car sharing company |
-| Variants         | sort by price, for a fuel type. The system shows only gas stations for a certain fuel type, sorted by price, in ascending order |
-| Variants         | sort by distance, for a fuel type. The system shows only gas stations for a certain fuel type, sorted by distance, in ascending order |
-
-
-
-### Use case 9, UC9 - Update trust level of price list
-| Actors Involved  |                     Anonymous User                             |
-| ---------------- | :----------------------------------------------------------: |
-| Precondition     |     price list P is attached to user U         -              |
-| Post condition   |      P.trust_level = 50 * (U.trust_level +5)/10 + 50 * obsolescence  |
-| |  obsolescence = 0 if (today - P.time_tag) > 7 days |
-| |     otherwise obsolescence = 1 - (today - P.time_tag)/7 |
-| Nominal Scenario |  compute and update  trust level of price list P|
-
-
-### Use case 10, UC10 - Evaluate price
-
-| Actors Involved  |                             User                             |
-| ---------------- | :----------------------------------------------------------: |
-| Precondition     |              User U exists  and has valid account            |
-|                  |          Gas Station G exists and has price list inserted by U2         |
-| Post condition   |   U2.trust_level is modified                               |
-| Nominal Scenario | The user U selects a gas station and the attached price list ; the user indicates that the price is correct; the system identifies the user U2 that provided the corresponding price report and increases his/her trust level |
-| Variants         |   The user U selects a gas station and the attached price list ; the user indicates that the price is wrong; the system identifies the user U2 that provided the corresponding price report and decreases his/her trust level                     |
-
-##### Scenario 10.1 
-
-| Scenario |  price is correct |
+| Scenario |  name |
 | ------------- |:-------------:| 
-|  Precondition     | User U exists and has valid account |
-| | Gas Station G exists and has price list inserted by U2 |
-|  Post condition     | U2.trust_level++  |
+|  Precondition     | Account U exists inside the system and account B does not exist|
+|  Post condition     |  -|
 | Step#        | Description  |
-|  1     |  U selects gas station G|  
-|  2     |  U signals price for G is correct|
-|  3    |  System searches the user U2 who did signal the prices for G|
-|  4    |  System increases by 1 the trust level of U2 |
+|  1     |  A user tries to create a new account B and populates its fields using the same email of account U |  
+|  2     |  System searches for email to see if it exists inside the system |
+|  3     |  System finds the email inside the system |
+|  4     |  System checks to see the type of account (user or admin)|
+|  5     |  System finds out that type of account is user|
+|  6     |  Failure message is prompted to user stating that an account already exists for this email |
+## Scenario UC1.2
 
-##### Scenario 10.2 
-| Scenario |  price is wrong |
+| Scenario |  name |
 | ------------- |:-------------:| 
-|  Precondition     | User U exists and has valid account |
-| | Gas Station G exists and has price list inserted by U2 |
-|  Post condition     | U2.trust_level--  |
+|  Precondition     | Admin account A exists inside the system and user account U does not exist|
+|  Post condition     |  Account A and account U exist inside the system|
 | Step#        | Description  |
-|  1     |  U selects gas station G|  
-|  2     |  U signals price for G is wrong |
-|  3    |  System searches the user U2 who did signal the prices for G|
-|  4    |  System decreases  by 1 the trust level of U2 |
+|  1     |  Admin tries to create a new user account U and populates its fields |
+|  2     |  System searches for email to see if it exists inside the system |
+|  3     |  System doesn't find the email inside the system |
+|  4     |  System successfully creates account U inside the database|
+
+## Scenario UC2.1
+
+| Scenario |  name |
+| ------------- |:-------------:| 
+|  Precondition     | Admin account B exists|
+|  Post condition     |  -|
+| Step#        | Description  |
+|  1     |  Admin gets a list of all accounts |
+|  2     |  Admin modifies one or more fields of any account |
+
+## Scenario UC3.1
+
+| Scenario |  name |
+| ------------- |:-------------:| 
+|  Precondition     | Account U exists|
+|  Post condition     |  Account U deleted from the system|
+| Step#        | Description  |
+|  1     |  Admin gets a list of all accounts|
+|  2     |  Admin selects an account to delete |
 
 
-# Glossary
-```plantuml
-class EZGas
-class User {
- account_name
- account_pwd
- email
- trust_level
-}
-class Administrator
-note "trust_level ranges from -5  to 5" as N1
-N1 .. User
-class GasStation {
- ID
- name
- address
- brand
- hasDiesel
- hasGasoline
- hasPremiumDiesel
- hasPremiumGasoline
- hasLPG
- hasMethane
-}
-class GeoPoint {
- latitude
- longitude
-}
-class CarSharingCompany {
- name
-}
-class PriceList {
- time_tag
- dieselPrice
- gasolinePrice
- premiumDieselPrice
- premiumGasolinePrice
- LPGPrice
- methanePrice
- trust_level
-}
+## Scenario UC7.1
 
-note "trust_level ranges from 0 to 100 \ntime_tag is the time when the price list is created" as N2
-N2 .. PriceList
-Administrator -up-|> User
-EZGas -- "*" User
-EZGas -- "*" GasStation
-GasStation "*" -- "0..1" CarSharingCompany
-GasStation  -- "0..1" PriceList
-User -- "*" PriceList
-User "*" -- GeoPoint
-GeoPoint -- GasStation
-```
+| Scenario |  name |
+| ------------- |:-------------:| 
+|  Precondition     | Gas station G exists |
+|                   |User U1 is registered in the system|
+|                   |G already has an attached price list P submitted by user U2|
+|                   | User U1 reputation >= User U2 reputation at the time of the submission |
+|  Post condition     |  Price list P2 is created |
+||P2.time_tag is set to the current timestamp of the system|
+||P is overwritten by P2|
+||U1 is attached to P2 |
+| Step#        | Description  |
+|  1     |  The user U1 selects a gas station G for which he/she wants to insert a price report |
+|2       |The system prompts the user with the list of possible fuels provided by the gas station with their prices (if available)|
+|3       |The user inerts the prices for the fuels|
+|4       |System overwrites the previous price list attached to G by the new one|
 
-# System Design
-Not really meaningful in this case.  Only software components are needed.
+## Scenario UC7.2
+
+| Scenario |  name |
+| ------------- |:-------------:| 
+|  Precondition     | Gas station G exists |
+|                   |User U1 is registered in the system|
+|                   |G already has an attached price list P submitted by user U2|
+|                   | User U1 reputation < User U2 reputation at the time of the submission |
+|                   | More than 4 days have passed since P has been submitted |
+|  Post condition     |  Price list P2 is created |
+||P2.time_tag is set to the current timestamp of the system|
+||P is overwritten by P2|
+||U1 is attached to P2 |
+| Step#        | Description  |
+|  1     |  The user U1 selects a gas station G for which he/she wants to insert a price report |
+|2       |The system prompts the user with the list of possible fuels provided by the gas station with their prices (if available)|
+|3       |The user inerts the prices for the fuels|
+|4       |System overwrites the previous price list attached to G by the new one|
+
+## Scenario UC8.1
+
+| Scenario |  name |
+| ------------- |:-------------:| 
+|  Precondition     | - |
+|  Post condition     |  - |
+| Step#        | Description  |
+|  1     |  The anonymous user AU selects a geo point GP and a radius r (default radius is 5km) and restricts to a certain fuel type|
+|2       | The system prompts all gas stations within r from GP, with their prices for certain available fuel type|
+|3       | If a price for a fuel is missing "NA" is reported|
+|4       |The system shows also, for each gas station, the trust level of the prices, computed as in UC 9|
+
+## Scenario UC8.2
+
+| Scenario |  name |
+| ------------- |:-------------:| 
+|  Precondition     | - |
+|  Post condition     |  - |
+| Step#        | Description  |
+|  1     |  The anonymous user AU selects a geo point GP and a radius r (default radius is 5km) and restricts to car sharing|
+|2       | The system prompts only gas stations having a deal with a certain car sharing company, and that are located within r from GP, with their prices for all available fuels|
+|3       | If a price for a fuel is missing "NA" is reported|
+|4       |The system shows also, for each gas station, the trust level of the prices, computed as in UC 9|
 
 
-# Deployment Diagram
-Client server model. The application runs on a server or virtual machine, any client accesses it through PC or smart phones.
+## Scenario UC8.3
 
-```plantuml
-artifact "EZGas Application" as ezgas
-node "server" as s
-node "PC client" as pc
-node "Smartphone client" as phone
-s -- ezgas
-s -- "*" pc
-s -- "*" phone
-```
+| Scenario |  name |
+| ------------- |:-------------:| 
+|  Precondition     | - |
+|  Post condition     |  - |
+| Step#        | Description  |
+|  1     |  The anonymous user AU selects a geo point GP and a radius r (default radius is 5km) and sorts by price for a fuel type|
+|2       | The system prompts all gas stations within r from GP, with their prices for certain available fuel type, sorted by price, in ascending order|
+|3       | If a price for a fuel is missing "NA" is reported|
+|4       |The system shows also, for each gas station, the trust level of the prices, computed as in UC 9|
+
+
+## Scenario UC8.4
+
+| Scenario |  name |
+| ------------- |:-------------:| 
+|  Precondition     | - |
+|  Post condition     |  - |
+| Step#        | Description  |
+|  1     |  The anonymous user AU selects a geo point GP and a radius r (default radius is 5km) and sorts by distance for a fuel type|
+|2       | The system prompts all gas stations within r from GP, with their prices for certain available fuel type, sorted by distance, in ascending order|
+|3       | If a price for a fuel is missing "NA" is reported|
+|4       |The system shows also, for each gas station, the trust level of the prices, computed as in UC 9|
+
+
+# Coverage of Scenarios and FR
+
+
+<Report in the following table the coverage of  scenarios (from official requirements and from above) vs FR. 
+Report also for each of the scenarios the (one or more) API JUnit tests that cover it. >
+
+
+
+
+| Scenario ID | Functional Requirements covered | JUnit  Test(s) | 
+| ----------- | ------------------------------- | ----------- | 
+| UC1| FR1.1                          | UserServiceimplTest.testSaveUserValid()            |      
+||| UserServiceimplTest.testSaveUserForUpdate()|  
+||| UserServiceimplTest.testSaveUserForInvalidUpdate()|
+|||UserServiceimplTest.testSaveUserFails() |  
+|||UserConverterTest.testToEntity() |
+|||UserRepositoryTest.testFindByEmail()|
+|||UserConverterTest.testToDto()|
+| UC1.1| FR1.1                          | UserServiceimplTest.testSaveUserValid()            |      
+||| UserServiceimplTest.testSaveUserForUpdate()|  
+||| UserServiceimplTest.testSaveUserForInvalidUpdate()|
+|||UserServiceimplTest.testSaveUserFails() |  
+|||UserConverterTest.testToEntity() |
+|||UserRepositoryTest.testFindByEmail()|
+|||UserConverterTest.testToDto()|
+| UC1.2| FR1.1|UserServiceimplTest.testSaveUserValid() | 
+||| UserServiceimplTest.testSaveUserForUpdate()|  
+||| UserServiceimplTest.testSaveUserForInvalidUpdate()|
+|||UserServiceimplTest.testSaveUserFails() |  
+|||UserConverterTest.testToEntity() |
+|||UserRepositoryTest.testFindByEmail()|
+|||UserConverterTest.testToDto()|
+|          UC2 | FR1.1                          |UserServiceimplTest.testSaveUserValid()|
+||| UserServiceimplTest.testSaveUserForUpdate()|  
+||| UserServiceimplTest.testSaveUserForInvalidUpdate()|
+|||UserServiceimplTest.testSaveUserFails() |  
+|||UserConverterTest.testToEntity() |
+|||UserRepositoryTest.testFindByEmail()|
+|||UserConverterTest.testToDto()|
+| UC2.1  | FR1.1                          |UserServiceimplTest.testSaveUserValid()|
+||| UserServiceimplTest.testSaveUserForUpdate()|  
+||| UserServiceimplTest.testSaveUserForInvalidUpdate()|
+|||UserServiceimplTest.testSaveUserFails() |  
+|||UserConverterTest.testToEntity() |
+|||UserRepositoryTest.testFindByEmail()|
+|||UserConverterTest.testToDto()|
+||FR1.3|UserServiceimplTest.testGetAllUsersNotEmpty()|
+|||UserServiceimplTest.testGetAllUsersEmpty()|
+|||UserConverterTest.testToDtoList()|
+|||UserConverterTest.testToDto()|
+|          UC3 | FR1.2                          |UserServiceimplTest.testDeleteUserThrowInvalidUserException()|   
+|||UserServiceimplTest.testDeleteUserSuccessful()|
+|||UserServiceimplTest.testDeleteUserNotExists()|
+|||UserServiceimplTest.testDeleteUserFails()|
+| UC3.1  | FR1.2                          |UserServiceimplTest.testDeleteUserThrowInvalidUserException()|   
+|||UserServiceimplTest.testDeleteUserSuccessful()|
+|||UserServiceimplTest.testDeleteUserNotExists()|
+|||UserServiceimplTest.testDeleteUserFails()|
+||FR1.3|UserServiceimplTest.testGetAllUsersNotEmpty()|
+|||UserServiceimplTest.testGetAllUsersEmpty()|
+|||UserConverterTest.testToDtoList()|
+|||UserConverterTest.testToDto()|             
+| UC4 | FR3.1 | GasStationServiceimplTest.testSaveGasStationInvalidNegativePrice()   |             
+||| GasStationServiceimplTest.testSaveGasStationInvalidCoordinates()   |             
+|||  GasStationServiceimplTest.testSaveGasStationValid() |
+|||  GasStationServiceimplTest.testSaveGasStationValidAlreadyExists() |
+|||  GasStationServiceimplTest.testSaveGasStationValidNotAlreadyExists() |
+| UC5 | FR3.1 | GasStationServiceimplTest.testSaveGasStationInvalidNegativePrice()   |             
+||| GasStationServiceimplTest.testSaveGasStationInvalidCoordinates() |             
+||| GasStationServiceimplTest.testSaveGasStationValid() |                
+| UC6 | FR3.2 | GasStationServiceimplTest.testDeleteGasStationValid() |             
+||| GasStationServiceimplTest.testDeleteGasStationIdNegative() |     
+||| GasStationServiceimplTest.testDeleteGasStationIdDoesNotExist() |  
+||| GasStationServiceimplTest.testDeleteGasStationDeleteFails() |  
+| UC7 | FR5.1 | GasStationServiceimplTest.testSetReportInvalidPrice() |  
+||| GasStationServiceimplTest.testSetReportInvalidUser() |  
+||| GasStationServiceimplTest.testSetReportInvalidGasStation() |  
+| UC7.1 | FR5.1 | GasStationServiceimplTest.testSetReportInvalidPrice() |  
+||| GasStationServiceimplTest.testSetReportInvalidUser() |  
+||| GasStationServiceimplTest.testSetReportInvalidGasStation() |  
+| UC8 | FR4.1 | GasStationServiceimplTest.testGetGasStationsByProximityInvalidCoordinates() |  
+||| GasStationServiceimplTest.testGetGasStationsByProximityEmptyList() |  
+||| GasStationServiceimplTest.testGetGasStationsByProximityNonEmptyList() |  
+||| GasStationServiceimplTest.testGetGasStationsWithCoordinatesInvalidGasType() |  
+||| GasStationServiceimplTest.testGetGasStationsWithCoordinatesInvalidLatitudeAndLongitude() |  
+||| GasStationServiceimplTest.testGetGasStationsWithCoordinatesNullGasStationsWithoutCoordinates() |  
+||| GasStationServiceimplTest.testGetGasStationsWithCoordinatesValid() |  
+|| FR4.2 | GasStationServiceimplTest.testGetGasStationsByProximityInvalidCoordinates() |  
+||| GasStationServiceimplTest.testGetGasStationsByProximityEmptyList() |  
+||| GasStationServiceimplTest.testGetGasStationsByProximityNonEmptyList() |  
+||| GasStationServiceimplTest.testGetGasStationsWithCoordinatesInvalidGasType() |  
+||| GasStationServiceimplTest.testGetGasStationsWithCoordinatesInvalidLatitudeAndLongitude() |  
+||| GasStationServiceimplTest.testGetGasStationsWithCoordinatesNullGasStationsWithoutCoordinates() |  
+||| GasStationServiceimplTest.testGetGasStationsWithCoordinatesValid() | 
+| UC8.1 | FR4.5 | GasStationServiceimplTest.testGetGasStationsWithoutCoordinatesNullGasolineType() |  
+||| GasStationServiceimplTest.testGetGasStationsWithoutCoordinatesNullGasolineTypeNullCarSharing() |  
+||| GasStationServiceimplTest.testGetGasStationsWithoutCoordinatesNullCarSharing() |  
+||| GasStationServiceimplTest.testGetGasStationsWithoutCoordinatesValid() |  
+||| GasStationServiceimplTest.testGetGasStationsWithoutCoordinatesInvalidGasType() |  
+||| GasStationServiceimplTest.testGetGasStationsWithCoordinatesInvalidGasType() |  
+||| GasStationServiceimplTest.testGetGasStationsWithCoordinatesInvalidLatitudeAndLongitude() |  
+||| GasStationServiceimplTest.testGetGasStationsWithCoordinatesNullGasStationsWithoutCoordinates() |  
+||| GasStationServiceimplTest.testGetGasStationsWithCoordinatesValid() |  
+||| GasStationServiceimplTest.testGetGasStationsByGasolineTypeDiesel() |  
+||| GasStationServiceimplTest.testGetGasStationsByGasolineTypeGas() |  
+||| GasStationServiceimplTest.testGetGasStationsByGasolineTypeSuper() |  
+||| GasStationServiceimplTest.testGetGasStationsByGasolineTypeSuperPlus() |  
+||| GasStationServiceimplTest.testGetGasStationsByGasolineTypeMethane() |  
+||| GasStationServiceimplTest.testGetGasStationsByGasolineTypeNull() |  
+| UC8.2 | FR4.5 | GasStationServiceimplTest.testGetGasStationsWithoutCoordinatesNullGasolineType() |  
+||| GasStationServiceimplTest.testGetGasStationsWithoutCoordinatesNullGasolineTypeNullCarSharing() |  
+||| GasStationServiceimplTest.testGetGasStationsWithoutCoordinatesNullCarSharing() |  
+||| GasStationServiceimplTest.testGetGasStationsWithoutCoordinatesValid() |  
+||| GasStationServiceimplTest.testGetGasStationsWithoutCoordinatesInvalidGasType() |  
+||| GasStationServiceimplTest.testGetGasStationsWithCoordinatesInvalidGasType() |  
+||| GasStationServiceimplTest.testGetGasStationsWithCoordinatesInvalidLatitudeAndLongitude() |  
+||| GasStationServiceimplTest.testGetGasStationsWithCoordinatesNullGasStationsWithoutCoordinates() |  
+||| GasStationServiceimplTest.testGetGasStationsWithCoordinatesValid() |  
+||| GasStationServiceimplTest.testGetGasStationByCarSharingValid() |  
+||| GasStationServiceimplTest.testGetGasStationByCarSharingNull() |  
+| UC8.3 | FR4.5 | GasStationServiceimplTest.testGetGasStationsWithoutCoordinatesNullGasolineType() |  
+||| GasStationServiceimplTest.testGetGasStationsWithoutCoordinatesNullGasolineTypeNullCarSharing() |  
+||| GasStationServiceimplTest.testGetGasStationsWithoutCoordinatesNullCarSharing() |  
+||| GasStationServiceimplTest.testGetGasStationsWithoutCoordinatesValid() |  
+||| GasStationServiceimplTest.testGetGasStationsWithoutCoordinatesInvalidGasType() |  
+||| GasStationServiceimplTest.testGetGasStationsWithCoordinatesInvalidGasType() |  
+||| GasStationServiceimplTest.testGetGasStationsWithCoordinatesInvalidLatitudeAndLongitude() |  
+||| GasStationServiceimplTest.testGetGasStationsWithCoordinatesNullGasStationsWithoutCoordinates() |  
+||| GasStationServiceimplTest.testGetGasStationsWithCoordinatesValid() |  
+||| GasStationServiceimplTest.testGetGasStationsByGasolineTypeDiesel() |  
+||| GasStationServiceimplTest.testGetGasStationsByGasolineTypeGas() |  
+||| GasStationServiceimplTest.testGetGasStationsByGasolineTypeSuper() |  
+||| GasStationServiceimplTest.testGetGasStationsByGasolineTypeSuperPlus() |  
+||| GasStationServiceimplTest.testGetGasStationsByGasolineTypeMethane() |  
+||| GasStationServiceimplTest.testGetGasStationsByGasolineTypeNull() |  
+| UC8.4 | FR4.5 | GasStationServiceimplTest.testGetGasStationsWithoutCoordinatesNullGasolineType() |  
+||| GasStationServiceimplTest.testGetGasStationsWithoutCoordinatesNullGasolineTypeNullCarSharing() |  
+||| GasStationServiceimplTest.testGetGasStationsWithoutCoordinatesNullCarSharing() |  
+||| GasStationServiceimplTest.testGetGasStationsWithoutCoordinatesValid() |  
+||| GasStationServiceimplTest.testGetGasStationsWithoutCoordinatesInvalidGasType() |  
+||| GasStationServiceimplTest.testGetGasStationsWithCoordinatesInvalidGasType() |  
+||| GasStationServiceimplTest.testGetGasStationsWithCoordinatesInvalidLatitudeAndLongitude() |  
+||| GasStationServiceimplTest.testGetGasStationsWithCoordinatesNullGasStationsWithoutCoordinates() |  
+||| GasStationServiceimplTest.testGetGasStationsWithCoordinatesValid() |  
+||| GasStationServiceimplTest.testGetGasStationsByGasolineTypeDiesel() |  
+||| GasStationServiceimplTest.testGetGasStationsByGasolineTypeGas() |  
+||| GasStationServiceimplTest.testGetGasStationsByGasolineTypeSuper() |  
+||| GasStationServiceimplTest.testGetGasStationsByGasolineTypeSuperPlus() |  
+||| GasStationServiceimplTest.testGetGasStationsByGasolineTypeMethane() |  
+||| GasStationServiceimplTest.testGetGasStationsByGasolineTypeNull() |  
+| UC9 | FR5.2 | GasStationServiceimplTest.testGetGasStationByIdPositiveAndExists() |  
+||| GasStationServiceimplTest.testGetAllGasStationsNotEmpty() |    
+| UC10.1 | FR5.3 | UserServiceimpl.testIncreaseUserReputationThrowsInvalidUserException() |  
+||| UserServiceimpl.testIncreaseUserReputation() |  
+||| GasStationServiceimplTest.testGetGasStationByIdPositiveAndExists() |  
+| UC10.2 | FR5.3 | UserServiceimpl.testDecreaseUserReputationThrowsInvalidUserException() |          
+||| UserServiceimpl.testDecreaseUserReputation() |  
+||| GasStationServiceimplTest.testGetGasStationByIdPositiveAndExists() |  
+
+
+
+# Coverage of Non Functional Requirements
+
+
+<Report in the following table the coverage of the Non Functional Requirements of the application - only those that can be tested with automated testing frameworks.>
+
+
+### 
+
+**At this point in the testing process, none of the non functional requirements can be properly assessed with an automated testing framework. All of them require a test at the level of the GUI.**
+
+# Code coverage report
+
+    <Add here the screenshot report of the statement and branch coverage obtained using
+    the Eclemma tool. >
+We achieved 100% instructions and branches coverage if we do not count the classes left to test in the next phase (Controllers and, possibly, the Boot Class).
+![Code coverage report](./images/ezgasIntegrationCoverage.png)<br/>
