@@ -5,30 +5,23 @@ Also this document will not be used for evaluations, but for improving the proje
 
 
 # Best things
-Team working and collaboration with each other with different backgrounds, skills, thought and ideas which happen during the regular project, the best point that makes this project very interesting is that all meeting took place in remote like a real project in the world.
-Simulating and get experiences the long-distance co-operation among the team members as well as co-operating and managing the project using useable software and tool like Git and Trello, etc.
-Become familiar with all standards & processes of making software from scratch.
-Improving programming language skills by collaborating with other team members, they have different abilities in various programming languages.
-Using a web-based tool such as CATME to managing student teams and divide the students into several groups instead of doing by themselves. It is a fair mechanism because all teams consist of members with various experience in programming languages.
-Improving the ability to analyze requirements and difficulties in practical ways.
-Simulating the real scenario of processing the software.
-Become familiar with testing (Blackbox & Whitebox) in practical ways instead of theoretical and its related tools.
-
+* Team working and collaboration with students with different backgrounds, skills and ideas.
+* Remote meetings, simulating real world smart working conditions.
+* Hands on experience with industry standard tools for long distance cooperation 
+* Applying in practice software development processes and techniques
+* Improving programming skills thanks to more experienced teammates.
+* Using a tool, such as CATME, to guarantee the creation of fair and balanced teams of students.
+* Improving analysis skills by developing requirements and design documents.
+* Acquiring familiarity with testing techniques (Black Box and White Box) in a non-trivial scenario.
+* Learning a modern and extensively used framework such as Spring Boot
 
 # Worst things
-Time, there is a lack of time of doing the projects with heavy and multiple parts that required more time and effort to accomplish them despite having different courses and also exams.
-
-not feasible to choose the language of programming and framework freely,.there was strick mode of using java language.despite of its power but more complexity and rule-based than any other language which required more experience in it that members must-have. instead, using JavaScript and its libraries to develop this web application was more useful especially students who had a course in parallel like (web application) which they have discussed it and have had the opportunity to use it in this course's project and let them get more experiences.
-
-Even simple changes in the code lead to modify the documents (such as requirement) and testing which is a very time-consuming activity and it happens in this project exactly in the final step of the project and causes a lot of issues.
+* Impossibility of completing certain deadlines without sacrificing time allocated to other courses or projects.
+* Seeming lack of empathy and understanding of the professor and the teaching assistants when presented with problems related to the pressure that this project put on most of the students. 
+* Struggle to get even a simple answer from the teacher and the teaching assistants on Slack. The only way to get an answer in a timely manner was to ask it during the live lecture and hoping that the lecturer would address it (which thankfully always happened).
+* Extremely annoying changes to the code in the last deadline, made for apparently no reason (Premium Diesel). It felt like this was added just to punish the students for choosing the easiest change requests (which our group DID NOT). This made it necessary to rewrite a great number of tests, while gaining absolutely no useful knowledge in the meantime.
 
 # Suggestions 
-Moving one step further, if there is sufficient time, to deploy the project into the server which gives the students the opportunity to become familiar more with the deployment phase.
-
-Teaching new technologies which are the core part of the project in advance and during the course, such as Spring Boot or MVC framework, before using them in the project.
-
-As above mentioned, Do not force the language and framework and giving the options to the students especially if they have learned a new one in another course in parallel.
-
-Consider other factors in the planning and scheduling especially when a crisis has happened which caused most students to have had remaining exams which lead to being not able to participate in the project.
-
-
+* Reducing the scope of the application and focusing more on the techniques and maybe provide some practical experience also with a deployment simulation.
+* Providing lessons on the Spring Boot framework before requiring its use as if it is obvious for everybody.
+* Being more considerate when planning and scheduling the project, especially in a crisis situation like the one we faced this year, which made it difficult for some student to follow all of the courses, let alone also work on the project, with an upsetting lack of support and tight time constraints.
