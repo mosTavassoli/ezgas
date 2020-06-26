@@ -473,13 +473,31 @@ Report also for each of the scenarios the (one or more) API JUnit tests that cov
 ||| GasStationServiceimplTest.testDeleteGasStationDeleteFails |  
 | UC7 | FR5.1 | GasStationServiceimplTest.testSetReportInvalidPrice |  
 ||| GasStationServiceimplTest.testSetReportInvalidUser |  
-||| GasStationServiceimplTest.testSetReportInvalidGasStation |  
+||| GasStationServiceimplTest.testSetReportInvalidGasStation | 
+||| GasStationServiceimplTest.testSetReportValid |  
+||| GasStationServiceimplTest.testSetReportInvalidTimestamp |  
+||| GasStationServiceimplTest.testSetReportNullTimestamp |  
+||| GasStationServiceimplTest.testSetReportEmptyTimestamp |  
+||| GasStationServiceimplTest.testSetReportLowerUserReputation |  
+||| GasStationServiceimplTest.testSetReportLessThan4Days |   
 | UC7.1 | FR5.1 | GasStationServiceimplTest.testSetReportInvalidPrice |  
 ||| GasStationServiceimplTest.testSetReportInvalidUser |  
-||| GasStationServiceimplTest.testSetReportInvalidGasStation |  
+||| GasStationServiceimplTest.testSetReportInvalidGasStation | 
+||| GasStationServiceimplTest.testSetReportValid |  
+||| GasStationServiceimplTest.testSetReportInvalidTimestamp |  
+||| GasStationServiceimplTest.testSetReportNullTimestamp |  
+||| GasStationServiceimplTest.testSetReportEmptyTimestamp |  
+||| GasStationServiceimplTest.testSetReportLowerUserReputation |  
+||| GasStationServiceimplTest.testSetReportLessThan4Days |  
 | UC7.2 | FR5.1 | GasStationServiceimplTest.testSetReportInvalidPrice |  
 ||| GasStationServiceimplTest.testSetReportInvalidUser |  
-||| GasStationServiceimplTest.testSetReportInvalidGasStation |  
+||| GasStationServiceimplTest.testSetReportInvalidGasStation | 
+||| GasStationServiceimplTest.testSetReportValid |  
+||| GasStationServiceimplTest.testSetReportInvalidTimestamp |  
+||| GasStationServiceimplTest.testSetReportNullTimestamp |  
+||| GasStationServiceimplTest.testSetReportEmptyTimestamp |  
+||| GasStationServiceimplTest.testSetReportLowerUserReputation |  
+||| GasStationServiceimplTest.testSetReportLessThan4Days |  
 | UC8 | FR4.1 | GasStationServiceimplTest.testGetGasStationsByProximityInvalidCoordinates |  
 ||| GasStationServiceimplTest.testGetGasStationsByProximityEmptyList |  
 ||| GasStationServiceimplTest.testGetGasStationsByProximityNonEmptyList |  
