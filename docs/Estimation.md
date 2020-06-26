@@ -4,7 +4,11 @@ Authors: Mehdi Khrichfa, Alessandro Ricciuto, Toni Saliba, Mostafa Tavassoli
 
 Date: 03/05/2020
 
-Version: 1.4
+Version: 2
+
+|Version|Changes|
+|----|----|
+|2| Updated estimation document with actual productivity observed during the project|
 
 # Contents
 - [Estimate by product decomposition](#estimate-by-product-decomposition)
@@ -21,12 +25,12 @@ Version: 1.4
 
 |             | Estimate                        |             
 | ----------- | ------------------------------- |  
-| NC =  Estimated number of classes to be developed   |    11                         |             
-|  A = Estimated average size per class, in LOC       |              170              | 
-| S = Estimated size of project, in LOC (= NC * A) | 1870|
-| E = Estimated effort, in person hours (here use productivity 10 LOC per person hour)  |  187                                    |   
-| C = Estimated cost, in euro (here use 1 person hour cost = 30 euro) | 5610 | 
-| Estimated calendar time, in calendar weeks (Assume team of 4 people, 8 hours per day, 5 days per week ) |        1.5            |               
+| NC =  Estimated number of classes to be developed   |    19                         |             
+|  A = Estimated average size per class, in LOC       |              200              | 
+| S = Estimated size of project, in LOC (= NC * A) | 3800 |
+| E = Estimated effort, in person hours (here use productivity 7 LOC per person hour)  |  543                                    |   
+| C = Estimated cost, in euro (here use 1 person hour cost = 30 euro) | 16290 | 
+| Estimated calendar time, in calendar weeks (Assume team of 4 people, 8 hours per day, 5 days per week ) |        3.4            |               
 
 
 # Estimate by activity decomposition
@@ -43,22 +47,22 @@ Version: 1.4
 |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Identify user requirements | 24|
 |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Identify performance requirements | 3|
 |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Identify interface requirements |6|
-|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Design GUI | 64|
-|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Prepare software requirements specification | 32|
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Design GUI | 32|
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Prepare software requirements specification | 26|
 |**Requirements V&V**| |
 |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Requirements inspection | 16|
 |**Design document**| |
-|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Analysis | 50|
-|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Formalization| 15|
-|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Verification | 10|
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Analysis | 24|
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Formalization| 16|
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Verification | 8|
 |**Design document V&V**| |
-|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Design document inspection |16|
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Design document inspection |10|
 |**Coding**| |
 |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Implement the code| 168|
 |**Documentation**| |
 |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Explain design document and code | 10|
 |**System test**| |
-|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Test all units of application| 54|
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Test all units of application| 40|
 |**Test plan**| |
 |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Prepare testing process | 16|
 |**Unit test**| |
@@ -74,7 +78,7 @@ Version: 1.4
 
 printscale daily
 Project starts the 6th of april 2020
-[Requirements Planning] as [TASK1] lasts 15 days
+[Requirements Planning] as [TASK1] lasts 9 days
 [TASK1] is colored in Red
 
 [Perform workflow analysis] lasts 1 day
@@ -83,7 +87,7 @@ Project starts the 6th of april 2020
 [Model process] lasts 1 days
 [Perform workflow analysis]->[Model process]
 
-[Identify user requirements] lasts 3 days
+[Identify user requirements] lasts 1 days
 [Model process]->[Identify user requirements]
 
 [Identify performance requirements] lasts 1 days
@@ -92,21 +96,21 @@ Project starts the 6th of april 2020
 [Identify interface requirements] lasts 1 days
 [Identify performance requirements]->[Identify interface requirements]
 
-[Design GUI] lasts 4 days
+[Design GUI] lasts 2 days
 [Identify interface requirements]->[Design GUI]
 
-[Prepare software requirements specification] lasts 4 days
+[Prepare software requirements specification] lasts 2 days
 [Design GUI]->[Prepare software requirements specification]
 
 
 
 
 
-[Requirements V&V] as [TASK1.1] lasts 2 days
+[Requirements V&V] as [TASK1.1] lasts 1 days
 [TASK1.1] is colored in LightBlue
 [TASK1.1] starts at [TASK1]'s end
 
-[Requirements inspection] lasts 2 days
+[Requirements inspection] lasts 1 days
 [TASK1]->[Requirements inspection]
 
 
@@ -116,101 +120,80 @@ Project starts the 6th of april 2020
 
 
 
-[Design document] as [TASK2] lasts 8 days
+[Design document] as [TASK2] lasts 3 days
 [TASK2] is colored in Red
 [TASK2] starts at [TASK1]'s end
 
-[Analysis] lasts 4 days
+[Analysis] lasts 1 days
 [TASK1]->[Analysis]
 
-[Formalization] lasts 2 days
+[Formalization] lasts 1 days
 [Analysis]->[Formalization]
 
-[Verification] lasts 2 days
+[Verification] lasts 1 days
 [Formalization]->[Verification]
 
-[Design document V&V] as [TASK2.1] lasts 2 days
+[Design document V&V] as [TASK2.1] lasts 1 days
 [TASK2.1] is colored in LightBlue
 [TASK2.1] starts at [TASK2]'s end
 
-[Design document inspection] lasts 2 days
+[Design document inspection] lasts 1 days
 [TASK2]->[Design document inspection]
 
 
 
-[Coding] as [TASK3] lasts 14 days
+[Coding] as [TASK3] lasts 6 days
 [TASK3] is colored in Red
-[TASK3] starts at [TASK2]'s end
+[TASK3] starts at [TASK2.1]'s end
 
-[Implement the code] lasts 14 days
-[TASK2]->[Implement the code]
+[Implement the code] lasts 6 days
+[TASK2.1]->[Implement the code]
 
-[Documentation] as [TASK3.1] lasts 4 days
+[Documentation] as [TASK3.1] lasts 1 days
 [TASK3.1] is colored in LightBlue
-[TASK3.1] starts at [TASK2]'s end
+[TASK3.1] starts at [TASK2.1]'s end
 
-[Explain design document and code] lasts 4 days
-[TASK2]->[Explain design document and code]
+[Explain design document and code] lasts 1 days
+[TASK2.1]->[Explain design document and code]
 
 
 
-[System test] as [TASK4] lasts 8 days
+[System test] as [TASK4] lasts 2 days
 [TASK4] is colored in Red
 [TASK4] starts 2 days after [TASK3]'s end
 
-[Test all units of application] lasts 8 days
+[Test all units of application] lasts 2 days
 [Test all units of application] starts 2 days after [TASK3]'s end
 
 
 
-[Test plan] as [TASK1.2] lasts 8 days
+[Test plan] as [TASK1.2] lasts 1 days
 [TASK1.2] is colored in LightBlue
 
-[Prepare testing process] lasts 8 days
+[Prepare testing process] lasts 1 days
 
 
-[Unit test] lasts 14 days
+[Unit test] lasts 4 days
 [Unit test] starts 15 days after [TASK1.2]'s end 
 [Unit test] is colored in LightBlue
 
-[Test each unit of the software] lasts 14 days
+[Test each unit of the software] lasts 4 days
 [Test each unit of the software] starts 15 days after [TASK1.2]'s end 
 
-[Integration test] lasts 14 days
+[Integration test] lasts 3 days
 [Integration test] starts 2 days after [Unit test]'s start 
 [Integration test] is colored in LightBlue
-[Combine individual units and test them as a group] lasts 14 days
+[Combine individual units and test them as a group] lasts 3 days
 [Combine individual units and test them as a group] starts 2 days after [Unit test]'s start 
 
 
 ```
 
 
-Considering the fact that we are students, the calculations made were not based on 8 hours of work per day. And the calculations did not take into consideration weekends. Weekends were considered as normal work days (since we're students).
-
-The red activities are our main critical activities. They cannot overlap each other, and they should always be executed in this order. Red activities describe Tier1 activities.
-
-The light-blue activities are also main activities, but they can overlap other main activities. They can be executed in parallel with other activities. Light-blue activities describe Tier2 activities.
-
-The green activities are the sub activities for the main activities (the red activities). The green activities give a general overview on the type of actions and sub activities that are executed during its main activity.
-
-First, we have Requirements Planning which takes a total of 141 hours, and that is the first phase of the project. 
-
-After that, we have the Requirements document verification and validation, which is just inspecting the Requirements document in order to find any errors so we could fix them before moving to the next stages. This phase takes a total of 16 hours.
-
-In parallel to the Requirements Planning activity, we have the Test plan activity which takes 16 hours. It is made such that it starts with the Requirements Planning and ends a bit before the end of Requirements Planning. This is made so that we could design the best Test plan for our model according to the Requirements document. 
-
-Then we have the design document, which is an activity running in parallel with the Requirements document verification and validation that starts right after the end of Requirements Planning activity. It took 75 hours. 
-
-And as always we have the design document verification and validation which is only an inspection of the design document because we need to catch errors before continuing our project in order to minimize future costs. This phase takes a total of 16 hours. 
-
-Then we have the coding, which is an activity running in parallel with the design document verification and validation and starts right after the end of the Design document because the code is implementing the design mentioned in the Design document. It took 168 hours, because in this activity we are implementing our software.
-
-When the coding starts, we have Unit test activity which is running in parallel with coding. Unit test takes parts of the code individually, and tests them. We need to test the whole code, that's why Unit test activity ends with the coding activity. Unit test takes 80 hours.
-
-And, running in parallel to the coding, we have the documentation which takes 10 hours. The interval of time of the documentation activity is made such that the documentation starts with the coding activity and ends way before the end of the coding activity, because during the first stages of our coding, we are defining functions, classes, variables and getting a clear idea of the structure of our software, so we immediately document them in the documentation.
-
-Shortly after the start of the Unit test activity, we have Integration testing which is run in parallel with unit test because it uses the results of the unit test activity, and ends shortly after the end of unit test activity. Integration testing takes 52 hours.
-
-At the end we have system test which is 54 hours. It starts right after Integration testing because system test is going to be our final testing activity and it uses the results from integration testing and unit testing.
-
+This new version of the estimation document was developed by taking advantage of all the experience we acquired during this course.
+The difference between what we expected before starting the project and what we would expect now is quite remarkable.
+The time required is slightly more than double of what we expected when decomposing the project by product.
+The decomposition by activity and the Gantt chart, however, were surprisingly accurate.
+This is due to the fact that we decided to keep the two decompositions independent, since the decomposition by product required to use normal working hours, while for the decomposition by activity nothing was specified, so we assumed to use our student free time as working hours.
+This time the two decompositions are much easier to match, probably because of the much better product decomposition estimate.
+To read the comments on how we derived the activity decomposition estimates, please refer to a previous version of this document.
