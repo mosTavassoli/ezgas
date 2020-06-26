@@ -334,7 +334,7 @@ We adopted a bottom up approach divided in the following steps:
 |                   |User U1 is registered in the system|
 |                   |G already has an attached price list P submitted by user U2|
 |                   | User U1 reputation < User U2 reputation at the time of the submission |
-|                   | More than 4 days have passed since P has been submitted |
+|                   | today - P.timestamp > 4 days |
 |  Post condition     |  Price list P2 is created |
 ||P2.time_tag is set to the current timestamp of the system|
 ||P is overwritten by P2|
