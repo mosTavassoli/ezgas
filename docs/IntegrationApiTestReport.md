@@ -25,13 +25,13 @@ Version: 1
   - [Scenario UC2.1](#scenario-uc21)
   - [Scenario UC3.1](#scenario-uc31)
   - [Scenario UC7.1](#scenario-uc71)
+  - [Scenario UC7.2](#scenario-uc72)
   - [Scenario UC8.1](#scenario-uc81)
   - [Scenario UC8.2](#scenario-uc82)
   - [Scenario UC8.3](#scenario-uc83)
   - [Scenario UC8.4](#scenario-uc84)
 - [Coverage of Scenarios and FR](#coverage-of-scenarios-and-fr)
 - [Coverage of Non Functional Requirements](#coverage-of-non-functional-requirements)
-    - [](#)
 - [Code coverage report](#code-coverage-report)
 
 
@@ -313,17 +313,38 @@ We adopted a bottom up approach divided in the following steps:
 | Scenario |  name |
 | ------------- |:-------------:| 
 |  Precondition     | Gas station G exists |
-|                   |User U is registered in the system|
-|                   |G already has an attached price list P|
+|                   |User U1 is registered in the system|
+|                   |G already has an attached price list P submitted by user U2|
+|                   | User U1 reputation >= User U2 reputation at the time of the submission |
 |  Post condition     |  Price list P2 is created |
 ||P2.time_tag is set to the current timestamp of the system|
 ||P is overwritten by P2|
-||U is attached to P2 (needed later to update trust level of U)|
+||U1 is attached to P2 |
 | Step#        | Description  |
-|  1     |  The user U selects a gas station G for which he/she wants to insert a price report |
+|  1     |  The user U1 selects a gas station G for which he/she wants to insert a price report |
 |2       |The system prompts the user with the list of possible fuels provided by the gas station with their prices (if available)|
 |3       |The user inerts the prices for the fuels|
 |4       |System overwrites the previous price list attached to G by the new one|
+
+## Scenario UC7.2
+
+| Scenario |  name |
+| ------------- |:-------------:| 
+|  Precondition     | Gas station G exists |
+|                   |User U1 is registered in the system|
+|                   |G already has an attached price list P submitted by user U2|
+|                   | User U1 reputation < User U2 reputation at the time of the submission |
+|                   | More than 4 days have passed since P has been submitted |
+|  Post condition     |  Price list P2 is created |
+||P2.time_tag is set to the current timestamp of the system|
+||P is overwritten by P2|
+||U1 is attached to P2 |
+| Step#        | Description  |
+|  1     |  The user U1 selects a gas station G for which he/she wants to insert a price report |
+|2       |The system prompts the user with the list of possible fuels provided by the gas station with their prices (if available)|
+|3       |The user inerts the prices for the fuels|
+|4       |System overwrites the previous price list attached to G by the new one|
+
 
 ## Scenario UC8.1
 
