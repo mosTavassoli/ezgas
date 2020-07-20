@@ -64,6 +64,7 @@ public class GasStation implements Serializable {
     @Column
     private double reportDependability;
 
+
     @ManyToOne(optional = true)
     @JoinColumn(name = "USER_ID")
     private User user;
@@ -101,7 +102,14 @@ public class GasStation implements Serializable {
     	
     }
     
+
     /*public GasStation(String gasStationName, String gasStationAddress, boolean hasDiesel, boolean hasSuper, boolean hasSuperPlus, boolean hasGas, boolean hasMethane, String carSharing, double lat, double lon, double dieselPrice, double superPrice, double superPlusPrice, double gasPrice, double methanePrice, Integer reportUser, String reportTimestamp, double reportDependability) {
+
+    public GasStation(String gasStationName, String gasStationAddress, boolean hasDiesel, boolean hasSuper, 
+    		boolean hasSuperPlus, boolean hasGas, boolean hasMethane, String carSharing, double lat, 
+    		double lon, double dieselPrice, double superPrice, double superPlusPrice, double gasPrice, 
+    		double methanePrice, Integer reportUser, String reportTimestamp, double reportDependability, 
+    		boolean notAvailable) {
         this.gasStationName = gasStationName;
         this.gasStationAddress = gasStationAddress;
         this.carSharing = carSharing;
@@ -150,6 +158,7 @@ public class GasStation implements Serializable {
 		this.reportTimestamp = reportTimestamp;
 		this.reportDependability = reportDependability;
 	}
+
     
     
 	public double getReportDependability() {
@@ -303,11 +312,5 @@ public class GasStation implements Serializable {
 	public void setCarSharing(String carSharing) {
 		this.carSharing = carSharing;
 	}
-
-	
-
-	
-	
-	
 	
 }

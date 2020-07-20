@@ -26,6 +26,7 @@ public class GasStationConverterTest {
     private boolean hasSuperPlus=true;
     private boolean hasGas=true;
     private boolean hasMethane=true;
+    private boolean hasPremiumDiesel=true;
     
     private String carSharing="CAR SHARING";
     private double lat=123.321;
@@ -35,6 +36,7 @@ public class GasStationConverterTest {
     private double superPlusPrice=99.1;
     private double gasPrice=32.33;
     private double methanePrice=65.78;
+    private double premiumDieselPrice=33.72;
     private Integer reportUser=735;
     private String reportTimestamp="05-11-2020";
     private double reportDependability=0;
@@ -49,8 +51,8 @@ public class GasStationConverterTest {
     @Test
 	public void testToDto() {
 		GasStation gasStation = new GasStation(gasStationName,gasStationAddress,hasDiesel,hasSuper, 
-				hasSuperPlus, hasGas, hasMethane, carSharing, lat, lon ,
-				dieselPrice,superPrice,superPlusPrice,gasPrice,methanePrice,reportUser,
+				hasSuperPlus, hasGas, hasMethane, hasPremiumDiesel, carSharing, lat, lon ,
+				dieselPrice,superPrice,superPlusPrice,gasPrice,methanePrice, premiumDieselPrice, reportUser,
 				reportTimestamp,reportDependability);
 		gasStationId = gasStation.getGasStationId();
 		
@@ -64,6 +66,7 @@ public class GasStationConverterTest {
 				+ "hasSuperPlus = " + this.hasSuperPlus + ",\n"
 				+ "hasGas = " + this.hasGas + ",\n"
 				+ "hasMethane = " + this.hasMethane + ",\n"
+				+ "hasPremiumDiesel = " + this.hasPremiumDiesel + ",\n"
 				+ "carSharing = " + this.carSharing + ",\n"
 				+ "lat = " + this.lat + ",\n"
 				+ "lon = " + this.lon + ",\n"
@@ -72,6 +75,7 @@ public class GasStationConverterTest {
 				+ "superPlusPrice = " + this.superPlusPrice + ",\n"
 				+ "gasPrice = " + this.gasPrice + ",\n"
 				+ "methanePrice = " + this.methanePrice + ",\n"
+				+ "premiumDieselPrice = " + this.premiumDieselPrice + ",\n"
 				+ "reportUser = " + this.reportUser + ",\n"
 				+ "userDto = " + null + ",\n"
 				+ "reportTimestamp = " + this.reportTimestamp + ",\n"
@@ -83,8 +87,8 @@ public class GasStationConverterTest {
     @Test
 	public void testToDtoWithUser() {
 		GasStation gasStation = new GasStation(gasStationName,gasStationAddress,hasDiesel,hasSuper, 
-				hasSuperPlus, hasGas, hasMethane, carSharing, lat, lon ,
-				dieselPrice,superPrice,superPlusPrice,gasPrice,methanePrice,reportUser,
+				hasSuperPlus, hasGas, hasMethane, hasPremiumDiesel, carSharing, lat, lon ,
+				dieselPrice,superPrice,superPlusPrice,gasPrice,methanePrice, premiumDieselPrice, reportUser,
 				reportTimestamp,reportDependability);
 		gasStationId = gasStation.getGasStationId();
 		User user = new User("userName", "password", "email", 0);
@@ -99,6 +103,7 @@ public class GasStationConverterTest {
 				+ "hasSuperPlus = " + this.hasSuperPlus + ",\n"
 				+ "hasGas = " + this.hasGas + ",\n"
 				+ "hasMethane = " + this.hasMethane + ",\n"
+				+ "hasPremiumDiesel = " + this.hasPremiumDiesel + ",\n"
 				+ "carSharing = " + this.carSharing + ",\n"
 				+ "lat = " + this.lat + ",\n"
 				+ "lon = " + this.lon + ",\n"
@@ -107,8 +112,9 @@ public class GasStationConverterTest {
 				+ "superPlusPrice = " + this.superPlusPrice + ",\n"
 				+ "gasPrice = " + this.gasPrice + ",\n"
 				+ "methanePrice = " + this.methanePrice + ",\n"
+				+ "premiumDieselPrice = " + this.premiumDieselPrice + ",\n"
 				+ "reportUser = " + this.reportUser + ",\n"
-				+ "userDto = " + gasStationDto.getUserDto()+ ",\n"
+				+ "userDto = " + gasStationDto.getUserDto() + ",\n"
 				+ "reportTimestamp = " + this.reportTimestamp + ",\n"
 				+ "reportDependability = " + gasStationDto.getReportDependability() + ",\n"
 				+ "}\n";
@@ -118,8 +124,8 @@ public class GasStationConverterTest {
     @Test
 	public void testToEntity() {
 		GasStationDto gasStationDto = new GasStationDto(123,gasStationName,gasStationAddress,hasDiesel,hasSuper, 
-				hasSuperPlus, hasGas, hasMethane, carSharing, lat, lon ,
-				dieselPrice,superPrice,superPlusPrice,gasPrice,methanePrice,reportUser,
+				hasSuperPlus, hasGas, hasMethane, hasPremiumDiesel, carSharing, lat, lon ,
+				dieselPrice,superPrice,superPlusPrice,gasPrice,methanePrice, premiumDieselPrice, reportUser,
 				reportTimestamp,reportDependability);
 		GasStation gasStation = GasStationConverter.toEntity(gasStationDto);
 		correctString = "\n{\n"
@@ -131,6 +137,7 @@ public class GasStationConverterTest {
 				+ "hasSuperPlus = " + gasStation.getHasSuperPlus() + ",\n"
 				+ "hasGas = " + gasStation.getHasGas() + ",\n"
 				+ "hasMethane = " + gasStation.getHasMethane() + ",\n"
+				+ "hasPremiumDiesel = " + gasStation.getHasPremiumDiesel() + ",\n"
 				+ "carSharing = " + gasStation.getCarSharing() + ",\n"
 				+ "lat = " + gasStation.getLat() + ",\n"
 				+ "lon = " + gasStation.getLon() + ",\n"
@@ -139,6 +146,7 @@ public class GasStationConverterTest {
 				+ "superPlusPrice = " + gasStation.getSuperPlusPrice() + ",\n"
 				+ "gasPrice = " + gasStation.getGasPrice() + ",\n"
 				+ "methanePrice = " + gasStation.getMethanePrice() + ",\n"
+				+ "premiumDieselPrice = " + gasStation.getPremiumDieselPrice() + ",\n"
 				+ "reportUser = " + gasStation.getReportUser() + ",\n"
 				+ "userDto = " + null + ",\n"
 				+ "reportTimestamp = " + gasStation.getReportTimestamp() + ",\n"
@@ -149,35 +157,37 @@ public class GasStationConverterTest {
 	
     @Test
    	public void testToEntityWithUser() {
-   		GasStationDto gasStationDto = new GasStationDto(123,gasStationName,gasStationAddress,hasDiesel,hasSuper, 
-   				hasSuperPlus, hasGas, hasMethane, carSharing, lat, lon ,
-   				dieselPrice,superPrice,superPlusPrice,gasPrice,methanePrice,reportUser,
-   				reportTimestamp,reportDependability);
+    	GasStationDto gasStationDto = new GasStationDto(123,gasStationName,gasStationAddress,hasDiesel,hasSuper, 
+				hasSuperPlus, hasGas, hasMethane, hasPremiumDiesel, carSharing, lat, lon ,
+				dieselPrice,superPrice,superPlusPrice,gasPrice,methanePrice, premiumDieselPrice, reportUser,
+				reportTimestamp,reportDependability);
 		UserDto userDto = new UserDto(123,"userName", "password", "email", 0);
 		gasStationDto.setUserDto(userDto);
    		GasStation gasStation = GasStationConverter.toEntity(gasStationDto);
    		correctString = "\n{\n"
-   				+ "gasStationId = " + gasStation.getGasStationId() + ",\n"
-   				+ "gasStationName = " + gasStation.getGasStationName() + ",\n"
-   				+ "gasStationAddress = " + gasStation.getGasStationAddress() + ",\n"
-   				+ "hasDiesel = " + gasStation.getHasDiesel() + ",\n"
-   				+ "hasSuper = " + gasStation.getHasSuper()+ ",\n"
-   				+ "hasSuperPlus = " + gasStation.getHasSuperPlus() + ",\n"
-   				+ "hasGas = " + gasStation.getHasGas() + ",\n"
-   				+ "hasMethane = " + gasStation.getHasMethane() + ",\n"
-   				+ "carSharing = " + gasStation.getCarSharing() + ",\n"
-   				+ "lat = " + gasStation.getLat() + ",\n"
-   				+ "lon = " + gasStation.getLon() + ",\n"
-   				+ "dieselPrice = " + gasStation.getDieselPrice() + ",\n"
-   				+ "superPrice = " + gasStation.getSuperPrice() + ",\n"
-   				+ "superPlusPrice = " + gasStation.getSuperPlusPrice() + ",\n"
-   				+ "gasPrice = " + gasStation.getGasPrice() + ",\n"
-   				+ "methanePrice = " + gasStation.getMethanePrice() + ",\n"
-   				+ "reportUser = " + gasStation.getReportUser() + ",\n"
-   				+ "userDto = " + userDto + ",\n"
-   				+ "reportTimestamp = " + gasStation.getReportTimestamp() + ",\n"
-   				+ "reportDependability = " + gasStation.getReportDependability() + ",\n"
-   				+ "}\n";
+				+ "gasStationId = " + gasStation.getGasStationId() + ",\n"
+				+ "gasStationName = " + gasStation.getGasStationName() + ",\n"
+				+ "gasStationAddress = " + gasStation.getGasStationAddress() + ",\n"
+				+ "hasDiesel = " + gasStation.getHasDiesel() + ",\n"
+				+ "hasSuper = " + gasStation.getHasSuper()+ ",\n"
+				+ "hasSuperPlus = " + gasStation.getHasSuperPlus() + ",\n"
+				+ "hasGas = " + gasStation.getHasGas() + ",\n"
+				+ "hasMethane = " + gasStation.getHasMethane() + ",\n"
+				+ "hasPremiumDiesel = " + gasStation.getHasPremiumDiesel() + ",\n"
+				+ "carSharing = " + gasStation.getCarSharing() + ",\n"
+				+ "lat = " + gasStation.getLat() + ",\n"
+				+ "lon = " + gasStation.getLon() + ",\n"
+				+ "dieselPrice = " + gasStation.getDieselPrice() + ",\n"
+				+ "superPrice = " + gasStation.getSuperPrice() + ",\n"
+				+ "superPlusPrice = " + gasStation.getSuperPlusPrice() + ",\n"
+				+ "gasPrice = " + gasStation.getGasPrice() + ",\n"
+				+ "methanePrice = " + gasStation.getMethanePrice() + ",\n"
+				+ "premiumDieselPrice = " + gasStation.getPremiumDieselPrice() + ",\n"
+				+ "reportUser = " + gasStation.getReportUser() + ",\n"
+				+ "userDto = " + userDto + ",\n"
+				+ "reportTimestamp = " + gasStation.getReportTimestamp() + ",\n"
+				+ "reportDependability = " + gasStation.getReportDependability() + ",\n"
+				+ "}\n";
    		assertEquals(correctString, gasStationDto.toString());
    	}
    	
@@ -185,14 +195,14 @@ public class GasStationConverterTest {
     @Test
 	public void testToDtoList() {
 		GasStation gasStation1 = new GasStation(gasStationName,gasStationAddress,hasDiesel,hasSuper, 
-				hasSuperPlus, hasGas, hasMethane, carSharing, lat, lon ,
-				dieselPrice,superPrice,superPlusPrice,gasPrice,methanePrice,reportUser,
+				hasSuperPlus, hasGas, hasMethane, hasPremiumDiesel, carSharing, lat, lon ,
+				dieselPrice,superPrice,superPlusPrice,gasPrice,methanePrice, premiumDieselPrice, reportUser,
 				reportTimestamp,reportDependability);
 		gasStationId = gasStation1.getGasStationId();
 
 		GasStation gasStation2 = new GasStation("station", "5th street", true, false, 
-				false, true, false, "CarCar", 35, 45.787, 0.54, -110, 12, 356.768, 
-				0.007, 4321, "05-11-2020", 4.36);
+				false, true, false, true, "CarCar", 35.0, 45.787, 0.54, -110.0, 12.0, 356.768, 
+				0.007, 1.1, 4321, "05-11-2020", 4.36);
 		 gasStationId2 = gasStation2.getGasStationId();
 		List<GasStation> listEntity = Arrays.asList(gasStation1, gasStation2);
 		List<GasStationDto> listDto = GasStationConverter.toDto(listEntity);
@@ -205,6 +215,7 @@ public class GasStationConverterTest {
 				+ "hasSuperPlus = " + this.hasSuperPlus + ",\n"
 				+ "hasGas = " + this.hasGas + ",\n"
 				+ "hasMethane = " + this.hasMethane + ",\n"
+				+ "hasPremiumDiesel = " + this.hasPremiumDiesel + ",\n"
 				+ "carSharing = " + this.carSharing + ",\n"
 				+ "lat = " + this.lat + ",\n"
 				+ "lon = " + this.lon + ",\n"
@@ -213,6 +224,7 @@ public class GasStationConverterTest {
 				+ "superPlusPrice = " + this.superPlusPrice + ",\n"
 				+ "gasPrice = " + this.gasPrice + ",\n"
 				+ "methanePrice = " + this.methanePrice + ",\n"
+				+ "premiumDieselPrice = " + this.premiumDieselPrice + ",\n"
 				+ "reportUser = " + this.reportUser + ",\n"
 				+ "userDto = " + null + ",\n"
 				+ "reportTimestamp = " + this.reportTimestamp + ",\n"
@@ -228,6 +240,7 @@ public class GasStationConverterTest {
 				+ "hasSuperPlus = false,\n"
 				+ "hasGas = true,\n"
 				+ "hasMethane = false,\n"
+				+ "hasPremiumDiesel = true,\n"
 				+ "carSharing = CarCar,\n"
 				+ "lat = 35.0,\n"
 				+ "lon = 45.787,\n"
@@ -236,6 +249,7 @@ public class GasStationConverterTest {
 				+ "superPlusPrice = 12.0,\n"
 				+ "gasPrice = 356.768,\n"
 				+ "methanePrice = 0.007,\n"
+				+ "premiumDieselPrice = 1.1,\n"
 				+ "reportUser = 4321,\n"
 				+ "userDto = null,\n"
 				+ "reportTimestamp = 05-11-2020,\n"

@@ -45,9 +45,11 @@ public class GasStationRepositoryTest {
 					random.nextBoolean(),
 					random.nextBoolean(),
 					random.nextBoolean(),
+					random.nextBoolean(),
 					Integer.toString(random.nextInt(NUMBER_OF_CAR_SHARING)), 
 					random.nextDouble()*Constants.MAX_LAT-Constants.MAX_LAT, // ignoring the other half of the possible values to test empty list when looking for gas stations by proximity
 					random.nextDouble()*Constants.MAX_LON*2-Constants.MAX_LON, 
+					random.nextDouble()*MAX_PRICE,
 					random.nextDouble()*MAX_PRICE,
 					random.nextDouble()*MAX_PRICE,
 					random.nextDouble()*MAX_PRICE,
@@ -62,19 +64,19 @@ public class GasStationRepositoryTest {
 	@Test
 	public void testFindByProximity() {
 		//setup for proximity tests
-		gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, "sharing", 45.101767, 7.646787, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "stamp", 7.77)); //0m
-		gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, "sharing1", 45.103047, 7.644117, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "stamp", 7.77)); //250m
-		gasStationRepository.save(new GasStation("name", "address", false, true, true, true, true, "sharing", 45.104367, 7.641588, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "stamp", 7.77)); //500m
-		gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, "sharing1", 45.106264, 7.639662, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "stamp", 7.77)); //750m
-		gasStationRepository.save(new GasStation("name", "address", false, true, true, true, true, "sharing1", 45.107773, 7.637318, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "stamp", 7.77)); //999m
-		gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, "sharing", 45.107781, 7.637224, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "stamp", 7.77)); //1010m
-		gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, "sharing", 45.108089, 7.636838, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, "stamp", 7.77)); //1050m
+		gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, true, "sharing", 45.101767, 7.646787, 1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 123321, "stamp", 7.77)); //0m
+		gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, true, "sharing1", 45.103047, 7.644117, 1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 123321, "stamp", 7.77)); //250m
+		gasStationRepository.save(new GasStation("name", "address", false, true, true, true, true, true, "sharing", 45.104367, 7.641588, 1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 123321, "stamp", 7.77)); //500m
+		gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, true, "sharing1", 45.106264, 7.639662, 1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 123321, "stamp", 7.77)); //750m
+		gasStationRepository.save(new GasStation("name", "address", false, true, true, true, true, true, "sharing1", 45.107773, 7.637318, 1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 123321, "stamp", 7.77)); //999m
+		gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, true, "sharing", 45.107781, 7.637224, 1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 123321, "stamp", 7.77)); //1010m
+		gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, true, "sharing", 45.108089, 7.636838, 1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 123321, "stamp", 7.77)); //1050m
 		
 		List<GasStation> gasStationList;
 		double previousDistance=0, currentDistance;
-		final double LAT=45.101767,LON=7.646787;
+		final double LAT=45.101767,LON=7.646787, RADIUS=1;
 		
-		gasStationList = gasStationRepository.findByProximity(LAT,LON);
+		gasStationList = gasStationRepository.findByProximity(LAT,LON,RADIUS);
 		for(GasStation gasStation : gasStationList) {
 			currentDistance = distanceInKilometersBetween(LAT, LON, gasStation.getLat(),gasStation.getLon());
 			assertTrue(currentDistance>=previousDistance);
@@ -108,8 +110,8 @@ public class GasStationRepositoryTest {
 	public void testSaveNewGasStation() {
 		GasStation gasStation;
 		gasStation = new GasStation("gas station name", "gas station address", 
-				true, true, false, true, false, "car sharing", 20, 80, 1.43, 1.65, 1.22, 
-				1.20, 1.01, 100234, "report timestamp", 5.34);
+				true, true, false, true, false, true, "car sharing", 20, 80, 1.43, 1.65, 1.22, 
+				1.20, 1.01, 1.51, 100234, "report timestamp", 5.34);
 		gasStation = gasStationRepository.save(gasStation);
 		assertNotNull(gasStation);
 	}
@@ -123,8 +125,8 @@ public class GasStationRepositoryTest {
 		String name;
 		
 		gasStation = new GasStation("gas station name", "gas station address", 
-				true, true, false, true, false, "car sharing", 20, 80, 1.43, 1.65, 1.22, 
-				1.20, 1.01, 100234, "report timestamp", 5.34);
+				true, true, false, true, false, true, "car sharing", 20, 80, 1.43, 1.65, 1.22, 
+				1.20, 1.01, 1.1, 100234, "report timestamp", 5.34);
 		gasStation.setGasStationName(oldName);
 		gasStation = gasStationRepository.save(gasStation);
 		oldId=gasStation.getGasStationId();

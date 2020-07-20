@@ -7,11 +7,6 @@ import java.util.concurrent.TimeUnit;
 
 import it.polito.ezgas.utils.Constants;
 
-import javax.persistence.Column;
-import javax.persistence.ManyToOne;
-
-import it.polito.ezgas.entity.User;
-
 public class GasStationDto {
 
 	
@@ -288,45 +283,32 @@ public class GasStationDto {
 	}
 
 	public void setCarSharing(String carSharing) {
-		if(carSharing==null) {
-			this.carSharing = carSharing;
-		}
-		else if(carSharing.equals("null")) {
-			this.carSharing=null;
-		}
-		else {
-			this.carSharing = carSharing;
-		}
+		if(carSharing != null)
+			if(carSharing.equals("null"))
+				carSharing=null;
+		this.carSharing = carSharing;
 	}
 	
 	
 	public boolean checkPrices() {
-		if(this.hasDiesel && this.dieselPrice < 0) {
-			if(this.dieselPrice != -1)
+		if(this.hasDiesel && this.dieselPrice != null && this.dieselPrice < 0) {
 				return false;
-			this.dieselPrice=Constants.DEFAULT_PRICE;
 		}
-		if(this.hasGas && this.gasPrice < 0) {
-			if(this.gasPrice != -1)
+		if(this.hasGas && this.gasPrice!= null && this.gasPrice < 0) {
 				return false;
-			this.gasPrice=Constants.DEFAULT_PRICE;
 		}
-		if(this.hasMethane && this.methanePrice < 0) {
-			if(this.methanePrice != -1)
+		if(this.hasMethane && this.methanePrice!= null&& this.methanePrice < 0) {
 				return false;
-			this.methanePrice=Constants.DEFAULT_PRICE;
 		}
-		if(this.hasSuper && this.superPrice < 0) {
-			if(this.superPrice != -1)
+		if(this.hasSuper && this.superPrice!= null && this.superPrice < 0) {
 				return false;
-			this.superPrice=Constants.DEFAULT_PRICE;
 		}
-		if(this.hasSuperPlus && this.superPlusPrice < 0) {
-			if(this.superPlusPrice != -1)
+		if(this.hasSuperPlus && this.superPlusPrice!= null && this.superPlusPrice < 0) {
 				return false;
-			this.superPlusPrice=Constants.DEFAULT_PRICE;
 		}
-		
+		if(this.hasPremiumDiesel && this.premiumDieselPrice!= null && this.premiumDieselPrice < 0) {
+				return false;
+		}
 		return true;
 	}
 	
@@ -375,6 +357,7 @@ public class GasStationDto {
 				+ "hasSuperPlus = " + this.hasSuperPlus + ",\n"
 				+ "hasGas = " + this.hasGas + ",\n"
 				+ "hasMethane = " + this.hasMethane + ",\n"
+				+ "hasPremiumDiesel = " + this.hasPremiumDiesel + ",\n"
 				+ "carSharing = " + this.carSharing + ",\n"
 				+ "lat = " + this.lat + ",\n"
 				+ "lon = " + this.lon + ",\n"
@@ -383,6 +366,7 @@ public class GasStationDto {
 				+ "superPlusPrice = " + this.superPlusPrice + ",\n"
 				+ "gasPrice = " + this.gasPrice + ",\n"
 				+ "methanePrice = " + this.methanePrice + ",\n"
+				+ "premiumDieselPrice = " + this.premiumDieselPrice + ",\n"
 				+ "reportUser = " + this.reportUser + ",\n"
 				+ "userDto = " + this.userDto + ",\n"
 				+ "reportTimestamp = " + this.reportTimestamp + ",\n"

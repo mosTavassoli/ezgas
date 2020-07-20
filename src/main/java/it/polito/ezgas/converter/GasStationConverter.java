@@ -23,6 +23,8 @@ public class GasStationConverter {
 		dto.setHasSuperPlus(entity.getHasSuperPlus());
 		dto.setHasGas(entity.getHasGas());
 		dto.setHasMethane(entity.getHasMethane());
+		dto.setHasPremiumDiesel(entity.getHasPremiumDiesel());
+
 		dto.setCarSharing(entity.getCarSharing());
 		dto.setLat(entity.getLat());
 		dto.setLon(entity.getLon());
@@ -31,6 +33,8 @@ public class GasStationConverter {
 		dto.setSuperPlusPrice(entity.getSuperPlusPrice());
 		dto.setGasPrice(entity.getGasPrice());
 		dto.setMethanePrice(entity.getMethanePrice());
+		dto.setPremiumDieselPrice(entity.getPremiumDieselPrice());
+		
 		dto.setReportUser(entity.getReportUser());
 		dto.setUserDto(entity.getUser() != null ? UserConverter.toDto(entity.getUser()): null);
 		dto.setReportTimestamp(entity.getReportTimestamp());	
@@ -57,6 +61,8 @@ public class GasStationConverter {
 		entity.setHasSuperPlus(dto.getHasSuperPlus());
 		entity.setHasGas(dto.getHasGas());
 		entity.setHasMethane(dto.getHasMethane());
+		entity.setHasPremiumDiesel(dto.getHasPremiumDiesel());
+		
 		entity.setCarSharing(dto.getCarSharing());
 		entity.setLat(dto.getLat());
 		entity.setLon(dto.getLon());
@@ -65,6 +71,8 @@ public class GasStationConverter {
 		entity.setSuperPlusPrice(dto.getSuperPlusPrice());
 		entity.setGasPrice(dto.getGasPrice());
 		entity.setMethanePrice(dto.getMethanePrice());
+		entity.setPremiumDieselPrice(dto.getPremiumDieselPrice());
+		
 		entity.setReportUser(dto.getReportUser());
 		entity.setUser(dto.getUserDto() != null ?  UserConverter.toEntity(dto.getUserDto()): null);
 		entity.setReportTimestamp(dto.getReportTimestamp());

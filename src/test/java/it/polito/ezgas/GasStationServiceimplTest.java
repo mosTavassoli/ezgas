@@ -1,13 +1,17 @@
 package it.polito.ezgas;
 
 import static it.polito.ezgas.GasStationRepositoryTest.distanceInKilometersBetween;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -22,6 +26,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import exception.GPSDataException;
+import exception.InvalidCarSharingException;
 import exception.InvalidGasStationException;
 import exception.InvalidGasTypeException;
 import exception.InvalidUserException;
@@ -100,9 +105,11 @@ public class GasStationServiceimplTest {
 					random.nextBoolean(),
 					random.nextBoolean(),
 					random.nextBoolean(),
+					random.nextBoolean(),
 					Integer.toString(random.nextInt(NUMBER_OF_CAR_SHARING)), 
 					random.nextDouble()*Constants.MAX_LAT-Constants.MAX_LAT, // ignoring the other half of the possible values to test empty list when looking for gas stations by proximity
 					random.nextDouble()*Constants.MAX_LON*2-Constants.MAX_LON, 
+					random.nextDouble()*MAX_PRICE,
 					random.nextDouble()*MAX_PRICE,
 					random.nextDouble()*MAX_PRICE,
 					random.nextDouble()*MAX_PRICE,
@@ -114,13 +121,13 @@ public class GasStationServiceimplTest {
 		}
 		
 		//setup for proximity tests
-		gasStationList.add(gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, "sharing", 45.101767, 7.646787, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, TIMESTAMP, 7.77))); //0m
-		gasStationList.add(gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, "sharing1", 45.103047, 7.644117, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, TIMESTAMP, 7.77))); //250m
-		gasStationList.add(gasStationRepository.save(new GasStation("name", "address", false, true, true, true, true, "sharing", 45.104367, 7.641588, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, TIMESTAMP, 7.77))); //500m
-		gasStationList.add(gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, "sharing1", 45.106264, 7.639662, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, TIMESTAMP, 7.77))); //750m
-		gasStationList.add(gasStationRepository.save(new GasStation("name", "address", false, true, true, true, true, "sharing1", 45.107773, 7.637318, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, TIMESTAMP, 7.77))); //999m
-		gasStationList.add(gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, "sharing", 45.107781, 7.637224, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, TIMESTAMP, 7.77))); //1010m
-		gasStationList.add(gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, "sharing", 45.108089, 7.636838, 1.11, 2.22, 3.33, 4.44, 5.55, 123321, TIMESTAMP, 7.77))); //1050m
+		gasStationList.add(gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, true, "sharing", 45.101767, 7.646787, 1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 123321, TIMESTAMP, 7.77))); //0m
+		gasStationList.add(gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, true, "sharing1", 45.103047, 7.644117, 1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 123321, TIMESTAMP, 7.77))); //250m
+		gasStationList.add(gasStationRepository.save(new GasStation("name", "address", false, true, true, true, true, true, "sharing", 45.104367, 7.641588, 1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 123321, TIMESTAMP, 7.77))); //500m
+		gasStationList.add(gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, true, "sharing1", 45.106264, 7.639662, 1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 123321, TIMESTAMP, 7.77))); //750m
+		gasStationList.add(gasStationRepository.save(new GasStation("name", "address", false, true, true, true, true, true, "sharing1", 45.107773, 7.637318, 1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 123321, TIMESTAMP, 7.77))); //999m
+		gasStationList.add(gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, true, "sharing", 45.107781, 7.637224, 1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 123321, TIMESTAMP, 7.77))); //1010m
+		gasStationList.add(gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, true, "sharing", 45.108089, 7.636838, 1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 123321, TIMESTAMP, 7.77))); //1050m
 		
 		if(gasStationList.get(0)!=null) {
 			this.validGasStationId = gasStationList.get(0).getGasStationId();
@@ -153,7 +160,7 @@ public class GasStationServiceimplTest {
 	public void testSaveGasStationInvalidNegativePrice() throws PriceException,GPSDataException {
 		GasStationDto gasStationDto = new GasStationDto();
 		gasStationDto.setHasDiesel(true);
-		gasStationDto.setDieselPrice(-12);
+		gasStationDto.setDieselPrice(-12.0);
 		gasStationService.saveGasStation(gasStationDto);
 	}
 	
@@ -167,7 +174,7 @@ public class GasStationServiceimplTest {
 	
 	@Test
 	public void testSaveGasStationValid() throws PriceException,GPSDataException {
-		GasStationDto gasStationDtoSent = new GasStationDto(99999, "gasStationName", "gasStationAddress", true, false, true, true, false, "carSharing", 12.3, 23.43, 1.23, 2.34, 3.45, 4.56, 5.67, 1234, "05-11-2020", 5.43);
+		GasStationDto gasStationDtoSent = new GasStationDto(99999, "gasStationName", "gasStationAddress", true, false, true, true, false, true, "carSharing", 12.3, 23.43, 1.23, 2.34, 3.45, 4.56, 5.67, 2.22, 1234, "05-11-2020", 5.43);
 		GasStationDto gasStationDtoReceived = gasStationService.saveGasStation(gasStationDtoSent);
 		assertTrue(new ReflectionEquals(gasStationDtoSent,"gasStationId","reportDependability").matches(gasStationDtoReceived));
 		assertEquals(50.0,gasStationDtoReceived.getReportDependability(),0.0);
@@ -175,14 +182,14 @@ public class GasStationServiceimplTest {
 	
 	@Test
 	public void testSaveGasStationValidAlreadyExists() throws PriceException,GPSDataException {
-		GasStationDto gasStationDtoSent = new GasStationDto(this.validGasStationId, "gasStationName", "gasStationAddress", true, false, true, true, false, "carSharing", 12.3, 23.43, 1.23, 2.34, 3.45, 4.56, 5.67, 1234, "05-11-2020", 5.43);
+		GasStationDto gasStationDtoSent = new GasStationDto(this.validGasStationId, "gasStationName", "gasStationAddress", true, false, true, true, false, true, "carSharing", 12.3, 23.43, 1.23, 2.34, 3.45, 4.56, 5.67, 2.22, 1234, "05-11-2020", 5.43);
 		GasStationDto gasStationDtoReceived = gasStationService.saveGasStation(gasStationDtoSent);
 		assertTrue(new ReflectionEquals(gasStationDtoSent,"gasStationId","reportDependability").matches(gasStationDtoReceived));
 	}
 	
 	@Test
 	public void testSaveGasStationValidNotAlreadyExists() throws PriceException,GPSDataException {
-		GasStationDto gasStationDtoSent = new GasStationDto(null, "gasStationName", "gasStationAddress", true, false, true, true, false, "carSharing", 12.3, 23.43, 1.23, 2.34, 3.45, 4.56, 5.67, 1234, "05-11-2020", 5.43);
+		GasStationDto gasStationDtoSent = new GasStationDto(null, "gasStationName", "gasStationAddress", true, false, true, true, false, true, "carSharing", 12.3, 23.43, 1.23, 2.34, 3.45, 4.56, 5.67, 2.22, 1234, "05-11-2020", 5.43);
 		GasStationDto gasStationDtoReceived = gasStationService.saveGasStation(gasStationDtoSent);
 		assertTrue(new ReflectionEquals(gasStationDtoSent,"gasStationId","reportDependability").matches(gasStationDtoReceived));
 	}
@@ -312,7 +319,7 @@ public class GasStationServiceimplTest {
 	public void testSetReportValid() throws InvalidGasStationException, PriceException, InvalidUserException {
 		GasStation gasStation;
 		
-		gasStationService.setReport(this.validGasStationId, 1.23, 2.34, 3.45, 4.56, 5.67, this.validUserId);
+		gasStationService.setReport(this.validGasStationId, 1.23, 2.34, 3.45, 4.56, 5.67, 6.78, this.validUserId);
 		gasStation = gasStationRepository.getOne(this.validGasStationId);
 		assertEquals(this.validGasStationId,(int)gasStation.getGasStationId());
 		assertEquals(1.23,gasStation.getDieselPrice(),0.001);
@@ -320,6 +327,7 @@ public class GasStationServiceimplTest {
 		assertEquals(3.45,gasStation.getSuperPlusPrice(),0.001);
 		assertEquals(4.56,gasStation.getGasPrice(),0.001);
 		assertEquals(5.67,gasStation.getMethanePrice(),0.001);
+		assertEquals(6.78,gasStation.getPremiumDieselPrice(),0.001);
 		assertEquals(this.validUserId,(int)gasStation.getReportUser());
 	}
 	
@@ -330,17 +338,99 @@ public class GasStationServiceimplTest {
 		gasStation = gasStationRepository.getOne(this.validGasStationId);
 		gasStation.setHasDiesel(true);
 		gasStation = gasStationRepository.save(gasStation);
-		gasStationService.setReport(this.validGasStationId, -1.23, 2.34, 3.45, 4.56, 5.67, this.validUserId);
+		gasStationService.setReport(this.validGasStationId, -1.23, 2.34, 3.45, 4.56, 5.67, 6.78, this.validUserId);
 	}
 	
 	@Test(expected = InvalidUserException.class)
 	public void testSetReportInvalidUser() throws InvalidGasStationException, PriceException, InvalidUserException {
-		gasStationService.setReport(this.validGasStationId, 1.23, 2.34, 3.45, 4.56, 5.67, this.INVALID_USER_ID);
+		gasStationService.setReport(this.validGasStationId, 1.23, 2.34, 3.45, 4.56, 5.67, 6.78, this.INVALID_USER_ID);
 	}
 	
 	@Test(expected = InvalidGasStationException.class)
 	public void testSetReportInvalidGasStation() throws InvalidGasStationException, PriceException, InvalidUserException {
-		gasStationService.setReport(this.INVALID_GAS_STATION_ID, 1.23, 2.34, 3.45, 4.56, 5.67, this.validUserId);
+		gasStationService.setReport(this.INVALID_GAS_STATION_ID, 1.23, 2.34, 3.45, 4.56, 5.67, 6.78, this.validUserId);
+	}
+	
+	@Test
+	public void testSetReportInvalidTimestamp() throws InvalidGasStationException, PriceException, InvalidUserException {
+		GasStation savedGasStation = gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, true, "sharing", 45.101767, 7.646787, 1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 123321, "123", 7.77));
+		gasStationService.setReport(savedGasStation.getGasStationId(), 1.23, 2.34, 3.45, 4.56, 5.67, 6.78, this.validUserId);
+		GasStation gasStation = gasStationRepository.getOne(savedGasStation.getGasStationId());
+		assertEquals((int)savedGasStation.getGasStationId(),(int)gasStation.getGasStationId());
+		assertEquals(1.23,gasStation.getDieselPrice(),0.001);
+		assertEquals(2.34,gasStation.getSuperPrice(),0.001);
+		assertEquals(3.45,gasStation.getSuperPlusPrice(),0.001);
+		assertEquals(4.56,gasStation.getGasPrice(),0.001);
+		assertEquals(5.67,gasStation.getMethanePrice(),0.001);
+		assertEquals(6.78,gasStation.getPremiumDieselPrice(),0.001);
+		assertEquals(this.validUserId,(int)gasStation.getReportUser());
+	}
+	
+	@Test
+	public void testSetReportNullTimestamp() throws InvalidGasStationException, PriceException, InvalidUserException {
+		GasStation savedGasStation = gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, true, "sharing", 45.101767, 7.646787, 1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 123321, null, 7.77));
+		gasStationService.setReport(savedGasStation.getGasStationId(), 1.23, 2.34, 3.45, 4.56, 5.67, 6.78, this.validUserId);
+		GasStation gasStation = gasStationRepository.getOne(savedGasStation.getGasStationId());
+		assertEquals((int)savedGasStation.getGasStationId(),(int)gasStation.getGasStationId());
+		assertEquals(1.23,gasStation.getDieselPrice(),0.001);
+		assertEquals(2.34,gasStation.getSuperPrice(),0.001);
+		assertEquals(3.45,gasStation.getSuperPlusPrice(),0.001);
+		assertEquals(4.56,gasStation.getGasPrice(),0.001);
+		assertEquals(5.67,gasStation.getMethanePrice(),0.001);
+		assertEquals(6.78,gasStation.getPremiumDieselPrice(),0.001);
+		assertEquals(this.validUserId,(int)gasStation.getReportUser());
+	}
+	
+	@Test
+	public void testSetReportEmptyTimestamp() throws InvalidGasStationException, PriceException, InvalidUserException {
+		GasStation savedGasStation = gasStationRepository.save(new GasStation("name", "address", true, true, true, true, true, true, "sharing", 45.101767, 7.646787, 1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 123321, "", 7.77));
+		gasStationService.setReport(savedGasStation.getGasStationId(), 1.23, 2.34, 3.45, 4.56, 5.67, 6.78, this.validUserId);
+		GasStation gasStation = gasStationRepository.getOne(savedGasStation.getGasStationId());
+		assertEquals((int)savedGasStation.getGasStationId(),(int)gasStation.getGasStationId());
+		assertEquals(1.23,gasStation.getDieselPrice(),0.001);
+		assertEquals(2.34,gasStation.getSuperPrice(),0.001);
+		assertEquals(3.45,gasStation.getSuperPlusPrice(),0.001);
+		assertEquals(4.56,gasStation.getGasPrice(),0.001);
+		assertEquals(5.67,gasStation.getMethanePrice(),0.001);
+		assertEquals(6.78,gasStation.getPremiumDieselPrice(),0.001);
+		assertEquals(this.validUserId,(int)gasStation.getReportUser());
+	}
+	
+	@Test
+	public void testSetReportLowerUserReputation() throws InvalidGasStationException, PriceException, InvalidUserException {
+		User user = userRepository.save(new User("user", "password", "user@example.com", -5));
+		GasStation gasStationBefore = gasStationRepository.getOne(this.validGasStationId);
+		gasStationService.setReport(this.validGasStationId, 1.23, 2.34, 3.45, 4.56, 5.67, 6.78, user.getUserId());
+		GasStation gasStationAfter = gasStationRepository.getOne(this.validGasStationId);
+		assertEquals(this.validGasStationId,(int)gasStationAfter.getGasStationId());
+		assertEquals(gasStationBefore.getDieselPrice(),gasStationAfter.getDieselPrice(),0.001);
+		assertEquals(gasStationBefore.getSuperPrice(), gasStationAfter.getSuperPrice(),0.001);
+		assertEquals(gasStationBefore.getSuperPlusPrice(), gasStationAfter.getSuperPlusPrice(),0.001);
+		assertEquals(gasStationBefore.getGasPrice(),gasStationAfter.getGasPrice(),0.001);
+		assertEquals(gasStationBefore.getMethanePrice(),gasStationAfter.getMethanePrice(),0.001);
+		assertEquals(gasStationBefore.getPremiumDieselPrice(),gasStationAfter.getPremiumDieselPrice(),0.001);
+		assertEquals((int)gasStationBefore.getReportUser(),(int)gasStationAfter.getReportUser());
+	}
+	
+	@Test
+	public void testSetReportLessThan4Days() throws InvalidGasStationException, PriceException, InvalidUserException {
+		Date reportDate = new Date(System.currentTimeMillis()-3*24*60*60*1000);
+		SimpleDateFormat toFormat = new SimpleDateFormat("MM-dd-yyyy");
+		User user = userRepository.save(new User("user", "password", "user@example.com", -5));
+		GasStation gasStationBefore = gasStationRepository.getOne(this.validGasStationId);
+		gasStationBefore.setReportTimestamp(toFormat.format(reportDate));
+		gasStationBefore = gasStationRepository.save(gasStationBefore);
+		gasStationService.setReport(gasStationBefore.getGasStationId(), 1.23, 2.34, 3.45, 4.56, 5.67, 6.78, user.getUserId());
+		GasStation gasStationAfter = gasStationRepository.getOne(gasStationBefore.getGasStationId());
+		
+		assertEquals((int)gasStationBefore.getGasStationId(),(int)gasStationAfter.getGasStationId());
+		assertEquals(gasStationBefore.getDieselPrice(),gasStationAfter.getDieselPrice(),0.001);
+		assertEquals(gasStationBefore.getSuperPrice(), gasStationAfter.getSuperPrice(),0.001);
+		assertEquals(gasStationBefore.getSuperPlusPrice(), gasStationAfter.getSuperPlusPrice(),0.001);
+		assertEquals(gasStationBefore.getGasPrice(),gasStationAfter.getGasPrice(),0.001);
+		assertEquals(gasStationBefore.getMethanePrice(),gasStationAfter.getMethanePrice(),0.001);
+		assertEquals(gasStationBefore.getPremiumDieselPrice(),gasStationAfter.getPremiumDieselPrice(),0.001);
+		assertEquals((int)gasStationBefore.getReportUser(),(int)gasStationAfter.getReportUser());
 	}
 	
 	@Test(expected = GPSDataException.class)
@@ -360,14 +450,46 @@ public class GasStationServiceimplTest {
 		
 		gasStationDtoList = gasStationService.getGasStationsByProximity(45.101767, 7.646787);
 		for(GasStationDto gasStationDto : gasStationDtoList) {
-			assertTrue(distanceInKilometersBetween(45.101767, 7.646787, gasStationDto.getLat(),gasStationDto.getLon())<=1);
+			assertTrue(distanceInKilometersBetween(45.101767, 7.646787, gasStationDto.getLat(),gasStationDto.getLon())<=Constants.DEFAULT_RADIUS);
 		}
 		
 		assertEquals(5,gasStationDtoList.size());
 	}
 	
 	@Test
-	public void testGetGasStationsWithoutCoordinatesNullGasolineType() throws InvalidGasTypeException {
+	public void testGetGasStationsByProximityWithValidRadius() throws GPSDataException{
+		List<GasStationDto> gasStationDtoList;
+		int radius = 3;
+		
+		gasStationDtoList = gasStationService.getGasStationsByProximity(45.101767, 7.646787, radius);
+		for(GasStationDto gasStationDto : gasStationDtoList) {
+			assertTrue(distanceInKilometersBetween(45.101767, 7.646787, gasStationDto.getLat(),gasStationDto.getLon())<=radius);
+		}
+		
+		assertEquals(7,gasStationDtoList.size());
+	}
+	
+	@Test
+	public void testGetGasStationsByProximityWithInvalidRadius() throws GPSDataException{
+		List<GasStationDto> gasStationDtoList;
+		int radius = -1;
+		
+		gasStationDtoList = gasStationService.getGasStationsByProximity(45.101767, 7.646787, radius);
+		for(GasStationDto gasStationDto : gasStationDtoList) {
+			assertTrue(distanceInKilometersBetween(45.101767, 7.646787, gasStationDto.getLat(),gasStationDto.getLon())<=Constants.DEFAULT_RADIUS);
+		}
+		
+		assertEquals(5,gasStationDtoList.size());
+	}
+	
+	@Test(expected = GPSDataException.class)
+	public void testGetGasStationsByProximityInvalidCoordinatesAndValidRadius() throws GPSDataException{
+		int radius = 5;
+		gasStationService.getGasStationsByProximity(100, 0, radius);
+	}
+	
+	@Test
+	public void testGetGasStationsWithoutCoordinatesNullGasolineType() throws InvalidGasTypeException,InvalidCarSharingException {
 		List<GasStationDto> gasStationDtoListActual, gasStationDtoListExpected;
 		
 		gasStationDtoListExpected = gasStationService.getGasStationByCarSharing("0");
@@ -377,7 +499,7 @@ public class GasStationServiceimplTest {
 	}
 	
 	@Test
-	public void testGetGasStationsWithoutCoordinatesNullGasolineTypeNullCarSharing() throws InvalidGasTypeException {
+	public void testGetGasStationsWithoutCoordinatesNullGasolineTypeNullCarSharing() throws InvalidGasTypeException,InvalidCarSharingException {
 		List<GasStationDto> gasStationDtoListActual;
 	
 		gasStationDtoListActual = gasStationService.getGasStationsWithoutCoordinates("null", "null");
@@ -386,7 +508,7 @@ public class GasStationServiceimplTest {
 	}
 	
 	@Test
-	public void testGetGasStationsWithoutCoordinatesNullCarSharing() throws InvalidGasTypeException {
+	public void testGetGasStationsWithoutCoordinatesNullCarSharing() throws InvalidGasTypeException,InvalidCarSharingException {
 		List<GasStationDto> gasStationDtoListActual, gasStationDtoListExpected;
 		
 		gasStationDtoListExpected = gasStationService.getGasStationsByGasolineType("Diesel");
@@ -396,7 +518,7 @@ public class GasStationServiceimplTest {
 	}
 	
 	@Test
-	public void testGetGasStationsWithoutCoordinatesValid() throws InvalidGasTypeException {
+	public void testGetGasStationsWithoutCoordinatesValid() throws InvalidGasTypeException,InvalidCarSharingException {
 		List<GasStationDto> gasStationDtoList;
 		
 		gasStationDtoList = gasStationService.getGasStationsWithoutCoordinates("Diesel", "0");
@@ -408,29 +530,29 @@ public class GasStationServiceimplTest {
 	}
 	
 	@Test(expected = InvalidGasTypeException.class)
-	public void testGetGasStationsWithoutCoordinatesInvalidGasType() throws InvalidGasTypeException {
+	public void testGetGasStationsWithoutCoordinatesInvalidGasType() throws InvalidGasTypeException,InvalidCarSharingException {
 		gasStationService.getGasStationsWithoutCoordinates("invalid", "0");
 	}
 	
 	@Test(expected = InvalidGasTypeException.class)
-	public void testGetGasStationsWithCoordinatesInvalidGasType() throws InvalidGasTypeException, GPSDataException {
-		gasStationService.getGasStationsWithCoordinates(0, 0, "invalid", "0");
+	public void testGetGasStationsWithCoordinatesInvalidGasType() throws InvalidGasTypeException, GPSDataException,InvalidCarSharingException {
+		gasStationService.getGasStationsWithCoordinates(0, 0, 1, "invalid", "0");
 	}
 	
 	@Test(expected = GPSDataException.class)
-	public void testGetGasStationsWithCoordinatesInvalidLatitudeAndLongitude() throws InvalidGasTypeException, GPSDataException {
-		gasStationService.getGasStationsWithCoordinates(1000, 1000, "Diesel", "0");
+	public void testGetGasStationsWithCoordinatesInvalidLatitudeAndLongitude() throws InvalidGasTypeException, GPSDataException,InvalidCarSharingException {
+		gasStationService.getGasStationsWithCoordinates(1000, 1000, 1, "Diesel", "0");
 	}
 	
 	@Test
-	public void testGetGasStationsWithCoordinatesNullGasStationsWithoutCoordinates() throws InvalidGasTypeException, GPSDataException {
+	public void testGetGasStationsWithCoordinatesNullGasStationsWithoutCoordinates() throws InvalidGasTypeException,InvalidCarSharingException, GPSDataException {
 		assertEquals(gasStationService.getGasStationsByProximity(0, 0),
-				gasStationService.getGasStationsWithCoordinates(0, 0, "null", "null"));
+				gasStationService.getGasStationsWithCoordinates(0, 0, 1, "null", "null"));
 	}
 	
 	@Test
-	public void testGetGasStationsWithCoordinatesValid() throws InvalidGasTypeException, GPSDataException {
-		List<GasStationDto> gasStationDtoList = gasStationService.getGasStationsWithCoordinates(45.101767, 7.646787, "Diesel", "sharing");
+	public void testGetGasStationsWithCoordinatesValid() throws InvalidGasTypeException, GPSDataException,InvalidCarSharingException {
+		List<GasStationDto> gasStationDtoList = gasStationService.getGasStationsWithCoordinates(45.101767, 7.646787, 1, "Diesel", "sharing");
 		
 		for(GasStationDto gasStationDto : gasStationDtoList) {
 			assertTrue(distanceInKilometersBetween(45.101767, 7.646787, gasStationDto.getLat(), gasStationDto.getLon())<=5);

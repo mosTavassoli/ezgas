@@ -2,7 +2,7 @@ package it.polito.ezgas.service.impl;
 
 import static java.util.stream.Collectors.toList;
 
-import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,12 +14,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import exception.GPSDataException;
+import exception.InvalidCarSharingException;
 import exception.InvalidGasStationException;
 import exception.InvalidGasTypeException;
 import exception.InvalidUserException;
 import exception.PriceException;
 import it.polito.ezgas.converter.GasStationConverter;
 import it.polito.ezgas.dto.GasStationDto;
+import it.polito.ezgas.dto.UserDto;
 import it.polito.ezgas.entity.GasStation;
 import it.polito.ezgas.repository.GasStationRepository;
 import it.polito.ezgas.service.GasStationService;
@@ -138,12 +140,23 @@ public class GasStationServiceimpl implements GasStationService {
 		if(!GasStationDto.checkCoordinates(lat, lon))
 			throw new GPSDataException("GPSDataException: lat = " + lat + ", lon = " + lon );
 		
-		return GasStationConverter.toDto(gasStationRepository.findByProximity(lat, lon));
+		return GasStationConverter.toDto(gasStationRepository.findByProximity(lat, lon, Constants.DEFAULT_RADIUS));
+	}
+	
+	public List<GasStationDto> getGasStationsByProximity(double lat, double lon, int radius) throws GPSDataException {
+		if(radius<=0) {
+			return getGasStationsByProximity(lat,lon);
+		}
+		
+		if(!GasStationDto.checkCoordinates(lat, lon))
+			throw new GPSDataException("GPSDataException: lat = " + lat + ", lon = " + lon );
+		
+		return GasStationConverter.toDto(gasStationRepository.findByProximity(lat, lon, (double) radius));
+		
 	}
 
 	@Override
-	public List<GasStationDto> getGasStationsWithCoordinates(double lat, double lon, String gasolinetype,
-			String carsharing) throws InvalidGasTypeException, GPSDataException {
+	public List<GasStationDto> getGasStationsWithCoordinates(double lat, double lon, int radius, String gasolinetype, String carsharing) throws InvalidGasTypeException, GPSDataException, InvalidCarSharingException {
 		
 		logger.log(Level.INFO, "getGasStationsWithCoordinates - "
 				+ "lat = " + lat 
@@ -192,9 +205,7 @@ public class GasStationServiceimpl implements GasStationService {
 	}
 
 	@Override
-	public void setReport(Integer gasStationId, double dieselPrice, double superPrice, double superPlusPrice,
-			double gasPrice, double methanePrice, Integer userId)
-			throws InvalidGasStationException, PriceException, InvalidUserException {
+	public void setReport(Integer gasStationId, Double dieselPrice, Double superPrice, Double superPlusPrice, Double gasPrice, Double methanePrice, Double premiumDieselPrice, Integer userId) throws InvalidGasStationException, PriceException, InvalidUserException {
 		
 		logger.log(Level.INFO, "setReport - gasStationId = " + gasStationId 
 				+ ", dieselPrice = " + dieselPrice
@@ -204,26 +215,43 @@ public class GasStationServiceimpl implements GasStationService {
 				+ ", methanePrice = " + methanePrice
 				+ ", userId = " + userId);
 		
+		UserDto newReportUser = userService.getUserById(userId);
 		GasStationDto gasStationDto = getGasStationById(gasStationId);
-		
-		gasStationDto.setDieselPrice(dieselPrice);
-		gasStationDto.setSuperPrice(superPrice);
-		gasStationDto.setSuperPlusPrice(superPlusPrice);
-		gasStationDto.setGasPrice(gasPrice);
-		gasStationDto.setMethanePrice(methanePrice);
-		gasStationDto.setReportUser(userId);
-		gasStationDto.setUserDto(userService.getUserById(userId));
-		
 		SimpleDateFormat toFormat = new SimpleDateFormat("MM-dd-yyyy");
-		gasStationDto.setReportTimestamp(toFormat.format(new Date()));
-		gasStationDto.setReportDependability((double)userService.getUserById(userId).getReputation());
+		long dateDifferenceInDays=0;
 		
-		if(!gasStationDto.checkPrices())
-			throw new PriceException("PriceException: " + gasStationDto.toString());              
+		if(gasStationDto.getReportTimestamp() != null && !gasStationDto.getReportTimestamp().isEmpty()) {
+			try {
+				dateDifferenceInDays = ((new Date()).getTime() - toFormat.parse(gasStationDto.getReportTimestamp()).getTime()) / (1000 * 60 * 60 * 24);
+			} catch(ParseException e) {
+				dateDifferenceInDays = 0;
+			}
+		}
 		
-		gasStationRepository.save(GasStationConverter.toEntity(gasStationDto));
-	}
+		if(gasStationDto.getReportTimestamp() == null || gasStationDto.getReportTimestamp().isEmpty() ||
+				newReportUser.getReputation() >= gasStationRepository.findOne(gasStationId).getReportDependability()
+				|| dateDifferenceInDays > 4) {
+			gasStationDto.setDieselPrice(dieselPrice);
+			gasStationDto.setSuperPrice(superPrice);
+			gasStationDto.setSuperPlusPrice(superPlusPrice);
+			gasStationDto.setGasPrice(gasPrice);
+			gasStationDto.setMethanePrice(methanePrice);
+			gasStationDto.setPremiumDieselPrice(premiumDieselPrice);
 
+			gasStationDto.setReportUser(userId);
+			gasStationDto.setUserDto(newReportUser);
+			
+			gasStationDto.setReportTimestamp(toFormat.format(new Date()));
+			gasStationDto.setReportDependability((double)userService.getUserById(userId).getReputation());
+			
+			if(!gasStationDto.checkPrices())
+				throw new PriceException("PriceException: " + gasStationDto.toString());              
+			
+			gasStationRepository.save(GasStationConverter.toEntity(gasStationDto));
+	
+		}
+	}
+	
 	@Override
 	public List<GasStationDto> getGasStationByCarSharing(String carSharing) {
 		/**

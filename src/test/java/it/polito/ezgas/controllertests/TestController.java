@@ -1,11 +1,9 @@
 package it.polito.ezgas.controllertests;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
-import java.sql.Timestamp;
-import java.util.Date;
+import java.util.List;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -20,15 +18,14 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.junit.Test;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import it.polito.ezgas.dto.GasStationDto;
 import it.polito.ezgas.dto.IdPw;
-import it.polito.ezgas.dto.LoginDto;
-import it.polito.ezgas.repository.GasStationRepository;
+import it.polito.ezgas.dto.PriceReportDto;
 import it.polito.ezgas.utils.Constants;
 
 @Transactional
@@ -51,21 +48,22 @@ public class TestController {
 	private static final boolean HAS_SUPERPLUS = true;
 	private static final boolean HAS_GAS = true;
 	private static final boolean HAS_METHANE = false;
+	private static final boolean HAS_PREMIUM_PRICE = true;
 	private static final String REPORT_TIMESTAMP = "05-22-2020";
 	private static final double REPORT_DEPENDABILITY = 5.0;
-	/**
-	 * TODO How to put some users and gasStations in db to test? 
-	 */
-	
-	private GasStationRepository gasStationRepository;
 	
 	private final String GASOLINE_TYPE=Constants.DIESEL;
 	private final String CAR_SHARING="carsharing";
-	private final int GAS_STATION_ID=684;
-	private final int USER_ID=1;
+	
+	//This id should be set to a real gas station id present in the database
+	private final int GAS_STATION_ID=202;
+	//This is should be set to a real user id present in the database
+	private final int USER_ID=46;
+	
 	private final double PRICE=1.23;
 	private final double LAT=45.101767;
 	private final double LON= 7.646787;
+	private final int RADIUS= 1;
 	
 	@Test
 	public void testGetGasStationById() throws ClientProtocolException, IOException {
@@ -87,7 +85,7 @@ public class TestController {
 	public void testSaveGasStation() throws ClientProtocolException, IOException {
 		HttpPost request = new HttpPost(GASSTATION_END_POINT+"saveGasStation/");
 		ObjectMapper mapper = new ObjectMapper();
-		GasStationDto gasStation = new GasStationDto(GAS_STATION_ID, GAS_STATION_NAME, GAS_STATION_ADDRESS, HAS_DIESEL, HAS_SUPER, HAS_SUPERPLUS, HAS_GAS, HAS_METHANE, CAR_SHARING, LAT, LON, PRICE, PRICE, PRICE, PRICE, PRICE, USER_ID, REPORT_TIMESTAMP, REPORT_DEPENDABILITY);
+		GasStationDto gasStation = new GasStationDto(GAS_STATION_ID, GAS_STATION_NAME, GAS_STATION_ADDRESS, HAS_DIESEL, HAS_SUPER, HAS_SUPERPLUS, HAS_GAS, HAS_METHANE, HAS_PREMIUM_PRICE, CAR_SHARING, LAT, LON, PRICE, PRICE, PRICE, PRICE, PRICE, PRICE, USER_ID, REPORT_TIMESTAMP, REPORT_DEPENDABILITY);
 		request.addHeader("content-type", "application/json");
 		request.setEntity(new StringEntity(mapper.writeValueAsString(gasStation)));
 		
@@ -154,7 +152,7 @@ public class TestController {
 	
 	@Test
 	public void testGetGasStationsByProximity() throws ClientProtocolException, IOException {
-		HttpUriRequest request = new HttpGet(GASSTATION_END_POINT+"searchGasStationByProximity/"+LAT+"/"+LON+"/");
+		HttpUriRequest request = new HttpGet(GASSTATION_END_POINT+"searchGasStationByProximity/"+LAT+"/"+LON+"/"+RADIUS+"/");
 		HttpResponse response = HttpClientBuilder.create().build().execute(request);
 		
 		assertEquals(200,response.getStatusLine().getStatusCode());
@@ -162,25 +160,36 @@ public class TestController {
 	
 	@Test
 	public void testGetGasStationsWithCoordinates() throws ClientProtocolException, IOException {
-		HttpUriRequest request = new HttpGet(GASSTATION_END_POINT+"getGasStationsWithCoordinates/"+LAT+"/"+LON+"/"+GASOLINE_TYPE+"/"+CAR_SHARING+"/");
+		HttpUriRequest request = new HttpGet(GASSTATION_END_POINT+"getGasStationsWithCoordinates/"+LAT+"/"+LON+"/"+RADIUS+"/"+GASOLINE_TYPE+"/"+CAR_SHARING+"/");
 		HttpResponse response = HttpClientBuilder.create().build().execute(request);
 		
 		assertEquals(200,response.getStatusLine().getStatusCode());
 	}
 	
 	@Test
-	public void testSetGasStationReport() throws ClientProtocolException, IOException {
+	public void testSetGasStationReport() throws ClientProtocolException, IOException {		
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
+		mapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
 		
-		HttpUriRequest request = new HttpPost(GASSTATION_END_POINT+"setGasStationReport/"+GAS_STATION_ID+"/"+PRICE+"/"+PRICE+"/"+PRICE+"/"+PRICE+"/"+PRICE+"/"+USER_ID+"/");
+		HttpUriRequest getRequest = new HttpGet(GASSTATION_END_POINT+"getAllGasStations/");
+		HttpResponse getResponse = HttpClientBuilder.create().build().execute(getRequest);
+		List<GasStationDto> gasStationDtoList = mapper.readValue(EntityUtils.toString(getResponse.getEntity()), new TypeReference<List<GasStationDto>>(){});
+		Integer gasStationId = gasStationDtoList.stream().mapToInt(GasStationDto::getGasStationId).max().getAsInt();
+		
+		HttpPost request = new HttpPost(GASSTATION_END_POINT+"setGasStationReport/");	
+		
+		PriceReportDto priceReportDto = new PriceReportDto(gasStationId, PRICE, PRICE, PRICE, PRICE, PRICE, PRICE, USER_ID);
+		request.addHeader("content-type", "application/json");
+		request.setEntity(new StringEntity(mapper.writeValueAsString(priceReportDto)));
+		
 		HttpResponse response = HttpClientBuilder.create().build().execute(request);
-		
 		assertEquals(200,response.getStatusLine().getStatusCode());
 	}
 	
 	@Test
 	public void testIncreaseUserReputation() throws ClientProtocolException, IOException {
-		int userId = 1;
-		final String USER_ID = "/" + userId;
+		final String USER_ID = "/" + this.USER_ID;
 		
 		HttpUriRequest request = new HttpPost(USER_END_POINT + INCREASE_REPUTATION + USER_ID);
 		HttpResponse response = HttpClientBuilder.create().build().execute(request);
@@ -190,8 +199,7 @@ public class TestController {
 	
 	@Test
 	public void testDecreaseUserReputation() throws ClientProtocolException, IOException {
-		int userId = 1;
-		final String USER_ID = "/" + userId;
+		final String USER_ID = "/" + this.USER_ID;
 		
 		HttpUriRequest request = new HttpPost(USER_END_POINT + DECREASE_REPUTATION + USER_ID);
 		HttpResponse response = HttpClientBuilder.create().build().execute(request);

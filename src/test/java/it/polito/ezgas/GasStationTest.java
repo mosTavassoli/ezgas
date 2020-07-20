@@ -20,6 +20,7 @@ public class GasStationTest {
     private boolean hasSuperPlus=true;
     private boolean hasGas=true;
     private boolean hasMethane=true;
+    private boolean hasPremiumDiesel=true;
     
     private String carSharing="CAR SHARING";
     private double lat=123.321;
@@ -29,6 +30,7 @@ public class GasStationTest {
     private double superPlusPrice=99.1;
     private double gasPrice=32.33;
     private double methanePrice=65.78;
+    private double premiumDieselPrice=2.38;
     private Integer reportUser=735;
     private String reportTimestamp="01/01/1000";
     private double reportDependability=139.695;
@@ -136,6 +138,12 @@ public class GasStationTest {
 	}
 	
 	@Test
+	public void testHasPremiumDiesel() {
+		this.gasStation.setHasPremiumDiesel(this.hasPremiumDiesel);
+		assertEquals(this.hasPremiumDiesel, this.gasStation.getHasPremiumDiesel());
+	}
+	
+	@Test
 	public void testCarSharing() {
 		this.gasStation.setCarSharing(this.carSharing);
 		assertEquals(this.carSharing, this.gasStation.getCarSharing());
@@ -184,6 +192,13 @@ public class GasStationTest {
 	}
 	
 	@Test
+	public void testPremiumDieselPrice() {
+		this.gasStation.setPremiumDieselPrice(this.premiumDieselPrice);
+		assertEquals(this.premiumDieselPrice, this.gasStation.getPremiumDieselPrice(),this.acceptablePriceDelta);
+	}
+	
+	
+	@Test
 	public void testReportUser() {
 		this.gasStation.setReportUser(this.reportUser);
 		assertEquals(this.reportUser, this.gasStation.getReportUser());
@@ -210,8 +225,8 @@ public class GasStationTest {
 	@Test
 	public void testConstructor() {
 		gasStation = new GasStation(gasStationName, gasStationAddress, hasDiesel, hasSuper, 
-				hasSuperPlus, hasGas, hasMethane, carSharing, lat, lon, dieselPrice, superPrice, 
-				superPlusPrice, gasPrice, methanePrice, reportUser, reportTimestamp, 
+				hasSuperPlus, hasGas, hasMethane, hasPremiumDiesel, carSharing, lat, lon, dieselPrice, superPrice, 
+				superPlusPrice, gasPrice, methanePrice, premiumDieselPrice, reportUser, reportTimestamp, 
 				reportDependability);
 		gasStation.setGasStationId(gasStationId);
 		assertEquals(this.gasStationId, this.gasStation.getGasStationId());
